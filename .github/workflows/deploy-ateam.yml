@@ -5,7 +5,7 @@ on:
     branches: [main]
 
 env:
-  GCP_PROJECT_ID: axel-ateam-ateam
+  GCP_PROJECT_ID: axel-ateam-demo
   GCP_REGION: us-east1
   REGISTRY: us-east1-docker.pkg.dev
   AMBIENTE: ateam
@@ -33,7 +33,7 @@ jobs:
         run: |
           python3 infra/scripts/make_wif_creds.py
           $HOME/google-cloud-sdk/bin/gcloud auth login --cred-file=/tmp/wif-creds.json --quiet
-          $HOME/google-cloud-sdk/bin/gcloud config set project axel-ateam-ateam
+          $HOME/google-cloud-sdk/bin/gcloud config set project axel-ateam-demo
 
       - name: Configure Docker para Artifact Registry
         run: $HOME/google-cloud-sdk/bin/gcloud auth configure-docker ${{ env.REGISTRY }} --quiet
