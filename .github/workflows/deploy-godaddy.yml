@@ -39,7 +39,6 @@ jobs:
             tsconfig*.json
             Dockerfile
             .gitignore
-            axel_documentacion.html
           # Solo pushear archivos que cambiaron (modo diff)
           state-name: .ftp-deploy-sync-state.json
           dry-run: false
