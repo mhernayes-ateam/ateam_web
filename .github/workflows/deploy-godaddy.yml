@@ -1,0 +1,45 @@
+name: Deploy → GoDaddy (main)
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy-frontend:
+    name: Deploy Frontend a GoDaddy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GH_PAT }}
+
+      - name: Deploy via FTP a GoDaddy
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.GODADDY_FTP_HOST }}
+          username: ${{ secrets.GODADDY_FTP_USER }}
+          password: ${{ secrets.GODADDY_FTP_PASSWORD }}
+          server-dir: /public_html/the-ateam.ai/mhernayes/
+          # Excluir backend, infra, scripts y archivos de config
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
+            functions/**
+            infra/**
+            shared/**
+            .github/**
+            *.md
+            *.py
+            *.sh
+            package*.json
+            tsconfig*.json
+            Dockerfile
+            .gitignore
+            axel_documentacion.html
+          # Solo pushear archivos que cambiaron (modo diff)
+          state-name: .ftp-deploy-sync-state.json
+          dry-run: false
+          log-level: standard
