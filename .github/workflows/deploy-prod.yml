@@ -5,7 +5,7 @@ on:
     branches: [main]
 
 env:
-  GCP_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID_PROD }}
+  GCP_PROJECT_ID: axel-ateam-demo
   GCP_REGION: us-east1
   REGISTRY: us-east1-docker.pkg.dev
   AMBIENTE: production
@@ -14,17 +14,20 @@ jobs:
   deploy:
     name: Build & Deploy Production
     runs-on: ubuntu-latest
-    # ⚠️ Requiere aprobación manual en GitHub → Settings → Environments → production
     environment: production
+    permissions:
+      contents: read
+      id-token: write
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Auth en GCP
+      - name: Auth en GCP (Workload Identity Federation)
         uses: google-github-actions/auth@v2
         with:
-          credentials_json: ${{ secrets.GCP_SA_KEY_PROD }}
+          workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
 
       - name: Setup gcloud
         uses: google-github-actions/setup-gcloud@v2

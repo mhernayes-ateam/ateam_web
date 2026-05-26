@@ -5,7 +5,7 @@ on:
     branches: [demo]
 
 env:
-  GCP_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID_DEMO }}
+  GCP_PROJECT_ID: axel-ateam-demo
   GCP_REGION: us-east1
   REGISTRY: us-east1-docker.pkg.dev
   AMBIENTE: demo
@@ -14,15 +14,19 @@ jobs:
   deploy:
     name: Build & Deploy Demo
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write   # requerido para Workload Identity Federation
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Auth en GCP
+      - name: Auth en GCP (Workload Identity Federation — sin keys)
         uses: google-github-actions/auth@v2
         with:
-          credentials_json: ${{ secrets.GCP_SA_KEY_DEMO }}
+          workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
 
       - name: Setup gcloud
         uses: google-github-actions/setup-gcloud@v2
