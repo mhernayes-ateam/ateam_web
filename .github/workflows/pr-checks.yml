@@ -20,13 +20,16 @@ jobs:
         with:
           node-version: '20'
           cache: 'npm'
+          cache-dependency-path: |
+            functions/receptor/package-lock.json
+            functions/procesador/package-lock.json
 
       - name: Install dependencies — receptor
-        run: npm ci
+        run: npm install
         working-directory: functions/receptor
 
       - name: Install dependencies — procesador
-        run: npm ci
+        run: npm install
         working-directory: functions/procesador
 
       - name: TypeScript check — receptor
