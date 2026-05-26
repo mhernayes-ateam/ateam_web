@@ -21,8 +21,8 @@ jobs:
           server: ${{ secrets.GODADDY_FTP_HOST }}
           username: ${{ secrets.GODADDY_FTP_USER }}
           password: ${{ secrets.GODADDY_FTP_PASSWORD }}
-          server-dir: /
-          # El home del usuario FTP ya apunta a /public_html/the-ateam.ai/mhernayes/
+          server-dir: the-ateam.ai/
+          # FTP root = public_html/ → archivos van a public_html/the-ateam.ai/ → https://the-ateam.ai/
           # Excluir backend, infra, scripts y archivos de config
           exclude: |
             **/.git*
