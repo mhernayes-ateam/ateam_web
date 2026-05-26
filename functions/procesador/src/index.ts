@@ -3,7 +3,7 @@ import * as firestoreOps from './firestore';
 import * as sql from './sql';
 import * as chatwoot from './chatwoot';
 import { runToolUseLoop } from './claude';
-import type { TaskPayload, ProcessorContext } from '../../../shared/types';
+import type { TaskPayload, ProcessorContext } from './shared_types';
 
 const app = express();
 app.use(express.json());

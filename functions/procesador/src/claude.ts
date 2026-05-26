@@ -5,8 +5,8 @@ import type {
   ProcessorContext,
   ToolName,
   ToolResult,
-} from '../../../shared/types';
-import { getSystemPrompt } from '../../../shared/prompts/axel.system';
+} from './shared_types';
+import { getSystemPrompt } from './axel_system_prompt';
 
 // Tools
 import { buscarFactura } from './tools/buscar_factura';

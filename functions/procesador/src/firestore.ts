@@ -1,5 +1,5 @@
 import { Firestore } from '@google-cloud/firestore';
-import type { ConversationState, ConversationMessage } from '../../../shared/types';
+import type { ConversationState, ConversationMessage } from './shared_types';
 
 const db = new Firestore();
 const LOCK_TIMEOUT_MS = 5 * 60 * 1000; // 5 minutos

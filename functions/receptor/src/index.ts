@@ -1,7 +1,7 @@
 import express, { Request, Response } from 'express';
 import { Firestore } from '@google-cloud/firestore';
 import { CloudTasksClient } from '@google-cloud/tasks';
-import type { MetaWebhookPayload, MetaMessage, TaskPayload } from '../../shared/types';
+import type { MetaWebhookPayload, MetaMessage, TaskPayload } from './shared_types';
 
 const app = express();
 app.use(express.json());

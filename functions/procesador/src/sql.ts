@@ -6,7 +6,7 @@ import type {
   ConsumidorCliente,
   Factura,
   EstadoCobranza,
-} from '../../../shared/types';
+} from './shared_types';
 
 // Pool de conexiones — Cloud Run escala y abre instancias paralelas.
 // pg-pool limita las conexiones para no saturar Cloud SQL.

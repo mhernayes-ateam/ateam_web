@@ -1,5 +1,5 @@
 import { Storage } from '@google-cloud/storage';
-import type { ToolResult, ProcessorContext } from '../../../../shared/types';
+import type { ToolResult, ProcessorContext } from '../shared_types';
 import * as sql from '../sql';
 
 const storage = new Storage();

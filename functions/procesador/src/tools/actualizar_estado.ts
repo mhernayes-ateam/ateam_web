@@ -1,6 +1,6 @@
-import type { ToolResult, ProcessorContext } from '../../../../shared/types';
+import type { ToolResult, ProcessorContext } from '../shared_types';
 import * as sql from '../sql';
-import type { EstadoCobranza } from '../../../../shared/types';
+import type { EstadoCobranza } from '../shared_types';
 
 /**
  * actualizar_estado

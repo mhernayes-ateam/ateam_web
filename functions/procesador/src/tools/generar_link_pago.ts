@@ -1,4 +1,4 @@
-import type { ToolResult, ProcessorContext } from '../../../../shared/types';
+import type { ToolResult, ProcessorContext } from '../shared_types';
 
 /**
  * generar_link_pago

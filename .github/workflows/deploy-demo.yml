@@ -29,25 +29,29 @@ jobs:
           curl -sSL https://sdk.cloud.google.com | bash -s -- --disable-prompts --install-dir=$HOME
           echo "$HOME/google-cloud-sdk/bin" >> $GITHUB_PATH
 
-      - name: Auth en GCP via Workload Identity Federation (sin acción externa)
+      - name: Auth en GCP via Workload Identity Federation
         run: |
-          # Crear el archivo de credenciales WIF para gcloud
-          cat > /tmp/wif-creds.json << 'EOF'
-          {
-            "type": "external_account",
-            "audience": "//iam.googleapis.com/projects/931070721639/locations/global/workloadIdentityPools/github-pool/providers/github-provider",
-            "subject_token_type": "urn:ietf:params:oauth:token-type:jwt",
-            "token_url": "https://sts.googleapis.com/v1/token",
-            "service_account_impersonation_url": "https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/github-actions-demo@axel-ateam-demo.iam.gserviceaccount.com:generateAccessToken",
-            "credential_source": {
-              "url": "${ACTIONS_ID_TOKEN_REQUEST_URL}&audience=//iam.googleapis.com/projects/931070721639/locations/global/workloadIdentityPools/github-pool/providers/github-provider",
-              "headers": { "Authorization": "Bearer ${ACTIONS_ID_TOKEN_REQUEST_TOKEN}" },
-              "format": { "type": "json", "subject_token_field_name": "value" }
-            }
-          }
-          EOF
+          python3 -c "
+import json, os
+audience = '//iam.googleapis.com/projects/931070721639/locations/global/workloadIdentityPools/github-pool/providers/github-provider'
+creds = {
+    'type': 'external_account',
+    'audience': audience,
+    'subject_token_type': 'urn:ietf:params:oauth:token-type:jwt',
+    'token_url': 'https://sts.googleapis.com/v1/token',
+    'service_account_impersonation_url': 'https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/github-actions-demo@axel-ateam-demo.iam.gserviceaccount.com:generateAccessToken',
+    'credential_source': {
+        'url': os.environ['ACTIONS_ID_TOKEN_REQUEST_URL'] + '&audience=' + audience,
+        'headers': {'Authorization': 'Bearer ' + os.environ['ACTIONS_ID_TOKEN_REQUEST_TOKEN']},
+        'format': {'type': 'json', 'subject_token_field_name': 'value'}
+    }
+}
+with open('/tmp/wif-creds.json', 'w') as f:
+    json.dump(creds, f)
+print('credential file generado')
+"
           $HOME/google-cloud-sdk/bin/gcloud auth login --cred-file=/tmp/wif-creds.json --quiet
-          $HOME/google-cloud-sdk/bin/gcloud config set project ${{ env.GCP_PROJECT_ID }}
+          $HOME/google-cloud-sdk/bin/gcloud config set project axel-ateam-demo
 
       - name: Configure Docker para Artifact Registry
         run: $HOME/google-cloud-sdk/bin/gcloud auth configure-docker ${{ env.REGISTRY }} --quiet
