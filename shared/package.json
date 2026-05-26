@@ -1,0 +1,15 @@
+{
+  "name": "@axel/shared",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Tipos y utilidades compartidas entre las Cloud Run functions de Axel",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.0"
+  }
+}

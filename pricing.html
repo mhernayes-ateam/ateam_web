@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing — A-Team</title>
+    <meta name="description"
+        content="Simple, transparent pricing for Anibal — the AI collections agent. Start free. Scale as you grow.">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/img/isotipo.png">
+    <link rel="apple-touch-icon" href="assets/img/isotipo.png">
+    <!-- SEO -->
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#6366F1">
+    <link rel="canonical" href="https://the-ateam.ai/pricing.html">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="A-Team">
+    <meta property="og:title" content="Pricing — A-Team">
+    <meta property="og:description"
+        content="Simple, transparent pricing for Anibal — the AI collections agent. Start free. Scale as you grow.">
+    <meta property="og:image" content="https://the-ateam.ai/hero-banner-mobile.jpeg">
+    <meta property="og:url" content="https://the-ateam.ai/pricing.html">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Pricing — A-Team">
+    <meta name="twitter:description"
+        content="Simple, transparent pricing for Anibal — the AI collections agent. Start free. Scale as you grow.">
+    <meta name="twitter:image" content="https://the-ateam.ai/hero-banner-mobile.jpeg">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800;900&family=Inter:wght@400;500;700&display=swap"
+        rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        .nav-active {
+            color: var(--primary) !important;
+        }
+
+        .pricing-hero {
+            padding: 7rem 0 5rem;
+            text-align: center;
+        }
+
+        .pricing-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            letter-spacing: -1px;
+        }
+
+        .pricing-hero p {
+            color: var(--text-muted);
+            font-size: 1.15rem;
+            max-width: 520px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 768px) {
+            .pricing-hero h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo" aria-label="A-Team home">
+                <picture>
+                    <source media="(max-width: 768px)" srcset="assets/img/isotipo.png">
+                    <source media="(min-width: 769px)" srcset="assets/img/isologo-transparente.png">
+                    <img src="assets/img/isologo-transparente.png" alt="A Team" class="nav-logo-img">
+                </picture>
+            </a>
+            <div class="nav-links">
+                <a href="index.html"><span data-lang="es">Inicio</span><span data-lang="en">Home</span></a>
+                <a href="axel.html">Axel</a>
+                <a href="pricing.html" class="nav-active"><span data-lang="es">Precios</span><span data-lang="en">Pricing</span></a>
+                <a href="demo.html" class="btn btn-primary"><span data-lang="es">Agendar Demo →</span><span data-lang="en">Book a Demo →</span></a>
+                
+                <div class="lang-toggle-wrap">
+                    <span class="lang-flag active" data-for="es" onclick="setLang('es')">🇦🇷</span>
+                    <button class="lang-toggle" onclick="setLang(document.body.classList.contains('lang-en') ? 'es' : 'en')" aria-label="Switch language" title="ES / EN"></button>
+                    <span class="lang-flag" data-for="en" onclick="setLang('en')">🇺🇸</span>
+                </div>
+            </div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open menu"><svg
+                    xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="3" y1="6" x2="21" y2="6" />
+                    <line x1="3" y1="12" x2="21" y2="12" />
+                    <line x1="3" y1="18" x2="21" y2="18" />
+                </svg></button>
+        </div>
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="index.html"><span data-lang="es">Inicio</span><span data-lang="en">Home</span></a>
+            <a href="axel.html">Axel</a>
+            <a href="pricing.html"><span data-lang="es">Precios</span><span data-lang="en">Pricing</span></a>
+            <a href="demo.html" class="btn btn-primary" style="width:100%;text-align:center;"><span data-lang="es">Agendar Demo →</span><span data-lang="en">Book a Demo →</span></a>
+            <div class="lang-toggle-wrap" style="justify-content:center;margin-top:1rem;margin-left:0;">
+                <span class="lang-flag active" data-for="es" onclick="setLang('es')">🇦🇷</span>
+                <button class="lang-toggle" onclick="setLang(document.body.classList.contains('lang-en') ? 'es' : 'en')" aria-label="Switch language"></button>
+                <span class="lang-flag" data-for="en" onclick="setLang('en')">🇺🇸</span>
+            </div>
+        </div>
+    </nav>
+
+    <header class="pricing-hero fade-in-up">
+        <div class="container">
+            <div class="badge badge-accent"><span data-lang="es">Anibal · Agente de Cobranzas</span><span data-lang="en">Anibal · Collections Agent</span></div>
+            <h1><span data-lang="es">Si cobramos antes,<br><span class="text-gradient">se paga solo.</span></span><span data-lang="en">If we collect earlier,<br><span class="text-gradient">it pays for itself.</span></span></h1>
+            <p data-lang="es">Nuestros clientes recuperan el costo del plan con 1 a 3 facturas cobradas a tiempo. Empezá gratis, sin tarjeta de crédito.</p><p data-lang="en">Our clients recover the plan cost with 1–3 invoices collected on time. Start free, no credit card required.</p>
+        </div>
+    </header>
+
+    <section class="section" style="padding-top:2rem;">
+        <div class="container">
+            <div class="pricing-grid">
+                <div class="pricing-card glassmorphism stagger-fade">
+                    <h4><span data-lang="es">Gratis</span><span data-lang="en">Free</span></h4>
+                    <p class="pricing-price">$0<span>/mo</span></p>
+                    <p class="pricing-volume"><span data-lang="es">Hasta 20 facturas/mes</span><span data-lang="en">Up to 20 invoices/mo</span></p>
+                    <ul class="pricing-features">
+                        <li><i data-lucide="check"></i><span data-lang="es">WhatsApp + cadencia</span><span data-lang="en">WhatsApp + cadence</span></li>
+                        <li><i data-lucide="check"></i><span data-lang="es">Conciliación limitada</span><span data-lang="en">Limited reconciliation</span></li>
+                        <li><i data-lucide="check"></i><span data-lang="es">1 integración bancaria</span><span data-lang="en">1 bank integration</span></li>
+                        <li><i data-lucide="check"></i><span data-lang="es">Soporte self-serve</span><span data-lang="en">Self-serve support</span></li>
+                    </ul>
+                    <a href="demo.html" class="btn btn-secondary" style="width:100%;"><span data-lang="es">Comenzar</span><span data-lang="en">Get Started</span></a>
+                </div>
+                <div class="pricing-card glassmorphism stagger-fade">
+                    <h4><span data-lang="es">Inicial</span><span data-lang="en">Starter</span></h4>
+                    <p class="pricing-price">$99<span>/mo</span></p>
+                    <p class="pricing-volume"><span data-lang="es">Hasta 100 facturas/mes</span><span data-lang="en">Up to 100 invoices/mo</span></p>
+                    <p class="pricing-roi"><span data-lang="es">ROI ~3x · Se paga con 1 factura</span><span data-lang="en">ROI ~3x · Pays for itself with 1 invoice</span></p>
+                    <ul class="pricing-features">
+                        <li><i data-lucide="check"></i><span data-lang="es">WhatsApp + cadencia</span><span data-lang="en">WhatsApp + cadence</span></li>
+                        <li><i data-lucide="check"></i><span data-lang="es">Conciliación completa</span><span data-lang="en">Full reconciliation</span></li>
+                        <li><i data-lucide="check"></i><span data-lang="es">2 integraciones bancarias</span><span data-lang="en">2 bank integrations</span></li>
+                        <li><i data-lucide="check"></i><span data-lang="es">Soporte por email</span><span data-lang="en">Email support</span></li>
+                    </ul>
+                    <a href="demo.html" class="btn btn-secondary" style="width:100%;"><span data-lang="es">Comenzar</span><span data-lang="en">Get Started</span></a>
+                </div>
+                <div class="pricing-card glassmorphism stagger-fade pricing-featured">
+                    <div class="pricing-ribbon"><span data-lang="es">Más Popular</span><span data-lang="en">Most Popular</span></div>
+                    <h4><span data-lang="es">Crecimiento</span><span data-lang="en">Growth</span></h4>
+                    <p class="pricing-price">$249<span>/mo</span></p>
+                    <p class="pricing-volume"><span data-lang="es">Hasta 500 facturas/mes</span><span data-lang="en">Up to 500 invoices/mo</span></p>
+                    <p class="pricing-roi"><span data-lang="es">ROI ~5x · Se paga con 2 facturas</span><span data-lang="en">ROI ~5x · Pays for itself with 2 invoices</span></p>
+                    <ul class="pricing-features">
+                        <li><i data-lucide="check"></i><span data-lang="es">WhatsApp + cadencia</span><span data-lang="en">WhatsApp + cadence</span></li>
+                        <li><i data-lucide="check"></i><span data-lang="es">Conciliación + patrones</span><span data-lang="en">Reconciliation + patterns</span></li>
+                        <li><i data-lucide="check"></i><span data-lang="es">Todas las integraciones bancarias</span><span data-lang="en">All bank integrations</span></li>
+                        <li><i data-lucide="check"></i><span data-lang="es">Soporte prioritario WhatsApp</span><span data-lang="en">Priority WhatsApp support</span></li>
+                    </ul>
+                    <a href="demo.html" class="btn btn-primary" style="width:100%;"><span data-lang="es">Comenzar</span><span data-lang="en">Get Started</span></a>
+                </div>
+                <div class="pricing-card glassmorphism stagger-fade">
+                    <h4><span data-lang="es">Escala</span><span data-lang="en">Scale</span></h4>
+                    <p class="pricing-price pricing-custom"><span data-lang="es">Hablar con Ventas</span><span data-lang="en">Talk to Sales</span></p>
+                    <p class="pricing-volume"><span data-lang="es">500+ facturas/mes</span><span data-lang="en">500+ invoices/mo</span></p>
+                    <p class="pricing-roi"><span data-lang="es">ROI ~8x+ · Plan personalizado según tu volumen</span><span data-lang="en">ROI ~8x+ · Custom plan tailored to your volume</span></p>
+                    <ul class="pricing-features">
+                        <li><i data-lucide="check"></i><span data-lang="es">WhatsApp + cadencia</span><span data-lang="en">WhatsApp + cadence</span></li>
+                        <li><i data-lucide="check"></i><span data-lang="es">Conciliación avanzada</span><span data-lang="en">Advanced reconciliation</span></li>
+                        <li><i data-lucide="check"></i><span data-lang="es">Todas + integraciones personalizadas</span><span data-lang="en">All + custom integrations</span></li>
+                        <li><i data-lucide="check"></i><span data-lang="es">Soporte dedicado</span><span data-lang="en">Dedicated support</span></li>
+                    </ul>
+                    <a href="demo.html" class="btn btn-secondary" style="width:100%;"><span data-lang="es">Contactar Ventas</span><span data-lang="en">Contact Sales</span></a>
+                </div>
+            </div>
+            <p class="pricing-footnote fade-in"><span data-lang="es">14 días de prueba gratis en todos los planes. Sin tarjeta de crédito.</span><span data-lang="en">14-day free trial on all plans. No credit card required.</span></p>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section bg-darker">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2><span data-lang="es">Preguntas frecuentes</span><span data-lang="en">Common questions</span></h2>
+            </div>
+            <div class="setup-steps" style="max-width:800px;">
+                <div class="setup-step fade-in-up">
+                    <div class="setup-num" style="font-size:1.2rem;min-width:24px;">?</div>
+                    <div>
+                        <h4><span data-lang="es">¿Cuánto tiempo lleva la configuración?</span><span data-lang="en">How long does setup take?</span></h4>
+                        <p style="color:var(--text-muted);font-size:0.9rem;" data-lang="es">Una tarde. Conectás tu plataforma de facturación y tu banco. Sin desarrollo.</p><p style="color:var(--text-muted);font-size:0.9rem;" data-lang="en">One afternoon. Connect your invoicing platform and bank. No dev work required.</p>
+                    </div>
+                </div>
+                <div class="setup-step fade-in-up">
+                    <div class="setup-num" style="font-size:1.2rem;min-width:24px;">?</div>
+                    <div>
+                        <h4><span data-lang="es">¿Anibal accede a mi banco para mover dinero?</span><span data-lang="en">Does Anibal access my bank to move money?</span></h4>
+                        <p style="color:var(--text-muted);font-size:0.9rem;" data-lang="es">No. Anibal lee tu banco en modo de solo lectura para confirmar pagos. Nunca transfiere ni modifica nada.</p><p style="color:var(--text-muted);font-size:0.9rem;" data-lang="en">No. Anibal reads your bank feed in read-only mode to confirm payments. It never transfers or modifies anything.</p>
+                    </div>
+                </div>
+                <div class="setup-step fade-in-up">
+                    <div class="setup-num" style="font-size:1.2rem;min-width:24px;">?</div>
+                    <div>
+                        <h4><span data-lang="es">¿Puedo controlar el tono que usa Anibal?</span><span data-lang="en">Can I control the tone Anibal uses?</span></h4>
+                        <p style="color:var(--text-muted);font-size:0.9rem;" data-lang="es">Sí. Vos definís el tono (formal, amigable, firme), la cadencia y las reglas de escalada. Anibal se adapta por cliente si es necesario.</p><p style="color:var(--text-muted);font-size:0.9rem;" data-lang="en">Yes. You set the tone (formal, friendly, firm), the cadence, and the escalation rules. Anibal adapts per client if needed.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="cta-final glassmorphism fade-in-up">
+                <h2><span data-lang="es">Encontrá el plan que se adapta a tu volumen.</span><span data-lang="en">See which plan fits your volume.</span></h2>
+                <p data-lang="es">En 15 minutos te mostramos Anibal con tus facturas reales y te recomendamos el plan correcto para vos.</p><p data-lang="en">In 15 minutes we'll show you Anibal with your real invoices and recommend the right plan for you.</p>
+                <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+                    <a href="demo.html" class="btn btn-primary btn-large"><span data-lang="es">Agendar Demo →</span><span data-lang="en">Book a Demo →</span></a>
+                    <a href="axel.html" class="btn btn-secondary btn-large"><span data-lang="es">Ver cómo funciona</span><span data-lang="en">See How It Works</span></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div style="margin-bottom:0.75rem;">
+                        <img src="assets/img/isologo-transparente.png" alt="A Team" style="height:44px; width:auto;">
+                    </div>
+                    <p style="font-size:0.85rem;"><span data-lang="es">Agentes listos. Trabajo resuelto.<br>© 2026 A-Team. Todos los derechos reservados.</span><span data-lang="en">Clever agents, easy living.<br>© 2026 A-Team. All rights reserved.</span></p>
+                </div>
+                <div class="footer-col">
+                    <h5><span data-lang="es">Agentes</span><span data-lang="en">Agents</span></h5>
+                    <a href="axel.html"><span data-lang="es">Axel — Cobranzas</span><span data-lang="en">Axel — Collections</span></a>
+                    <a href="anibal.html"><span data-lang="es">Aníbal — Reportes (pronto)</span><span data-lang="en">Aníbal — Reporting (soon)</span></a>
+                    <a href="#"><span data-lang="es">Agente de Ventas (pronto)</span><span data-lang="en">Sales Agent (soon)</span></a>
+                    <a href="#"><span data-lang="es">Agente de Reportes (pronto)</span><span data-lang="en">Reporting Agent (soon)</span></a>
+                </div>
+                <div class="footer-col">
+                    <h5><span data-lang="es">Compañía</span><span data-lang="en">Company</span></h5>
+                    <a href="index.html"><span data-lang="es">Sobre A-Team</span><span data-lang="en">About A-Team</span></a>
+                    <a href="pricing.html">Pricing</a>
+                    <a href="demo.html"><span data-lang="es">Agendar Demo</span><span data-lang="en">Book a Demo</span></a>
+                </div>
+                <div class="footer-col">
+                    <h5><span data-lang="es">Legales</span><span data-lang="en">Legal</span></h5>
+                    <a href="terms.html"><span data-lang="es">Términos y Condiciones</span><span data-lang="en">Terms &amp; Conditions</span></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+
+        const menuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        if (menuBtn && mobileMenu) {
+            menuBtn.addEventListener('click', () => mobileMenu.classList.toggle('open'));
+            mobileMenu.querySelectorAll('a').forEach(l => l.addEventListener('click', () => mobileMenu.classList.remove('open')));
+        }
+        const observer = new IntersectionObserver((entries, obs) => {
+            entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.fade-in, .fade-in-up, .stagger-fade').forEach(el => observer.observe(el));
+        document.querySelectorAll('.stagger-fade').forEach((el, i) => { el.style.transitionDelay = `${i * 0.1}s`; });
+        window.addEventListener('scroll', () => { document.querySelector('.navbar').classList.toggle('scrolled', window.scrollY > 50); });
+    </script>
+    <script src="assets/js/lang.js"></script>
+</body>
+
+</html>

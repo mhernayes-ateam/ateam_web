@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anibal — Demo Interactiva | A-Team</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Outfit',sans-serif;background:#0a0a0f;color:#e8e8f0;min-height:100vh;overflow-x:hidden}
+.page-header{background:linear-gradient(135deg,#0d1117 0%,#111827 100%);border-bottom:1px solid #1e2a3a;padding:16px 32px;display:flex;align-items:center;gap:16px;position:sticky;top:0;z-index:100}
+.logo-mark{font-size:22px;font-weight:800;color:#fff}.logo-mark span{color:#00C853}
+.header-title{font-size:15px;color:#8892a4;font-weight:400}
+.demo-badge{margin-left:auto;background:rgba(0,200,83,0.15);border:1px solid rgba(0,200,83,0.4);color:#00C853;padding:4px 14px;border-radius:20px;font-size:12px;font-weight:600;letter-spacing:.5px}
+.main-layout{display:grid;grid-template-columns:1fr 1fr 1fr 300px;grid-template-rows:auto 1fr;gap:16px;padding:20px;max-width:1600px;margin:0 auto;min-height:calc(100vh - 62px)}
+.phones-row{grid-column:1/4;display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+.db-panel{grid-column:4;grid-row:1/3;background:#111827;border:1px solid #1e2a3a;border-radius:16px;padding:16px;overflow-y:auto}
+.drag-panel{grid-column:1/4;background:#111827;border:1px solid #1e2a3a;border-radius:16px;padding:16px}
+.phone-wrap{display:flex;flex-direction:column;align-items:center;gap:8px}
+.phone-label{font-size:12px;color:#8892a4;font-weight:600;text-transform:uppercase;letter-spacing:.8px;text-align:center}
+.phone{width:100%;max-width:320px;height:580px;background:#1a1a2e;border-radius:40px;border:8px solid #2a2a3e;position:relative;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.phone.active-glow{box-shadow:0 0 0 2px #00C853,0 20px 60px rgba(0,200,83,.2)}
+.phone-notch{height:24px;background:#0d0d1a;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.phone-notch::after{content:'';width:60px;height:10px;background:#111827;border-radius:8px}
+.chat-header{background:#128C7E;padding:10px 14px;display:flex;align-items:center;gap:10px;flex-shrink:0}
+.chat-avatar{width:36px;height:36px;border-radius:50%;background:#075E54;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.chat-name{font-size:13px;font-weight:700;color:#fff;line-height:1.2}
+.chat-status{font-size:10px;color:rgba(255,255,255,.7)}
+.chat-body{flex:1;overflow-y:auto;padding:12px;background:#0b141a;display:flex;flex-direction:column;gap:8px;scroll-behavior:smooth}
+.chat-body::-webkit-scrollbar{width:3px}
+.chat-body::-webkit-scrollbar-track{background:transparent}
+.chat-body::-webkit-scrollbar-thumb{background:#2a3a4a;border-radius:2px}
+.msg{max-width:82%;padding:8px 12px;border-radius:10px;font-size:12px;line-height:1.5;word-wrap:break-word;animation:fadeInMsg .3s ease}
+@keyframes fadeInMsg{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.msg-received{background:#1f2c34;color:#e8e8f0;align-self:flex-start;border-radius:0 10px 10px 10px}
+.msg-sent{background:#005c4b;color:#e8e8f0;align-self:flex-end;border-radius:10px 0 10px 10px}
+.msg-time{font-size:9px;color:rgba(255,255,255,.4);margin-top:3px;text-align:right}
+.msg-doc{background:#1a2633;border:1px solid #2a3a4a;border-radius:8px;padding:8px 10px;display:flex;align-items:center;gap:8px;font-size:11px}
+.doc-icon{font-size:22px}
+.doc-info{display:flex;flex-direction:column;gap:2px}
+.doc-name{font-weight:600;color:#e8e8f0;font-size:11px}
+.doc-size{font-size:9px;color:#8892a4}
+.typing-indicator{display:flex;gap:4px;padding:10px 14px;background:#1f2c34;border-radius:0 10px 10px 10px;width:56px;align-self:flex-start}
+.typing-indicator span{width:6px;height:6px;background:#8892a4;border-radius:50%;animation:typing 1.2s infinite}
+.typing-indicator span:nth-child(2){animation-delay:.2s}
+.typing-indicator span:nth-child(3){animation-delay:.4s}
+@keyframes typing{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-6px)}}
+.quick-btns{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px;align-self:flex-start}
+.quick-btn{background:rgba(0,200,83,.12);border:1px solid rgba(0,200,83,.35);color:#00C853;padding:6px 12px;border-radius:20px;font-size:11px;cursor:pointer;font-family:'Outfit',sans-serif;transition:all .2s}
+.quick-btn:hover{background:rgba(0,200,83,.25)}
+.phone-input-area{padding:8px;background:#1f2c34;display:flex;gap:6px;flex-shrink:0}
+.phone-input{flex:1;background:#2a3a4a;border:none;border-radius:20px;padding:8px 14px;color:#e8e8f0;font-size:11px;font-family:'Outfit',sans-serif;outline:none}
+.phone-input::placeholder{color:#5a6a7a}
+.drop-zone{border:2px dashed #2a3a4a;border-radius:12px;padding:16px;text-align:center;color:#5a6a7a;font-size:11px;margin:8px;transition:all .25s;cursor:default}
+.drop-zone.dragover{border-color:#00C853;background:rgba(0,200,83,.06);color:#00C853}
+.drop-zone-icon{font-size:24px;margin-bottom:4px}
+.inline-form{background:#1a2633;border:1px solid #2a3a4a;border-radius:10px;padding:10px;margin-top:4px;display:flex;flex-direction:column;gap:6px;align-self:flex-start;width:90%}
+.inline-input{background:#0b141a;border:1px solid #2a3a4a;border-radius:8px;padding:7px 10px;color:#e8e8f0;font-size:11px;font-family:'Outfit',sans-serif;outline:none;width:100%}
+.inline-btn{background:#00C853;border:none;border-radius:8px;padding:7px;color:#000;font-size:11px;font-weight:700;cursor:pointer;font-family:'Outfit',sans-serif;transition:background .2s}
+.inline-btn:hover{background:#00E060}
+.inline-btn-sec{background:transparent;border:1px solid #2a3a4a;border-radius:8px;padding:7px;color:#e8e8f0;font-size:11px;cursor:pointer;font-family:'Outfit',sans-serif}
+.notif-bubble{background:rgba(0,200,83,.15);border:1px solid rgba(0,200,83,.3);border-radius:10px;padding:8px 12px;font-size:11px;color:#00C853;align-self:center;text-align:center;animation:fadeInMsg .3s ease}
+</style>
+</head>
+<body>
+<style>
+.db-panel h3{font-size:13px;font-weight:700;color:#e8e8f0;margin-bottom:12px;display:flex;align-items:center;gap:6px}
+.db-panel h3::before{content:'';width:8px;height:8px;border-radius:50%;background:#00C853;display:inline-block}
+.db-section{margin-bottom:20px}
+.db-table{width:100%;border-collapse:collapse;font-size:11px}
+.db-table th{background:#0d1117;color:#8892a4;padding:6px 8px;text-align:left;font-weight:600;border-bottom:1px solid #1e2a3a}
+.db-table td{padding:6px 8px;border-bottom:1px solid #1a2030;color:#c8ccd4}
+.db-table tr:hover td{background:rgba(255,255,255,.02)}
+.db-table tr.highlight td{background:rgba(0,200,83,.1);color:#00C853;transition:background 1s}
+.status-badge{padding:2px 8px;border-radius:10px;font-size:10px;font-weight:600}
+.status-pending{background:rgba(255,180,0,.12);color:#ffb400}
+.status-confirmed{background:rgba(0,200,83,.15);color:#00C853}
+.status-new{background:rgba(99,102,241,.15);color:#818cf8}
+.drag-panel h3{font-size:13px;font-weight:700;color:#e8e8f0;margin-bottom:12px}
+.drag-items{display:flex;gap:12px;flex-wrap:wrap}
+.drag-item{background:#0d1117;border:1px solid #1e2a3a;border-radius:12px;padding:12px 16px;cursor:grab;user-select:none;display:flex;align-items:center;gap:10px;transition:all .2s;min-width:180px}
+.drag-item:hover{border-color:#00C853;background:rgba(0,200,83,.05);transform:translateY(-2px)}
+.drag-item:active{cursor:grabbing;transform:scale(.97)}
+.drag-item.invoice{border-left:3px solid #6366f1}
+.drag-item.voucher-ok{border-left:3px solid #00C853}
+.drag-item.voucher-bad{border-left:3px solid #ef4444}
+.drag-icon{font-size:28px}
+.drag-info{display:flex;flex-direction:column;gap:2px}
+.drag-name{font-size:12px;font-weight:600;color:#e8e8f0}
+.drag-meta{font-size:10px;color:#8892a4}
+.drag-type-label{font-size:9px;padding:2px 6px;border-radius:6px;font-weight:700;align-self:flex-start}
+.drag-type-invoice{background:rgba(99,102,241,.15);color:#818cf8}
+.drag-type-ok{background:rgba(0,200,83,.15);color:#00C853}
+.drag-type-bad{background:rgba(239,68,68,.15);color:#ef4444}
+.drag-section-label{font-size:11px;color:#8892a4;font-weight:600;margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px}
+.drag-group{display:flex;flex-direction:column;gap:8px;flex:1}
+.drag-divider{width:1px;background:#1e2a3a;align-self:stretch}
+.msg-system{font-size:10px;color:#5a6a7a;text-align:center;padding:4px 0}
+</style>
+
+<div class="page-header">
+  <div class="logo-mark"><span>A</span>-Team</div>
+  <div style="width:1px;height:24px;background:#1e2a3a"></div>
+  <div class="header-title">Anibal — Demo Interactiva de Cobranzas</div>
+  <div class="demo-badge">🔴 EN VIVO</div>
+</div>
+
+<div class="main-layout">
+  <!-- PHONES ROW -->
+  <div class="phones-row">
+
+    <!-- PHONE 1: AGENTE -->
+    <div class="phone-wrap">
+      <div class="phone-label">📤 Agente / Operador</div>
+      <div class="phone" id="phoneAgent">
+        <div class="phone-notch"></div>
+        <div class="chat-header">
+          <div class="chat-avatar">🤖</div>
+          <div>
+            <div class="chat-name">Anibal · A-Team</div>
+            <div class="chat-status">Asistente de cobranzas</div>
+          </div>
+        </div>
+        <div class="chat-body" id="chatAgent">
+          <div class="msg msg-received">
+            👋 Hola! Soy Anibal. Para iniciar un reclamo de cobro, <strong>arrastrá la factura PDF</strong> del cliente acá abajo.
+            <div class="msg-time">12:00</div>
+          </div>
+          <div class="drop-zone" id="dropAgent">
+            <div class="drop-icon">📎</div>
+            Arrastrá la factura acá
+          </div>
+        </div>
+        <div class="phone-input-area">
+          <input class="phone-input" placeholder="Escribir mensaje..." disabled>
+        </div>
+      </div>
+    </div>
+
+    <!-- PHONE 2: CLIENTE A -->
+    <div class="phone-wrap">
+      <div class="phone-label">👤 Cliente A — Empresa Gómez S.A.</div>
+      <div class="phone" id="phoneClientA">
+        <div class="phone-notch"></div>
+        <div class="chat-header" style="background:#1a7a6e;">
+          <div class="chat-avatar" style="background:#0d5a50;">💼</div>
+          <div>
+            <div class="chat-name">Anibal · Cobrador A-Team</div>
+            <div class="chat-status">en línea</div>
+          </div>
+        </div>
+        <div class="chat-body" id="chatClientA">
+          <div class="msg-system">Los mensajes de Anibal aparecerán aquí</div>
+        </div>
+        <div class="phone-input-area" id="inputAreaA" style="display:none">
+          <input class="phone-input" id="inputClientA" placeholder="Responder...">
+        </div>
+      </div>
+    </div>
+
+    <!-- PHONE 3: CLIENTE B -->
+    <div class="phone-wrap">
+      <div class="phone-label">👤 Cliente B — Importadora Norte SRL</div>
+      <div class="phone" id="phoneClientB">
+        <div class="phone-notch"></div>
+        <div class="chat-header" style="background:#1a5a7a;">
+          <div class="chat-avatar" style="background:#0d3a5a;">🏭</div>
+          <div>
+            <div class="chat-name">Anibal · Cobrador A-Team</div>
+            <div class="chat-status">en línea</div>
+          </div>
+        </div>
+        <div class="chat-body" id="chatClientB">
+          <div class="msg-system">Los mensajes de Anibal aparecerán aquí</div>
+        </div>
+        <div class="phone-input-area" id="inputAreaB" style="display:none">
+          <input class="phone-input" id="inputClientB" placeholder="Responder...">
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end phones-row -->
+
+  <!-- DB PANEL -->
+  <div class="db-panel">
+    <h3>Base de Datos</h3>
+    <div class="db-section">
+      <div style="font-size:11px;color:#8892a4;font-weight:600;margin-bottom:6px;">CLIENTES</div>
+      <table class="db-table" id="dbClientsTable">
+        <thead><tr><th>ID</th><th>Empresa</th><th>Tel.</th><th>Deuda</th></tr></thead>
+        <tbody id="dbClientsTbody"></tbody>
+      </table>
+    </div>
+    <div class="db-section">
+      <div style="font-size:11px;color:#8892a4;font-weight:600;margin-bottom:6px;">PAGOS</div>
+      <table class="db-table" id="dbPaymentsTable">
+        <thead><tr><th>ID</th><th>Cliente</th><th>Monto</th><th>Estado</th></tr></thead>
+        <tbody id="dbPaymentsTbody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- DRAG PANEL -->
+  <div class="drag-panel">
+    <div style="display:flex;gap:24px;align-items:flex-start">
+      <div class="drag-group">
+        <div class="drag-section-label">📄 Facturas — arrastrá al celular del Agente</div>
+        <div class="drag-items" id="invoiceItems">
+          <div class="drag-item invoice" draggable="true" data-type="invoice" data-id="INV-A">
+            <div class="drag-icon">📋</div>
+            <div class="drag-info">
+              <span class="drag-type-label drag-type-invoice">FACTURA</span>
+              <span class="drag-name">Factura_GomezSA.pdf</span>
+              <span class="drag-meta">Empresa Gómez S.A. · $185,000 · vence 10/05</span>
+            </div>
+          </div>
+          <div class="drag-item invoice" draggable="true" data-type="invoice" data-id="INV-B">
+            <div class="drag-icon">📋</div>
+            <div class="drag-info">
+              <span class="drag-type-label drag-type-invoice">FACTURA</span>
+              <span class="drag-name">Factura_ImportadoraNorte.pdf</span>
+              <span class="drag-meta">Importadora Norte SRL · $92,500 · vence 05/05</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="drag-divider"></div>
+      <div class="drag-group">
+        <div class="drag-section-label">🧾 Comprobantes — arrastrá al celular del cliente activo</div>
+        <div class="drag-items" id="voucherItems">
+          <div class="drag-item voucher-ok" draggable="true" data-type="voucher" data-id="VCH-OK-A">
+            <div class="drag-icon">✅</div>
+            <div class="drag-info">
+              <span class="drag-type-label drag-type-ok">VÁLIDO</span>
+              <span class="drag-name">Comprobante_Gomez_OK.png</span>
+              <span class="drag-meta">$185,000 · Banco Nación · hoy</span>
+            </div>
+          </div>
+          <div class="drag-item voucher-ok" draggable="true" data-type="voucher" data-id="VCH-OK-B">
+            <div class="drag-icon">✅</div>
+            <div class="drag-info">
+              <span class="drag-type-label drag-type-ok">VÁLIDO</span>
+              <span class="drag-name">Comprobante_Norte_OK.png</span>
+              <span class="drag-meta">$92,500 · Banco Galicia · hoy</span>
+            </div>
+          </div>
+          <div class="drag-item voucher-bad" draggable="true" data-type="voucher" data-id="VCH-BAD">
+            <div class="drag-icon">❌</div>
+            <div class="drag-info">
+              <span class="drag-type-label drag-type-bad">INVÁLIDO</span>
+              <span class="drag-name">Comprobante_Incorrecto.png</span>
+              <span class="drag-meta">$50,000 · monto no coincide</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- end main-layout -->
+<script>
+// =================== DATA ===================
+const clientsDB = [
+  { id:'C001', name:'Empresa Gómez S.A.', cuit:'30-12345678-9', phone:'+5491123456789', debt:185000 }
+];
+const paymentsDB = [
+  { id:'PAY-2026-001', client:'Empresa Gómez S.A.', amount:185000, status:'Pendiente' }
+];
+const invoicesData = {
+  'INV-A': { name:'Factura_GomezSA.pdf', client:'Empresa Gómez S.A.', cuit:'30-12345678-9', amount:185000, due:'10/05/2026', num:'FAC-2026-0048', phone:'clientA' },
+  'INV-B': { name:'Factura_ImportadoraNorte.pdf', client:'Importadora Norte SRL', cuit:'30-98765432-1', amount:92500, due:'05/05/2026', num:'FAC-2026-0051', phone:'clientB' }
+};
+const vouchersData = {
+  'VCH-OK-A': { name:'Comprobante_Gomez_OK.png', client:'Empresa Gómez S.A.', amount:185000, valid:true, payId:'PAY-2026-001' },
+  'VCH-OK-B': { name:'Comprobante_Norte_OK.png', client:'Importadora Norte SRL', amount:92500, valid:true, payId:'PAY-2026-002' },
+  'VCH-BAD':  { name:'Comprobante_Incorrecto.png', client:'Otro S.A.', amount:50000, valid:false }
+};
+
+let state = { currentInvoice: null, awaitingVoucher: null, nortePhoneSaved: false };
+const now = () => { const d=new Date(); return d.getHours()+':'+(d.getMinutes()<10?'0':'')+d.getMinutes(); };
+
+// =================== DB RENDER ===================
+function renderDB() {
+  const tbody = document.getElementById('dbClientsTbody');
+  tbody.innerHTML = clientsDB.map(c =>
+    `<tr id="dbr-${c.id}"><td>${c.id}</td><td>${c.name}</td><td style="font-size:9px">${c.phone}</td><td>$${c.debt.toLocaleString('es-AR')}</td></tr>`
+  ).join('');
+  const ptbody = document.getElementById('dbPaymentsTbody');
+  ptbody.innerHTML = paymentsDB.map(p =>
+    `<tr id="dbrp-${p.id}"><td style="font-size:9px">${p.id}</td><td style="font-size:9px">${p.client.split(' ')[0]}...</td><td>$${p.amount.toLocaleString('es-AR')}</td><td><span class="status-badge ${p.status==='Confirmado'?'status-confirmed':'status-pending'}">${p.status}</span></td></tr>`
+  ).join('');
+}
+
+function highlightRow(id, type) {
+  const rowId = type==='client' ? `dbr-${id}` : `dbrp-${id}`;
+  const row = document.getElementById(rowId);
+  if(!row) return;
+  row.classList.add('highlight');
+  setTimeout(() => row.classList.remove('highlight'), 2500);
+}
+
+// =================== CHAT HELPERS ===================
+function addMsg(chatId, text, type='received', delay=0) {
+  return new Promise(res => setTimeout(() => {
+    const chat = document.getElementById(chatId);
+    const div = document.createElement('div');
+    div.className = `msg msg-${type}`;
+    div.innerHTML = text + `<div class="msg-time">${now()}</div>`;
+    chat.appendChild(div);
+    chat.scrollTop = chat.scrollHeight;
+    res();
+  }, delay));
+}
+
+function addDocMsg(chatId, name, size, type='sent') {
+  return new Promise(res => {
+    const chat = document.getElementById(chatId);
+    const div = document.createElement('div');
+    div.className = `msg msg-${type}`;
+    div.innerHTML = `<div class="msg-doc"><span class="doc-icon">📋</span><div class="doc-info"><span class="doc-name">${name}</span><span class="doc-size">${size}</span></div></div><div class="msg-time">${now()}</div>`;
+    chat.appendChild(div);
+    chat.scrollTop = chat.scrollHeight;
+    res();
+  });
+}
+
+function showTyping(chatId) {
+  const chat = document.getElementById(chatId);
+  const t = document.createElement('div');
+  t.className = 'typing-indicator';
+  t.id = 'typing-'+chatId;
+  t.innerHTML = '<span></span><span></span><span></span>';
+  chat.appendChild(t);
+  chat.scrollTop = chat.scrollHeight;
+  return t;
+}
+
+function removeTyping(chatId) {
+  const t = document.getElementById('typing-'+chatId);
+  if(t) t.remove();
+}
+
+function addButtons(chatId, buttons) {
+  const chat = document.getElementById(chatId);
+  const wrap = document.createElement('div');
+  wrap.className = 'quick-btns';
+  wrap.id = 'btns-'+chatId;
+  buttons.forEach(b => {
+    const btn = document.createElement('button');
+    btn.className = 'quick-btn';
+    btn.textContent = b.label;
+    btn.onclick = () => { wrap.remove(); b.action(); };
+    wrap.appendChild(btn);
+  });
+  chat.appendChild(wrap);
+  chat.scrollTop = chat.scrollHeight;
+}
+
+function addDropZone(chatId, placeholder, onDrop) {
+  const chat = document.getElementById(chatId);
+  const dz = document.createElement('div');
+  dz.className = 'drop-zone';
+  dz.id = 'dz-'+chatId;
+  dz.innerHTML = `<div class="drop-icon">🧾</div>${placeholder}`;
+  dz.addEventListener('dragover', e => { e.preventDefault(); dz.classList.add('dragover'); });
+  dz.addEventListener('dragleave', () => dz.classList.remove('dragover'));
+  dz.addEventListener('drop', e => {
+    e.preventDefault();
+    dz.classList.remove('dragover');
+    const type = e.dataTransfer.getData('dtype');
+    const id = e.dataTransfer.getData('did');
+    if(type === 'voucher') { dz.remove(); onDrop(id); }
+    else { dz.classList.add('dragover'); setTimeout(()=>dz.classList.remove('dragover'),400); }
+  });
+  chat.appendChild(dz);
+  chat.scrollTop = chat.scrollHeight;
+}
+
+function addInlineForm(chatId, onSave) {
+  const chat = document.getElementById(chatId);
+  const form = document.createElement('div');
+  form.className = 'inline-form';
+  form.id = 'form-'+chatId;
+  form.innerHTML = `<label style="font-size:10px;color:#8892a4">Número de WhatsApp del cliente:</label>
+    <input class="inline-input" id="formPhone-${chatId}" placeholder="+54 9 11 XXXX-XXXX" type="tel">
+    <button class="inline-btn" id="formBtn-${chatId}">💾 Guardar y enviar reclamo</button>`;
+  chat.appendChild(form);
+  chat.scrollTop = chat.scrollHeight;
+  document.getElementById(`formBtn-${chatId}`).onclick = () => {
+    const phone = document.getElementById(`formPhone-${chatId}`).value || '+54 9 11 6789-0001';
+    form.remove();
+    onSave(phone);
+  };
+}
+
+function addConfirmBtn(chatId, label, onConfirm) {
+  const chat = document.getElementById(chatId);
+  const btn = document.createElement('button');
+  btn.className = 'quick-btn';
+  btn.style.margin = '0';
+  btn.textContent = label;
+  btn.onclick = () => { btn.remove(); onConfirm(); };
+  chat.appendChild(btn);
+  chat.scrollTop = chat.scrollHeight;
+}
+
+function addNotif(chatId, text) {
+  const chat = document.getElementById(chatId);
+  const n = document.createElement('div');
+  n.className = 'notif-bubble';
+  n.textContent = text;
+  chat.appendChild(n);
+  chat.scrollTop = chat.scrollHeight;
+}
+
+// =================== VOUCHER FLOW ===================
+async function handleVoucher(vchId, clientChatId, inv) {
+  const vch = vouchersData[vchId];
+  if(!vch) return;
+  await addDocMsg(clientChatId, vch.name, '124 KB', 'sent');
+  showTyping(clientChatId);
+  await new Promise(r=>setTimeout(r,2200));
+  removeTyping(clientChatId);
+  if(!vch.valid) {
+    const expected = inv ? inv.amount : '?';
+    await addMsg(clientChatId, `❌ El comprobante no coincide con la deuda registrada. El monto del comprobante es <strong>$${vch.amount.toLocaleString('es-AR')}</strong> pero la factura es por <strong>$${expected.toLocaleString('es-AR')}</strong>.<br><br>Por favor reenviá el comprobante correcto.`);
+    addDropZone(clientChatId, 'Arrastrá el comprobante correcto', (id)=>handleVoucher(id,clientChatId,inv));
+    return;
+  }
+  // Check if amounts match
+  if(inv && vch.amount !== inv.amount) {
+    await addMsg(clientChatId, `❌ El comprobante no coincide. Monto recibido: <strong>$${vch.amount.toLocaleString('es-AR')}</strong> — Factura: <strong>$${inv.amount.toLocaleString('es-AR')}</strong>. Reenviá el comprobante correcto.`);
+    addDropZone(clientChatId, 'Arrastrá el comprobante correcto', (id)=>handleVoucher(id,clientChatId,inv));
+    return;
+  }
+  // Valid!
+  await addMsg(clientChatId, `✅ ¡Comprobante verificado correctamente!<br><br>El pago de <strong>$${vch.amount.toLocaleString('es-AR')}</strong> fue registrado exitosamente en el sistema. Muchas gracias, ¡que tengas un excelente día! 🎉`);
+  // Update payments DB
+  const pay = paymentsDB.find(p=>p.id===vch.payId);
+  if(pay) { pay.status='Confirmado'; }
+  else { paymentsDB.push({id:vch.payId||'PAY-NEW',client:vch.client,amount:vch.amount,status:'Confirmado'}); }
+  renderDB();
+  setTimeout(()=>highlightRow(vch.payId||'PAY-NEW','payment'),200);
+  // Notify agent
+  setTimeout(()=>addNotif('chatAgent',`💰 Pago confirmado: ${vch.client} · $${vch.amount.toLocaleString('es-AR')}`),600);
+}
+
+// =================== CLIENT FLOW ===================
+async function activateClientFlow(clientChatId, inv) {
+  const phone = document.getElementById(clientChatId==='chatClientA'?'phoneClientA':'phoneClientB');
+  phone.classList.add('active-glow');
+  const inputArea = document.getElementById(clientChatId==='chatClientA'?'inputAreaA':'inputAreaB');
+  inputArea.style.display = 'flex';
+  await new Promise(r=>setTimeout(r,500));
+  showTyping(clientChatId);
+  await new Promise(r=>setTimeout(r,1800));
+  removeTyping(clientChatId);
+  await addMsg(clientChatId, `Hola, ${inv.client.split(' ')[0]}! 👋<br><br>Soy <strong>Anibal</strong>, el asistente de cobranzas de <strong>A-Team</strong>.<br><br>Te contactamos por la factura <strong>${inv.num}</strong> por un importe de <strong>$${inv.amount.toLocaleString('es-AR')}</strong>, con vencimiento el <strong>${inv.due}</strong>.<br><br>¿Ya realizaste el pago?`);
+  await new Promise(r=>setTimeout(r,400));
+  addButtons(clientChatId, [
+    { label:'✅ Ya pagué', action: async () => {
+      await addMsg(clientChatId,'✅ Ya pagué','sent');
+      showTyping(clientChatId);
+      await new Promise(r=>setTimeout(r,1400));
+      removeTyping(clientChatId);
+      await addMsg(clientChatId,'¡Perfecto! Para confirmar el pago, por favor <strong>envianos el comprobante</strong>. Podés arrastrarlo acá abajo. 👇');
+      addDropZone(clientChatId, 'Arrastrá el comprobante de pago', (id)=>handleVoucher(id,clientChatId,inv));
+    }},
+    { label:'🕐 Necesito más tiempo', action: async () => {
+      await addMsg(clientChatId,'🕐 Necesito más tiempo','sent');
+      showTyping(clientChatId);
+      await new Promise(r=>setTimeout(r,1200));
+      removeTyping(clientChatId);
+      await addMsg(clientChatId,`Entendido. ¿Cuándo podés realizar el pago?<br>Recordá que el vencimiento fue el <strong>${inv.due}</strong>. Cualquier demora puede generar intereses. Avisanos la fecha estimada y lo coordinamos 🤝`);
+    }},
+    { label:'❓ Tengo una consulta', action: async () => {
+      await addMsg(clientChatId,'❓ Tengo una consulta','sent');
+      showTyping(clientChatId);
+      await new Promise(r=>setTimeout(r,1200));
+      removeTyping(clientChatId);
+      await addMsg(clientChatId,'Claro, con gusto te ayudo. 😊 Contame, ¿qué necesitás saber sobre la factura o el pago?');
+    }}
+  ]);
+}
+
+// =================== INVOICE DROP FLOW ===================
+async function handleInvoiceDrop(invId) {
+  const inv = invoicesData[invId];
+  if(!inv) return;
+  state.currentInvoice = inv;
+  await addDocMsg('chatAgent', inv.name, '342 KB', 'sent');
+  const dz = document.getElementById('dropAgent'); if(dz) dz.remove();
+  showTyping('chatAgent');
+  await new Promise(r=>setTimeout(r,2000));
+  removeTyping('chatAgent');
+  await addMsg('chatAgent','📄 Factura recibida. Estoy leyendo el documento...');
+  showTyping('chatAgent');
+  await new Promise(r=>setTimeout(r,1800));
+  removeTyping('chatAgent');
+  const client = clientsDB.find(c=>c.cuit===inv.cuit);
+  if(client) {
+    await addMsg('chatAgent',`✅ <strong>Cliente encontrado en la base de datos:</strong><br><br>📋 ${client.name}<br>🪪 CUIT: ${client.cuit}<br>📱 WhatsApp: ${client.phone}<br>💰 Deuda: $${inv.amount.toLocaleString('es-AR')}<br><br>¿Confirmo el envío del reclamo?`);
+    addConfirmBtn('chatAgent','📤 Sí, enviar reclamo', async () => {
+      await addMsg('chatAgent','📤 Sí, enviar reclamo','sent');
+      showTyping('chatAgent');
+      await new Promise(r=>setTimeout(r,1000));
+      removeTyping('chatAgent');
+      await addMsg('chatAgent','✅ Reclamo enviado correctamente a <strong>'+client.phone+'</strong>. Anibal está contactando al cliente ahora.');
+      activateClientFlow('chatClientA', inv);
+    });
+  } else {
+    await addMsg('chatAgent',`⚠️ <strong>Cliente no encontrado en la base de datos.</strong><br><br>📋 ${inv.client}<br>🪪 CUIT: ${inv.cuit}<br>💰 Monto: $${inv.amount.toLocaleString('es-AR')}<br><br>¿A qué número de WhatsApp enviamos el reclamo?`);
+    addInlineForm('chatAgent', async (phone) => {
+      const newClient = { id:'C00'+(clientsDB.length+1), name:inv.client, cuit:inv.cuit, phone:phone, debt:inv.amount };
+      clientsDB.push(newClient);
+      paymentsDB.push({ id:'PAY-2026-00'+(paymentsDB.length+1), client:inv.client, amount:inv.amount, status:'Pendiente' });
+      renderDB();
+      setTimeout(()=>highlightRow(newClient.id,'client'),200);
+      showTyping('chatAgent');
+      await new Promise(r=>setTimeout(r,1000));
+      removeTyping('chatAgent');
+      await addMsg('chatAgent',`💾 <strong>Nuevo cliente registrado</strong> en la base de datos: ${inv.client} — ${phone}<br><br>✅ Enviando reclamo ahora...`);
+      activateClientFlow('chatClientB', inv);
+    });
+  }
+}
+
+// =================== DRAG & DROP SETUP ===================
+document.querySelectorAll('[draggable="true"]').forEach(el => {
+  el.addEventListener('dragstart', e => {
+    e.dataTransfer.setData('dtype', el.dataset.type);
+    e.dataTransfer.setData('did', el.dataset.id);
+  });
+});
+
+const dropAgent = document.getElementById('dropAgent');
+dropAgent.addEventListener('dragover', e => { e.preventDefault(); dropAgent.classList.add('dragover'); });
+dropAgent.addEventListener('dragleave', () => dropAgent.classList.remove('dragover'));
+dropAgent.addEventListener('drop', e => {
+  e.preventDefault();
+  dropAgent.classList.remove('dragover');
+  const type = e.dataTransfer.getData('dtype');
+  const id = e.dataTransfer.getData('did');
+  if(type === 'invoice') handleInvoiceDrop(id);
+});
+
+// =================== INIT ===================
+renderDB();
+</script>
+</body>
+</html>

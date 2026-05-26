@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A-Team · Agente de Cobranzas</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400;500&family=Outfit:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0D0D0D;
+    --paper: #F5F2EC;
+    --cream: #EDE9DF;
+    --accent: #1A3A2A;
+    --gold: #C9A84C;
+    --gold-light: #E8D5A3;
+    --muted: #6B6660;
+    --rule: rgba(13,13,13,0.12);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Outfit', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* ── SLIDE SYSTEM ── */
+  .slide {
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 80px 100px;
+    position: relative;
+    border-bottom: 1px solid var(--rule);
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+
+  .slide.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .slide-number {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--muted);
+    position: absolute;
+    top: 40px;
+    right: 100px;
+  }
+
+  .slide-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 24px;
+  }
+
+  /* ── SLIDE 1: COVER ── */
+  .cover {
+    background: var(--accent);
+    color: var(--paper);
+    padding: 0;
+    overflow: hidden;
+  }
+
+  .cover-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    height: 100vh;
+    width: 100%;
+  }
+
+  .cover-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 80px 80px 80px 100px;
+    border-right: 1px solid rgba(245,242,236,0.15);
+  }
+
+  .cover-logo {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.2s forwards;
+  }
+
+  .cover-headline {
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.5s forwards;
+  }
+
+  .cover-headline h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(52px, 6vw, 88px);
+    font-weight: 300;
+    line-height: 1.0;
+    color: var(--paper);
+    margin-bottom: 8px;
+  }
+
+  .cover-headline h1 em {
+    font-style: italic;
+    color: var(--gold-light);
+  }
+
+  .cover-sub {
+    font-size: 14px;
+    font-weight: 300;
+    color: rgba(245,242,236,0.6);
+    letter-spacing: 0.05em;
+    margin-top: 24px;
+    line-height: 1.7;
+    max-width: 340px;
+  }
+
+  .cover-footer {
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.8s forwards;
+  }
+
+  .cover-footer p {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: rgba(245,242,236,0.35);
+  }
+
+  .cover-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 80px;
+    gap: 2px;
+    opacity: 0;
+    animation: fadeIn 1.2s ease 1s forwards;
+  }
+
+  .stat-block {
+    padding: 32px 0;
+    border-bottom: 1px solid rgba(245,242,236,0.1);
+  }
+
+  .stat-block:last-child { border-bottom: none; }
+
+  .stat-n {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(48px, 5vw, 72px);
+    font-weight: 300;
+    color: var(--gold-light);
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 12px;
+    font-weight: 400;
+    color: rgba(245,242,236,0.5);
+    letter-spacing: 0.08em;
+    margin-top: 6px;
+  }
+
+  /* ── SLIDE 2: PROBLEMA ── */
+  .problem { background: var(--paper); }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(40px, 5vw, 68px);
+    font-weight: 300;
+    line-height: 1.05;
+    margin-bottom: 56px;
+    max-width: 700px;
+  }
+
+  .section-title em {
+    font-style: italic;
+    color: var(--muted);
+  }
+
+  .pain-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    max-width: 900px;
+  }
+
+  .pain-item {
+    background: var(--paper);
+    padding: 40px;
+    transition: background 0.3s ease;
+  }
+
+  .pain-item:hover { background: var(--cream); }
+
+  .pain-icon {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    margin-bottom: 16px;
+  }
+
+  .pain-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 400;
+    margin-bottom: 10px;
+  }
+
+  .pain-desc {
+    font-size: 13px;
+    font-weight: 300;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  /* ── SLIDE 3: THE COST ── */
+  .cost-slide { background: var(--ink); color: var(--paper); }
+
+  .cost-slide .slide-tag { color: var(--gold); }
+
+  .cost-slide .section-title { color: var(--paper); }
+  .cost-slide .section-title em { color: var(--gold-light); }
+
+  .cost-row {
+    display: flex;
+    align-items: flex-end;
+    gap: 80px;
+    margin-top: 40px;
+  }
+
+  .cost-metric {
+    flex: 1;
+    border-top: 1px solid rgba(245,242,236,0.15);
+    padding-top: 32px;
+  }
+
+  .cost-value {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(44px, 5vw, 72px);
+    font-weight: 300;
+    color: var(--gold-light);
+    line-height: 1;
+  }
+
+  .cost-value.bad { color: #E07070; }
+
+  .cost-unit {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: rgba(245,242,236,0.4);
+    margin-top: 8px;
+  }
+
+  .cost-desc {
+    font-size: 13px;
+    font-weight: 300;
+    color: rgba(245,242,236,0.55);
+    line-height: 1.6;
+    margin-top: 12px;
+    max-width: 220px;
+  }
+
+  .vs-divider {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 48px;
+    font-style: italic;
+    color: rgba(245,242,236,0.2);
+    padding-bottom: 32px;
+    flex-shrink: 0;
+  }
+
+  /* ── SLIDE 4: SOLUCIÓN ── */
+  .solution { background: var(--cream); }
+
+  .solution-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    margin-top: 48px;
+    max-width: 1000px;
+  }
+
+  .sol-card {
+    border-top: 2px solid var(--accent);
+    padding-top: 28px;
+  }
+
+  .sol-step {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    color: var(--gold);
+    margin-bottom: 16px;
+  }
+
+  .sol-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 24px;
+    font-weight: 400;
+    margin-bottom: 12px;
+    line-height: 1.2;
+  }
+
+  .sol-desc {
+    font-size: 13px;
+    font-weight: 300;
+    color: var(--muted);
+    line-height: 1.75;
+  }
+
+  /* ── SLIDE 5: MÉTRICAS ── */
+  .metrics { background: var(--accent); color: var(--paper); }
+
+  .metrics-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+    margin-top: 48px;
+  }
+
+  .metric-big {
+    border-left: 2px solid var(--gold);
+    padding-left: 40px;
+    margin-bottom: 48px;
+  }
+
+  .metric-big .num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(64px, 7vw, 96px);
+    font-weight: 300;
+    color: var(--gold-light);
+    line-height: 1;
+  }
+
+  .metric-big .label {
+    font-size: 14px;
+    font-weight: 400;
+    color: rgba(245,242,236,0.7);
+    margin-top: 8px;
+    letter-spacing: 0.03em;
+  }
+
+  .metric-big .sublabel {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: rgba(245,242,236,0.35);
+    margin-top: 6px;
+  }
+
+  .metrics-right p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    font-weight: 300;
+    font-style: italic;
+    color: rgba(245,242,236,0.6);
+    line-height: 1.4;
+    margin-bottom: 32px;
+  }
+
+  .metrics-right strong {
+    font-style: normal;
+    font-weight: 400;
+    color: var(--gold-light);
+  }
+
+  /* ── SLIDE 6: PRICING ── */
+  .pricing { background: var(--paper); }
+
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    margin-top: 48px;
+    max-width: 1000px;
+  }
+
+  .price-card {
+    background: var(--paper);
+    padding: 40px 32px;
+    position: relative;
+    transition: background 0.3s;
+  }
+
+  .price-card:hover { background: var(--cream); }
+
+  .price-card.featured {
+    background: var(--accent);
+    color: var(--paper);
+  }
+
+  .price-tier {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    color: var(--gold);
+    margin-bottom: 20px;
+    text-transform: uppercase;
+  }
+
+  .price-card.featured .price-tier { color: var(--gold-light); }
+
+  .price-amount {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 52px;
+    font-weight: 300;
+    line-height: 1;
+    color: var(--ink);
+  }
+
+  .price-card.featured .price-amount { color: var(--gold-light); }
+
+  .price-currency {
+    font-size: 18px;
+    vertical-align: super;
+    font-weight: 400;
+  }
+
+  .price-period {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+    margin-top: 6px;
+  }
+
+  .price-card.featured .price-period { color: rgba(245,242,236,0.4); }
+
+  .price-subs {
+    font-size: 13px;
+    font-weight: 300;
+    color: var(--muted);
+    margin-top: 20px;
+    line-height: 1.5;
+    border-top: 1px solid var(--rule);
+    padding-top: 20px;
+  }
+
+  .price-card.featured .price-subs {
+    color: rgba(245,242,236,0.55);
+    border-top-color: rgba(245,242,236,0.15);
+  }
+
+  .best-badge {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    background: var(--gold);
+    color: var(--ink);
+    padding: 4px 10px;
+    position: absolute;
+    top: -1px;
+    left: 32px;
+  }
+
+  /* ── SLIDE 7: ICP ── */
+  .icp { background: var(--cream); }
+
+  .icp-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-top: 48px;
+    max-width: 800px;
+  }
+
+  .icp-item {
+    display: grid;
+    grid-template-columns: 60px 1fr auto;
+    align-items: center;
+    gap: 32px;
+    padding: 28px 0;
+    border-bottom: 1px solid var(--rule);
+    transition: padding-left 0.3s ease;
+    cursor: default;
+  }
+
+  .icp-item:hover { padding-left: 8px; }
+
+  .icp-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 40px;
+    font-weight: 300;
+    color: var(--gold);
+    line-height: 1;
+  }
+
+  .icp-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 24px;
+    font-weight: 400;
+  }
+
+  .icp-detail {
+    font-size: 12px;
+    font-weight: 300;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+
+  .icp-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    color: var(--accent);
+    background: rgba(26,58,42,0.08);
+    padding: 6px 12px;
+    white-space: nowrap;
+  }
+
+  /* ── SLIDE 8: CIERRE ── */
+  .closing {
+    background: var(--accent);
+    color: var(--paper);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 80px 100px;
+  }
+
+  .closing-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    margin-bottom: 40px;
+  }
+
+  .closing h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(48px, 6vw, 80px);
+    font-weight: 300;
+    line-height: 1.05;
+    max-width: 800px;
+    margin-bottom: 56px;
+  }
+
+  .closing h2 em {
+    font-style: italic;
+    color: var(--gold-light);
+  }
+
+  .closing-cta {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .cta-btn {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 18px 40px;
+    background: var(--gold);
+    color: var(--ink);
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+  }
+
+  .cta-btn:hover {
+    background: var(--gold-light);
+    transform: translateY(-2px);
+  }
+
+  .cta-link {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    color: rgba(245,242,236,0.5);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(245,242,236,0.2);
+    padding-bottom: 2px;
+  }
+
+  .closing-footer {
+    position: absolute;
+    bottom: 48px;
+    left: 100px;
+    right: 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .closing-footer span {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: rgba(245,242,236,0.25);
+  }
+
+  /* ── NAV DOTS ── */
+  .nav-dots {
+    position: fixed;
+    right: 32px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 100;
+  }
+
+  .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--muted);
+    opacity: 0.3;
+    cursor: pointer;
+    transition: opacity 0.3s, transform 0.3s, background 0.3s;
+  }
+
+  .dot.active {
+    opacity: 1;
+    background: var(--gold);
+    transform: scale(1.4);
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .slide { padding: 60px 40px; }
+    .cover-inner { grid-template-columns: 1fr; }
+    .cover-right { display: none; }
+    .cover-left { padding: 60px 40px; justify-content: center; gap: 40px; }
+    .pain-grid { grid-template-columns: 1fr; }
+    .solution-grid { grid-template-columns: 1fr; }
+    .pricing-grid { grid-template-columns: repeat(2, 1fr); }
+    .metrics-layout { grid-template-columns: 1fr; gap: 40px; }
+    .cost-row { flex-direction: column; gap: 32px; }
+    .nav-dots { display: none; }
+    .closing { padding: 60px 40px; }
+    .closing-footer { left: 40px; right: 40px; }
+    .slide-number { right: 40px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV DOTS -->
+<nav class="nav-dots" id="navDots"></nav>
+
+<!-- SLIDE 1: COVER -->
+<section class="slide cover visible" data-slide="0">
+  <div class="cover-inner">
+    <div class="cover-left">
+      <div class="cover-logo">A·TEAM — AGENTES DE IA</div>
+      <div class="cover-headline">
+        <h1>Cobrar<br><em>a tiempo,</em><br>siempre.</h1>
+        <p class="cover-sub">El primer agente de cobranzas inteligente para empresas con suscripciones en Argentina. Automatiza el seguimiento, concilia pagos y elimina la morosidad.</p>
+      </div>
+      <div class="cover-footer">
+        <p>CONFIDENCIAL · 2025 · THE-ATEAM.AI</p>
+      </div>
+    </div>
+    <div class="cover-right">
+      <div class="stat-block">
+        <div class="stat-n">7–10 días</div>
+        <div class="stat-label">de demora promedio en cobro por transferencia</div>
+      </div>
+      <div class="stat-block">
+        <div class="stat-n">0</div>
+        <div class="stat-label">empresas con seguimiento sistemático post-factura</div>
+      </div>
+      <div class="stat-block">
+        <div class="stat-n">100%</div>
+        <div class="stat-label">de la conciliación hoy es manual y propensa a error</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 2: EL PROBLEMA -->
+<section class="slide problem" data-slide="1">
+  <div class="slide-number">02 / 08</div>
+  <div class="slide-tag">· El problema ·</div>
+  <h2 class="section-title">Las transferencias son baratas.<br><em>El caos que generan, no.</em></h2>
+  <div class="pain-grid">
+    <div class="pain-item">
+      <div class="pain-icon">01 ·</div>
+      <div class="pain-title">Nadie hace seguimiento</div>
+      <p class="pain-desc">Se emite la factura, se manda por mail. Ahí termina todo. Nadie llama, nadie recuerda, nadie persiste. El que no paga simplemente… no paga.</p>
+    </div>
+    <div class="pain-item">
+      <div class="pain-icon">02 ·</div>
+      <div class="pain-title">Conciliación imposible</div>
+      <p class="pain-desc">Una transferencia llega al banco sin referencia clara. ¿Quién pagó? ¿Qué período? ¿Cuánto falta? La empleada pasa horas cruzando extractos con planillas.</p>
+    </div>
+    <div class="pain-item">
+      <div class="pain-icon">03 ·</div>
+      <div class="pain-title">Morosidad invisible</div>
+      <p class="pain-desc">Sin seguimiento sistemático, no se sabe quién debe hasta que el problema ya es grande. La mora crece silenciosamente mes a mes.</p>
+    </div>
+    <div class="pain-item">
+      <div class="pain-icon">04 ·</div>
+      <div class="pain-title">Carga operativa sin valor</div>
+      <p class="pain-desc">El equipo administrativo dedica horas a data entry, cruces manuales y recordatorios individuales. Tiempo que podría ir a tareas de verdadero impacto.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 3: EL COSTO REAL -->
+<section class="slide cost-slide" data-slide="2">
+  <div class="slide-number">03 / 08</div>
+  <div class="slide-tag">· El costo real ·</div>
+  <h2 class="section-title">Lo que cuesta<br><em>no hacer nada.</em></h2>
+  <div class="cost-row">
+    <div class="cost-metric">
+      <div class="cost-value bad">15–20%</div>
+      <div class="cost-unit">MOROSIDAD PROMEDIO</div>
+      <p class="cost-desc">De la facturación mensual llega tarde o nunca. En un colegio de 600 alumnos a $1M de cuota, son $90M flotando cada mes.</p>
+    </div>
+    <div class="vs-divider">+</div>
+    <div class="cost-metric">
+      <div class="cost-value bad">$2.250.000</div>
+      <div class="cost-unit">COSTO ADMINISTRATIVO / MES</div>
+      <p class="cost-desc">Sueldo + cargas sociales de una empleada que igualmente no hace seguimiento de cobranzas.</p>
+    </div>
+    <div class="vs-divider">=</div>
+    <div class="cost-metric">
+      <div class="cost-value">USD 349</div>
+      <div class="cost-unit">COSTO A-TEAM / MES</div>
+      <p class="cost-desc">El agente trabaja 24/7, nunca se enferma, no renuncia y escala sin costo adicional.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 4: LA SOLUCIÓN -->
+<section class="slide solution" data-slide="3">
+  <div class="slide-number">04 / 08</div>
+  <div class="slide-tag">· La solución ·</div>
+  <h2 class="section-title">Un agente que cobra<br><em>en piloto automático.</em></h2>
+  <div class="solution-grid">
+    <div class="sol-card">
+      <div class="sol-step">PASO 01 ·</div>
+      <h3 class="sol-title">Recordatorio proactivo</h3>
+      <p class="sol-desc">El agente escribe por WhatsApp y mail antes del vencimiento, el día del vencimiento y después. Personalizado, en el tono de tu institución. Sin intervención humana.</p>
+    </div>
+    <div class="sol-card">
+      <div class="sol-step">PASO 02 ·</div>
+      <h3 class="sol-title">Conciliación automática</h3>
+      <p class="sol-desc">Lee ingresos bancarios en tiempo real (Galicia, Mercado Pago, BIND y otros). Cruza pagos con facturas por monto, fecha y nombre de cuenta. Imputa sin intervención.</p>
+    </div>
+    <div class="sol-card">
+      <div class="sol-step">PASO 03 ·</div>
+      <h3 class="sol-title">Identificación de comprobantes</h3>
+      <p class="sol-desc">Si el pago no se identifica automáticamente, el agente solicita el comprobante. Lo procesa y lo cruza. Lo que no puede resolver escala a un humano — menos del 10% de los casos.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 5: LAS MÉTRICAS -->
+<section class="slide metrics" data-slide="4">
+  <div class="slide-number">05 / 08</div>
+  <div class="slide-tag">· Lo que medimos ·</div>
+  <h2 class="section-title" style="color:var(--paper)">Dos métricas.<br><em style="color:var(--gold-light)">Un solo resultado.</em></h2>
+  <div class="metrics-layout">
+    <div>
+      <div class="metric-big">
+        <div class="num">↓ días</div>
+        <div class="label">Reducción en días promedio de cobro</div>
+        <div class="sublabel">MÉTRICA PRIMARIA · MEDIBLE DESDE EL MES 1</div>
+      </div>
+      <div class="metric-big">
+        <div class="num">↑ horas</div>
+        <div class="label">Horas del equipo liberadas de data entry</div>
+        <div class="sublabel">MÉTRICA SECUNDARIA · IMPACTO INMEDIATO</div>
+      </div>
+    </div>
+    <div class="metrics-right">
+      <p>El equipo administrativo deja de ser un <strong>procesador de datos</strong> y vuelve a ser lo que tiene que ser: <strong>la cara humana de tu institución.</strong></p>
+      <p>El agente hace el trabajo que nadie quiere hacer y nadie hace bien. Las personas hacen el trabajo que sólo ellas pueden hacer.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 6: PRICING -->
+<section class="slide pricing" data-slide="5">
+  <div class="slide-number">06 / 08</div>
+  <div class="slide-tag">· Inversión ·</div>
+  <h2 class="section-title">Precio plano.<br><em>Sin sorpresas.</em></h2>
+  <div class="pricing-grid">
+    <div class="price-card">
+      <div class="price-tier">Entry</div>
+      <div class="price-amount"><span class="price-currency">USD </span>99</div>
+      <div class="price-period">/ mes</div>
+      <div class="price-subs">Hasta 100 suscripciones<br>Ideal para estudios profesionales y administradoras chicas</div>
+    </div>
+    <div class="price-card">
+      <div class="price-tier">Standard</div>
+      <div class="price-amount"><span class="price-currency">USD </span>199</div>
+      <div class="price-period">/ mes</div>
+      <div class="price-subs">Hasta 300 suscripciones<br>Administradoras medianas, colegios primarios</div>
+    </div>
+    <div class="price-card featured">
+      <div class="best-badge">MÁS ELEGIDO</div>
+      <div class="price-tier">Growth</div>
+      <div class="price-amount"><span class="price-currency">USD </span>349</div>
+      <div class="price-period">/ mes</div>
+      <div class="price-subs">Hasta 600 suscripciones<br>Colegios K-12 zona norte, barrios privados</div>
+    </div>
+    <div class="price-card">
+      <div class="price-tier">Scale</div>
+      <div class="price-amount"><span class="price-currency">USD </span>499</div>
+      <div class="price-period">/ mes</div>
+      <div class="price-subs">Hasta 1.000 suscripciones<br>Cadenas educativas, administradoras grandes</div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 7: ICP -->
+<section class="slide icp" data-slide="6">
+  <div class="slide-number">07 / 08</div>
+  <div class="slide-tag">· Para quién es ·</div>
+  <h2 class="section-title">Organizaciones que cobran<br><em>por suscripción, en volumen.</em></h2>
+  <div class="icp-list">
+    <div class="icp-item">
+      <div class="icp-num">01</div>
+      <div>
+        <div class="icp-name">Colegios privados</div>
+        <div class="icp-detail">Cuotas mensuales · 300–1.200 alumnos · Zona norte GBA y CABA</div>
+      </div>
+      <div class="icp-tag">PRIORITY TARGET</div>
+    </div>
+    <div class="icp-item">
+      <div class="icp-num">02</div>
+      <div>
+        <div class="icp-name">Barrios privados y countries</div>
+        <div class="icp-detail">Expensas mensuales · Alta mora habitual · Decisor único</div>
+      </div>
+      <div class="icp-tag">HIGH VALUE</div>
+    </div>
+    <div class="icp-item">
+      <div class="icp-num">03</div>
+      <div>
+        <div class="icp-name">Administradoras de edificios</div>
+        <div class="icp-detail">Múltiples edificios · Alta escala · Canal de referidos natural</div>
+      </div>
+      <div class="icp-tag">VOLUME</div>
+    </div>
+    <div class="icp-item">
+      <div class="icp-num">04</div>
+      <div>
+        <div class="icp-name">Estudios contables y jurídicos</div>
+        <div class="icp-detail">Abonos mensuales · Early adopters · Pueden recomendar a sus clientes</div>
+      </div>
+      <div class="icp-tag">MULTIPLIER</div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 8: CIERRE -->
+<section class="slide closing" data-slide="7">
+  <div class="slide-number" style="color:rgba(245,242,236,0.25)">08 / 08</div>
+  <div class="closing-eyebrow">· PRÓXIMO PASO ·</div>
+  <h2>¿Cuánto está <em>flotando</em> en mora en tu institución este mes?</h2>
+  <div class="closing-cta">
+    <button class="cta-btn">Solicitar demo gratuita</button>
+    <a class="cta-link" href="https://the-ateam.ai">the-ateam.ai</a>
+  </div>
+  <div class="closing-footer">
+    <span>THE A-TEAM · AGENTES DE IA · ARGENTINA 2025</span>
+    <span>CONFIDENCIAL</span>
+  </div>
+</section>
+
+<script>
+  // Intersection Observer for slide animations
+  const slides = document.querySelectorAll('.slide');
+  const dots = document.getElementById('navDots');
+
+  // Create nav dots
+  slides.forEach((_, i) => {
+    const dot = document.createElement('div');
+    dot.className = 'dot' + (i === 0 ? ' active' : '');
+    dot.addEventListener('click', () => {
+      slides[i].scrollIntoView({ behavior: 'smooth' });
+    });
+    dots.appendChild(dot);
+  });
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        const idx = Array.from(slides).indexOf(entry.target);
+        document.querySelectorAll('.dot').forEach((d, i) => {
+          d.classList.toggle('active', i === idx);
+        });
+      }
+    });
+  }, { threshold: 0.3 });
+
+  slides.forEach(slide => observer.observe(slide));
+
+  // Counter animation for numbers
+  function animateCounter(el, target, duration = 1500) {
+    let start = 0;
+    const step = (timestamp) => {
+      if (!start) start = timestamp;
+      const progress = Math.min((timestamp - start) / duration, 1);
+      el.textContent = Math.floor(progress * target);
+      if (progress < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }
+</script>
+</body>
+</html>

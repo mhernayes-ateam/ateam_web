@@ -1,0 +1,44 @@
+name: PR Checks
+
+on:
+  push:
+    branches: ['**']
+  pull_request:
+    branches: [demo, staging, main]
+
+jobs:
+  checks:
+    name: Lint + TypeCheck + Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies — receptor
+        run: npm ci
+        working-directory: functions/receptor
+
+      - name: Install dependencies — procesador
+        run: npm ci
+        working-directory: functions/procesador
+
+      - name: TypeScript check — receptor
+        run: npx tsc --noEmit
+        working-directory: functions/receptor
+
+      - name: TypeScript check — procesador
+        run: npx tsc --noEmit
+        working-directory: functions/procesador
+
+      - name: Docker dry-run — receptor
+        run: docker build -t axel-receptor:test ./functions/receptor
+
+      - name: Docker dry-run — procesador
+        run: docker build -t axel-procesador:test ./functions/procesador

@@ -1,0 +1,2774 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Axel · A Team — Documentación Técnica Completa</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Syne:wght@400;600;700;800&family=IBM+Plex+Mono:wght@300;400;500;600&family=Epilogue:wght@400;600;800;900&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ── TOKENS COMPARTIDOS ── */
+:root {
+  --bg:      #0a0c10;
+  --bg2:     #0f1218;
+  --bg3:     #151a22;
+  --border:  rgba(255,255,255,0.05);
+  --border2: rgba(255,255,255,0.10);
+  --border3: rgba(255,255,255,0.18);
+  --text:    #e8eaf0;
+  --muted:   #52525b;
+  --muted2:  #6b7280;
+  --accent:  #4f8ef7;
+
+  /* colores semánticos */
+  --blue-dim:    rgba(79,142,247,0.08);
+  --blue-border: rgba(79,142,247,0.25);
+  --purple-dim:  rgba(124,58,237,0.08);
+  --purple-border:rgba(124,58,237,0.25);
+  --green-dim:   rgba(16,185,129,0.08);
+  --green-border:rgba(16,185,129,0.25);
+  --amber-dim:   rgba(245,158,11,0.08);
+  --amber-border:rgba(245,158,11,0.25);
+  --coral-dim:   rgba(239,68,68,0.08);
+  --coral-border:rgba(239,68,68,0.25);
+  --teal-dim:    rgba(20,184,166,0.08);
+  --teal-border: rgba(20,184,166,0.25);
+  --pink-dim:    rgba(236,72,153,0.08);
+  --pink-border: rgba(236,72,153,0.25);
+
+  /* tablas */
+  --sql-h:  #60a5fa;
+  --sql-b:  rgba(96,165,250,0.07);
+  --sql-br: rgba(96,165,250,0.20);
+  --fs-h:   #34d399;
+  --fs-b:   rgba(52,211,153,0.07);
+  --fs-br:  rgba(52,211,153,0.20);
+  --pk:     #fbbf24;
+  --fk:     #a78bfa;
+  --idx:    #38bdf8;
+  --req:    #f87171;
+  --opt:    #6b7280;
+  --json:   #fb923c;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  font-family: 'Syne', sans-serif;
+}
+
+/* ══════════════════════════════════
+   NAV PRINCIPAL
+══════════════════════════════════ */
+.main-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(10,12,16,0.92);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border2);
+  padding: 0 32px;
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+.nav-brand {
+  font-family: 'Epilogue', sans-serif;
+  font-size: 14px;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  padding: 16px 24px 16px 0;
+  border-right: 1px solid var(--border2);
+  margin-right: 8px;
+  white-space: nowrap;
+}
+.nav-brand span { color: #4f8ef7; }
+.nav-tabs {
+  display: flex;
+  gap: 2px;
+  padding: 10px 0;
+}
+.nav-tab {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  padding: 7px 18px;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--muted2);
+  cursor: pointer;
+  letter-spacing: 0.06em;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+.nav-tab:hover { color: var(--text); background: var(--bg2); }
+.nav-tab.active {
+  color: var(--text);
+  background: var(--bg3);
+  border-color: var(--border2);
+}
+.nav-tab.active.t-stack   { color: #4f8ef7; border-color: var(--blue-border); background: var(--blue-dim); }
+.nav-tab.active.t-arq     { color: #c4b5fd; border-color: var(--purple-border); background: var(--purple-dim); }
+.nav-tab.active.t-tablas  { color: #60a5fa; border-color: var(--sql-br); background: var(--sql-b); }
+.nav-tab.active.t-github  { color: #f0abfc; border-color: rgba(240,171,252,0.25); background: rgba(240,171,252,0.08); }
+.nav-tab.active.t-setup      { color: #67e8f9; border-color: rgba(103,232,249,0.25); background: rgba(103,232,249,0.08); }
+.nav-tab.active.t-runbook    { color: #fda4af; border-color: rgba(253,164,175,0.25); background: rgba(253,164,175,0.08); }
+.nav-tab.active.t-onboarding { color: #86efac; border-color: rgba(134,239,172,0.25); background: rgba(134,239,172,0.08); }
+
+/* ══════════════════════════════════
+   PÁGINAS
+══════════════════════════════════ */
+.page { display: none; padding: 40px 24px 80px; }
+.page.active { display: block; }
+
+/* ══════════════════════════════════
+   STACK PAGE — tipografía Syne + DM Mono
+══════════════════════════════════ */
+#page-stack {
+  font-family: 'Syne', sans-serif;
+}
+#page-stack .page-header {
+  max-width: 960px;
+  margin: 0 auto 52px;
+  border-bottom: 1px solid var(--border2);
+  padding-bottom: 28px;
+}
+#page-stack .page-header-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: #4f8ef7;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+#page-stack h1 {
+  font-size: clamp(26px, 4vw, 44px);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin-bottom: 10px;
+}
+#page-stack h1 span { color: #4f8ef7; }
+#page-stack .page-header p {
+  color: var(--muted2);
+  font-size: 13px;
+  font-family: 'DM Mono', monospace;
+  font-weight: 300;
+}
+#page-stack .badges {
+  display: flex; gap: 8px; flex-wrap: wrap; margin-top: 18px;
+}
+#page-stack .badge {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  padding: 4px 10px;
+  border-radius: 4px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+#page-stack .badge-blue   { background: var(--blue-dim);   border: 1px solid var(--blue-border);   color: #4f8ef7; }
+#page-stack .badge-green  { background: var(--green-dim);  border: 1px solid var(--green-border);  color: #10b981; }
+#page-stack .badge-purple { background: var(--purple-dim); border: 1px solid var(--purple-border); color: #a78bfa; }
+#page-stack .badge-amber  { background: var(--amber-dim);  border: 1px solid var(--amber-border);  color: #f59e0b; }
+#page-stack .container { max-width: 960px; margin: 0 auto; }
+#page-stack .section { margin-bottom: 52px; }
+#page-stack .section-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  display: flex; align-items: center; gap: 10px;
+}
+#page-stack .section-label::after {
+  content: ''; flex: 1; height: 1px; background: var(--border);
+}
+
+/* stack layers */
+.gcp-wrapper {
+  border: 1px solid var(--border2); border-radius: 16px;
+  padding: 2px;
+  background: linear-gradient(135deg, rgba(79,142,247,0.05), rgba(124,58,237,0.05));
+}
+.gcp-inner { background: var(--bg2); border-radius: 14px; padding: 28px; }
+.gcp-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px; color: #4f8ef7;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  margin-bottom: 24px;
+  display: flex; align-items: center; gap: 8px;
+}
+.gcp-label::before { content: ''; width: 20px; height: 1px; background: #4f8ef7; opacity: 0.5; }
+.layer {
+  border-radius: 10px; padding: 14px 20px;
+  margin-bottom: 4px; position: relative;
+  transition: transform 0.15s;
+}
+.layer:hover { transform: translateX(4px); }
+.layer-header {
+  display: flex; align-items: center;
+  justify-content: space-between; margin-bottom: 4px;
+}
+.layer-name {
+  font-size: 13px; font-weight: 700;
+  display: flex; align-items: center; gap: 8px;
+}
+.layer-detail {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px; color: var(--muted2); line-height: 1.7;
+}
+.layer-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px; padding: 2px 8px;
+  border-radius: 3px; letter-spacing: 0.06em; flex-shrink: 0;
+}
+.layer-blue   { background: var(--blue-dim);   border: 1px solid var(--blue-border); }
+.layer-blue .layer-name  { color: #7db9ff; }
+.layer-blue .layer-tag   { background: var(--blue-border); color: #7db9ff; }
+.layer-teal   { background: var(--teal-dim);   border: 1px solid var(--teal-border); }
+.layer-teal .layer-name  { color: #5eead4; }
+.layer-teal .layer-tag   { background: var(--teal-border); color: #5eead4; }
+.layer-purple { background: var(--purple-dim); border: 1px solid var(--purple-border); }
+.layer-purple .layer-name{ color: #c4b5fd; }
+.layer-purple .layer-tag { background: var(--purple-border); color: #c4b5fd; }
+.layer-amber  { background: var(--amber-dim);  border: 1px solid var(--amber-border); }
+.layer-amber .layer-name { color: #fcd34d; }
+.layer-amber .layer-tag  { background: var(--amber-border); color: #fcd34d; }
+.layer-green  { background: var(--green-dim);  border: 1px solid var(--green-border); }
+.layer-green .layer-name { color: #6ee7b7; }
+.layer-green .layer-tag  { background: var(--green-border); color: #6ee7b7; }
+.layer-coral  { background: var(--coral-dim);  border: 1px solid var(--coral-border); }
+.layer-coral .layer-name { color: #fca5a5; }
+.layer-coral .layer-tag  { background: var(--coral-border); color: #fca5a5; }
+.layer-gray   { background: rgba(107,114,128,0.08); border: 1px solid rgba(107,114,128,0.2); }
+.layer-gray .layer-name  { color: #d1d5db; }
+.layer-gray .layer-tag   { background: rgba(107,114,128,0.2); color: #d1d5db; }
+.connector-line {
+  width: 1px; height: 20px;
+  background: var(--border2); margin-left: 19px;
+}
+.connector { display: flex; align-items: center; gap: 10px; padding: 4px 20px; }
+.connector-label { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--muted); letter-spacing: 0.1em; }
+.dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+
+/* stack grid */
+#page-stack .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+#page-stack .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+
+/* loop */
+.loop-wrapper {
+  border: 1px dashed var(--border2); border-radius: 12px;
+  padding: 20px; background: var(--bg2);
+}
+.loop-title {
+  font-family: 'DM Mono', monospace; font-size: 10px;
+  color: var(--muted); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 14px;
+}
+.loop-row { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; }
+.loop-box {
+  padding: 8px 14px; border-radius: 6px;
+  font-size: 11px; font-weight: 600; white-space: nowrap;
+}
+.loop-arrow { font-family: 'DM Mono', monospace; color: var(--muted); font-size: 12px; padding: 0 2px; }
+.loop-note {
+  font-family: 'DM Mono', monospace; font-size: 10px;
+  color: var(--muted); margin-top: 10px;
+  padding-top: 10px; border-top: 1px solid var(--border);
+}
+
+/* tools */
+.tool-item {
+  display: flex; align-items: flex-start; gap: 12px;
+  padding: 14px 16px;
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: 8px; transition: border-color 0.2s;
+}
+.tool-item:hover { border-color: var(--border2); }
+.tool-icon {
+  font-family: 'DM Mono', monospace; font-size: 9px;
+  padding: 4px 6px; border-radius: 4px; flex-shrink: 0;
+  letter-spacing: 0.05em; margin-top: 1px;
+}
+.tool-name  { font-size: 12px; font-weight: 700; margin-bottom: 3px; }
+.tool-desc  { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--muted2); line-height: 1.6; }
+
+/* flow steps */
+.flow-step {
+  display: flex; gap: 20px; margin-bottom: 0;
+  position: relative;
+}
+.flow-step::before {
+  content: ''; position: absolute;
+  left: 19px; top: 40px; bottom: -24px;
+  width: 1px; background: var(--border2);
+}
+.flow-step:last-child::before { display: none; }
+.step-num {
+  width: 40px; height: 40px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'DM Mono', monospace; font-size: 13px; font-weight: 500;
+  flex-shrink: 0; position: relative; z-index: 1;
+}
+.step-body { flex: 1; padding-bottom: 32px; }
+.step-title { font-size: 14px; font-weight: 700; margin-bottom: 6px; line-height: 1.3; }
+.step-desc  { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted2); line-height: 1.8; }
+.step-tags  { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
+.step-tag   {
+  font-family: 'DM Mono', monospace; font-size: 9px;
+  padding: 2px 8px; border-radius: 3px; letter-spacing: 0.06em;
+  border: 1px solid var(--border2); color: var(--muted);
+}
+
+/* compare */
+.compare-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.compare-card { border-radius: 10px; padding: 18px 20px; }
+.compare-label {
+  font-family: 'DM Mono', monospace; font-size: 9px;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  margin-bottom: 12px; display: flex; align-items: center; gap: 6px;
+}
+.compare-item {
+  font-family: 'DM Mono', monospace; font-size: 11px;
+  color: var(--muted2); line-height: 2;
+  display: flex; align-items: center; gap: 8px;
+}
+.compare-item::before { content: '→'; color: var(--muted); opacity: 0.5; }
+
+/* service cards */
+.service-card {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: 10px; padding: 16px;
+  transition: border-color 0.2s, background 0.2s;
+}
+.service-card:hover { border-color: var(--border2); background: var(--bg3); }
+.service-name { font-size: 12px; font-weight: 700; margin-bottom: 4px; }
+.service-desc { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--muted2); line-height: 1.6; }
+.service-label {
+  font-family: 'DM Mono', monospace; font-size: 9px;
+  display: inline-block; padding: 2px 6px; border-radius: 3px;
+  margin-bottom: 8px; letter-spacing: 0.06em;
+}
+
+/* ══════════════════════════════════
+   ARQ PAGE — tabs de flujo
+══════════════════════════════════ */
+#page-arq { font-family: 'Syne', sans-serif; }
+#page-arq .page-header {
+  max-width: 960px; margin: 0 auto 52px;
+  border-bottom: 1px solid var(--border2); padding-bottom: 28px;
+}
+#page-arq .page-header-tag {
+  font-family: 'DM Mono', monospace; font-size: 11px;
+  color: #c4b5fd; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 10px;
+}
+#page-arq h1 {
+  font-size: clamp(26px, 4vw, 44px); font-weight: 800;
+  letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 10px;
+}
+#page-arq h1 span { color: #c4b5fd; }
+#page-arq .page-header p {
+  color: var(--muted2); font-size: 13px;
+  font-family: 'DM Mono', monospace; font-weight: 300;
+}
+#page-arq .container { max-width: 960px; margin: 0 auto; }
+#page-arq .section { margin-bottom: 52px; }
+#page-arq .section-label {
+  font-family: 'DM Mono', monospace; font-size: 10px;
+  color: var(--muted); letter-spacing: 0.2em; text-transform: uppercase;
+  margin-bottom: 16px;
+  display: flex; align-items: center; gap: 10px;
+}
+#page-arq .section-label::after {
+  content: ''; flex: 1; height: 1px; background: var(--border);
+}
+#page-arq .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+#page-arq .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+#page-arq .grid-4 { display: grid; grid-template-columns: repeat(4,1fr); gap: 10px; }
+
+/* ══════════════════════════════════
+   TABLAS PAGE — tipografía IBM Plex Mono + Epilogue
+══════════════════════════════════ */
+#page-tablas { font-family: 'IBM Plex Mono', monospace; }
+#page-tablas .page-header {
+  max-width: 1100px; margin: 0 auto 52px;
+  border-bottom: 1px solid var(--border2); padding-bottom: 28px;
+}
+#page-tablas .page-header-tag {
+  font-size: 10px; color: var(--sql-h);
+  letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 10px;
+}
+#page-tablas h1 {
+  font-family: 'Epilogue', sans-serif;
+  font-size: clamp(24px, 4vw, 40px); font-weight: 900;
+  letter-spacing: -0.03em; line-height: 1.05; margin-bottom: 10px;
+}
+#page-tablas h1 em { color: var(--sql-h); font-style: normal; }
+#page-tablas .page-header p { font-size: 11px; color: var(--muted2); line-height: 1.7; }
+#page-tablas .container { max-width: 1100px; margin: 0 auto; }
+#page-tablas .section { margin-bottom: 52px; }
+#page-tablas .section-header {
+  display: flex; align-items: center; gap: 12px; margin-bottom: 20px;
+}
+#page-tablas .section-badge {
+  font-size: 9px; font-weight: 600; padding: 4px 10px;
+  border-radius: 4px; letter-spacing: 0.1em; text-transform: uppercase;
+}
+#page-tablas .section-title {
+  font-family: 'Epilogue', sans-serif;
+  font-size: 16px; font-weight: 800; letter-spacing: -0.01em;
+}
+#page-tablas .section-desc { font-size: 10px; color: var(--muted2); margin-left: auto; }
+
+/* legend */
+.legend {
+  display: flex; gap: 16px; flex-wrap: wrap;
+  margin-top: 20px; padding: 12px 16px;
+  background: var(--bg2); border: 1px solid var(--border2);
+  border-radius: 8px; width: fit-content;
+}
+.legend-item { display: flex; align-items: center; gap: 6px; font-size: 10px; color: var(--muted2); }
+.legend-badge {
+  font-size: 9px; padding: 1px 6px; border-radius: 3px;
+  font-weight: 600; letter-spacing: 0.04em;
+}
+
+/* table cards */
+.table-grid { display: grid; gap: 16px; }
+.tg-3 { grid-template-columns: repeat(3,1fr); }
+.tg-2 { grid-template-columns: repeat(2,1fr); }
+.tg-1 { grid-template-columns: 1fr; }
+.tcard {
+  border-radius: 10px; overflow: hidden; border: 1px solid var(--border2);
+  transition: border-color 0.2s, transform 0.15s;
+}
+.tcard:hover { border-color: var(--border3); transform: translateY(-2px); }
+.tcard-header {
+  padding: 12px 16px; display: flex; align-items: center;
+  justify-content: space-between; border-bottom: 1px solid var(--border2);
+}
+.tcard-name {
+  font-family: 'Epilogue', sans-serif;
+  font-size: 13px; font-weight: 800; letter-spacing: -0.01em;
+}
+.tcard-tag {
+  font-size: 8px; padding: 2px 7px; border-radius: 3px;
+  font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+}
+.fields { padding: 4px 0; }
+.field {
+  display: grid; grid-template-columns: 22px 1fr auto;
+  align-items: center; gap: 8px; padding: 5px 16px;
+  border-bottom: 1px solid var(--border); transition: background 0.1s;
+}
+.field:last-child { border-bottom: none; }
+.field:hover { background: rgba(255,255,255,0.02); }
+.field-badge {
+  font-size: 8px; font-weight: 700; text-align: center;
+  padding: 1px 0; border-radius: 2px;
+}
+.field-name { font-size: 11px; font-weight: 500; color: var(--text); }
+.field-name span { font-size: 9px; color: var(--muted2); font-weight: 400; margin-left: 4px; }
+.field-type { font-size: 9px; color: var(--muted); text-align: right; white-space: nowrap; }
+.field-section {
+  padding: 5px 16px 3px; font-size: 8px; color: var(--muted);
+  letter-spacing: 0.15em; text-transform: uppercase;
+  background: rgba(255,255,255,0.015); border-bottom: 1px solid var(--border);
+}
+.tcard-note {
+  padding: 8px 16px; font-size: 9px; color: var(--muted2);
+  line-height: 1.7; border-top: 1px solid var(--border);
+  background: rgba(255,255,255,0.015);
+}
+.tcard-note strong { color: var(--text); font-weight: 500; }
+.b-pk  { background: rgba(251,191,36,0.15);  color: var(--pk);  }
+.b-fk  { background: rgba(167,139,250,0.15); color: var(--fk);  }
+.b-idx { background: rgba(56,189,248,0.15);  color: var(--idx); }
+.b-req { background: rgba(248,113,113,0.12); color: var(--req); }
+.b-opt { background: rgba(107,114,128,0.15); color: var(--opt); }
+.b-js  { background: rgba(251,146,60,0.15);  color: var(--json);}
+
+/* relations */
+.relations {
+  margin-top: 20px; padding: 16px 20px;
+  background: var(--bg2); border: 1px solid var(--border2); border-radius: 10px;
+}
+.rel-title {
+  font-size: 9px; color: var(--muted2);
+  letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 12px;
+}
+.rel-row {
+  display: flex; align-items: center; gap: 8px;
+  margin-bottom: 6px; font-size: 10px; color: var(--muted2); flex-wrap: wrap;
+}
+.rel-row:last-child { margin-bottom: 0; }
+.rel-table { padding: 2px 8px; border-radius: 3px; font-weight: 600; font-size: 10px; }
+.rel-type  { color: var(--muted); font-size: 9px; }
+.rel-arrow { color: var(--muted); font-size: 11px; }
+
+/* firestore */
+.fs-doc {
+  background: var(--bg2); border: 1px solid var(--fs-br);
+  border-radius: 10px; overflow: hidden;
+  transition: border-color 0.2s, transform 0.15s;
+}
+.fs-doc:hover { border-color: var(--fs-h); transform: translateY(-2px); }
+.fs-doc-header {
+  background: var(--fs-b); padding: 10px 16px;
+  border-bottom: 1px solid var(--fs-br);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.fs-doc-name { font-family: 'Epilogue', sans-serif; font-size: 12px; font-weight: 800; color: var(--fs-h); }
+.fs-field {
+  display: flex; align-items: flex-start; gap: 10px;
+  padding: 5px 16px; border-bottom: 1px solid var(--border); font-size: 10px;
+}
+.fs-field:last-child { border-bottom: none; }
+.fs-key { color: var(--fs-h); min-width: 160px; flex-shrink: 0; }
+.fs-val { color: var(--muted2); line-height: 1.6; }
+.fs-sub {
+  margin: 0 16px 8px; padding: 8px 12px;
+  background: rgba(52,211,153,0.04); border: 1px solid var(--fs-br);
+  border-radius: 6px; font-size: 9px; color: var(--muted2); line-height: 1.8;
+}
+.fs-sub strong { color: var(--fs-h); font-weight: 500; }
+
+/* responsive */
+@media (max-width: 800px) {
+  .main-nav { padding: 0 16px; }
+  .nav-brand { display: none; }
+  #page-stack .grid-2, #page-stack .grid-3,
+  #page-arq .grid-2, #page-arq .grid-3, #page-arq .grid-4,
+  .tg-3, .tg-2, .compare-row { grid-template-columns: 1fr; }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.page.active { animation: fadeUp 0.25s ease both; }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════
+     NAV
+══════════════════════════════════ -->
+<nav class="main-nav">
+  <div class="nav-brand">Axel · <span>A Team</span></div>
+  <div class="nav-tabs">
+    <button class="nav-tab t-stack active" onclick="showPage('stack')">01 · Stack Completo</button>
+    <button class="nav-tab t-arq"          onclick="showPage('arq')">02 · Arquitectura de Axel</button>
+    <button class="nav-tab t-tablas"       onclick="showPage('tablas')">03 · Tablas</button>
+    <button class="nav-tab t-github"       onclick="showPage('github')">04 · GitHub & Deploy</button>
+    <button class="nav-tab t-setup"        onclick="showPage('setup')">05 · Setup Inicial</button>
+    <button class="nav-tab t-runbook"      onclick="showPage('runbook')">06 · Runbook</button>
+    <button class="nav-tab t-onboarding"   onclick="showPage('onboarding')">07 · Onboarding Cliente</button>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════════
+     PAGE 1: STACK COMPLETO
+══════════════════════════════════ -->
+<div id="page-stack" class="page active">
+  <div class="page-header">
+    <div class="page-header-tag">Stack técnico · v1.0 · Confidencial</div>
+    <h1>Stack <span>Completo</span><br>Google Cloud Platform</h1>
+    <p>Arquitectura de infraestructura · servicios · integraciones · decisiones de diseño</p>
+    <div class="badges">
+      <span class="badge badge-blue">Google Cloud</span>
+      <span class="badge badge-green">Chatwoot</span>
+      <span class="badge badge-purple">Claude API</span>
+      <span class="badge badge-amber">Meta Cloud API</span>
+      <span class="badge badge-blue">Cloud Run</span>
+      <span class="badge badge-green">Firestore</span>
+      <span class="badge badge-purple">Cloud Tasks</span>
+      <span class="badge badge-amber">Cloud SQL</span>
+    </div>
+  </div>
+  <div class="container">
+
+    <!-- GCP ARCHITECTURE -->
+    <div class="section">
+      <div class="section-label">01 — Google Cloud Platform</div>
+      <div class="gcp-wrapper">
+        <div class="gcp-inner">
+          <div class="gcp-label">GCP Project — A Team / Axel</div>
+
+          <div class="layer layer-blue">
+            <div class="layer-header">
+              <div class="layer-name"><div class="dot" style="background:#4f8ef7"></div>Canales de entrada</div>
+              <span class="layer-tag">externo</span>
+            </div>
+            <div class="layer-detail">WhatsApp · Meta Cloud API oficial &nbsp;|&nbsp; Web Chat &nbsp;|&nbsp; Instagram</div>
+          </div>
+
+          <div class="connector-line"></div>
+          <div class="connector"><span class="connector-label">webhook POST</span></div>
+          <div class="connector-line"></div>
+
+          <div class="layer layer-teal">
+            <div class="layer-header">
+              <div class="layer-name"><div class="dot" style="background:#14b8a6"></div>Chatwoot</div>
+              <span class="layer-tag">VM · e2-standard-2</span>
+            </div>
+            <div class="layer-detail">Self-hosted · Docker &nbsp;|&nbsp; Inbox multi-canal &nbsp;|&nbsp; Handoff humano/bot &nbsp;|&nbsp; Dashboard conversaciones</div>
+          </div>
+
+          <div class="connector-line"></div>
+          <div class="connector"><span class="connector-label">webhook por mensaje nuevo</span></div>
+          <div class="connector-line"></div>
+
+          <div class="layer layer-purple">
+            <div class="layer-header">
+              <div class="layer-name"><div class="dot" style="background:#7c3aed"></div>Cloud Run — Receptor</div>
+              <span class="layer-tag">stateless · min 0</span>
+            </div>
+            <div class="layer-detail">Responde 200 inmediato &nbsp;|&nbsp; Chequea idempotency via message_id en Firestore &nbsp;|&nbsp; Encola en Cloud Tasks con conversation_id</div>
+          </div>
+
+          <div class="connector-line"></div>
+          <div class="connector"><span class="connector-label">enqueue task</span></div>
+          <div class="connector-line"></div>
+
+          <div class="layer layer-amber">
+            <div class="layer-header">
+              <div class="layer-name"><div class="dot" style="background:#f59e0b"></div>Cloud Tasks — Cola por conversación</div>
+              <span class="layer-tag">serializa por conversation_id</span>
+            </div>
+            <div class="layer-detail">Una cola por conversation_id &nbsp;|&nbsp; Evita duplicación de mensajes &nbsp;|&nbsp; Retry con exponential backoff &nbsp;|&nbsp; Visibility timeout 30s</div>
+          </div>
+
+          <div class="connector-line"></div>
+          <div class="connector"><span class="connector-label">dispatch task</span></div>
+          <div class="connector-line"></div>
+
+          <div class="layer layer-purple">
+            <div class="layer-header">
+              <div class="layer-name"><div class="dot" style="background:#7c3aed"></div>Cloud Run — Procesador (Tool Use Loop)</div>
+              <span class="layer-tag">timeout 5min</span>
+            </div>
+            <div class="layer-detail">
+              Adquiere lock en Firestore &nbsp;|&nbsp; Recupera historial &nbsp;|&nbsp; Llama a Claude con tools definidas<br>
+              Loop hasta stop_reason = end_turn &nbsp;|&nbsp; Ejecuta tools &nbsp;|&nbsp; Guarda historial &nbsp;|&nbsp; Libera lock &nbsp;|&nbsp; Responde en Chatwoot
+            </div>
+          </div>
+
+          <div class="connector-line"></div>
+
+          <div class="grid-3" style="margin-top:4px">
+            <div class="layer layer-coral" style="margin-bottom:0">
+              <div class="layer-name" style="margin-bottom:6px"><div class="dot" style="background:#ef4444"></div>Claude API</div>
+              <div class="layer-detail">claude-sonnet-4<br>Tool use nativo<br>Análisis de imágenes<br>Razona y decide</div>
+            </div>
+            <div class="layer layer-green" style="margin-bottom:0">
+              <div class="layer-name" style="margin-bottom:6px"><div class="dot" style="background:#10b981"></div>Firestore</div>
+              <div class="layer-detail">Historial de chat<br>Locks por conversación<br>Idempotency keys<br>Sesiones activas</div>
+            </div>
+            <div class="layer layer-blue" style="margin-bottom:0">
+              <div class="layer-name" style="margin-bottom:6px"><div class="dot" style="background:#4f8ef7"></div>Cloud Storage</div>
+              <div class="layer-detail">Comprobantes de pago<br>Facturas PDF<br>Documentos KYC<br>Certs ARCA</div>
+            </div>
+          </div>
+
+          <div class="connector-line"></div>
+
+          <div class="grid-2" style="margin-top:4px">
+            <div class="layer layer-green" style="margin-bottom:0">
+              <div class="layer-name" style="margin-bottom:6px"><div class="dot" style="background:#10b981"></div>Cloud SQL (PostgreSQL)</div>
+              <div class="layer-detail">Clientes · Consumidores<br>Facturas · Pagos · Estados<br>Métricas · Configuración por cliente</div>
+            </div>
+            <div class="layer layer-blue" style="margin-bottom:0">
+              <div class="layer-name" style="margin-bottom:6px"><div class="dot" style="background:#4f8ef7"></div>ARCA API (AFIP)</div>
+              <div class="layer-detail">API REST directa<br>Auth por certificado digital<br>Emisión CAE · Validación CUIT<br>Multi-tenant por cliente</div>
+            </div>
+          </div>
+
+          <div class="connector-line"></div>
+
+          <div class="grid-3" style="margin-top:4px">
+            <div class="layer layer-teal" style="margin-bottom:0">
+              <div class="layer-name" style="margin-bottom:6px"><div class="dot" style="background:#14b8a6"></div>Cloud Scheduler</div>
+              <div class="layer-detail">Cadencias proactivas<br>Recordatorios de pago<br>Seguimiento de mora</div>
+            </div>
+            <div class="layer layer-coral" style="margin-bottom:0">
+              <div class="layer-name" style="margin-bottom:6px"><div class="dot" style="background:#ef4444"></div>Notificaciones</div>
+              <div class="layer-detail">Escalamiento a humano<br>Alertas al equipo<br>WhatsApp interno / email</div>
+            </div>
+            <div class="layer layer-amber" style="margin-bottom:0">
+              <div class="layer-name" style="margin-bottom:6px"><div class="dot" style="background:#f59e0b"></div>Dashboard</div>
+              <div class="layer-detail">Estados consumidores<br>Métricas en tiempo real<br>Historial de interacciones</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- TOOL USE LOOP -->
+    <div class="section">
+      <div class="section-label">02 — Tool Use Loop (Claude)</div>
+      <div class="loop-wrapper">
+        <div class="loop-title">ciclo de razonamiento y acción</div>
+        <div class="loop-row">
+          <div class="loop-box" style="background:var(--purple-dim);border:1px solid var(--purple-border);color:#c4b5fd">Procesador</div>
+          <div class="loop-arrow">→</div>
+          <div class="loop-box" style="background:var(--coral-dim);border:1px solid var(--coral-border);color:#fca5a5">Claude API</div>
+          <div class="loop-arrow">→</div>
+          <div class="loop-box" style="background:var(--amber-dim);border:1px solid var(--amber-border);color:#fcd34d">tool_use / end_turn</div>
+          <div class="loop-arrow">→</div>
+          <div class="loop-box" style="background:var(--green-dim);border:1px solid var(--green-border);color:#6ee7b7">Ejecuta tool</div>
+          <div class="loop-arrow">→</div>
+          <div class="loop-box" style="background:var(--blue-dim);border:1px solid var(--blue-border);color:#7db9ff">Resultado → Claude</div>
+        </div>
+        <div class="loop-note">↻ loop hasta stop_reason = end_turn → responde al usuario en Chatwoot</div>
+      </div>
+    </div>
+
+    <!-- TOOLS -->
+    <div class="section">
+      <div class="section-label">03 — Tools de Axel</div>
+      <div class="grid-2">
+        <div class="tool-item">
+          <div class="tool-icon" style="background:var(--blue-dim);border:1px solid var(--blue-border);color:#7db9ff">fn</div>
+          <div><div class="tool-name" style="color:#7db9ff">buscar_factura</div>
+          <div class="tool-desc">Busca factura pendiente por WhatsApp del consumidor. Devuelve monto, vencimiento y concepto del servicio.</div></div>
+        </div>
+        <div class="tool-item">
+          <div class="tool-icon" style="background:var(--green-dim);border:1px solid var(--green-border);color:#6ee7b7">fn</div>
+          <div><div class="tool-name" style="color:#6ee7b7">validar_comprobante</div>
+          <div class="tool-desc">Recibe imagen del comprobante de transferencia. Extrae monto y valida contra factura esperada. Llama a la API bancaria.</div></div>
+        </div>
+        <div class="tool-item">
+          <div class="tool-icon" style="background:var(--amber-dim);border:1px solid var(--amber-border);color:#fcd34d">fn</div>
+          <div><div class="tool-name" style="color:#fcd34d">emitir_recibo</div>
+          <div class="tool-desc">Genera recibo de A Team y (en MVP) factura fiscal vía ARCA. Envía al consumidor por WhatsApp y email. Actualiza Cloud SQL.</div></div>
+        </div>
+        <div class="tool-item">
+          <div class="tool-icon" style="background:var(--coral-dim);border:1px solid var(--coral-border);color:#fca5a5">fn</div>
+          <div><div class="tool-name" style="color:#fca5a5">escalar_a_humano</div>
+          <div class="tool-desc">Transfiere la conversación a un agente humano en Chatwoot con historial completo. Notifica al equipo A Team inmediatamente.</div></div>
+        </div>
+        <div class="tool-item">
+          <div class="tool-icon" style="background:var(--teal-dim);border:1px solid var(--teal-border);color:#5eead4">fn</div>
+          <div><div class="tool-name" style="color:#5eead4">enviar_cadencia</div>
+          <div class="tool-desc">Dispara el siguiente mensaje proactivo de la cadencia configurada por cliente. Respeta ventanas horarias y estado.</div></div>
+        </div>
+        <div class="tool-item">
+          <div class="tool-icon" style="background:var(--purple-dim);border:1px solid var(--purple-border);color:#c4b5fd">fn</div>
+          <div><div class="tool-name" style="color:#c4b5fd">actualizar_estado</div>
+          <div class="tool-desc">Actualiza el estado del consumidor en Cloud SQL y refleja en Dashboard en tiempo real.</div></div>
+        </div>
+        <div class="tool-item">
+          <div class="tool-icon" style="background:rgba(251,146,60,0.08);border:1px solid rgba(251,146,60,0.25);color:#fb923c">fn</div>
+          <div><div class="tool-name" style="color:#fb923c">generar_link_pago</div>
+          <div class="tool-desc">Genera link de pago personalizado on-the-fly con monto exacto y CVU/alias del cliente. Se incluye en cada solicitud de pago.</div></div>
+        </div>
+        <div class="tool-item">
+          <div class="tool-icon" style="background:var(--pink-dim);border:1px solid var(--pink-border);color:#f9a8d4">fn</div>
+          <div><div class="tool-name" style="color:#f9a8d4">registrar_promesa</div>
+          <div class="tool-desc">Registra fecha de pago prometida. Programa recordatorio D-1 y mensaje día D en Cloud Scheduler. Marca conversación como snoozed en Chatwoot.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SERVICIOS GCP -->
+    <div class="section">
+      <div class="section-label">04 — Servicios GCP utilizados</div>
+      <div class="grid-3">
+        <div class="service-card">
+          <div class="service-label" style="background:var(--blue-dim);border:1px solid var(--blue-border);color:#7db9ff">compute</div>
+          <div class="service-name">VM Instance</div>
+          <div class="service-desc">e2-standard-2 · Chatwoot self-hosted via Docker · Ubuntu 22.04</div>
+        </div>
+        <div class="service-card">
+          <div class="service-label" style="background:var(--purple-dim);border:1px solid var(--purple-border);color:#c4b5fd">serverless</div>
+          <div class="service-name">Cloud Run</div>
+          <div class="service-desc">Receptor (stateless, min 0) + Procesador (timeout 5min) · Escala automático</div>
+        </div>
+        <div class="service-card">
+          <div class="service-label" style="background:var(--amber-dim);border:1px solid var(--amber-border);color:#fcd34d">queue</div>
+          <div class="service-name">Cloud Tasks</div>
+          <div class="service-desc">Una cola por conversation_id · Serialización · Retry con backoff exponencial</div>
+        </div>
+        <div class="service-card">
+          <div class="service-label" style="background:var(--green-dim);border:1px solid var(--green-border);color:#6ee7b7">database</div>
+          <div class="service-name">Firestore</div>
+          <div class="service-desc">Historial de chat · Locks de conversación · Idempotency keys · Promesas conversacionales</div>
+        </div>
+        <div class="service-card">
+          <div class="service-label" style="background:var(--green-dim);border:1px solid var(--green-border);color:#6ee7b7">database</div>
+          <div class="service-name">Cloud SQL</div>
+          <div class="service-desc">PostgreSQL · Clientes, consumidores, facturas, pagos, estados, métricas</div>
+        </div>
+        <div class="service-card">
+          <div class="service-label" style="background:var(--blue-dim);border:1px solid var(--blue-border);color:#7db9ff">storage</div>
+          <div class="service-name">Cloud Storage</div>
+          <div class="service-desc">Comprobantes · Facturas PDF · Recibos · Certs ARCA · Signed URLs por cliente</div>
+        </div>
+        <div class="service-card">
+          <div class="service-label" style="background:var(--teal-dim);border:1px solid var(--teal-border);color:#5eead4">scheduler</div>
+          <div class="service-name">Cloud Scheduler</div>
+          <div class="service-desc">Cadencias proactivas · Recordatorios de promesa D-1 y día D · Seguimiento de mora</div>
+        </div>
+        <div class="service-card">
+          <div class="service-label" style="background:var(--coral-dim);border:1px solid var(--coral-border);color:#fca5a5">ai</div>
+          <div class="service-name">Claude API</div>
+          <div class="service-desc">claude-sonnet-4 · Tool use nativo · Visión · Razonamiento · Decisiones</div>
+        </div>
+        <div class="service-card">
+          <div class="service-label" style="background:var(--teal-dim);border:1px solid var(--teal-border);color:#5eead4">messaging</div>
+          <div class="service-name">Chatwoot</div>
+          <div class="service-desc">Self-hosted · Inbox multi-canal · Handoff humano/bot · API para automatización</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DEMO vs PROD -->
+    <div class="section">
+      <div class="section-label">05 — Demo vs Producción</div>
+      <div class="compare-row">
+        <div class="compare-card" style="background:var(--amber-dim);border:1px solid var(--amber-border)">
+          <div class="compare-label" style="color:#fcd34d"><span style="width:6px;height:6px;border-radius:50%;background:#fcd34d;display:inline-block"></span>Demo</div>
+          <div class="compare-item">Evolution API (WhatsApp)</div>
+          <div class="compare-item">Número de demo dedicado</div>
+          <div class="compare-item">RPA bancario Mac Mini</div>
+          <div class="compare-item">ARCA API (Bull Forward SRL demo)</div>
+          <div class="compare-item">Flujo hardcodeado (método 1)</div>
+          <div class="compare-item">Cadencias en minutos</div>
+          <div class="compare-item">Sin templates Meta aprobados</div>
+        </div>
+        <div class="compare-card" style="background:var(--green-dim);border:1px solid var(--green-border)">
+          <div class="compare-label" style="color:#6ee7b7"><span style="width:6px;height:6px;border-radius:50%;background:#6ee7b7;display:inline-block"></span>Producción</div>
+          <div class="compare-item">Meta Cloud API oficial</div>
+          <div class="compare-item">Número productivo verificado</div>
+          <div class="compare-item">API bancaria real</div>
+          <div class="compare-item">ARCA API por cliente (multi-tenant)</div>
+          <div class="compare-item">Tool use loop (método 4)</div>
+          <div class="compare-item">Cadencias configurables por cliente</div>
+          <div class="compare-item">Templates aprobados Meta</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     PAGE 2: ARQUITECTURA DE AXEL
+══════════════════════════════════ -->
+<div id="page-arq" class="page">
+  <div class="page-header">
+    <div class="page-header-tag">Arquitectura técnica · Axel · v1.0</div>
+    <h1>Arquitectura de <span>Axel</span><br>Flujos de cobranza</h1>
+    <p>Demo · MVP · Promesa de pago · Seguimiento · Tool Use Loop</p>
+  </div>
+  <div class="container">
+
+    <!-- FLUJO DETALLADO con tabs -->
+    <div class="section">
+      <div class="section-label">04 — Flujo detallado de una cobranza</div>
+
+      <div style="display:flex;gap:8px;margin-bottom:24px;flex-wrap:wrap">
+        <button onclick="showFlowTab('demo')" id="tab-demo"
+          style="font-family:'DM Mono',monospace;font-size:11px;padding:8px 20px;border-radius:6px;border:1px solid var(--amber-border);background:var(--amber-dim);color:#fcd34d;cursor:pointer;letter-spacing:0.06em">● DEMO</button>
+        <button onclick="showFlowTab('mvp')" id="tab-mvp"
+          style="font-family:'DM Mono',monospace;font-size:11px;padding:8px 20px;border-radius:6px;border:1px solid var(--border);background:transparent;color:var(--muted2);cursor:pointer;letter-spacing:0.06em">○ MVP</button>
+        <button onclick="showFlowTab('promesa')" id="tab-promesa"
+          style="font-family:'DM Mono',monospace;font-size:11px;padding:8px 20px;border-radius:6px;border:1px solid var(--border);background:transparent;color:var(--muted2);cursor:pointer;letter-spacing:0.06em">○ Promesa de pago</button>
+        <button onclick="showFlowTab('seguimiento')" id="tab-seguimiento"
+          style="font-family:'DM Mono',monospace;font-size:11px;padding:8px 20px;border-radius:6px;border:1px solid var(--border);background:transparent;color:var(--muted2);cursor:pointer;letter-spacing:0.06em">○ Seguimiento</button>
+      </div>
+
+      <!-- DEMO -->
+      <div id="flow-demo" style="display:flex;flex-direction:column;gap:0">
+        <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--muted2);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:12px;padding:6px 12px;background:var(--amber-dim);border:1px solid var(--amber-border);border-radius:6px;display:inline-block">→ CASO A: Axel contacta primero (outbound)</div>
+        <div class="flow-step">
+          <div class="step-num" style="background:var(--blue-dim);border:1px solid var(--blue-border);color:#7db9ff">01</div>
+          <div class="step-body">
+            <div class="step-title">Alta del consumidor en el formulario</div>
+            <div class="step-desc">El equipo de A Team carga el consumidor: nombre, CUIT, servicio adeudado, monto, email y WhatsApp.<br>Cloud SQL registra con estado → <strong style="color:#fcd34d">Pendiente de Contacto</strong>. Evolution API activa.</div>
+            <div class="step-tags"><span class="step-tag">Cloud SQL</span><span class="step-tag">formulario interno</span><span class="step-tag">Evolution API</span></div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="step-num" style="background:var(--amber-dim);border:1px solid var(--amber-border);color:#fcd34d">02</div>
+          <div class="step-body">
+            <div class="step-title">Axel contacta al consumidor — 1er mensaje</div>
+            <div class="step-desc">Cloud Scheduler dispara 1 minuto después del alta. Axel llama a <strong>generar_link_pago</strong> y envía el primer mensaje con saludo, deuda, <strong style="color:#f9a8d4">link de pago personalizado</strong> y pedido de comprobante.<br>Estado → <strong style="color:#fcd34d">Contactado — Esperando Respuesta</strong>.</div>
+            <div class="step-tags"><span class="step-tag">Cloud Scheduler</span><span class="step-tag">generar_link_pago</span><span class="step-tag">Chatwoot</span><span class="step-tag">Evolution API</span></div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="step-num" style="background:var(--purple-dim);border:1px solid var(--purple-border);color:#c4b5fd">03</div>
+          <div class="step-body">
+            <div class="step-title">Sin respuesta → 2do seguimiento</div>
+            <div class="step-desc">Después de N horas, tono más directo. Reenvía <strong style="color:#f9a8d4">link de pago</strong> regenerado.<br>Estado → <strong style="color:#fcd34d">2do Seguimiento Enviado</strong>.</div>
+            <div class="step-tags"><span class="step-tag">Cloud Scheduler</span><span class="step-tag">generar_link_pago</span><span class="step-tag">cadencia automática</span></div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="step-num" style="background:var(--purple-dim);border:1px solid var(--purple-border);color:#c4b5fd">04</div>
+          <div class="step-body">
+            <div class="step-title">Sin respuesta → 3er seguimiento → escala</div>
+            <div class="step-desc">Tono urgente. Último <strong style="color:#f9a8d4">link de pago</strong>. Sin respuesta → Claude llama a <strong>escalar_a_humano</strong>.<br>Estado → <strong style="color:#fca5a5">Escalado — Sin Respuesta</strong>.</div>
+            <div class="step-tags"><span class="step-tag">Cloud Scheduler</span><span class="step-tag">generar_link_pago</span><span class="step-tag">escalar_a_humano</span><span class="step-tag">Chatwoot handoff</span></div>
+          </div>
+        </div>
+        <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--muted2);letter-spacing:0.15em;text-transform:uppercase;margin:20px 0 12px;padding:6px 12px;background:var(--teal-dim);border:1px solid var(--teal-border);border-radius:6px;display:inline-block">→ CASO B: El consumidor escribe primero (inbound)</div>
+        <div class="flow-step">
+          <div class="step-num" style="background:var(--teal-dim);border:1px solid var(--teal-border);color:#5eead4">05</div>
+          <div class="step-body">
+            <div class="step-title">El consumidor responde o escribe primero</div>
+            <div class="step-desc">Chatwoot recibe → webhook al Receptor → valida idempotency via message_id → encola en Cloud Tasks.<br>Si manda dos mensajes seguidos, la cola los procesa en orden sin duplicar.</div>
+            <div class="step-tags"><span class="step-tag">Cloud Run receptor</span><span class="step-tag">Cloud Tasks</span><span class="step-tag">Firestore idempotency</span></div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="step-num" style="background:var(--coral-dim);border:1px solid var(--coral-border);color:#fca5a5">06</div>
+          <div class="step-body">
+            <div class="step-title">Axel procesa y responde — tool use loop</div>
+            <div class="step-desc">Procesador adquiere lock → recupera historial → llama a Claude con tools.<br>Claude detecta intención: duda, pide datos de pago, promete pagar, manda comprobante.<br>Estado → <strong style="color:#fcd34d">En Conversación</strong>.</div>
+            <div class="step-tags"><span class="step-tag">Cloud Run procesador</span><span class="step-tag">Claude API</span><span class="step-tag">tool use loop</span><span class="step-tag">Firestore lock</span></div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="step-num" style="background:var(--green-dim);border:1px solid var(--green-border);color:#6ee7b7">07</div>
+          <div class="step-body">
+            <div class="step-title">El consumidor manda el comprobante</div>
+            <div class="step-desc">Cloud Run descarga imagen de Meta API → sube a Cloud Storage → URL permanente en Firestore.<br>Claude analiza visualmente → llama a <strong>validar_comprobante</strong> → cruza contra deuda esperada en Cloud SQL.<br>Estado → <strong style="color:#fcd34d">Comprobante en Verificación</strong>.</div>
+            <div class="step-tags"><span class="step-tag">Cloud Storage</span><span class="step-tag">Claude visión</span><span class="step-tag">validar_comprobante</span><span class="step-tag">RPA bancario</span></div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="step-num" style="background:var(--green-dim);border:1px solid var(--green-border);color:#6ee7b7">08a</div>
+          <div class="step-body">
+            <div class="step-title">✓ Pago validado → recibo de A Team</div>
+            <div class="step-desc">RPA confirma acreditación → Claude llama a <strong>emitir_recibo</strong> → genera recibo A Team → envía por WhatsApp y email.<br>Estado → <strong style="color:#6ee7b7">Pagado — Confirmado</strong>. Caso cerrado.</div>
+            <div class="step-tags"><span class="step-tag">emitir_recibo</span><span class="step-tag">recibo A Team</span><span class="step-tag">Cloud Storage</span><span class="step-tag">Cloud SQL</span></div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="step-num" style="background:var(--coral-dim);border:1px solid var(--coral-border);color:#fca5a5">08b</div>
+          <div class="step-body">
+            <div class="step-title">✗ Pago no identificado → escala</div>
+            <div class="step-desc">RPA no puede validar → Claude llama a <strong>escalar_a_humano</strong> con motivo del fallo → Chatwoot handoff → notificación al equipo.<br>Estado → <strong style="color:#fca5a5">Pago en Revisión Manual</strong>.</div>
+            <div class="step-tags"><span class="step-tag">escalar_a_humano</span><span class="step-tag">Chatwoot handoff</span><span class="step-tag">notificación equipo</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MVP -->
+      <div id="flow-mvp" style="display:none;flex-direction:column;gap:0">
+        <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--muted2);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:12px;padding:6px 12px;background:var(--green-dim);border:1px solid var(--green-border);border-radius:6px;display:inline-block">Meta Cloud API oficial · ARCA API directa · Tool Use Loop completo</div>
+        <div class="flow-step">
+          <div class="step-num" style="background:var(--blue-dim);border:1px solid var(--blue-border);color:#7db9ff">01</div>
+          <div class="step-body">
+            <div class="step-title">Alta + emisión fiscal automática vía ARCA</div>
+            <div class="step-desc">Cloud Function llama a ARCA API REST con certificado digital del cliente.<br>Determina tipo: Factura B (CF) o Factura C (Mono/RI). Obtiene CAE → genera PDF → Cloud Storage → email.<br>Estado → <strong style="color:#fcd34d">Factura Emitida</strong>.</div>
+            <div class="step-tags"><span class="step-tag">Cloud SQL</span><span class="step-tag">ARCA API REST</span><span class="step-tag">certificado digital</span><span class="step-tag">Cloud Storage</span><span class="step-tag">Gmail SMTP</span></div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="step-num" style="background:var(--amber-dim);border:1px solid var(--amber-border);color:#fcd34d">02</div>
+          <div class="step-body">
+            <div class="step-title">Axel contacta al consumidor — 1er mensaje (outbound)</div>
+            <div class="step-desc">Axel llama a <strong>generar_link_pago</strong> → envía mensaje con <strong style="color:#f9a8d4">link de pago personalizado</strong> + factura PDF adjunta.<br>Meta Cloud API oficial con template aprobado.<br>Estado → <strong style="color:#fcd34d">Contactado — Esperando Respuesta</strong>.</div>
+            <div class="step-tags"><span class="step-tag">Cloud Scheduler</span><span class="step-tag">generar_link_pago</span><span class="step-tag">Meta Cloud API</span><span class="step-tag">template aprobado</span></div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="step-num" style="background:var(--purple-dim);border:1px solid var(--purple-border);color:#c4b5fd">03</div>
+          <div class="step-body">
+            <div class="step-title">Cadencia automática 2do y 3er seguimiento</div>
+            <div class="step-desc">2do mensaje: recordatorio directo + <strong style="color:#f9a8d4">link de pago</strong> regenerado.<br>3er mensaje: aviso derivación legal + último <strong style="color:#f9a8d4">link de pago</strong>.<br>Sin respuesta → escala. Estado: <strong style="color:#fcd34d">2do</strong> → <strong style="color:#fcd34d">3er</strong> → <strong style="color:#fca5a5">Escalado</strong>.</div>
+            <div class="step-tags"><span class="step-tag">Cloud Scheduler</span><span class="step-tag">generar_link_pago</span><span class="step-tag">cadencia configurable</span><span class="step-tag">escalar_a_humano</span></div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="step-num" style="background:var(--teal-dim);border:1px solid var(--teal-border);color:#5eead4">04</div>
+          <div class="step-body">
+            <div class="step-title">El consumidor responde (inbound)</div>
+            <div class="step-desc">Meta Cloud API → Chatwoot → webhook → Receptor → idempotency → Cloud Tasks.<br>Si ya fue contactado antes, Claude recupera historial completo y continúa en contexto.</div>
+            <div class="step-tags"><span class="step-tag">Meta Cloud API</span><span class="step-tag">Cloud Run receptor</span><span class="step-tag">Cloud Tasks</span><span class="step-tag">Firestore idempotency</span></div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="step-num" style="background:var(--coral-dim);border:1px solid var(--coral-border);color:#fca5a5">05</div>
+          <div class="step-body">
+            <div class="step-title">Axel procesa — tool use loop completo</div>
+            <div class="step-desc">
+              Claude analiza intención y decide:<br>
+              → Duda → responde con contexto de la factura<br>
+              → Pide cómo pagar → <strong>buscar_factura</strong> + <strong>generar_link_pago</strong><br>
+              → Promete pagar → <strong>registrar_promesa</strong><br>
+              → Manda comprobante → <strong>validar_comprobante</strong><br>
+              → Situación compleja → <strong>escalar_a_humano</strong>
+            </div>
+            <div class="step-tags"><span class="step-tag">Cloud Run procesador</span><span class="step-tag">Claude API</span><span class="step-tag">tool use loop</span><span class="step-tag">Firestore lock</span></div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="step-num" style="background:var(--green-dim);border:1px solid var(--green-border);color:#6ee7b7">06</div>
+          <div class="step-body">
+            <div class="step-title">El consumidor manda el comprobante</div>
+            <div class="step-desc">Meta API → Cloud Run descarga → Cloud Storage → Claude analiza → extrae monto, alias, fecha, nro de operación.<br>Llama a <strong>validar_comprobante</strong> → API bancaria verifica acreditación real.<br>Estado → <strong style="color:#fcd34d">Comprobante en Verificación</strong>.</div>
+            <div class="step-tags"><span class="step-tag">Cloud Storage</span><span class="step-tag">Claude visión</span><span class="step-tag">validar_comprobante</span><span class="step-tag">API bancaria</span></div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="step-num" style="background:var(--green-dim);border:1px solid var(--green-border);color:#6ee7b7">07a</div>
+          <div class="step-body">
+            <div class="step-title">✓ Pago validado → recibo A Team + factura ARCA</div>
+            <div class="step-desc">API bancaria confirma → Claude llama a <strong>emitir_recibo</strong> → recibo A Team + factura fiscal ARCA (B o C).<br>Ambos documentos por WhatsApp y email.<br>Estado → <strong style="color:#6ee7b7">Pagado — Confirmado y Facturado</strong>. Caso cerrado.</div>
+            <div class="step-tags"><span class="step-tag">emitir_recibo</span><span class="step-tag">ARCA API REST</span><span class="step-tag">Factura B / C</span><span class="step-tag">Cloud SQL</span></div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="step-num" style="background:var(--coral-dim);border:1px solid var(--coral-border);color:#fca5a5">07b</div>
+          <div class="step-body">
+            <div class="step-title">✗ Pago no validado → escala con contexto</div>
+            <div class="step-desc">API bancaria no confirma → Claude llama a <strong>escalar_a_humano</strong> con historial completo e imagen del comprobante.<br>Agente resuelve desde Chatwoot. Estado → <strong style="color:#fca5a5">Pago en Revisión Manual</strong>.</div>
+            <div class="step-tags"><span class="step-tag">escalar_a_humano</span><span class="step-tag">Chatwoot handoff</span><span class="step-tag">notificación equipo</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROMESA -->
+      <div id="flow-promesa" style="display:none;flex-direction:column;gap:0">
+        <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--muted2);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:12px;padding:6px 12px;background:var(--purple-dim);border:1px solid var(--purple-border);border-radius:6px;display:inline-block">El consumidor dice que va a pagar en una fecha futura</div>
+        <div class="flow-step">
+          <div class="step-num" style="background:var(--purple-dim);border:1px solid var(--purple-border);color:#c4b5fd">01</div>
+          <div class="step-body">
+            <div class="step-title">Claude detecta la intención de promesa</div>
+            <div class="step-desc">"te pago el viernes", "la próxima semana lo cancelo", etc.<br>Claude detecta la intención → llama a <strong>registrar_promesa</strong> → le pide al consumidor que confirme la fecha exacta.</div>
+            <div class="step-tags"><span class="step-tag">Claude intención</span><span class="step-tag">registrar_promesa</span><span class="step-tag">tool use loop</span></div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="step-num" style="background:var(--purple-dim);border:1px solid var(--purple-border);color:#c4b5fd">02</div>
+          <div class="step-body">
+            <div class="step-title">Consumidor confirma la fecha → snoozed</div>
+            <div class="step-desc">Claude parsea la fecha → llama a <strong>registrar_promesa</strong>:<br>→ Guarda en Cloud SQL + Firestore (fecha, monto, frase original, timestamps D-1 y día D)<br>→ Programa en Cloud Scheduler<br>→ Marca conversación como <strong>snoozed</strong> en Chatwoot<br>Estado → <strong style="color:#c4b5fd">Promesa Registrada</strong>.</div>
+            <div class="step-tags"><span class="step-tag">registrar_promesa</span><span class="step-tag">Cloud SQL</span><span class="step-tag">Firestore</span><span class="step-tag">Cloud Scheduler</span><span class="step-tag">Chatwoot snoozed</span></div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="step-num" style="background:var(--amber-dim);border:1px solid var(--amber-border);color:#fcd34d">03</div>
+          <div class="step-body">
+            <div class="step-title">D-1: recordatorio el día anterior</div>
+            <div class="step-desc">Cloud Scheduler dispara → Chatwoot unsnoozed → Axel llama a <strong>generar_link_pago</strong> → manda recordatorio amigable con <strong style="color:#f9a8d4">link de pago</strong> actualizado.<br>Estado → <strong style="color:#fcd34d">Recordatorio D-1 Enviado</strong>.</div>
+            <div class="step-tags"><span class="step-tag">Cloud Scheduler</span><span class="step-tag">generar_link_pago</span><span class="step-tag">Chatwoot unsnoozed</span></div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="step-num" style="background:var(--amber-dim);border:1px solid var(--amber-border);color:#fcd34d">04</div>
+          <div class="step-body">
+            <div class="step-title">Día D: Axel pregunta si ya pagó</div>
+            <div class="step-desc">Cloud Scheduler dispara a las 10:00 AM → Axel llama a <strong>generar_link_pago</strong> → mensaje directo: hoy es la fecha acordada + <strong style="color:#f9a8d4">link de pago</strong> + pedido de comprobante.<br>Estado → <strong style="color:#fcd34d">Seguimiento Día D Enviado</strong>. Espera N horas.</div>
+            <div class="step-tags"><span class="step-tag">Cloud Scheduler</span><span class="step-tag">generar_link_pago</span><span class="step-tag">mensaje día D</span></div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="step-num" style="background:var(--green-dim);border:1px solid var(--green-border);color:#6ee7b7">05a</div>
+          <div class="step-body">
+            <div class="step-title">✓ Consumidor cumple → manda comprobante</div>
+            <div class="step-desc">Continúa el flujo principal de validación → emite recibo → caso cerrado.<br>Estado → <strong style="color:#6ee7b7">Promesa Cumplida — Pagado</strong>.</div>
+            <div class="step-tags"><span class="step-tag">validar_comprobante</span><span class="step-tag">emitir_recibo</span><span class="step-tag">Cloud SQL</span></div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="step-num" style="background:var(--coral-dim);border:1px solid var(--coral-border);color:#fca5a5">05b</div>
+          <div class="step-body">
+            <div class="step-title">✗ Consumidor no cumple → promesa rota → escala inmediato</div>
+            <div class="step-desc">No llegó comprobante → Axel registra promesa como rota en Cloud SQL.<br>Llama a <strong>escalar_a_humano</strong> con fecha prometida, historial e imagen del comprobante si había.<br><strong>Tag "Promesa Rota"</strong> en Cloud SQL → visible en Dashboard con filtro específico.<br>Estado → <strong style="color:#fca5a5">Promesa Rota — Escalado</strong>. Notificación prioritaria al equipo.</div>
+            <div class="step-tags"><span class="step-tag">escalar_a_humano</span><span class="step-tag">tag Promesa Rota</span><span class="step-tag">Dashboard flag</span><span class="step-tag">Cloud SQL</span><span class="step-tag">notificación prioritaria</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SEGUIMIENTO -->
+      <div id="flow-seguimiento" style="display:none;flex-direction:column;gap:0">
+        <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--muted2);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:12px;padding:6px 12px;background:var(--teal-dim);border:1px solid var(--teal-border);border-radius:6px;display:inline-block">Seguimiento activo de todos los casos en curso</div>
+        <div class="flow-step">
+          <div class="step-num" style="background:var(--teal-dim);border:1px solid var(--teal-border);color:#5eead4">01</div>
+          <div class="step-body">
+            <div class="step-title">Cloud Scheduler evalúa el estado de cada conversación</div>
+            <div class="step-desc">Corre cada N horas. Cloud Function consulta en Cloud SQL todos los consumidores activos:<br>→ <strong style="color:#fcd34d">Sin Respuesta</strong>: evalúa si corresponde 2do o 3er seguimiento<br>→ <strong style="color:#c4b5fd">Promesa Registrada</strong>: evalúa si es D-1 o día D<br>→ <strong style="color:#fcd34d">Comprobante en Verificación</strong>: chequea si la API bancaria respondió<br>→ <strong style="color:#fca5a5">Escalado</strong>: no toca, está con el equipo humano</div>
+            <div class="step-tags"><span class="step-tag">Cloud Scheduler</span><span class="step-tag">Cloud Function</span><span class="step-tag">Cloud SQL query</span></div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="step-num" style="background:var(--teal-dim);border:1px solid var(--teal-border);color:#5eead4">02</div>
+          <div class="step-body">
+            <div class="step-title">Mapa de estados y transiciones</div>
+            <div class="step-desc">
+              <strong style="color:#fcd34d">pendiente_contacto</strong> → Axel envía 1er mensaje<br>
+              <strong style="color:#fcd34d">contactado</strong> → espera N horas → 2do seguimiento<br>
+              <strong style="color:#fcd34d">2do_seguimiento</strong> → espera N horas → 3er seguimiento<br>
+              <strong style="color:#fcd34d">3er_seguimiento</strong> → espera N horas → escala<br>
+              <strong style="color:#c4b5fd">promesa_registrada</strong> → snoozed → D-1 → día D → check<br>
+              <strong style="color:#fcd34d">en_conversacion</strong> → Axel responde en tiempo real<br>
+              <strong style="color:#fcd34d">comprobante_recibido</strong> → valida → OK o escala<br>
+              <strong style="color:#6ee7b7">pagado</strong> → caso cerrado, no toca<br>
+              <strong style="color:#fca5a5">escalado / promesa_rota</strong> → humano, no toca
+            </div>
+            <div class="step-tags"><span class="step-tag">Cloud SQL estados</span><span class="step-tag">máquina de estados</span><span class="step-tag">transiciones automáticas</span></div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="step-num" style="background:var(--teal-dim);border:1px solid var(--teal-border);color:#5eead4">03</div>
+          <div class="step-body">
+            <div class="step-title">Dashboard — visibilidad en tiempo real</div>
+            <div class="step-desc">Filtros disponibles:<br>→ <strong style="color:#fca5a5">Promesa Rota</strong>: lista priorizada para gestión legal<br>→ <strong style="color:#fca5a5">Escalado — Sin Respuesta</strong>: intervención humana<br>→ <strong style="color:#c4b5fd">Promesa Registrada</strong>: compromisos futuros con fecha<br>→ <strong style="color:#fcd34d">En Cadencia</strong>: Axel manejando solos<br>→ <strong style="color:#6ee7b7">Pagados hoy</strong>: cobros del día<br>Métricas: tasa de respuesta, tasa de pago, promesas cumplidas vs rotas, tiempo promedio.</div>
+            <div class="step-tags"><span class="step-tag">Dashboard</span><span class="step-tag">Cloud SQL</span><span class="step-tag">filtros por estado</span><span class="step-tag">métricas</span></div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="step-num" style="background:var(--teal-dim);border:1px solid var(--teal-border);color:#5eead4">04</div>
+          <div class="step-body">
+            <div class="step-title">Notificaciones proactivas al equipo</div>
+            <div class="step-desc">
+              → <strong style="color:#fca5a5">Promesa rota</strong>: notificación prioritaria inmediata con nombre, monto e historial<br>
+              → <strong style="color:#fca5a5">Escalado por sin respuesta</strong>: notificación al canal del equipo<br>
+              → <strong style="color:#fca5a5">Comprobante no validado</strong>: revisión manual urgente<br>
+              → <strong style="color:#6ee7b7">Pago confirmado</strong>: resumen diario de cobros<br>
+              Canal: WhatsApp interno del equipo vía Chatwoot o email.
+            </div>
+            <div class="step-tags"><span class="step-tag">notificaciones</span><span class="step-tag">WhatsApp interno</span><span class="step-tag">email equipo</span><span class="step-tag">resumen diario</span></div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="step-num" style="background:var(--teal-dim);border:1px solid var(--teal-border);color:#5eead4">05</div>
+          <div class="step-body">
+            <div class="step-title">Agente humano retoma desde Chatwoot</div>
+            <div class="step-desc">El agente ve en Chatwoot: todos los mensajes, motivo del escalamiento, cantidad de intentos y deuda pendiente.<br>Puede resolver, cerrar o derivar a gestión legal desde Chatwoot.<br>Al cerrar → actualiza estado en Cloud SQL → queda en el Dashboard.</div>
+            <div class="step-tags"><span class="step-tag">Chatwoot handoff</span><span class="step-tag">historial completo</span><span class="step-tag">resolución manual</span><span class="step-tag">Cloud SQL cierre</span></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     PAGE 3: TABLAS
+══════════════════════════════════ -->
+<div id="page-tablas" class="page">
+  <div class="page-header">
+    <div class="page-header-tag">Arquitectura de datos · v2.0 — revisado</div>
+    <h1>Esquema de <em>tablas</em><br>y colecciones</h1>
+    <p>Cloud SQL (PostgreSQL) para datos de negocio · Firestore para conversaciones y promesas · Cloud Storage para archivos</p>
+    <div class="legend">
+      <div class="legend-item"><span class="legend-badge b-pk">PK</span> Primary Key</div>
+      <div class="legend-item"><span class="legend-badge b-fk">FK</span> Foreign Key</div>
+      <div class="legend-item"><span class="legend-badge b-idx">IX</span> Index</div>
+      <div class="legend-item"><span class="legend-badge b-req">●</span> Requerido</div>
+      <div class="legend-item"><span class="legend-badge b-opt">○</span> Opcional</div>
+      <div class="legend-item"><span class="legend-badge b-js">{ }</span> JSONB</div>
+    </div>
+  </div>
+  <div class="container">
+
+    <!-- DECISIONES -->
+    <div class="section">
+      <div class="section-header">
+        <span class="section-badge" style="background:rgba(251,191,36,0.08);border:1px solid rgba(251,191,36,0.25);color:#fbbf24">Decisiones de diseño</span>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px">
+        <div style="padding:14px 16px;background:var(--bg2);border:1px solid var(--border2);border-radius:8px">
+          <div style="font-size:10px;font-weight:600;color:#f87171;margin-bottom:6px">✗ Sin tabla links_pago</div>
+          <div style="font-size:9px;color:var(--muted2);line-height:1.8">Links generados on-the-fly en runtime: <code style="color:var(--sql-h)">factura.monto</code> + <code style="color:var(--sql-h)">cuentas_recaudadoras.cvu</code>. No hay estado nuevo que persistir.</div>
+        </div>
+        <div style="padding:14px 16px;background:var(--bg2);border:1px solid var(--border2);border-radius:8px">
+          <div style="font-size:10px;font-weight:600;color:#34d399;margin-bottom:6px">✓ consumidores_clientes necesaria</div>
+          <div style="font-size:9px;color:var(--muted2);line-height:1.8">Un consumidor puede deber a múltiples clientes de A Team. El estado de cobranza vive en la join table por relación, no global.</div>
+        </div>
+        <div style="padding:14px 16px;background:var(--bg2);border:1px solid var(--border2);border-radius:8px">
+          <div style="font-size:10px;font-weight:600;color:#34d399;margin-bottom:6px">✓ Promesas: modelo híbrido</div>
+          <div style="font-size:9px;color:var(--muted2);line-height:1.8">Firestore guarda la promesa conversacional completa para Axel. Cloud SQL guarda solo el resumen (fecha, monto, estado) para el Dashboard.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CLOUD SQL -->
+    <div class="section">
+      <div class="section-header">
+        <span class="section-badge" style="background:var(--sql-b);border:1px solid var(--sql-br);color:var(--sql-h)">Cloud SQL · PostgreSQL</span>
+        <span class="section-title">Datos de negocio</span>
+        <span class="section-desc">7 tablas · multi-tenant SaaS</span>
+      </div>
+
+      <!-- clientes + cuentas_recaudadoras -->
+      <div class="table-grid tg-2" style="margin-bottom:16px">
+        <div class="tcard" style="border-color:var(--sql-br)">
+          <div class="tcard-header" style="background:var(--sql-b)">
+            <span class="tcard-name" style="color:var(--sql-h)">clientes</span>
+            <span class="tcard-tag" style="background:var(--sql-b);border:1px solid var(--sql-br);color:var(--sql-h)">tenant raíz</span>
+          </div>
+          <div class="fields">
+            <div class="field"><span class="field-badge b-pk">PK</span><span class="field-name">id <span>uuid</span></span><span class="field-type">UUID</span></div>
+            <div class="field-section">identidad</div>
+            <div class="field"><span class="field-badge b-req">●</span><span class="field-name">razon_social</span><span class="field-type">VARCHAR(200)</span></div>
+            <div class="field"><span class="field-badge b-req">●</span><span class="field-name">cuit</span><span class="field-type">VARCHAR(13)</span></div>
+            <div class="field"><span class="field-badge b-req">●</span><span class="field-name">email_admin</span><span class="field-type">VARCHAR(255)</span></div>
+            <div class="field"><span class="field-badge b-opt">○</span><span class="field-name">telefono</span><span class="field-type">VARCHAR(20)</span></div>
+            <div class="field-section">ARCA / fiscal</div>
+            <div class="field"><span class="field-badge b-req">●</span><span class="field-name">arca_cert_path <span>Cloud Storage</span></span><span class="field-type">TEXT</span></div>
+            <div class="field"><span class="field-badge b-req">●</span><span class="field-name">arca_clave_path</span><span class="field-type">TEXT</span></div>
+            <div class="field"><span class="field-badge b-req">●</span><span class="field-name">condicion_iva <span>RI / Mono / CF</span></span><span class="field-type">ENUM</span></div>
+            <div class="field-section">configuración Axel</div>
+            <div class="field"><span class="field-badge b-js">{ }</span><span class="field-name">config_cadencia <span>horas entre msgs</span></span><span class="field-type">JSONB</span></div>
+            <div class="field"><span class="field-badge b-opt">○</span><span class="field-name">whatsapp_notif <span>equipo interno</span></span><span class="field-type">VARCHAR(20)</span></div>
+            <div class="field"><span class="field-badge b-req">●</span><span class="field-name">activo</span><span class="field-type">BOOLEAN</span></div>
+            <div class="field"><span class="field-badge b-req">●</span><span class="field-name">created_at</span><span class="field-type">TIMESTAMPTZ</span></div>
+          </div>
+          <div class="tcard-note"><strong>config_cadencia</strong>: <code>{"msg1_horas":1,"msg2_horas":24,"msg3_horas":72}</code></div>
+        </div>
+
+        <div class="tcard" style="border-color:var(--sql-br)">
+          <div class="tcard-header" style="background:var(--sql-b)">
+            <span class="tcard-name" style="color:var(--sql-h)">cuentas_recaudadoras</span>
+            <span class="tcard-tag" style="background:var(--sql-b);border:1px solid var(--sql-br);color:var(--sql-h)">CVU por cliente</span>
+          </div>
+          <div class="fields">
+            <div class="field"><span class="field-badge b-pk">PK</span><span class="field-name">id <span>uuid</span></span><span class="field-type">UUID</span></div>
+            <div class="field"><span class="field-badge b-fk">FK</span><span class="field-name">cliente_id</span><span class="field-type">UUID → clientes</span></div>
+            <div class="field-section">datos bancarios</div>
+            <div class="field"><span class="field-badge b-req">●</span><span class="field-name">cvu <span>22 dígitos</span></span><span class="field-type">VARCHAR(22)</span></div>
+            <div class="field"><span class="field-badge b-req">●</span><span class="field-name">alias</span><span class="field-type">VARCHAR(50)</span></div>
+            <div class="field"><span class="field-badge b-req">●</span><span class="field-name">banco <span>ej: Mercado Pago</span></span><span class="field-type">VARCHAR(100)</span></div>
+            <div class="field"><span class="field-badge b-req">●</span><span class="field-name">titular</span><span class="field-type">VARCHAR(200)</span></div>
+            <div class="field"><span class="field-badge b-req">●</span><span class="field-name">cuit_titular</span><span class="field-type">VARCHAR(13)</span></div>
+            <div class="field-section">estado</div>
+            <div class="field"><span class="field-badge b-req">●</span><span class="field-name">activa</span><span class="field-type">BOOLEAN</span></div>
+            <div class="field"><span class="field-badge b-req">●</span><span class="field-name">created_at</span><span class="field-type">TIMESTAMPTZ</span></div>
+          </div>
+          <div class="tcard-note"><strong>Cuenta central A Team</strong> con CVU único por cliente. Link de pago generado on-the-fly: <code>cvu + alias + monto</code>. Conciliación por CVU destino.</div>
+        </div>
+      </div>
+
+      <!-- consumidores -->
+      <div class="table-grid tg-1" style="margin-bottom:16px">
+        <div class="tcard" style="border-color:var(--sql-br)">
+          <div class="tcard-header" style="background:var(--sql-b)">
+            <span class="tcard-name" style="color:var(--sql-h)">consumidores</span>
+            <span class="tcard-tag" style="background:var(--sql-b);border:1px solid var(--sql-br);color:var(--sql-h)">identidad global · sin estado de cobranza</span>
+          </div>
+          <div class="fields" style="display:grid;grid-template-columns:1fr 1fr">
+            <div style="border-right:1px solid var(--border)">
+              <div class="field"><span class="field-badge b-pk">PK</span><span class="field-name">id <span>uuid</span></span><span class="field-type">UUID</span></div>
+              <div class="field"><span class="field-badge b-req">●</span><span class="field-name">nombre</span><span class="field-type">VARCHAR(200)</span></div>
+              <div class="field"><span class="field-badge b-req">●</span><span class="field-name">apellido</span><span class="field-type">VARCHAR(200)</span></div>
+              <div class="field"><span class="field-badge b-opt">○</span><span class="field-name">cuit <span>para ARCA</span></span><span class="field-type">VARCHAR(13)</span></div>
+              <div class="field"><span class="field-badge b-opt">○</span><span class="field-name">condicion_fiscal <span>CF/Mono/RI</span></span><span class="field-type">ENUM</span></div>
+            </div>
+            <div>
+              <div class="field"><span class="field-badge b-req">●</span><span class="field-name">email</span><span class="field-type">VARCHAR(255)</span></div>
+              <div class="field"><span class="field-badge b-idx">IX</span><span class="field-name">whatsapp <span>único</span></span><span class="field-type">VARCHAR(20)</span></div>
+              <div class="field"><span class="field-badge b-opt">○</span><span class="field-name">chatwoot_contact_id</span><span class="field-type">VARCHAR(50)</span></div>
+              <div class="field"><span class="field-badge b-req">●</span><span class="field-name">created_at</span><span class="field-type">TIMESTAMPTZ</span></div>
+            </div>
+          </div>
+          <div class="tcard-note">Solo <strong>identidad</strong>. Estado de cobranza y tag viven en <code>consumidores_clientes</code> porque son por relación. Un mismo consumidor puede tener estado "pagado" para Telecom y "escalado" para Movistar simultáneamente.</div>
+        </div>
+      </div>
+
+      <!-- consumidores_clientes + facturas -->
+      <div class="table-grid tg-2" style="margin-bottom:16px">
+        <div class="tcard" style="border-color:var(--sql-br)">
+          <div class="tcard-header" style="background:var(--sql-b)">
+            <span class="tcard-name" style="color:var(--sql-h)">consumidores_clientes</span>
+            <span class="tcard-tag" style="background:var(--sql-b);border:1px solid var(--sql-br);color:var(--sql-h)">estado por relación N:N</span>
+          </div>
+          <div class="fields">
+            <div class="field"><span class="field-badge b-pk">PK</span><span class="field-name">id <span>uuid</span></span><span class="field-type">UUID</span></div>
+            <div class="field"><span class="field-badge b-fk">FK</span><span class="field-name">consumidor_id</span><span class="field-type">UUID → consumidores</span></div>
+            <div class="field"><span class="field-badge b-fk">FK</span><span class="field-name">cliente_id</span><span class="field-type">UUID → clientes</span></div>
+            <div class="field-section">estado de cobranza por relación</div>
+            <div class="field"><span class="field-badge b-idx">IX</span><span class="field-name">estado_cobranza</span><span class="field-type">ENUM</span></div>
+            <div class="field"><span class="field-badge b-opt">○</span><span class="field-name">tag <span>promesa_rota / etc</span></span><span class="field-type">VARCHAR(50)</span></div>
+            <div class="field"><span class="field-badge b-opt">○</span><span class="field-name">intentos_contacto</span><span class="field-type">SMALLINT</span></div>
+            <div class="field"><span class="field-badge b-opt">○</span><span class="field-name">ultimo_contacto_at</span><span class="field-type">TIMESTAMPTZ</span></div>
+            <div class="field"><span class="field-badge b-opt">○</span><span class="field-name">chatwoot_conv_id</span><span class="field-type">VARCHAR(50)</span></div>
+            <div class="field"><span class="field-badge b-opt">○</span><span class="field-name">notas_internas</span><span class="field-type">TEXT</span></div>
+            <div class="field"><span class="field-badge b-req">●</span><span class="field-name">created_at</span><span class="field-type">TIMESTAMPTZ</span></div>
+          </div>
+          <div class="tcard-note"><strong>estado_cobranza</strong>: <code>pendiente_contacto · contactado · en_conversacion · comprobante_recibido · pagado · escalado · promesa_rota · cerrado</code></div>
+        </div>
+
+        <div class="tcard" style="border-color:var(--sql-br)">
+          <div class="tcard-header" style="background:var(--sql-b)">
+            <span class="tcard-name" style="color:var(--sql-h)">facturas</span>
+            <span class="tcard-tag" style="background:var(--sql-b);border:1px solid var(--sql-br);color:var(--sql-h)">deuda puntual o en cuotas</span>
+          </div>
+          <div class="fields">
+            <div class="field"><span class="field-badge b-pk">PK</span><span class="field-name">id <span>uuid</span></span><span class="field-type">UUID</span></div>
+            <div class="field"><span class="field-badge b-fk">FK</span><span class="field-name">cliente_id</span><span class="field-type">UUID → clientes</span></div>
+            <div class="field"><span class="field-badge b-fk">FK</span><span class="field-name">consumidor_id</span><span class="field-type">UUID → consumidores</span></div>
+            <div class="field-section">datos fiscales (MVP · ARCA)</div>
+            <div class="field"><span class="field-badge b-opt">○</span><span class="field-name">cae <span>código ARCA</span></span><span class="field-type">VARCHAR(14)</span></div>
+            <div class="field"><span class="field-badge b-opt">○</span><span class="field-name">tipo_comprobante <span>B / C</span></span><span class="field-type">ENUM</span></div>
+            <div class="field"><span class="field-badge b-opt">○</span><span class="field-name">nro_comprobante</span><span class="field-type">VARCHAR(20)</span></div>
+            <div class="field"><span class="field-badge b-opt">○</span><span class="field-name">pdf_path <span>Cloud Storage</span></span><span class="field-type">TEXT</span></div>
+            <div class="field-section">deuda</div>
+            <div class="field"><span class="field-badge b-req">●</span><span class="field-name">concepto</span><span class="field-type">VARCHAR(255)</span></div>
+            <div class="field"><span class="field-badge b-req">●</span><span class="field-name">monto_total</span><span class="field-type">NUMERIC(12,2)</span></div>
+            <div class="field"><span class="field-badge b-req">●</span><span class="field-name">tiene_cuotas</span><span class="field-type">BOOLEAN</span></div>
+            <div class="field"><span class="field-badge b-req">●</span><span class="field-name">fecha_emision</span><span class="field-type">DATE</span></div>
+            <div class="field"><span class="field-badge b-req">●</span><span class="field-name">fecha_vencimiento</span><span class="field-type">DATE</span></div>
+            <div class="field"><span class="field-badge b-idx">IX</span><span class="field-name">estado <span>pendiente/pagada/vencida</span></span><span class="field-type">ENUM</span></div>
+            <div class="field"><span class="field-badge b-req">●</span><span class="field-name">created_at</span><span class="field-type">TIMESTAMPTZ</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- cuotas + pagos -->
+      <div class="table-grid tg-2" style="margin-bottom:16px">
+        <div class="tcard" style="border-color:var(--sql-br)">
+          <div class="tcard-header" style="background:var(--sql-b)">
+            <span class="tcard-name" style="color:var(--sql-h)">cuotas</span>
+            <span class="tcard-tag" style="background:var(--sql-b);border:1px solid var(--sql-br);color:var(--sql-h)">hija de facturas</span>
+          </div>
+          <div class="fields">
+            <div class="field"><span class="field-badge b-pk">PK</span><span class="field-name">id <span>uuid</span></span><span class="field-type">UUID</span></div>
+            <div class="field"><span class="field-badge b-fk">FK</span><span class="field-name">factura_id</span><span class="field-type">UUID → facturas</span></div>
+            <div class="field"><span class="field-badge b-req">●</span><span class="field-name">numero <span>1, 2, 3...</span></span><span class="field-type">SMALLINT</span></div>
+            <div class="field"><span class="field-badge b-req">●</span><span class="field-name">monto</span><span class="field-type">NUMERIC(12,2)</span></div>
+            <div class="field"><span class="field-badge b-req">●</span><span class="field-name">fecha_vencimiento</span><span class="field-type">DATE</span></div>
+            <div class="field"><span class="field-badge b-idx">IX</span><span class="field-name">estado <span>pendiente/pagada/vencida</span></span><span class="field-type">ENUM</span></div>
+            <div class="field"><span class="field-badge b-opt">○</span><span class="field-name">pagada_at</span><span class="field-type">TIMESTAMPTZ</span></div>
+          </div>
+          <div class="tcard-note">Solo existe si <strong>factura.tiene_cuotas = true</strong>. El link de pago usa <code>cuota.monto</code>, no el total de la factura.</div>
+        </div>
+
+        <div class="tcard" style="border-color:var(--sql-br)">
+          <div class="tcard-header" style="background:var(--sql-b)">
+            <span class="tcard-name" style="color:var(--sql-h)">pagos</span>
+            <span class="tcard-tag" style="background:var(--sql-b);border:1px solid var(--sql-br);color:var(--sql-h)">confirmados</span>
+          </div>
+          <div class="fields">
+            <div class="field"><span class="field-badge b-pk">PK</span><span class="field-name">id <span>uuid</span></span><span class="field-type">UUID</span></div>
+            <div class="field"><span class="field-badge b-fk">FK</span><span class="field-name">factura_id</span><span class="field-type">UUID → facturas</span></div>
+            <div class="field"><span class="field-badge b-fk">FK</span><span class="field-name">cuota_id <span>null si puntual</span></span><span class="field-type">UUID → cuotas</span></div>
+            <div class="field"><span class="field-badge b-fk">FK</span><span class="field-name">consumidor_id</span><span class="field-type">UUID → consumidores</span></div>
+            <div class="field"><span class="field-badge b-req">●</span><span class="field-name">monto</span><span class="field-type">NUMERIC(12,2)</span></div>
+            <div class="field"><span class="field-badge b-req">●</span><span class="field-name">fecha_pago</span><span class="field-type">DATE</span></div>
+            <div class="field"><span class="field-badge b-opt">○</span><span class="field-name">comprobante_path <span>Cloud Storage</span></span><span class="field-type">TEXT</span></div>
+            <div class="field"><span class="field-badge b-opt">○</span><span class="field-name">nro_operacion <span>banco</span></span><span class="field-type">VARCHAR(50)</span></div>
+            <div class="field"><span class="field-badge b-opt">○</span><span class="field-name">cvu_origen</span><span class="field-type">VARCHAR(22)</span></div>
+            <div class="field"><span class="field-badge b-idx">IX</span><span class="field-name">estado <span>confirmado/rechazado</span></span><span class="field-type">ENUM</span></div>
+            <div class="field"><span class="field-badge b-opt">○</span><span class="field-name">validado_por <span>axel/humano</span></span><span class="field-type">ENUM</span></div>
+            <div class="field"><span class="field-badge b-opt">○</span><span class="field-name">recibo_path <span>Cloud Storage</span></span><span class="field-type">TEXT</span></div>
+            <div class="field"><span class="field-badge b-req">●</span><span class="field-name">created_at</span><span class="field-type">TIMESTAMPTZ</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- promesas_pago -->
+      <div class="table-grid tg-1" style="margin-bottom:16px">
+        <div class="tcard" style="border-color:var(--sql-br)">
+          <div class="tcard-header" style="background:var(--sql-b)">
+            <span class="tcard-name" style="color:var(--sql-h)">promesas_pago</span>
+            <span class="tcard-tag" style="background:var(--sql-b);border:1px solid var(--sql-br);color:var(--sql-h)">resumen para Dashboard · detalle conversacional en Firestore</span>
+          </div>
+          <div class="fields" style="display:grid;grid-template-columns:1fr 1fr">
+            <div style="border-right:1px solid var(--border)">
+              <div class="field"><span class="field-badge b-pk">PK</span><span class="field-name">id <span>uuid</span></span><span class="field-type">UUID</span></div>
+              <div class="field"><span class="field-badge b-fk">FK</span><span class="field-name">consumidor_id</span><span class="field-type">UUID → consumidores</span></div>
+              <div class="field"><span class="field-badge b-fk">FK</span><span class="field-name">cliente_id</span><span class="field-type">UUID → clientes</span></div>
+              <div class="field"><span class="field-badge b-fk">FK</span><span class="field-name">factura_id</span><span class="field-type">UUID → facturas</span></div>
+            </div>
+            <div>
+              <div class="field"><span class="field-badge b-req">●</span><span class="field-name">fecha_prometida</span><span class="field-type">DATE</span></div>
+              <div class="field"><span class="field-badge b-req">●</span><span class="field-name">monto_prometido</span><span class="field-type">NUMERIC(12,2)</span></div>
+              <div class="field"><span class="field-badge b-idx">IX</span><span class="field-name">estado <span>activa/cumplida/rota</span></span><span class="field-type">ENUM</span></div>
+              <div class="field"><span class="field-badge b-opt">○</span><span class="field-name">rota_at</span><span class="field-type">TIMESTAMPTZ</span></div>
+              <div class="field"><span class="field-badge b-opt">○</span><span class="field-name">pago_id <span>si cumplió</span></span><span class="field-type">UUID → pagos</span></div>
+              <div class="field"><span class="field-badge b-req">●</span><span class="field-name">created_at</span><span class="field-type">TIMESTAMPTZ</span></div>
+            </div>
+          </div>
+          <div class="tcard-note"><strong>Solo 6 campos de negocio</strong> para Dashboard. El detalle conversacional (frase original, timestamps D-1/día D, scheduler jobs) vive en Firestore <code>conversations/{id}/promesas</code>.<br><strong>estado = rota</strong> → dispara tag en <code>consumidores_clientes</code> y escala a humano.</div>
+        </div>
+      </div>
+
+      <!-- relaciones -->
+      <div class="relations">
+        <div class="rel-title">relaciones entre tablas · Cloud SQL</div>
+        <div class="rel-row"><span class="rel-table" style="background:var(--sql-b);color:var(--sql-h)">clientes</span><span class="rel-arrow">→</span><span class="rel-type">1:N</span><span class="rel-arrow">→</span><span class="rel-table" style="background:var(--sql-b);color:var(--sql-h)">cuentas_recaudadoras</span><span class="rel-type">· un CVU por cliente</span></div>
+        <div class="rel-row"><span class="rel-table" style="background:var(--sql-b);color:var(--sql-h)">consumidores</span><span class="rel-arrow">↔</span><span class="rel-type">N:N via</span><span class="rel-table" style="background:var(--sql-b);color:var(--sql-h)">consumidores_clientes</span><span class="rel-arrow">↔</span><span class="rel-table" style="background:var(--sql-b);color:var(--sql-h)">clientes</span><span class="rel-type">· estado por relación</span></div>
+        <div class="rel-row"><span class="rel-table" style="background:var(--sql-b);color:var(--sql-h)">facturas</span><span class="rel-arrow">→</span><span class="rel-type">1:N</span><span class="rel-arrow">→</span><span class="rel-table" style="background:var(--sql-b);color:var(--sql-h)">cuotas</span><span class="rel-type">· si tiene_cuotas = true</span></div>
+        <div class="rel-row"><span class="rel-table" style="background:var(--sql-b);color:var(--sql-h)">pagos.cuota_id</span><span class="rel-arrow">→</span><span class="rel-type">nullable FK</span><span class="rel-arrow">→</span><span class="rel-table" style="background:var(--sql-b);color:var(--sql-h)">cuotas</span><span class="rel-type">· null si factura puntual</span></div>
+        <div class="rel-row"><span class="rel-table" style="background:var(--sql-b);color:var(--sql-h)">promesas_pago.pago_id</span><span class="rel-arrow">→</span><span class="rel-type">nullable FK</span><span class="rel-arrow">→</span><span class="rel-table" style="background:var(--sql-b);color:var(--sql-h)">pagos</span><span class="rel-type">· si la promesa fue cumplida</span></div>
+      </div>
+    </div>
+
+    <!-- FIRESTORE -->
+    <div class="section">
+      <div class="section-header">
+        <span class="section-badge" style="background:var(--fs-b);border:1px solid var(--fs-br);color:var(--fs-h)">Firestore</span>
+        <span class="section-title">Conversaciones y promesas conversacionales</span>
+        <span class="section-desc">4 colecciones · no relacional</span>
+      </div>
+      <div class="table-grid tg-2">
+        <div class="fs-doc">
+          <div class="fs-doc-header"><span class="fs-doc-name">conversations/{conversation_id}</span><span style="font-size:9px;color:var(--muted2)">raíz del chat</span></div>
+          <div class="fs-field"><span class="fs-key">conversation_id</span><span class="fs-val">string · ID de Chatwoot</span></div>
+          <div class="fs-field"><span class="fs-key">consumidor_id</span><span class="fs-val">string · FK → Cloud SQL</span></div>
+          <div class="fs-field"><span class="fs-key">cliente_id</span><span class="fs-val">string · FK → Cloud SQL</span></div>
+          <div class="fs-field"><span class="fs-key">whatsapp</span><span class="fs-val">string · +54...</span></div>
+          <div class="fs-field"><span class="fs-key">estado</span><span class="fs-val">string · espejo del estado en consumidores_clientes</span></div>
+          <div class="fs-field"><span class="fs-key">processing</span><span class="fs-val">boolean · lock activo del procesador</span></div>
+          <div class="fs-field"><span class="fs-key">processing_since</span><span class="fs-val">timestamp · detectar locks caídos</span></div>
+          <div class="fs-field"><span class="fs-key">last_message_id</span><span class="fs-val">string · idempotency check</span></div>
+          <div class="fs-field"><span class="fs-key">updated_at</span><span class="fs-val">timestamp</span></div>
+          <div class="fs-sub"><strong>Sub: messages/{message_id}</strong><br>role: "user"|"assistant" · content: string<br>timestamp · type: "text"|"image"|"document"<br>media_url: string (nullable · Cloud Storage)</div>
+        </div>
+
+        <div class="fs-doc">
+          <div class="fs-doc-header"><span class="fs-doc-name">conversations/{id}/promesas/{promesa_id}</span><span style="font-size:9px;color:var(--muted2)">subcolección</span></div>
+          <div class="fs-field"><span class="fs-key">promesa_id</span><span class="fs-val">string · uuid</span></div>
+          <div class="fs-field"><span class="fs-key">sql_promesa_id</span><span class="fs-val">string · FK → Cloud SQL promesas_pago</span></div>
+          <div class="fs-field"><span class="fs-key">factura_id</span><span class="fs-val">string</span></div>
+          <div class="fs-field"><span class="fs-key">fecha_prometida</span><span class="fs-val">string · ISO date</span></div>
+          <div class="fs-field"><span class="fs-key">monto_prometido</span><span class="fs-val">number</span></div>
+          <div class="fs-field"><span class="fs-key">frase_original</span><span class="fs-val">string · lo que dijo el consumidor</span></div>
+          <div class="fs-field"><span class="fs-key">recordatorio_d1_at</span><span class="fs-val">timestamp · cuándo disparar D-1</span></div>
+          <div class="fs-field"><span class="fs-key">check_dia_d_at</span><span class="fs-val">timestamp · cuándo disparar día D</span></div>
+          <div class="fs-field"><span class="fs-key">recordatorio_enviado</span><span class="fs-val">boolean</span></div>
+          <div class="fs-field"><span class="fs-key">check_enviado</span><span class="fs-val">boolean</span></div>
+          <div class="fs-field"><span class="fs-key">estado</span><span class="fs-val">"activa" | "cumplida" | "rota"</span></div>
+          <div class="fs-field"><span class="fs-key">created_at</span><span class="fs-val">timestamp</span></div>
+          <div class="tcard-note" style="padding:8px 12px;font-size:9px;color:var(--muted2);line-height:1.7;border-top:1px solid var(--fs-br)">Cuando <strong>estado = rota</strong> → Cloud Function actualiza SQL con <code>rota_at</code> y dispara escalamiento.</div>
+        </div>
+
+        <div class="fs-doc">
+          <div class="fs-doc-header"><span class="fs-doc-name">idempotency/{message_id}</span><span style="font-size:9px;color:var(--muted2)">TTL 7 días</span></div>
+          <div class="fs-field"><span class="fs-key">message_id</span><span class="fs-val">string · ID único de Chatwoot / Meta</span></div>
+          <div class="fs-field"><span class="fs-key">conversation_id</span><span class="fs-val">string</span></div>
+          <div class="fs-field"><span class="fs-key">status</span><span class="fs-val">"queued" | "processing" | "done"</span></div>
+          <div class="fs-field"><span class="fs-key">created_at</span><span class="fs-val">timestamp · TTL automático 7 días</span></div>
+        </div>
+
+        <div class="fs-doc">
+          <div class="fs-doc-header"><span class="fs-doc-name">scheduler_jobs/{job_id}</span><span style="font-size:9px;color:var(--muted2)">tareas programadas</span></div>
+          <div class="fs-field"><span class="fs-key">job_id</span><span class="fs-val">string</span></div>
+          <div class="fs-field"><span class="fs-key">tipo</span><span class="fs-val">"cadencia_1"|"cadencia_2"|"cadencia_3"|"promesa_d1"|"promesa_dia_d"</span></div>
+          <div class="fs-field"><span class="fs-key">conversation_id</span><span class="fs-val">string</span></div>
+          <div class="fs-field"><span class="fs-key">consumidor_id</span><span class="fs-val">string</span></div>
+          <div class="fs-field"><span class="fs-key">cliente_id</span><span class="fs-val">string</span></div>
+          <div class="fs-field"><span class="fs-key">factura_id</span><span class="fs-val">string · nullable</span></div>
+          <div class="fs-field"><span class="fs-key">scheduled_at</span><span class="fs-val">timestamp</span></div>
+          <div class="fs-field"><span class="fs-key">ejecutado</span><span class="fs-val">boolean</span></div>
+          <div class="fs-field"><span class="fs-key">ejecutado_at</span><span class="fs-val">timestamp · nullable</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CLOUD STORAGE -->
+    <div class="section">
+      <div class="section-header">
+        <span class="section-badge" style="background:rgba(251,146,60,0.08);border:1px solid rgba(251,146,60,0.25);color:#fb923c">Cloud Storage</span>
+        <span class="section-title">Archivos · PDFs y comprobantes</span>
+        <span class="section-desc">Un bucket central · Signed URLs</span>
+      </div>
+
+      <div style="background:var(--bg2);border:1px solid rgba(251,146,60,0.25);border-radius:10px;overflow:hidden;margin-bottom:16px">
+        <div style="background:rgba(251,146,60,0.08);padding:10px 16px;border-bottom:1px solid rgba(251,146,60,0.25);display:flex;align-items:center;justify-content:space-between">
+          <span style="font-family:'Epilogue',sans-serif;font-size:13px;font-weight:800;color:#fb923c">axel-ateam-storage</span>
+          <span style="font-size:9px;color:var(--muted2)">bucket único · privado · región us-east1</span>
+        </div>
+        <div style="padding:16px 20px;font-family:'IBM Plex Mono',monospace;font-size:11px;line-height:2.4">
+          <div style="color:#fb923c;font-weight:600">/</div>
+          <div style="margin-left:16px;color:var(--muted2)">{cliente_id}/
+            <div style="margin-left:20px">
+              <div style="color:#fb923c;font-weight:500">facturas/ <span style="font-size:9px;padding:1px 6px;border-radius:3px;background:rgba(96,165,250,0.1);color:var(--sql-h);margin-left:8px">path → facturas.pdf_path</span></div>
+              <div style="margin-left:20px;color:var(--muted2)">{factura_id}.pdf</div>
+              <div style="color:#fb923c;font-weight:500">comprobantes/ <span style="font-size:9px;padding:1px 6px;border-radius:3px;background:rgba(96,165,250,0.1);color:var(--sql-h);margin-left:8px">path → pagos.comprobante_path</span></div>
+              <div style="margin-left:20px;color:var(--muted2)">{pago_id}_comprobante.jpg</div>
+              <div style="color:#fb923c;font-weight:500">recibos/ <span style="font-size:9px;padding:1px 6px;border-radius:3px;background:rgba(96,165,250,0.1);color:var(--sql-h);margin-left:8px">path → pagos.recibo_path</span></div>
+              <div style="margin-left:20px;color:var(--muted2)">{pago_id}_recibo.pdf</div>
+              <div style="color:#fb923c;font-weight:500">arca/ <span style="font-size:9px;padding:1px 6px;border-radius:3px;background:rgba(96,165,250,0.1);color:var(--sql-h);margin-left:8px">path → clientes.arca_cert_path</span></div>
+              <div style="margin-left:20px;color:var(--muted2)">cert.pem &nbsp; clave.key</div>
+            </div>
+          </div>
+        </div>
+        <div style="padding:10px 20px;border-top:1px solid var(--border2);background:rgba(0,0,0,0.2)">
+          <div style="font-size:9px;color:var(--muted);margin-bottom:4px;letter-spacing:0.1em">EJEMPLO DE PATH EN CLOUD SQL</div>
+          <code style="font-size:10px;color:#fb923c;font-family:'IBM Plex Mono',monospace">550e8400-e29b-41d4-a716/facturas/f3a2c1b0-9d8e-47f6.pdf</code>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:16px">
+        <div style="padding:14px 16px;background:var(--bg2);border:1px solid var(--border2);border-radius:8px">
+          <div style="font-size:10px;font-weight:600;color:#fb923c;margin-bottom:8px">¿Qué se guarda en SQL?</div>
+          <div style="font-size:9px;color:var(--muted2);line-height:1.9;font-family:'IBM Plex Mono',monospace">Solo el <strong style="color:var(--text)">path interno</strong>. Nunca la URL firmada — expira y quedaría inútil.<br><br><code style="color:#fb923c">facturas.pdf_path</code><br><code style="color:#fb923c">pagos.comprobante_path</code><br><code style="color:#fb923c">pagos.recibo_path</code></div>
+        </div>
+        <div style="padding:14px 16px;background:var(--bg2);border:1px solid var(--border2);border-radius:8px">
+          <div style="font-size:10px;font-weight:600;color:#fb923c;margin-bottom:8px">¿Cómo accede el cliente?</div>
+          <div style="font-size:9px;color:var(--muted2);line-height:1.9;font-family:'IBM Plex Mono',monospace">Dashboard → Cloud Function → genera Signed URL on-demand.<br><br>Expiración <strong style="color:var(--text)">1 hora</strong> para dashboard.<br>Expiración <strong style="color:var(--text)">48 horas</strong> para links enviados por WhatsApp.</div>
+        </div>
+        <div style="padding:14px 16px;background:var(--bg2);border:1px solid var(--border2);border-radius:8px">
+          <div style="font-size:10px;font-weight:600;color:#fb923c;margin-bottom:8px">Permisos y revocación</div>
+          <div style="font-size:9px;color:var(--muted2);line-height:1.9;font-family:'IBM Plex Mono',monospace">Bucket <strong style="color:var(--text)">completamente privado</strong>. Solo Cloud Functions con Service Account.<br><br>Baja de cliente → se deja de generar Signed URLs → acceso revocado sin borrar archivos.</div>
+        </div>
+      </div>
+
+      <div style="background:var(--bg2);border:1px solid var(--border2);border-radius:10px;padding:16px 20px">
+        <div style="font-size:9px;color:var(--muted2);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:12px;font-family:'IBM Plex Mono',monospace">Flujo de acceso desde el dashboard</div>
+        <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;font-size:10px;font-family:'IBM Plex Mono',monospace">
+          <div style="padding:6px 12px;border-radius:6px;background:var(--blue-dim);border:1px solid var(--blue-border);color:#60a5fa">Cliente / Dashboard</div>
+          <div style="color:var(--muted)">→</div>
+          <div style="padding:6px 12px;border-radius:6px;background:var(--purple-dim);border:1px solid var(--purple-border);color:#c4b5fd">Cloud Function</div>
+          <div style="color:var(--muted)">→</div>
+          <div style="padding:6px 12px;border-radius:6px;background:rgba(0,0,0,0.2);border:1px solid var(--border2);color:var(--muted2)">lee <code style="color:#fb923c">pdf_path</code> de SQL</div>
+          <div style="color:var(--muted)">→</div>
+          <div style="padding:6px 12px;border-radius:6px;background:rgba(251,146,60,0.08);border:1px solid rgba(251,146,60,0.2);color:#fb923c">genera Signed URL</div>
+          <div style="color:var(--muted)">→</div>
+          <div style="padding:6px 12px;border-radius:6px;background:var(--green-dim);border:1px solid var(--green-border);color:#34d399">descarga directa</div>
+          <div style="font-size:9px;color:var(--muted)">· expira 1h</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RESUMEN -->
+    <div class="section">
+      <div class="section-header">
+        <span class="section-badge" style="background:rgba(251,191,36,0.08);border:1px solid rgba(251,191,36,0.25);color:#fbbf24">Resumen del modelo completo</span>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px">
+        <div style="padding:16px 20px;background:var(--sql-b);border:1px solid var(--sql-br);border-radius:8px">
+          <div style="font-size:10px;font-weight:600;color:var(--sql-h);margin-bottom:10px;letter-spacing:0.1em;font-family:'IBM Plex Mono',monospace">CLOUD SQL · 7 tablas</div>
+          <div style="font-size:10px;color:var(--muted2);line-height:2.2;font-family:'IBM Plex Mono',monospace">clientes<br>cuentas_recaudadoras<br>consumidores<br>consumidores_clientes <span style="font-size:9px;color:var(--muted)">(estado por relación)</span><br>facturas · cuotas<br>pagos<br>promesas_pago <span style="font-size:9px;color:var(--muted)">(resumen dashboard)</span></div>
+        </div>
+        <div style="padding:16px 20px;background:var(--fs-b);border:1px solid var(--fs-br);border-radius:8px">
+          <div style="font-size:10px;font-weight:600;color:var(--fs-h);margin-bottom:10px;letter-spacing:0.1em;font-family:'IBM Plex Mono',monospace">FIRESTORE · 4 colecciones</div>
+          <div style="font-size:10px;color:var(--muted2);line-height:2.2;font-family:'IBM Plex Mono',monospace">conversations/{id}<br>&nbsp;&nbsp;↳ messages/{id} <span style="font-size:9px;color:var(--muted)">(historial)</span><br>&nbsp;&nbsp;↳ promesas/{id} <span style="font-size:9px;color:var(--muted)">(conversacional)</span><br>idempotency/{message_id}<br>scheduler_jobs/{job_id}</div>
+        </div>
+        <div style="padding:16px 20px;background:rgba(251,146,60,0.07);border:1px solid rgba(251,146,60,0.25);border-radius:8px">
+          <div style="font-size:10px;font-weight:600;color:#fb923c;margin-bottom:10px;letter-spacing:0.1em;font-family:'IBM Plex Mono',monospace">CLOUD STORAGE · 1 bucket</div>
+          <div style="font-size:10px;color:var(--muted2);line-height:2.2;font-family:'IBM Plex Mono',monospace">{cliente_id}/facturas/ <span style="font-size:9px;color:var(--muted)">(PDFs ARCA)</span><br>{cliente_id}/comprobantes/ <span style="font-size:9px;color:var(--muted)">(imágenes WA)</span><br>{cliente_id}/recibos/ <span style="font-size:9px;color:var(--muted)">(PDFs A Team)</span><br>{cliente_id}/arca/ <span style="font-size:9px;color:var(--muted)">(cert + clave)</span><br><span style="font-size:9px;color:var(--muted)">Signed URLs · bucket privado</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     PAGE 4: GITHUB & DEPLOY
+══════════════════════════════════════ -->
+<div id="page-github" class="page">
+  <div style="max-width:960px;margin:0 auto 52px;border-bottom:1px solid var(--border2);padding-bottom:28px;">
+    <div style="font-family:'DM Mono',monospace;font-size:11px;color:#f0abfc;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:10px">Metodología de trabajo · GitHub · v1.0</div>
+    <h1 style="font-size:clamp(26px,4vw,44px);font-weight:800;letter-spacing:-0.02em;line-height:1.1;margin-bottom:10px;font-family:'Syne',sans-serif">GitHub & <span style="color:#f0abfc">Deploy</span><br>Branches y CI/CD</h1>
+    <p style="color:var(--muted2);font-size:13px;font-family:'DM Mono',monospace;font-weight:300">Monorepo · 3 ambientes · GitHub Actions → GCP · solo dev</p>
+  </div>
+
+  <div style="max-width:960px;margin:0 auto">
+
+    <!-- ESTRUCTURA DEL MONOREPO -->
+    <div style="margin-bottom:52px">
+      <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:10px">01 — Estructura del monorepo <span style="flex:1;height:1px;background:var(--border);display:block"></span></div>
+
+      <div style="background:var(--bg2);border:1px solid rgba(240,171,252,0.2);border-radius:12px;overflow:hidden">
+        <div style="background:rgba(240,171,252,0.06);padding:10px 16px;border-bottom:1px solid rgba(240,171,252,0.15);display:flex;align-items:center;justify-content:space-between">
+          <span style="font-family:'DM Mono',monospace;font-size:12px;font-weight:600;color:#f0abfc">axel-ateam/</span>
+          <span style="font-size:9px;color:var(--muted2)">monorepo · GitHub</span>
+        </div>
+        <div style="padding:16px 20px;font-family:'DM Mono',monospace;font-size:11px;line-height:2.3;color:var(--muted2)">
+          <div style="color:#f0abfc;font-weight:600">axel-ateam/</div>
+          <div style="margin-left:20px">
+            <div style="color:#7db9ff">📁 apps/</div>
+            <div style="margin-left:20px">
+              <div><span style="color:#6ee7b7">chatwoot/</span> <span style="color:var(--muted);font-size:9px">— config y docker-compose de Chatwoot en VM</span></div>
+              <div><span style="color:#6ee7b7">dashboard/</span> <span style="color:var(--muted);font-size:9px">— frontend del dashboard A Team</span></div>
+              <div><span style="color:#6ee7b7">landing-pago/</span> <span style="color:var(--muted);font-size:9px">— landing del link de pago personalizado</span></div>
+            </div>
+            <div style="color:#7db9ff">📁 functions/</div>
+            <div style="margin-left:20px">
+              <div><span style="color:#6ee7b7">receptor/</span> <span style="color:var(--muted);font-size:9px">— Cloud Run receptor de webhooks</span></div>
+              <div><span style="color:#6ee7b7">procesador/</span> <span style="color:var(--muted);font-size:9px">— Cloud Run procesador + tool use loop</span></div>
+              <div><span style="color:#6ee7b7">scheduler/</span> <span style="color:var(--muted);font-size:9px">— Cloud Function para cadencias y promesas</span></div>
+              <div><span style="color:#6ee7b7">arca/</span> <span style="color:var(--muted);font-size:9px">— integración ARCA API REST</span></div>
+            </div>
+            <div style="color:#7db9ff">📁 shared/</div>
+            <div style="margin-left:20px">
+              <div><span style="color:#6ee7b7">types/</span> <span style="color:var(--muted);font-size:9px">— tipos TypeScript compartidos</span></div>
+              <div><span style="color:#6ee7b7">utils/</span> <span style="color:var(--muted);font-size:9px">— helpers compartidos entre funciones</span></div>
+              <div><span style="color:#6ee7b7">prompts/</span> <span style="color:var(--muted);font-size:9px">— system prompts de Axel por ambiente</span></div>
+            </div>
+            <div style="color:#7db9ff">📁 infra/</div>
+            <div style="margin-left:20px">
+              <div><span style="color:#6ee7b7">terraform/</span> <span style="color:var(--muted);font-size:9px">— definición de infra GCP (opcional)</span></div>
+              <div><span style="color:#6ee7b7">scripts/</span> <span style="color:var(--muted);font-size:9px">— scripts de setup y deploy manual</span></div>
+            </div>
+            <div style="color:#7db9ff">📁 .github/</div>
+            <div style="margin-left:20px">
+              <div><span style="color:#fcd34d">workflows/</span></div>
+              <div style="margin-left:20px">
+                <div><span style="color:#fca5a5">deploy-demo.yml</span> <span style="color:var(--muted);font-size:9px">→ branch demo</span></div>
+                <div><span style="color:#fcd34d">deploy-staging.yml</span> <span style="color:var(--muted);font-size:9px">→ branch staging</span></div>
+                <div><span style="color:#6ee7b7">deploy-prod.yml</span> <span style="color:var(--muted);font-size:9px">→ branch main</span></div>
+                <div><span style="color:#7db9ff">pr-checks.yml</span> <span style="color:var(--muted);font-size:9px">→ en todo PR</span></div>
+              </div>
+            </div>
+            <div><span style="color:var(--muted2)">.env.demo &nbsp; .env.staging &nbsp; .env.prod</span> <span style="color:var(--muted);font-size:9px">— en GitHub Secrets, nunca en el repo</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ESTRATEGIA DE BRANCHES -->
+    <div style="margin-bottom:52px">
+      <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:10px">02 — Estrategia de branches <span style="flex:1;height:1px;background:var(--border);display:block"></span></div>
+
+      <!-- branches principales -->
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:16px">
+        <div style="border-radius:10px;overflow:hidden;border:1px solid var(--coral-border)">
+          <div style="background:var(--coral-dim);padding:10px 16px;border-bottom:1px solid var(--coral-border)">
+            <div style="font-family:'DM Mono',monospace;font-size:12px;font-weight:600;color:#fca5a5">demo</div>
+            <div style="font-size:9px;color:var(--muted2);margin-top:2px">ambiente de demo controlada</div>
+          </div>
+          <div style="padding:12px 16px;background:var(--bg2)">
+            <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted2);line-height:2">
+              <div>Evolution API (WhatsApp)</div>
+              <div>Número de demo</div>
+              <div>RPA bancario</div>
+              <div>ARCA demo (Bull Forward)</div>
+              <div>Deploy automático en push</div>
+            </div>
+          </div>
+        </div>
+        <div style="border-radius:10px;overflow:hidden;border:1px solid var(--amber-border)">
+          <div style="background:var(--amber-dim);padding:10px 16px;border-bottom:1px solid var(--amber-border)">
+            <div style="font-family:'DM Mono',monospace;font-size:12px;font-weight:600;color:#fcd34d">staging</div>
+            <div style="font-size:9px;color:var(--muted2);margin-top:2px">espejo de producción para testing</div>
+          </div>
+          <div style="padding:12px 16px;background:var(--bg2)">
+            <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted2);line-height:2">
+              <div>Meta Cloud API oficial</div>
+              <div>Número de staging</div>
+              <div>API bancaria (sandbox)</div>
+              <div>ARCA sandbox</div>
+              <div>Deploy automático en push</div>
+            </div>
+          </div>
+        </div>
+        <div style="border-radius:10px;overflow:hidden;border:1px solid var(--green-border)">
+          <div style="background:var(--green-dim);padding:10px 16px;border-bottom:1px solid var(--green-border)">
+            <div style="font-family:'DM Mono',monospace;font-size:12px;font-weight:600;color:#6ee7b7">main</div>
+            <div style="font-size:9px;color:var(--muted2);margin-top:2px">producción · protegida</div>
+          </div>
+          <div style="padding:12px 16px;background:var(--bg2)">
+            <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted2);line-height:2">
+              <div>Meta Cloud API oficial</div>
+              <div>Número productivo</div>
+              <div>API bancaria real</div>
+              <div>ARCA por cliente (multi-tenant)</div>
+              <div>Deploy manual con aprobación</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- feature branches -->
+      <div style="background:var(--bg2);border:1px solid var(--border2);border-radius:10px;padding:16px 20px">
+        <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--muted2);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:12px">branches de trabajo (feature branches)</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          <div>
+            <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted2);line-height:2.2">
+              <div><span style="color:#7db9ff">feature/nombre-feature</span> <span style="color:var(--muted)">— funcionalidad nueva</span></div>
+              <div><span style="color:#fca5a5">fix/nombre-bug</span> <span style="color:var(--muted)">— corrección de bug</span></div>
+              <div><span style="color:#fcd34d">experiment/nombre</span> <span style="color:var(--muted)">— prueba de concepto</span></div>
+              <div><span style="color:#c4b5fd">prompt/nombre</span> <span style="color:var(--muted)">— ajuste de prompts de Axel</span></div>
+            </div>
+          </div>
+          <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted2);line-height:1.9;padding-left:16px;border-left:1px solid var(--border2)">
+            Como solo trabajás vos, el flujo es simple:<br>
+            <span style="color:#f0abfc">1.</span> Creás la branch desde <span style="color:#fca5a5">demo</span><br>
+            <span style="color:#f0abfc">2.</span> Desarrollás y testeás localmente<br>
+            <span style="color:#f0abfc">3.</span> Push → deploy automático a demo<br>
+            <span style="color:#f0abfc">4.</span> Merge a <span style="color:#fcd34d">staging</span> para validar<br>
+            <span style="color:#f0abfc">5.</span> Merge a <span style="color:#6ee7b7">main</span> para producción
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FLUJO COMPLETO -->
+    <div style="margin-bottom:52px">
+      <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:10px">03 — Flujo de trabajo completo <span style="flex:1;height:1px;background:var(--border);display:block"></span></div>
+
+      <div style="display:flex;flex-direction:column;gap:0">
+
+        <div class="flow-step">
+          <div class="step-num" style="background:rgba(240,171,252,0.08);border:1px solid rgba(240,171,252,0.25);color:#f0abfc">01</div>
+          <div class="step-body">
+            <div class="step-title">Creás una feature branch desde demo</div>
+            <div class="step-desc">
+              <code style="color:#f0abfc">git checkout demo && git pull</code><br>
+              <code style="color:#f0abfc">git checkout -b feature/validar-comprobante-v2</code><br><br>
+              Desarrollás localmente con variables de entorno del ambiente demo.<br>
+              Podés apuntar a Evolution API real o usar mocks locales para iterar rápido.
+            </div>
+            <div class="step-tags"><span class="step-tag">local dev</span><span class="step-tag">feature branch</span><span class="step-tag">.env.demo local</span></div>
+          </div>
+        </div>
+
+        <div class="flow-step">
+          <div class="step-num" style="background:var(--coral-dim);border:1px solid var(--coral-border);color:#fca5a5">02</div>
+          <div class="step-body">
+            <div class="step-title">Push a demo → GitHub Actions despliega automáticamente</div>
+            <div class="step-desc">
+              <code style="color:#f0abfc">git push origin feature/validar-comprobante-v2</code><br><br>
+              GitHub Actions corre <code>pr-checks.yml</code>: lint + tests básicos.<br>
+              Merge a <code style="color:#fca5a5">demo</code> → corre <code>deploy-demo.yml</code>:<br>
+              &nbsp;&nbsp;→ Buildea y sube las Cloud Run images a Artifact Registry<br>
+              &nbsp;&nbsp;→ Despliega las Cloud Run en el proyecto GCP de demo<br>
+              &nbsp;&nbsp;→ Te notifica en Slack/email cuando termina
+            </div>
+            <div class="step-tags"><span class="step-tag">GitHub Actions</span><span class="step-tag">deploy-demo.yml</span><span class="step-tag">Cloud Run demo</span><span class="step-tag">Artifact Registry</span></div>
+          </div>
+        </div>
+
+        <div class="flow-step">
+          <div class="step-num" style="background:var(--coral-dim);border:1px solid var(--coral-border);color:#fca5a5">03</div>
+          <div class="step-body">
+            <div class="step-title">Probás en demo con WhatsApp real (Evolution API)</div>
+            <div class="step-desc">
+              Mandás mensajes al número de demo.<br>
+              Verificás en Chatwoot que el flujo funciona end-to-end.<br>
+              Revisás logs en GCP Cloud Logging.<br>
+              Iterás: fix → push → deploy automático → test → fix.
+            </div>
+            <div class="step-tags"><span class="step-tag">WhatsApp demo</span><span class="step-tag">Chatwoot</span><span class="step-tag">Cloud Logging</span><span class="step-tag">iteración rápida</span></div>
+          </div>
+        </div>
+
+        <div class="flow-step">
+          <div class="step-num" style="background:var(--amber-dim);border:1px solid var(--amber-border);color:#fcd34d">04</div>
+          <div class="step-body">
+            <div class="step-title">Merge a staging → validación con Meta API oficial</div>
+            <div class="step-desc">
+              <code style="color:#f0abfc">git checkout staging && git merge demo</code><br>
+              <code style="color:#f0abfc">git push origin staging</code><br><br>
+              GitHub Actions corre <code>deploy-staging.yml</code>:<br>
+              &nbsp;&nbsp;→ Mismo proceso que demo pero con variables de staging<br>
+              &nbsp;&nbsp;→ Meta Cloud API oficial con número de staging<br>
+              &nbsp;&nbsp;→ ARCA sandbox para facturación<br>
+              Acá validás que todo funciona con la infra real antes de tocar producción.
+            </div>
+            <div class="step-tags"><span class="step-tag">deploy-staging.yml</span><span class="step-tag">Meta Cloud API</span><span class="step-tag">ARCA sandbox</span><span class="step-tag">validación final</span></div>
+          </div>
+        </div>
+
+        <div class="flow-step">
+          <div class="step-num" style="background:var(--green-dim);border:1px solid var(--green-border);color:#6ee7b7">05</div>
+          <div class="step-body">
+            <div class="step-title">Merge a main → deploy a producción con aprobación manual</div>
+            <div class="step-desc">
+              <code style="color:#f0abfc">git checkout main && git merge staging</code><br>
+              <code style="color:#f0abfc">git push origin main</code><br><br>
+              GitHub Actions corre <code>deploy-prod.yml</code> pero <strong>requiere aprobación manual</strong> en GitHub antes de ejecutar.<br>
+              Vas a GitHub → Actions → aprobás el deploy → se ejecuta.<br>
+              Protección extra: <code>main</code> tiene branch protection rules activas.
+            </div>
+            <div class="step-tags"><span class="step-tag">deploy-prod.yml</span><span class="step-tag">aprobación manual</span><span class="step-tag">branch protection</span><span class="step-tag">producción</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- GITHUB ACTIONS DETALLE -->
+    <div style="margin-bottom:52px">
+      <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:10px">04 — GitHub Actions workflows <span style="flex:1;height:1px;background:var(--border);display:block"></span></div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+
+        <!-- deploy-demo -->
+        <div style="background:var(--bg2);border:1px solid var(--coral-border);border-radius:10px;overflow:hidden">
+          <div style="background:var(--coral-dim);padding:10px 16px;border-bottom:1px solid var(--coral-border);display:flex;align-items:center;justify-content:space-between">
+            <span style="font-family:'DM Mono',monospace;font-size:11px;font-weight:600;color:#fca5a5">deploy-demo.yml</span>
+            <span style="font-size:9px;color:var(--muted2)">trigger: push a demo</span>
+          </div>
+          <div style="padding:14px 16px;font-family:'DM Mono',monospace;font-size:10px;color:var(--muted2);line-height:2">
+            <div style="color:#fca5a5;margin-bottom:4px">on: push → branches: [demo]</div>
+            <div>1. Checkout del código</div>
+            <div>2. Auth en GCP con Service Account</div>
+            <div>3. Docker build de receptor + procesador</div>
+            <div>4. Push a Artifact Registry (demo)</div>
+            <div>5. Deploy Cloud Run (receptor demo)</div>
+            <div>6. Deploy Cloud Run (procesador demo)</div>
+            <div>7. Notificación de resultado</div>
+          </div>
+        </div>
+
+        <!-- deploy-staging -->
+        <div style="background:var(--bg2);border:1px solid var(--amber-border);border-radius:10px;overflow:hidden">
+          <div style="background:var(--amber-dim);padding:10px 16px;border-bottom:1px solid var(--amber-border);display:flex;align-items:center;justify-content:space-between">
+            <span style="font-family:'DM Mono',monospace;font-size:11px;font-weight:600;color:#fcd34d">deploy-staging.yml</span>
+            <span style="font-size:9px;color:var(--muted2)">trigger: push a staging</span>
+          </div>
+          <div style="padding:14px 16px;font-family:'DM Mono',monospace;font-size:10px;color:var(--muted2);line-height:2">
+            <div style="color:#fcd34d;margin-bottom:4px">on: push → branches: [staging]</div>
+            <div>1. Checkout del código</div>
+            <div>2. Auth en GCP con Service Account</div>
+            <div>3. Docker build de receptor + procesador</div>
+            <div>4. Push a Artifact Registry (staging)</div>
+            <div>5. Deploy Cloud Run (receptor staging)</div>
+            <div>6. Deploy Cloud Run (procesador staging)</div>
+            <div>7. Notificación de resultado</div>
+          </div>
+        </div>
+
+        <!-- deploy-prod -->
+        <div style="background:var(--bg2);border:1px solid var(--green-border);border-radius:10px;overflow:hidden">
+          <div style="background:var(--green-dim);padding:10px 16px;border-bottom:1px solid var(--green-border);display:flex;align-items:center;justify-content:space-between">
+            <span style="font-family:'DM Mono',monospace;font-size:11px;font-weight:600;color:#6ee7b7">deploy-prod.yml</span>
+            <span style="font-size:9px;color:var(--muted2)">trigger: push a main + aprobación</span>
+          </div>
+          <div style="padding:14px 16px;font-family:'DM Mono',monospace;font-size:10px;color:var(--muted2);line-height:2">
+            <div style="color:#6ee7b7;margin-bottom:4px">on: push → branches: [main]</div>
+            <div style="color:#fcd34d">environment: production (requiere aprobación)</div>
+            <div>1. Checkout del código</div>
+            <div>2. Auth en GCP con Service Account</div>
+            <div>3. Docker build de receptor + procesador</div>
+            <div>4. Push a Artifact Registry (prod)</div>
+            <div>5. Deploy Cloud Run (receptor prod)</div>
+            <div>6. Deploy Cloud Run (procesador prod)</div>
+            <div>7. Update Cloud Scheduler jobs</div>
+            <div>8. Notificación de resultado</div>
+          </div>
+        </div>
+
+        <!-- pr-checks -->
+        <div style="background:var(--bg2);border:1px solid var(--blue-border);border-radius:10px;overflow:hidden">
+          <div style="background:var(--blue-dim);padding:10px 16px;border-bottom:1px solid var(--blue-border);display:flex;align-items:center;justify-content:space-between">
+            <span style="font-family:'DM Mono',monospace;font-size:11px;font-weight:600;color:#7db9ff">pr-checks.yml</span>
+            <span style="font-size:9px;color:var(--muted2)">trigger: todo PR o push</span>
+          </div>
+          <div style="padding:14px 16px;font-family:'DM Mono',monospace;font-size:10px;color:var(--muted2);line-height:2">
+            <div style="color:#7db9ff;margin-bottom:4px">on: push + pull_request</div>
+            <div>1. Lint del código (ESLint / Prettier)</div>
+            <div>2. Type check (TypeScript)</div>
+            <div>3. Tests unitarios de las tools</div>
+            <div>4. Validación de variables de entorno</div>
+            <div>5. Dry-run de build Docker (sin push)</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- CÓDIGO DEL WORKFLOW -->
+    <div style="margin-bottom:52px">
+      <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:10px">05 — Workflow de ejemplo (deploy-demo.yml) <span style="flex:1;height:1px;background:var(--border);display:block"></span></div>
+
+      <div style="background:var(--bg2);border:1px solid var(--border2);border-radius:10px;overflow:hidden">
+        <div style="background:rgba(255,255,255,0.03);padding:10px 16px;border-bottom:1px solid var(--border2);display:flex;align-items:center;gap:8px">
+          <div style="width:10px;height:10px;border-radius:50%;background:#ef4444;opacity:0.7"></div>
+          <div style="width:10px;height:10px;border-radius:50%;background:#f59e0b;opacity:0.7"></div>
+          <div style="width:10px;height:10px;border-radius:50%;background:#10b981;opacity:0.7"></div>
+          <span style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted2);margin-left:8px">.github/workflows/deploy-demo.yml</span>
+        </div>
+        <pre style="padding:20px;font-family:'DM Mono',monospace;font-size:10px;line-height:1.9;overflow-x:auto;color:var(--muted2)"><span style="color:#6ee7b7">name</span>: Deploy → Demo
+
+<span style="color:#6ee7b7">on</span>:
+  <span style="color:#7db9ff">push</span>:
+    <span style="color:#7db9ff">branches</span>: [demo]
+
+<span style="color:#6ee7b7">env</span>:
+  <span style="color:#7db9ff">GCP_PROJECT_ID</span>: <span style="color:#fcd34d">$&#123;&#123; secrets.GCP_PROJECT_ID_DEMO &#125;&#125;</span>
+  <span style="color:#7db9ff">GCP_REGION</span>: us-east1
+  <span style="color:#7db9ff">REGISTRY</span>: us-east1-docker.pkg.dev
+
+<span style="color:#6ee7b7">jobs</span>:
+  <span style="color:#7db9ff">deploy</span>:
+    <span style="color:#7db9ff">runs-on</span>: ubuntu-latest
+
+    <span style="color:#7db9ff">steps</span>:
+      - <span style="color:#7db9ff">name</span>: Checkout
+        <span style="color:#7db9ff">uses</span>: actions/checkout@v4
+
+      - <span style="color:#7db9ff">name</span>: Auth GCP
+        <span style="color:#7db9ff">uses</span>: google-github-actions/auth@v2
+        <span style="color:#7db9ff">with</span>:
+          <span style="color:#7db9ff">credentials_json</span>: <span style="color:#fcd34d">$&#123;&#123; secrets.GCP_SA_KEY_DEMO &#125;&#125;</span>
+
+      - <span style="color:#7db9ff">name</span>: Configure Docker
+        <span style="color:#7db9ff">run</span>: gcloud auth configure-docker $REGISTRY
+
+      - <span style="color:#7db9ff">name</span>: Build &amp; Push receptor
+        <span style="color:#7db9ff">run</span>: |
+          docker build -t $REGISTRY/$GCP_PROJECT_ID/axel/receptor:$&#123;&#123; github.sha &#125;&#125; ./functions/receptor
+          docker push $REGISTRY/$GCP_PROJECT_ID/axel/receptor:$&#123;&#123; github.sha &#125;&#125;
+
+      - <span style="color:#7db9ff">name</span>: Build &amp; Push procesador
+        <span style="color:#7db9ff">run</span>: |
+          docker build -t $REGISTRY/$GCP_PROJECT_ID/axel/procesador:$&#123;&#123; github.sha &#125;&#125; ./functions/procesador
+          docker push $REGISTRY/$GCP_PROJECT_ID/axel/procesador:$&#123;&#123; github.sha &#125;&#125;
+
+      - <span style="color:#7db9ff">name</span>: Deploy receptor a Cloud Run
+        <span style="color:#7db9ff">run</span>: |
+          gcloud run deploy axel-receptor-demo \
+            --image $REGISTRY/$GCP_PROJECT_ID/axel/receptor:$&#123;&#123; github.sha &#125;&#125; \
+            --region $GCP_REGION \
+            --set-env-vars AMBIENTE=demo \
+            --set-secrets CLAUDE_API_KEY=claude-api-key:latest \
+            --allow-unauthenticated
+
+      - <span style="color:#7db9ff">name</span>: Deploy procesador a Cloud Run
+        <span style="color:#7db9ff">run</span>: |
+          gcloud run deploy axel-procesador-demo \
+            --image $REGISTRY/$GCP_PROJECT_ID/axel/procesador:$&#123;&#123; github.sha &#125;&#125; \
+            --region $GCP_REGION \
+            --set-env-vars AMBIENTE=demo \
+            --set-secrets CLAUDE_API_KEY=claude-api-key:latest \
+            --no-allow-unauthenticated</pre>
+      </div>
+    </div>
+
+    <!-- SECRETS & ENVS -->
+    <div style="margin-bottom:52px">
+      <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:10px">06 — Secrets y variables por ambiente <span style="flex:1;height:1px;background:var(--border);display:block"></span></div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:16px">
+        <div style="background:var(--bg2);border:1px solid var(--coral-border);border-radius:8px;overflow:hidden">
+          <div style="background:var(--coral-dim);padding:8px 14px;border-bottom:1px solid var(--coral-border)">
+            <div style="font-family:'DM Mono',monospace;font-size:10px;font-weight:600;color:#fca5a5">GitHub Secrets · demo</div>
+          </div>
+          <div style="padding:12px 14px;font-family:'DM Mono',monospace;font-size:9px;color:var(--muted2);line-height:2.1">
+            <div>GCP_PROJECT_ID_DEMO</div>
+            <div>GCP_SA_KEY_DEMO</div>
+            <div>CLAUDE_API_KEY_DEMO</div>
+            <div>EVOLUTION_API_URL</div>
+            <div>EVOLUTION_API_KEY</div>
+            <div>CHATWOOT_URL_DEMO</div>
+            <div>CHATWOOT_TOKEN_DEMO</div>
+            <div>FIRESTORE_DB_DEMO</div>
+          </div>
+        </div>
+        <div style="background:var(--bg2);border:1px solid var(--amber-border);border-radius:8px;overflow:hidden">
+          <div style="background:var(--amber-dim);padding:8px 14px;border-bottom:1px solid var(--amber-border)">
+            <div style="font-family:'DM Mono',monospace;font-size:10px;font-weight:600;color:#fcd34d">GitHub Secrets · staging</div>
+          </div>
+          <div style="padding:12px 14px;font-family:'DM Mono',monospace;font-size:9px;color:var(--muted2);line-height:2.1">
+            <div>GCP_PROJECT_ID_STAGING</div>
+            <div>GCP_SA_KEY_STAGING</div>
+            <div>CLAUDE_API_KEY</div>
+            <div>META_PHONE_ID_STAGING</div>
+            <div>META_ACCESS_TOKEN_STAGING</div>
+            <div>CHATWOOT_URL_STAGING</div>
+            <div>CHATWOOT_TOKEN_STAGING</div>
+            <div>FIRESTORE_DB_STAGING</div>
+          </div>
+        </div>
+        <div style="background:var(--bg2);border:1px solid var(--green-border);border-radius:8px;overflow:hidden">
+          <div style="background:var(--green-dim);padding:8px 14px;border-bottom:1px solid var(--green-border)">
+            <div style="font-family:'DM Mono',monospace;font-size:10px;font-weight:600;color:#6ee7b7">GitHub Secrets · prod</div>
+          </div>
+          <div style="padding:12px 14px;font-family:'DM Mono',monospace;font-size:9px;color:var(--muted2);line-height:2.1">
+            <div>GCP_PROJECT_ID_PROD</div>
+            <div>GCP_SA_KEY_PROD</div>
+            <div>CLAUDE_API_KEY</div>
+            <div>META_PHONE_ID_PROD</div>
+            <div>META_ACCESS_TOKEN_PROD</div>
+            <div>CHATWOOT_URL_PROD</div>
+            <div>CHATWOOT_TOKEN_PROD</div>
+            <div>FIRESTORE_DB_PROD</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:14px 18px;background:var(--bg2);border:1px solid rgba(251,191,36,0.2);border-radius:8px;font-family:'DM Mono',monospace;font-size:10px;color:var(--muted2);line-height:1.9">
+        <span style="color:#fbbf24;font-weight:600">⚠ Reglas de secrets</span><br>
+        Los secrets sensibles (API keys, tokens) van en <strong style="color:var(--text)">GitHub Secrets</strong> y se inyectan como env vars en el workflow. Nunca en el código ni en el repo.<br>
+        Las variables no sensibles (URLs, nombres de proyectos) pueden ir en <strong style="color:var(--text)">GitHub Variables</strong> (sección Settings → Variables).<br>
+        En GCP, los secrets se manejan con <strong style="color:var(--text)">Google Secret Manager</strong> y se referencian en Cloud Run con <code style="color:#fcd34d">--set-secrets</code>.
+      </div>
+    </div>
+
+    <!-- CÓMO PROBAR BRANCHES -->
+    <div style="margin-bottom:52px">
+      <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:10px">07 — Cómo probar una branch antes de mergear <span style="flex:1;height:1px;background:var(--border);display:block"></span></div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+
+        <div style="background:var(--bg2);border:1px solid var(--border2);border-radius:10px;padding:16px 18px">
+          <div style="font-family:'DM Mono',monospace;font-size:10px;font-weight:600;color:#f0abfc;margin-bottom:10px">Opción A — Test local con .env.demo</div>
+          <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted2);line-height:2">
+            <div>Creás un <code style="color:#fcd34d">.env.local</code> con las variables de demo</div>
+            <div><code style="color:#f0abfc">cp .env.demo .env.local</code></div>
+            <div>Corrés el procesador local:</div>
+            <div><code style="color:#f0abfc">npm run dev --workspace=functions/procesador</code></div>
+            <div>Usás ngrok para exponer el receptor local:</div>
+            <div><code style="color:#f0abfc">ngrok http 3000</code></div>
+            <div>Apuntás el webhook de Chatwoot al túnel ngrok</div>
+          </div>
+        </div>
+
+        <div style="background:var(--bg2);border:1px solid var(--border2);border-radius:10px;padding:16px 18px">
+          <div style="font-family:'DM Mono',monospace;font-size:10px;font-weight:600;color:#f0abfc;margin-bottom:10px">Opción B — Deploy de branch a ambiente demo</div>
+          <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted2);line-height:2">
+            <div>Mergeás temporalmente tu branch a demo:</div>
+            <div><code style="color:#f0abfc">git checkout demo</code></div>
+            <div><code style="color:#f0abfc">git merge feature/mi-feature --no-ff</code></div>
+            <div><code style="color:#f0abfc">git push origin demo</code></div>
+            <div>GitHub Actions despliega en minutos</div>
+            <div>Probás con el número de demo en WhatsApp</div>
+            <div>Si falla, revertís: <code style="color:#f0abfc">git revert HEAD</code></div>
+          </div>
+        </div>
+
+        <div style="background:var(--bg2);border:1px solid var(--border2);border-radius:10px;padding:16px 18px">
+          <div style="font-family:'DM Mono',monospace;font-size:10px;font-weight:600;color:#f0abfc;margin-bottom:10px">Opción C — Logs en tiempo real desde GCP</div>
+          <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted2);line-height:2">
+            <div>Para ver logs en tiempo real de cualquier ambiente:</div>
+            <div><code style="color:#f0abfc">gcloud run services logs read axel-procesador-demo \</code></div>
+            <div><code style="color:#f0abfc">&nbsp;&nbsp;--region us-east1 --tail 50 --follow</code></div>
+            <div>O desde la consola GCP → Cloud Run → Logs</div>
+            <div>Filtrás por <code style="color:#fcd34d">severity=ERROR</code> para ver solo errores</div>
+          </div>
+        </div>
+
+        <div style="background:var(--bg2);border:1px solid var(--border2);border-radius:10px;padding:16px 18px">
+          <div style="font-family:'DM Mono',monospace;font-size:10px;font-weight:600;color:#f0abfc;margin-bottom:10px">Revertir un deploy roto en producción</div>
+          <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted2);line-height:2">
+            <div>Cloud Run guarda las revisiones anteriores.</div>
+            <div>Rollback inmediato sin tocar código:</div>
+            <div><code style="color:#f0abfc">gcloud run services update-traffic \</code></div>
+            <div><code style="color:#f0abfc">&nbsp;&nbsp;axel-procesador-prod \</code></div>
+            <div><code style="color:#f0abfc">&nbsp;&nbsp;--to-revisions PREV_REVISION=100</code></div>
+            <div>Mientras tanto, revertís en git y redesplegás.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- RESUMEN -->
+    <div style="margin-bottom:52px">
+      <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:10px">Resumen de la metodología <span style="flex:1;height:1px;background:var(--border);display:block"></span></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px">
+        <div style="padding:14px 16px;background:var(--coral-dim);border:1px solid var(--coral-border);border-radius:8px;text-align:center">
+          <div style="font-family:'DM Mono',monospace;font-size:20px;font-weight:900;color:#fca5a5;margin-bottom:4px">demo</div>
+          <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--muted2)">desarrollo y prueba rápida</div>
+        </div>
+        <div style="padding:14px 16px;background:var(--amber-dim);border:1px solid var(--amber-border);border-radius:8px;text-align:center">
+          <div style="font-family:'DM Mono',monospace;font-size:20px;font-weight:900;color:#fcd34d;margin-bottom:4px">staging</div>
+          <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--muted2)">validación con infra real</div>
+        </div>
+        <div style="padding:14px 16px;background:var(--green-dim);border:1px solid var(--green-border);border-radius:8px;text-align:center">
+          <div style="font-family:'DM Mono',monospace;font-size:20px;font-weight:900;color:#6ee7b7;margin-bottom:4px">main</div>
+          <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--muted2)">producción · aprobación manual</div>
+        </div>
+        <div style="padding:14px 16px;background:rgba(240,171,252,0.08);border:1px solid rgba(240,171,252,0.25);border-radius:8px;text-align:center">
+          <div style="font-family:'DM Mono',monospace;font-size:20px;font-weight:900;color:#f0abfc;margin-bottom:4px">GHA</div>
+          <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--muted2)">deploy automático en push</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     PAGE 5: SETUP INICIAL
+══════════════════════════════════════ -->
+<div id="page-setup" class="page">
+  <div style="max-width:960px;margin:0 auto 52px;border-bottom:1px solid var(--border2);padding-bottom:28px">
+    <div style="font-family:'DM Mono',monospace;font-size:11px;color:#67e8f9;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:10px">Setup inicial · desde cero · v1.0</div>
+    <h1 style="font-family:'Syne',sans-serif;font-size:clamp(26px,4vw,44px);font-weight:800;letter-spacing:-0.02em;line-height:1.1;margin-bottom:10px">Setup <span style="color:#67e8f9">Inicial</span><br>De cero a demo</h1>
+    <p style="color:var(--muted2);font-size:13px;font-family:'DM Mono',monospace;font-weight:300">GCP · Chatwoot · GitHub · Meta · Evolution API · Claude</p>
+  </div>
+
+  <div style="max-width:960px;margin:0 auto">
+
+    <!-- PREREQUISITOS -->
+    <div style="margin-bottom:40px">
+      <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:10px">00 — Prerequisitos <span style="flex:1;height:1px;background:var(--border);display:block"></span></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px">
+        <div style="padding:12px 16px;background:var(--bg2);border:1px solid var(--border2);border-radius:8px;font-family:'DM Mono',monospace;font-size:10px;color:var(--muted2);line-height:1.9">
+          <div style="color:#67e8f9;font-weight:600;margin-bottom:6px">Cuentas necesarias</div>
+          <div>✓ Cuenta Google (GCP)</div>
+          <div>✓ GitHub account</div>
+          <div>✓ Meta Business Manager</div>
+          <div>✓ Anthropic API key</div>
+          <div>✓ Número de WhatsApp (SIM)</div>
+        </div>
+        <div style="padding:12px 16px;background:var(--bg2);border:1px solid var(--border2);border-radius:8px;font-family:'DM Mono',monospace;font-size:10px;color:var(--muted2);line-height:1.9">
+          <div style="color:#67e8f9;font-weight:600;margin-bottom:6px">Herramientas locales</div>
+          <div>✓ gcloud CLI instalado</div>
+          <div>✓ Docker Desktop</div>
+          <div>✓ Node.js 20+</div>
+          <div>✓ git</div>
+          <div>✓ ngrok (para testing local)</div>
+        </div>
+        <div style="padding:12px 16px;background:var(--bg2);border:1px solid var(--border2);border-radius:8px;font-family:'DM Mono',monospace;font-size:10px;color:var(--muted2);line-height:1.9">
+          <div style="color:#67e8f9;font-weight:600;margin-bottom:6px">Tiempo estimado</div>
+          <div>GCP setup: ~1h</div>
+          <div>Chatwoot en VM: ~1h</div>
+          <div>Meta API: 1-3 días hábiles</div>
+          <div>Evolution API: ~30min</div>
+          <div>GitHub Actions: ~2h</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PASO 1: GCP -->
+    <div style="margin-bottom:40px">
+      <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:10px">01 — Google Cloud Platform <span style="flex:1;height:1px;background:var(--border);display:block"></span></div>
+      <div style="display:flex;flex-direction:column;gap:0">
+
+        <div class="flow-step">
+          <div class="step-num" style="background:rgba(103,232,249,0.08);border:1px solid rgba(103,232,249,0.25);color:#67e8f9">1.1</div>
+          <div class="step-body">
+            <div class="step-title">Crear el proyecto GCP y habilitar APIs</div>
+            <div class="step-desc">
+              <code style="color:#67e8f9">gcloud projects create axel-ateam-demo --name="Axel A Team Demo"</code><br>
+              <code style="color:#67e8f9">gcloud config set project axel-ateam-demo</code><br><br>
+              Habilitar las APIs necesarias:<br>
+              <code style="color:#67e8f9">gcloud services enable run.googleapis.com cloudtasks.googleapis.com firestore.googleapis.com sqladmin.googleapis.com storage.googleapis.com cloudscheduler.googleapis.com artifactregistry.googleapis.com secretmanager.googleapis.com</code>
+            </div>
+            <div class="step-tags"><span class="step-tag">gcloud CLI</span><span class="step-tag">APIs</span></div>
+          </div>
+        </div>
+
+        <div class="flow-step">
+          <div class="step-num" style="background:rgba(103,232,249,0.08);border:1px solid rgba(103,232,249,0.25);color:#67e8f9">1.2</div>
+          <div class="step-body">
+            <div class="step-title">Crear Service Account para GitHub Actions</div>
+            <div class="step-desc">
+              <code style="color:#67e8f9">gcloud iam service-accounts create github-actions-demo \</code><br>
+              <code style="color:#67e8f9">&nbsp;&nbsp;--display-name="GitHub Actions Deploy Demo"</code><br><br>
+              Asignar roles necesarios:<br>
+              <code style="color:#67e8f9">gcloud projects add-iam-policy-binding axel-ateam-demo \</code><br>
+              <code style="color:#67e8f9">&nbsp;&nbsp;--member="serviceAccount:github-actions-demo@axel-ateam-demo.iam.gserviceaccount.com" \</code><br>
+              <code style="color:#67e8f9">&nbsp;&nbsp;--role="roles/run.admin"</code><br>
+              Repetir con: <code style="color:#fcd34d">roles/storage.admin</code> · <code style="color:#fcd34d">roles/artifactregistry.admin</code> · <code style="color:#fcd34d">roles/iam.serviceAccountUser</code><br><br>
+              Generar la key y guardar como GitHub Secret:<br>
+              <code style="color:#67e8f9">gcloud iam service-accounts keys create key.json \</code><br>
+              <code style="color:#67e8f9">&nbsp;&nbsp;--iam-account=github-actions-demo@axel-ateam-demo.iam.gserviceaccount.com</code>
+            </div>
+            <div class="step-tags"><span class="step-tag">IAM</span><span class="step-tag">Service Account</span><span class="step-tag">GitHub Secret → GCP_SA_KEY_DEMO</span></div>
+          </div>
+        </div>
+
+        <div class="flow-step">
+          <div class="step-num" style="background:rgba(103,232,249,0.08);border:1px solid rgba(103,232,249,0.25);color:#67e8f9">1.3</div>
+          <div class="step-body">
+            <div class="step-title">Crear VM para Chatwoot</div>
+            <div class="step-desc">
+              <code style="color:#67e8f9">gcloud compute instances create chatwoot-vm \</code><br>
+              <code style="color:#67e8f9">&nbsp;&nbsp;--machine-type=e2-standard-2 \</code><br>
+              <code style="color:#67e8f9">&nbsp;&nbsp;--image-family=ubuntu-2204-lts \</code><br>
+              <code style="color:#67e8f9">&nbsp;&nbsp;--image-project=ubuntu-os-cloud \</code><br>
+              <code style="color:#67e8f9">&nbsp;&nbsp;--boot-disk-size=50GB \</code><br>
+              <code style="color:#67e8f9">&nbsp;&nbsp;--tags=http-server,https-server \</code><br>
+              <code style="color:#67e8f9">&nbsp;&nbsp;--zone=us-east1-b</code><br><br>
+              Abrir puertos 80, 443 y 3000 en el firewall.
+            </div>
+            <div class="step-tags"><span class="step-tag">VM</span><span class="step-tag">e2-standard-2</span><span class="step-tag">us-east1-b</span></div>
+          </div>
+        </div>
+
+        <div class="flow-step">
+          <div class="step-num" style="background:rgba(103,232,249,0.08);border:1px solid rgba(103,232,249,0.25);color:#67e8f9">1.4</div>
+          <div class="step-body">
+            <div class="step-title">Crear Cloud SQL, Firestore y Storage</div>
+            <div class="step-desc">
+              Cloud SQL (PostgreSQL 15):<br>
+              <code style="color:#67e8f9">gcloud sql instances create axel-db-demo \</code><br>
+              <code style="color:#67e8f9">&nbsp;&nbsp;--database-version=POSTGRES_15 \</code><br>
+              <code style="color:#67e8f9">&nbsp;&nbsp;--tier=db-f1-micro --region=us-east1</code><br><br>
+              Firestore (modo nativo):<br>
+              <code style="color:#67e8f9">gcloud firestore databases create --region=us-east1</code><br><br>
+              Bucket de Storage:<br>
+              <code style="color:#67e8f9">gcloud storage buckets create gs://axel-ateam-storage-demo \</code><br>
+              <code style="color:#67e8f9">&nbsp;&nbsp;--location=us-east1 --uniform-bucket-level-access</code><br><br>
+              Artifact Registry para imágenes Docker:<br>
+              <code style="color:#67e8f9">gcloud artifacts repositories create axel \</code><br>
+              <code style="color:#67e8f9">&nbsp;&nbsp;--repository-format=docker --location=us-east1</code>
+            </div>
+            <div class="step-tags"><span class="step-tag">Cloud SQL</span><span class="step-tag">Firestore</span><span class="step-tag">Cloud Storage</span><span class="step-tag">Artifact Registry</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- PASO 2: CHATWOOT -->
+    <div style="margin-bottom:40px">
+      <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:10px">02 — Chatwoot en la VM <span style="flex:1;height:1px;background:var(--border);display:block"></span></div>
+      <div style="display:flex;flex-direction:column;gap:0">
+
+        <div class="flow-step">
+          <div class="step-num" style="background:rgba(103,232,249,0.08);border:1px solid rgba(103,232,249,0.25);color:#67e8f9">2.1</div>
+          <div class="step-body">
+            <div class="step-title">Instalar Docker y levantar Chatwoot</div>
+            <div class="step-desc">
+              Conectarse a la VM y ejecutar:<br>
+              <code style="color:#67e8f9">gcloud compute ssh chatwoot-vm --zone=us-east1-b</code><br><br>
+              Instalar Docker:<br>
+              <code style="color:#67e8f9">curl -fsSL https://get.docker.com | sh</code><br><br>
+              Clonar el repo y levantar con docker-compose:<br>
+              <code style="color:#67e8f9">git clone https://github.com/chatwoot/chatwoot</code><br>
+              <code style="color:#67e8f9">cd chatwoot && cp .env.example .env</code><br>
+              Editar <code style="color:#fcd34d">.env</code> con las variables de GCP (DB URL, Redis, etc.)<br>
+              <code style="color:#67e8f9">docker-compose up -d</code>
+            </div>
+            <div class="step-tags"><span class="step-tag">Docker</span><span class="step-tag">docker-compose</span><span class="step-tag">SSH a VM</span></div>
+          </div>
+        </div>
+
+        <div class="flow-step">
+          <div class="step-num" style="background:rgba(103,232,249,0.08);border:1px solid rgba(103,232,249,0.25);color:#67e8f9">2.2</div>
+          <div class="step-body">
+            <div class="step-title">Configurar dominio + SSL + inbox</div>
+            <div class="step-desc">
+              Asignar IP estática a la VM desde GCP Console → VPC → External IP addresses.<br>
+              Apuntar un dominio (ej: <code style="color:#fcd34d">chatwoot.ateam.com.ar</code>) a la IP.<br>
+              Configurar nginx + certbot para SSL:<br>
+              <code style="color:#67e8f9">sudo apt install nginx certbot python3-certbot-nginx</code><br>
+              <code style="color:#67e8f9">sudo certbot --nginx -d chatwoot.ateam.com.ar</code><br><br>
+              En Chatwoot dashboard → Settings → Inboxes → Add Inbox → WhatsApp.<br>
+              Para demo: elegir Evolution API y pegar la URL del servidor Evolution.
+            </div>
+            <div class="step-tags"><span class="step-tag">nginx</span><span class="step-tag">SSL certbot</span><span class="step-tag">IP estática</span><span class="step-tag">inbox WhatsApp</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- PASO 3: EVOLUTION API (DEMO) -->
+    <div style="margin-bottom:40px">
+      <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:10px">03 — Evolution API (demo) <span style="flex:1;height:1px;background:var(--border);display:block"></span></div>
+      <div style="display:flex;flex-direction:column;gap:0">
+
+        <div class="flow-step">
+          <div class="step-num" style="background:rgba(103,232,249,0.08);border:1px solid rgba(103,232,249,0.25);color:#67e8f9">3.1</div>
+          <div class="step-body">
+            <div class="step-title">Levantar Evolution API en la misma VM</div>
+            <div class="step-desc">
+              Evolution API corre como contenedor Docker en la misma VM que Chatwoot:<br>
+              <code style="color:#67e8f9">docker run -d --name evolution-api \</code><br>
+              <code style="color:#67e8f9">&nbsp;&nbsp;-p 8080:8080 \</code><br>
+              <code style="color:#67e8f9">&nbsp;&nbsp;-e AUTHENTICATION_API_KEY=tu-api-key \</code><br>
+              <code style="color:#67e8f9">&nbsp;&nbsp;atendai/evolution-api:latest</code><br><br>
+              Crear una instancia y escanear el QR con el número de demo:<br>
+              <code style="color:#67e8f9">curl -X POST http://localhost:8080/instance/create \</code><br>
+              <code style="color:#67e8f9">&nbsp;&nbsp;-H "apikey: tu-api-key" \</code><br>
+              <code style="color:#67e8f9">&nbsp;&nbsp;-d '{"instanceName": "axel-demo"}'</code><br><br>
+              Abrir el QR en el browser y escanearlo con el teléfono de demo.
+            </div>
+            <div class="step-tags"><span class="step-tag">Evolution API</span><span class="step-tag">Docker</span><span class="step-tag">QR scan</span><span class="step-tag">número demo</span></div>
+          </div>
+        </div>
+
+        <div class="flow-step">
+          <div class="step-num" style="background:rgba(103,232,249,0.08);border:1px solid rgba(103,232,249,0.25);color:#67e8f9">3.2</div>
+          <div class="step-body">
+            <div class="step-title">Conectar Evolution API con Chatwoot</div>
+            <div class="step-desc">
+              En Chatwoot → Settings → Inboxes → tu inbox de WhatsApp → Configuration.<br>
+              Pegar la URL de Evolution API y el API key.<br>
+              Configurar el webhook de Evolution API para que apunte al receptor de Cloud Run:<br>
+              <code style="color:#67e8f9">curl -X POST http://localhost:8080/webhook/set/axel-demo \</code><br>
+              <code style="color:#67e8f9">&nbsp;&nbsp;-d '{"url": "https://axel-receptor-demo-xxx.run.app/webhook"}'</code>
+            </div>
+            <div class="step-tags"><span class="step-tag">webhook</span><span class="step-tag">Cloud Run receptor</span><span class="step-tag">Chatwoot inbox</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- PASO 4: GITHUB -->
+    <div style="margin-bottom:40px">
+      <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:10px">04 — GitHub & primer deploy <span style="flex:1;height:1px;background:var(--border);display:block"></span></div>
+      <div style="display:flex;flex-direction:column;gap:0">
+
+        <div class="flow-step">
+          <div class="step-num" style="background:rgba(103,232,249,0.08);border:1px solid rgba(103,232,249,0.25);color:#67e8f9">4.1</div>
+          <div class="step-body">
+            <div class="step-title">Crear el repo y configurar los secrets</div>
+            <div class="step-desc">
+              Crear el repo en GitHub: <code style="color:#fcd34d">axel-ateam</code> (privado).<br>
+              En Settings → Secrets and variables → Actions, agregar todos los secrets del ambiente demo (ver sección GitHub & Deploy → 06).<br>
+              En Settings → Environments → crear el environment <code style="color:#fcd34d">production</code> con requerimiento de aprobación manual.<br>
+              En Settings → Branches → agregar regla de protección para <code style="color:#6ee7b7">main</code>: require PR review + status checks.
+            </div>
+            <div class="step-tags"><span class="step-tag">GitHub Secrets</span><span class="step-tag">Environments</span><span class="step-tag">branch protection</span></div>
+          </div>
+        </div>
+
+        <div class="flow-step">
+          <div class="step-num" style="background:rgba(103,232,249,0.08);border:1px solid rgba(103,232,249,0.25);color:#67e8f9">4.2</div>
+          <div class="step-body">
+            <div class="step-title">Primer push y verificación del pipeline</div>
+            <div class="step-desc">
+              <code style="color:#67e8f9">git init && git remote add origin git@github.com:tu-user/axel-ateam.git</code><br>
+              <code style="color:#67e8f9">git checkout -b demo && git add . && git commit -m "init"</code><br>
+              <code style="color:#67e8f9">git push origin demo</code><br><br>
+              GitHub Actions corre <code>deploy-demo.yml</code> automáticamente.<br>
+              Verificar en Actions tab que el deploy termina verde.<br>
+              Anotar la URL del Cloud Run receptor: <code style="color:#fcd34d">https://axel-receptor-demo-xxx.run.app</code><br>
+              Configurar esa URL como webhook en Chatwoot y Evolution API.
+            </div>
+            <div class="step-tags"><span class="step-tag">primer deploy</span><span class="step-tag">Cloud Run URL</span><span class="step-tag">webhook config</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- PASO 5: VERIFICACIÓN -->
+    <div style="margin-bottom:40px">
+      <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:10px">05 — Verificación end-to-end <span style="flex:1;height:1px;background:var(--border);display:block"></span></div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+        <div style="background:var(--bg2);border:1px solid var(--border2);border-radius:10px;padding:16px 18px">
+          <div style="font-family:'DM Mono',monospace;font-size:10px;font-weight:600;color:#67e8f9;margin-bottom:10px">Checklist de verificación</div>
+          <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted2);line-height:2.2">
+            <div>☐ Mandar un mensaje al número de demo</div>
+            <div>☐ Ver el mensaje en Chatwoot</div>
+            <div>☐ Ver el webhook llegar al receptor en Cloud Logging</div>
+            <div>☐ Ver el mensaje encolado en Cloud Tasks</div>
+            <div>☐ Ver el procesador llamar a Claude API</div>
+            <div>☐ Ver la respuesta de Axel en WhatsApp</div>
+            <div>☐ Ver el historial guardado en Firestore</div>
+            <div>☐ Ver el estado actualizado en Cloud SQL</div>
+          </div>
+        </div>
+        <div style="background:var(--bg2);border:1px solid var(--border2);border-radius:10px;padding:16px 18px">
+          <div style="font-family:'DM Mono',monospace;font-size:10px;font-weight:600;color:#67e8f9;margin-bottom:10px">Comandos útiles de verificación</div>
+          <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted2);line-height:2.2">
+            <div>Ver logs del receptor en tiempo real:</div>
+            <div><code style="color:#67e8f9">gcloud run services logs tail axel-receptor-demo</code></div>
+            <div>Ver logs del procesador:</div>
+            <div><code style="color:#67e8f9">gcloud run services logs tail axel-procesador-demo</code></div>
+            <div>Ver tareas en la cola:</div>
+            <div><code style="color:#67e8f9">gcloud tasks queues describe axel-queue-demo</code></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     PAGE 6: RUNBOOK
+══════════════════════════════════════ -->
+<div id="page-runbook" class="page">
+  <div style="max-width:960px;margin:0 auto 52px;border-bottom:1px solid var(--border2);padding-bottom:28px">
+    <div style="font-family:'DM Mono',monospace;font-size:11px;color:#fda4af;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:10px">Runbook de operaciones · v1.0</div>
+    <h1 style="font-family:'Syne',sans-serif;font-size:clamp(26px,4vw,44px);font-weight:800;letter-spacing:-0.02em;line-height:1.1;margin-bottom:10px">Runbook <span style="color:#fda4af">Operaciones</span><br>Qué hacer cuando algo falla</h1>
+    <p style="color:var(--muted2);font-size:13px;font-family:'DM Mono',monospace;font-weight:300">Diagnóstico · Recuperación · Rollback · Alertas</p>
+  </div>
+
+  <div style="max-width:960px;margin:0 auto">
+
+    <!-- PROBLEMA 1: Axel no responde -->
+    <div style="margin-bottom:40px">
+      <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:10px">🔴 P1 — Axel no responde mensajes <span style="flex:1;height:1px;background:var(--border);display:block"></span></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+        <div style="background:var(--bg2);border:1px solid rgba(253,164,175,0.2);border-radius:10px;padding:16px 18px">
+          <div style="font-family:'DM Mono',monospace;font-size:10px;font-weight:600;color:#fda4af;margin-bottom:10px">Diagnóstico — en este orden</div>
+          <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted2);line-height:2.2">
+            <div><span style="color:#fda4af">1.</span> ¿Chatwoot recibe el mensaje?<br>&nbsp;&nbsp;&nbsp;→ Entrar al dashboard y verificar</div>
+            <div><span style="color:#fda4af">2.</span> ¿El webhook llega al receptor?<br>&nbsp;&nbsp;&nbsp;<code style="color:#67e8f9">gcloud run services logs tail axel-receptor-demo</code></div>
+            <div><span style="color:#fda4af">3.</span> ¿El mensaje se encola en Cloud Tasks?<br>&nbsp;&nbsp;&nbsp;→ GCP Console → Cloud Tasks</div>
+            <div><span style="color:#fda4af">4.</span> ¿El procesador falla?<br>&nbsp;&nbsp;&nbsp;<code style="color:#67e8f9">gcloud run services logs tail axel-procesador-demo</code></div>
+            <div><span style="color:#fda4af">5.</span> ¿Claude API devuelve error?<br>&nbsp;&nbsp;&nbsp;→ Buscar en logs: <code>AnthropicError</code></div>
+          </div>
+        </div>
+        <div style="background:var(--bg2);border:1px solid rgba(253,164,175,0.2);border-radius:10px;padding:16px 18px">
+          <div style="font-family:'DM Mono',monospace;font-size:10px;font-weight:600;color:#fda4af;margin-bottom:10px">Soluciones frecuentes</div>
+          <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted2);line-height:2.2">
+            <div><strong style="color:var(--text)">Cloud Run caído:</strong> reiniciar manualmente<br><code style="color:#67e8f9">gcloud run services update axel-procesador-demo --region us-east1</code></div>
+            <div><strong style="color:var(--text)">Claude API rate limit:</strong> verificar uso en console.anthropic.com · el procesador reintenta automáticamente</div>
+            <div><strong style="color:var(--text)">Lock de Firestore trabado:</strong> ver sección P3 más abajo</div>
+            <div><strong style="color:var(--text)">Webhook URL incorrecta:</strong> verificar en Chatwoot Settings → Integrations → Webhooks</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROBLEMA 2: Chatwoot caído -->
+    <div style="margin-bottom:40px">
+      <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:10px">🔴 P2 — Chatwoot caído o inaccesible <span style="flex:1;height:1px;background:var(--border);display:block"></span></div>
+      <div style="background:var(--bg2);border:1px solid rgba(253,164,175,0.2);border-radius:10px;padding:16px 18px;font-family:'DM Mono',monospace;font-size:10px;color:var(--muted2);line-height:2.2">
+        <div>SSH a la VM y verificar el estado de los contenedores:</div>
+        <div><code style="color:#67e8f9">gcloud compute ssh chatwoot-vm --zone=us-east1-b</code></div>
+        <div><code style="color:#67e8f9">cd chatwoot && docker-compose ps</code></div>
+        <div><code style="color:#67e8f9">docker-compose logs --tail=50 chatwoot</code></div>
+        <div style="margin-top:6px">Si algún contenedor está caído:</div>
+        <div><code style="color:#67e8f9">docker-compose restart chatwoot</code></div>
+        <div style="margin-top:6px">Si la VM no responde → GCP Console → Compute Engine → reiniciar instancia.</div>
+        <div style="margin-top:6px">⚠ Mientras Chatwoot está caído, los mensajes de WhatsApp se siguen recibiendo en Meta/Evolution API. Al volver, Chatwoot sincroniza automáticamente los mensajes perdidos.</div>
+      </div>
+    </div>
+
+    <!-- PROBLEMA 3: Lock trabado -->
+    <div style="margin-bottom:40px">
+      <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:10px">🟡 P3 — Lock de Firestore trabado (conversación bloqueada) <span style="flex:1;height:1px;background:var(--border);display:block"></span></div>
+      <div style="background:var(--bg2);border:1px solid rgba(253,164,175,0.2);border-radius:10px;padding:16px 18px;font-family:'DM Mono',monospace;font-size:10px;color:var(--muted2);line-height:2.2">
+        <div><strong style="color:var(--text)">Síntoma:</strong> un consumidor manda mensajes pero Axel no responde. En Firestore, el documento de la conversación tiene <code style="color:#fcd34d">processing: true</code> con un <code>processing_since</code> viejo.</div>
+        <div style="margin-top:8px"><strong style="color:var(--text)">Diagnóstico:</strong></div>
+        <div>En Firestore Console → colección <code>conversations</code> → buscar por <code>whatsapp</code> del consumidor → ver campo <code>processing</code>.</div>
+        <div style="margin-top:8px"><strong style="color:var(--text)">Fix manual:</strong> editar el documento en Firestore Console y setear <code style="color:#fcd34d">processing: false</code>.</div>
+        <div style="margin-top:6px">El procesador tiene detección automática de locks caídos: si <code>processing_since</code> tiene más de 5 minutos, libera el lock automáticamente. Si el problema persiste, el lock manual es la solución inmediata.</div>
+      </div>
+    </div>
+
+    <!-- PROBLEMA 4: Deploy roto en prod -->
+    <div style="margin-bottom:40px">
+      <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:10px">🔴 P4 — Deploy roto en producción → rollback <span style="flex:1;height:1px;background:var(--border);display:block"></span></div>
+      <div style="background:var(--bg2);border:1px solid rgba(253,164,175,0.2);border-radius:10px;padding:16px 18px;font-family:'DM Mono',monospace;font-size:10px;color:var(--muted2);line-height:2.2">
+        <div><strong style="color:var(--text)">Rollback inmediato sin tocar código</strong> (segundos):</div>
+        <div><code style="color:#67e8f9">gcloud run revisions list --service axel-procesador-prod --region us-east1</code></div>
+        <div><code style="color:#67e8f9">gcloud run services update-traffic axel-procesador-prod \</code></div>
+        <div><code style="color:#67e8f9">&nbsp;&nbsp;--to-revisions axel-procesador-prod-00023-abc=100 --region us-east1</code></div>
+        <div style="margin-top:8px">Repetir para el receptor si también está afectado.</div>
+        <div style="margin-top:8px"><strong style="color:var(--text)">Luego:</strong> revertir en git → push a staging → validar → push a main → deploy con aprobación.</div>
+      </div>
+    </div>
+
+    <!-- PROBLEMA 5: Cloud SQL -->
+    <div style="margin-bottom:40px">
+      <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:10px">🟡 P5 — Cloud SQL lento o con errores de conexión <span style="flex:1;height:1px;background:var(--border);display:block"></span></div>
+      <div style="background:var(--bg2);border:1px solid rgba(253,164,175,0.2);border-radius:10px;padding:16px 18px;font-family:'DM Mono',monospace;font-size:10px;color:var(--muted2);line-height:2.2">
+        <div>Ver métricas en GCP Console → Cloud SQL → tu instancia → Monitoring.</div>
+        <div>Si hay demasiadas conexiones abiertas (Cloud Run escala y abre conexiones nuevas):</div>
+        <div>→ Usar <strong style="color:var(--text)">Cloud SQL Auth Proxy</strong> o <strong style="color:var(--text)">pg-pool</strong> en el procesador para limitar el pool de conexiones.</div>
+        <div style="margin-top:6px">Reiniciar la instancia como último recurso:</div>
+        <div><code style="color:#67e8f9">gcloud sql instances restart axel-db-prod</code></div>
+        <div style="margin-top:6px">⚠ El reinicio tarda ~60 segundos. Durante ese tiempo los procesadores van a fallar y Cloud Tasks va a reintentar automáticamente con backoff.</div>
+      </div>
+    </div>
+
+    <!-- PROBLEMA 6: Evolution API desconectada -->
+    <div style="margin-bottom:40px">
+      <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:10px">🟡 P6 — Evolution API desconectada (demo) <span style="flex:1;height:1px;background:var(--border);display:block"></span></div>
+      <div style="background:var(--bg2);border:1px solid rgba(253,164,175,0.2);border-radius:10px;padding:16px 18px;font-family:'DM Mono',monospace;font-size:10px;color:var(--muted2);line-height:2.2">
+        <div>Evolution API puede desconectarse si WhatsApp Web detecta la sesión como inactiva o sospechosa.</div>
+        <div style="margin-top:6px">Verificar el estado de la instancia:</div>
+        <div><code style="color:#67e8f9">curl http://localhost:8080/instance/connectionState/axel-demo \</code></div>
+        <div><code style="color:#67e8f9">&nbsp;&nbsp;-H "apikey: tu-api-key"</code></div>
+        <div style="margin-top:6px">Si devuelve <code style="color:#fcd34d">state: "close"</code>, hay que volver a escanear el QR:</div>
+        <div><code style="color:#67e8f9">curl http://localhost:8080/instance/connect/axel-demo -H "apikey: tu-api-key"</code></div>
+        <div>Abrir la URL del QR en el browser y escanear con el teléfono de demo.</div>
+        <div style="margin-top:6px">⚠ Este riesgo no existe en producción con Meta Cloud API oficial.</div>
+      </div>
+    </div>
+
+    <!-- ALERTAS RECOMENDADAS -->
+    <div style="margin-bottom:40px">
+      <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:10px">Alertas recomendadas en GCP <span style="flex:1;height:1px;background:var(--border);display:block"></span></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px">
+        <div style="padding:12px 16px;background:var(--bg2);border:1px solid rgba(253,164,175,0.15);border-radius:8px;font-family:'DM Mono',monospace;font-size:10px;color:var(--muted2);line-height:1.9">
+          <div style="color:#fda4af;font-weight:600;margin-bottom:6px">Cloud Run</div>
+          <div>Error rate > 5% → alerta</div>
+          <div>Latencia p99 > 10s → alerta</div>
+          <div>0 instancias activas → alerta</div>
+        </div>
+        <div style="padding:12px 16px;background:var(--bg2);border:1px solid rgba(253,164,175,0.15);border-radius:8px;font-family:'DM Mono',monospace;font-size:10px;color:var(--muted2);line-height:1.9">
+          <div style="color:#fda4af;font-weight:600;margin-bottom:6px">Cloud SQL</div>
+          <div>CPU > 80% → alerta</div>
+          <div>Conexiones > 80 → alerta</div>
+          <div>Storage > 80% → alerta</div>
+        </div>
+        <div style="padding:12px 16px;background:var(--bg2);border:1px solid rgba(253,164,175,0.15);border-radius:8px;font-family:'DM Mono',monospace;font-size:10px;color:var(--muted2);line-height:1.9">
+          <div style="color:#fda4af;font-weight:600;margin-bottom:6px">Cloud Tasks</div>
+          <div>Tasks en cola > 100 → alerta</div>
+          <div>Task failed 3 veces → alerta</div>
+          <div>Oldest task > 10min → alerta</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     PAGE 7: ONBOARDING CLIENTE
+══════════════════════════════════════ -->
+<div id="page-onboarding" class="page">
+  <div style="max-width:960px;margin:0 auto 52px;border-bottom:1px solid var(--border2);padding-bottom:28px">
+    <div style="font-family:'DM Mono',monospace;font-size:11px;color:#86efac;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:10px">Onboarding · nuevo cliente A Team · v1.0</div>
+    <h1 style="font-family:'Syne',sans-serif;font-size:clamp(26px,4vw,44px);font-weight:800;letter-spacing:-0.02em;line-height:1.1;margin-bottom:10px">Onboarding <span style="color:#86efac">Cliente</span><br>De contrato a Axel activo</h1>
+    <p style="color:var(--muted2);font-size:13px;font-family:'DM Mono',monospace;font-weight:300">Tiempo estimado total: 2-4 horas · un solo dev</p>
+  </div>
+
+  <div style="max-width:960px;margin:0 auto">
+
+    <!-- CHECKLIST PREVIO -->
+    <div style="margin-bottom:40px">
+      <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:10px">00 — Qué necesitás del cliente antes de empezar <span style="flex:1;height:1px;background:var(--border);display:block"></span></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+        <div style="padding:14px 16px;background:var(--bg2);border:1px solid rgba(134,239,172,0.2);border-radius:8px;font-family:'DM Mono',monospace;font-size:10px;color:var(--muted2);line-height:2.2">
+          <div style="color:#86efac;font-weight:600;margin-bottom:6px">Datos del cliente</div>
+          <div>☐ Razón social completa</div>
+          <div>☐ CUIT</div>
+          <div>☐ Condición IVA (RI / Mono / CF)</div>
+          <div>☐ Email del administrador</div>
+          <div>☐ WhatsApp de notificaciones del equipo</div>
+          <div>☐ Configuración de cadencia deseada (horas)</div>
+        </div>
+        <div style="padding:14px 16px;background:var(--bg2);border:1px solid rgba(134,239,172,0.2);border-radius:8px;font-family:'DM Mono',monospace;font-size:10px;color:var(--muted2);line-height:2.2">
+          <div style="color:#86efac;font-weight:600;margin-bottom:6px">Datos para ARCA (MVP)</div>
+          <div>☐ Certificado digital ARCA (.pem)</div>
+          <div>☐ Clave privada ARCA (.key)</div>
+          <div>☐ CUIT del titular de la cuenta bancaria</div>
+          <div>☐ CBU / CVU de la cuenta recaudadora</div>
+          <div>☐ Alias de la cuenta</div>
+          <div>☐ Banco / billetera</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PASO 1: CLOUD SQL -->
+    <div style="margin-bottom:40px">
+      <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:10px">01 — Crear el cliente en Cloud SQL <span style="flex:1;height:1px;background:var(--border);display:block"></span></div>
+      <div style="display:flex;flex-direction:column;gap:0">
+
+        <div class="flow-step">
+          <div class="step-num" style="background:rgba(134,239,172,0.08);border:1px solid rgba(134,239,172,0.25);color:#86efac">1.1</div>
+          <div class="step-body">
+            <div class="step-title">Insertar el registro en la tabla clientes</div>
+            <div class="step-desc">
+              <code style="color:#86efac">INSERT INTO clientes (</code><br>
+              <code style="color:#86efac">&nbsp;&nbsp;id, razon_social, cuit, email_admin,</code><br>
+              <code style="color:#86efac">&nbsp;&nbsp;condicion_iva, whatsapp_notif,</code><br>
+              <code style="color:#86efac">&nbsp;&nbsp;config_cadencia, activo, created_at</code><br>
+              <code style="color:#86efac">) VALUES (</code><br>
+              <code style="color:#86efac">&nbsp;&nbsp;gen_random_uuid(),</code><br>
+              <code style="color:#86efac">&nbsp;&nbsp;'Nombre S.A.',</code><br>
+              <code style="color:#86efac">&nbsp;&nbsp;'30-12345678-9',</code><br>
+              <code style="color:#86efac">&nbsp;&nbsp;'admin@cliente.com',</code><br>
+              <code style="color:#86efac">&nbsp;&nbsp;'RI',</code><br>
+              <code style="color:#86efac">&nbsp;&nbsp;'+5491100000000',</code><br>
+              <code style="color:#86efac">&nbsp;&nbsp;'{"msg1_horas":1,"msg2_horas":24,"msg3_horas":72}',</code><br>
+              <code style="color:#86efac">&nbsp;&nbsp;true, NOW()</code><br>
+              <code style="color:#86efac">);</code><br><br>
+              Guardar el <code style="color:#fcd34d">id</code> generado — se va a usar en todos los pasos siguientes.
+            </div>
+            <div class="step-tags"><span class="step-tag">Cloud SQL</span><span class="step-tag">tabla clientes</span><span class="step-tag">config_cadencia</span></div>
+          </div>
+        </div>
+
+        <div class="flow-step">
+          <div class="step-num" style="background:rgba(134,239,172,0.08);border:1px solid rgba(134,239,172,0.25);color:#86efac">1.2</div>
+          <div class="step-body">
+            <div class="step-title">Crear la cuenta recaudadora (CVU)</div>
+            <div class="step-desc">
+              En el banco / billetera de A Team, generar un CVU nuevo para el cliente.<br>
+              Insertar en la tabla <code>cuentas_recaudadoras</code>:<br><br>
+              <code style="color:#86efac">INSERT INTO cuentas_recaudadoras (</code><br>
+              <code style="color:#86efac">&nbsp;&nbsp;id, cliente_id, cvu, alias, banco, titular, cuit_titular, activa, created_at</code><br>
+              <code style="color:#86efac">) VALUES (</code><br>
+              <code style="color:#86efac">&nbsp;&nbsp;gen_random_uuid(), '[cliente_id]',</code><br>
+              <code style="color:#86efac">&nbsp;&nbsp;'0000003100012345678901',</code><br>
+              <code style="color:#86efac">&nbsp;&nbsp;'ateam.cliente1', 'Mercado Pago',</code><br>
+              <code style="color:#86efac">&nbsp;&nbsp;'A Team S.R.L.', '30-99999999-9', true, NOW()</code><br>
+              <code style="color:#86efac">);</code>
+            </div>
+            <div class="step-tags"><span class="step-tag">cuentas_recaudadoras</span><span class="step-tag">CVU único</span><span class="step-tag">alias</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- PASO 2: ARCA -->
+    <div style="margin-bottom:40px">
+      <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:10px">02 — Configurar ARCA (MVP) <span style="flex:1;height:1px;background:var(--border);display:block"></span></div>
+      <div style="display:flex;flex-direction:column;gap:0">
+
+        <div class="flow-step">
+          <div class="step-num" style="background:rgba(134,239,172,0.08);border:1px solid rgba(134,239,172,0.25);color:#86efac">2.1</div>
+          <div class="step-body">
+            <div class="step-title">Subir el certificado digital a Cloud Storage</div>
+            <div class="step-desc">
+              <code style="color:#86efac">gcloud storage cp cert.pem \</code><br>
+              <code style="color:#86efac">&nbsp;&nbsp;gs://axel-ateam-storage/[cliente_id]/arca/cert.pem</code><br><br>
+              <code style="color:#86efac">gcloud storage cp clave.key \</code><br>
+              <code style="color:#86efac">&nbsp;&nbsp;gs://axel-ateam-storage/[cliente_id]/arca/clave.key</code><br><br>
+              Actualizar los paths en Cloud SQL:<br>
+              <code style="color:#86efac">UPDATE clientes SET</code><br>
+              <code style="color:#86efac">&nbsp;&nbsp;arca_cert_path = '[cliente_id]/arca/cert.pem',</code><br>
+              <code style="color:#86efac">&nbsp;&nbsp;arca_clave_path = '[cliente_id]/arca/clave.key'</code><br>
+              <code style="color:#86efac">WHERE id = '[cliente_id]';</code>
+            </div>
+            <div class="step-tags"><span class="step-tag">Cloud Storage</span><span class="step-tag">cert digital</span><span class="step-tag">ARCA</span></div>
+          </div>
+        </div>
+
+        <div class="flow-step">
+          <div class="step-num" style="background:rgba(134,239,172,0.08);border:1px solid rgba(134,239,172,0.25);color:#86efac">2.2</div>
+          <div class="step-body">
+            <div class="step-title">Verificar la conexión con ARCA</div>
+            <div class="step-desc">
+              Ejecutar el script de verificación que hace un llamado de prueba a ARCA con el certificado del cliente:<br><br>
+              <code style="color:#86efac">node infra/scripts/verify-arca.js --cliente-id=[cliente_id]</code><br><br>
+              El script debe devolver el CUIT validado y la condición fiscal del cliente.<br>
+              Si falla, verificar que el certificado esté vigente y que el CUIT del cliente esté habilitado en ARCA.
+            </div>
+            <div class="step-tags"><span class="step-tag">ARCA API</span><span class="step-tag">verificación</span><span class="step-tag">certificado</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- PASO 3: CHATWOOT -->
+    <div style="margin-bottom:40px">
+      <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:10px">03 — Configurar Chatwoot para el cliente <span style="flex:1;height:1px;background:var(--border);display:block"></span></div>
+      <div style="display:flex;flex-direction:column;gap:0">
+
+        <div class="flow-step">
+          <div class="step-num" style="background:rgba(134,239,172,0.08);border:1px solid rgba(134,239,172,0.25);color:#86efac">3.1</div>
+          <div class="step-body">
+            <div class="step-title">Crear el inbox en Chatwoot</div>
+            <div class="step-desc">
+              En Chatwoot dashboard → Settings → Inboxes → Add Inbox.<br>
+              Seleccionar WhatsApp → Meta Cloud API (producción) o Evolution API (demo).<br>
+              Nombrar el inbox como <code style="color:#fcd34d">Cliente - Nombre</code> para identificarlo en el dashboard.<br>
+              Guardar el <code>inbox_id</code> generado — se va a usar en el procesador para saber a qué inbox responder.
+            </div>
+            <div class="step-tags"><span class="step-tag">Chatwoot inbox</span><span class="step-tag">WhatsApp</span><span class="step-tag">inbox_id</span></div>
+          </div>
+        </div>
+
+        <div class="flow-step">
+          <div class="step-num" style="background:rgba(134,239,172,0.08);border:1px solid rgba(134,239,172,0.25);color:#86efac">3.2</div>
+          <div class="step-body">
+            <div class="step-title">Guardar el inbox_id en Cloud SQL</div>
+            <div class="step-desc">
+              Agregar el <code>chatwoot_inbox_id</code> a la tabla de clientes:<br><br>
+              <code style="color:#86efac">ALTER TABLE clientes ADD COLUMN IF NOT EXISTS chatwoot_inbox_id VARCHAR(50);</code><br><br>
+              <code style="color:#86efac">UPDATE clientes SET chatwoot_inbox_id = '[inbox_id]'</code><br>
+              <code style="color:#86efac">WHERE id = '[cliente_id]';</code><br><br>
+              El procesador usa este campo para saber a qué inbox de Chatwoot enviar las respuestas de Axel.
+            </div>
+            <div class="step-tags"><span class="step-tag">Cloud SQL</span><span class="step-tag">chatwoot_inbox_id</span><span class="step-tag">multi-tenant routing</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- PASO 4: CARGAR PRIMER CONSUMIDOR -->
+    <div style="margin-bottom:40px">
+      <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:10px">04 — Cargar el primer consumidor y probar <span style="flex:1;height:1px;background:var(--border);display:block"></span></div>
+      <div style="display:flex;flex-direction:column;gap:0">
+
+        <div class="flow-step">
+          <div class="step-num" style="background:rgba(134,239,172,0.08);border:1px solid rgba(134,239,172,0.25);color:#86efac">4.1</div>
+          <div class="step-body">
+            <div class="step-title">Cargar un consumidor de prueba</div>
+            <div class="step-desc">
+              Usar el formulario web interno o insertar directamente en SQL:<br><br>
+              <code style="color:#86efac">INSERT INTO consumidores (id, nombre, apellido, email, whatsapp, created_at)</code><br>
+              <code style="color:#86efac">VALUES (gen_random_uuid(), 'Test', 'Consumidor', 'test@test.com', '+5491100000000', NOW());</code><br><br>
+              Crear la relación en <code>consumidores_clientes</code>:<br>
+              <code style="color:#86efac">INSERT INTO consumidores_clientes (id, consumidor_id, cliente_id, estado_cobranza, created_at)</code><br>
+              <code style="color:#86efac">VALUES (gen_random_uuid(), '[consumidor_id]', '[cliente_id]', 'pendiente_contacto', NOW());</code><br><br>
+              Crear la factura de prueba:<br>
+              <code style="color:#86efac">INSERT INTO facturas (id, cliente_id, consumidor_id, concepto, monto_total, tiene_cuotas, fecha_emision, fecha_vencimiento, estado, created_at)</code><br>
+              <code style="color:#86efac">VALUES (gen_random_uuid(), '[cliente_id]', '[consumidor_id]', 'Servicio de prueba', 1500.00, false, NOW(), NOW() + interval '30 days', 'pendiente', NOW());</code>
+            </div>
+            <div class="step-tags"><span class="step-tag">consumidores</span><span class="step-tag">consumidores_clientes</span><span class="step-tag">facturas</span></div>
+          </div>
+        </div>
+
+        <div class="flow-step">
+          <div class="step-num" style="background:rgba(134,239,172,0.08);border:1px solid rgba(134,239,172,0.25);color:#86efac">4.2</div>
+          <div class="step-body">
+            <div class="step-title">Disparar el primer contacto y verificar</div>
+            <div class="step-desc">
+              Triggear manualmente el Cloud Scheduler o llamar directamente al endpoint de cadencia:<br><br>
+              <code style="color:#86efac">curl -X POST https://axel-scheduler-prod.run.app/trigger \</code><br>
+              <code style="color:#86efac">&nbsp;&nbsp;-d '{"consumidor_id": "[consumidor_id]", "tipo": "cadencia_1"}'</code><br><br>
+              Verificar que:<br>
+              → Axel manda el primer mensaje al WhatsApp de prueba<br>
+              → El mensaje aparece en el inbox de Chatwoot del cliente<br>
+              → El estado en Cloud SQL cambia a <code style="color:#fcd34d">contactado</code><br>
+              → El link de pago incluye el CVU del cliente correcto
+            </div>
+            <div class="step-tags"><span class="step-tag">primer contacto</span><span class="step-tag">verificación E2E</span><span class="step-tag">link de pago</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- CHECKLIST FINAL -->
+    <div style="margin-bottom:40px">
+      <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:10px">Checklist de cierre del onboarding <span style="flex:1;height:1px;background:var(--border);display:block"></span></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+        <div style="padding:14px 16px;background:var(--bg2);border:1px solid rgba(134,239,172,0.2);border-radius:8px;font-family:'DM Mono',monospace;font-size:10px;color:var(--muted2);line-height:2.2">
+          <div style="color:#86efac;font-weight:600;margin-bottom:6px">Técnico</div>
+          <div>☐ Registro en tabla clientes creado</div>
+          <div>☐ CVU configurado en cuentas_recaudadoras</div>
+          <div>☐ Certs ARCA subidos a Storage y paths en SQL</div>
+          <div>☐ ARCA verificada con script</div>
+          <div>☐ Inbox en Chatwoot creado y linked</div>
+          <div>☐ Primer consumidor de prueba cargado</div>
+          <div>☐ Flujo end-to-end verificado en staging</div>
+        </div>
+        <div style="padding:14px 16px;background:var(--bg2);border:1px solid rgba(134,239,172,0.2);border-radius:8px;font-family:'DM Mono',monospace;font-size:10px;color:var(--muted2);line-height:2.2">
+          <div style="color:#86efac;font-weight:600;margin-bottom:6px">Operativo</div>
+          <div>☐ Cliente recibió acceso al dashboard</div>
+          <div>☐ WhatsApp de notificaciones configurado</div>
+          <div>☐ Cadencia acordada con el cliente cargada</div>
+          <div>☐ Consumidores reales cargados (CSV import o formulario)</div>
+          <div>☐ Cliente sabe cómo cargar nuevos consumidores</div>
+          <div>☐ Cliente sabe cómo interpretar el dashboard</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+function showPage(name) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('page-' + name).classList.add('active');
+  document.querySelector('.nav-tab.t-' + name).classList.add('active');
+}
+
+const flowColors = {
+  demo:        { border:'var(--amber-border)',  bg:'var(--amber-dim)',  color:'#fcd34d' },
+  mvp:         { border:'var(--green-border)',  bg:'var(--green-dim)',  color:'#6ee7b7' },
+  promesa:     { border:'var(--purple-border)', bg:'var(--purple-dim)', color:'#c4b5fd' },
+  seguimiento: { border:'var(--teal-border)',   bg:'var(--teal-dim)',   color:'#5eead4' },
+};
+function showFlowTab(tab) {
+  ['demo','mvp','promesa','seguimiento'].forEach(t => {
+    const el  = document.getElementById('flow-' + t);
+    const btn = document.getElementById('tab-' + t);
+    if (!el || !btn) return;
+    const c = flowColors[t];
+    if (t === tab) {
+      el.style.display = 'flex';
+      btn.style.cssText = `font-family:'DM Mono',monospace;font-size:11px;padding:8px 20px;border-radius:6px;border:1px solid ${c.border};background:${c.bg};color:${c.color};cursor:pointer;letter-spacing:0.06em`;
+    } else {
+      el.style.display = 'none';
+      btn.style.cssText = `font-family:'DM Mono',monospace;font-size:11px;padding:8px 20px;border-radius:6px;border:1px solid var(--border);background:transparent;color:var(--muted2);cursor:pointer;letter-spacing:0.06em`;
+    }
+  });
+}
+</script>
+</body>
+</html>

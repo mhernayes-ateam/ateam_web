@@ -1,0 +1,10 @@
+node_modules/
+dist/
+*.js.map
+.env
+.env.*
+!.env.example
+key.json
+*.key
+*.pem
+.DS_Store

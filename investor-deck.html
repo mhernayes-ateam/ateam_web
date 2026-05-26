@@ -1,0 +1,1529 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A-Team · Investor Deck · 2026</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;0,600;1,300&family=Bebas+Neue&family=Lora:ital,wght@0,400;0,500;1,400;1,500&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --bg: #080C0A;
+      --surface: #0E1410;
+      --border: #1E2B22;
+      --border-bright: #2E4236;
+      --text: #C8D4CC;
+      --muted: #5A7066;
+      --green: #3DFF8F;
+      --green-dim: #1A6640;
+      --green-mid: #2AAD61;
+      --amber: #FFB347;
+      --red: #FF6B6B;
+      --white: #F0F5F2;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'IBM Plex Mono', monospace;
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    /* ── SLIDE SYSTEM ── */
+    .slide {
+      min-height: 100vh;
+      width: 100%;
+      padding: 64px 80px;
+      position: relative;
+      border-bottom: 1px solid var(--border);
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .slide.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .slide-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 56px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .slide-id {
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      color: var(--muted);
+    }
+
+    .slide-label {
+      font-size: 10px;
+      letter-spacing: 0.25em;
+      color: var(--green);
+      text-transform: uppercase;
+    }
+
+    /* ── COVER ── */
+    .cover {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 100vh;
+      background:
+        radial-gradient(ellipse at 20% 50%, rgba(61, 255, 143, 0.04) 0%, transparent 60%),
+        var(--bg);
+      overflow: hidden;
+    }
+
+    .cover-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding: 48px 80px 0;
+      opacity: 0;
+      animation: fadeIn 0.8s ease 0.1s forwards;
+    }
+
+    .logo-mark {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 18px;
+      letter-spacing: 0.2em;
+      color: var(--green);
+    }
+
+    .cover-badge {
+      font-size: 9px;
+      letter-spacing: 0.3em;
+      color: var(--muted);
+      border: 1px solid var(--border-bright);
+      padding: 6px 14px;
+    }
+
+    .cover-center {
+      padding: 0 80px;
+      opacity: 0;
+      animation: fadeUp 0.9s ease 0.3s forwards;
+    }
+
+    .cover-eyebrow {
+      font-size: 11px;
+      letter-spacing: 0.3em;
+      color: var(--green-mid);
+      margin-bottom: 24px;
+    }
+
+    .cover-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(72px, 10vw, 140px);
+      letter-spacing: 0.02em;
+      color: var(--white);
+      line-height: 0.9;
+      margin-bottom: 32px;
+    }
+
+    .cover-title span {
+      color: var(--green);
+    }
+
+    .cover-desc {
+      font-family: 'Lora', serif;
+      font-size: 18px;
+      font-style: italic;
+      color: var(--muted);
+      max-width: 560px;
+      line-height: 1.6;
+    }
+
+    .cover-bottom {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border-top: 1px solid var(--border);
+      opacity: 0;
+      animation: fadeIn 0.9s ease 0.7s forwards;
+    }
+
+    .cover-kpi {
+      padding: 32px 80px;
+      border-right: 1px solid var(--border);
+    }
+
+    .cover-kpi:last-child {
+      border-right: none;
+    }
+
+    .kpi-val {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 48px;
+      color: var(--white);
+      letter-spacing: 0.03em;
+      line-height: 1;
+    }
+
+    .kpi-val.green {
+      color: var(--green);
+    }
+
+    .kpi-label {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      color: var(--muted);
+      margin-top: 6px;
+      line-height: 1.5;
+    }
+
+    /* ── SECTION TITLES ── */
+    .section-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(48px, 6vw, 80px);
+      letter-spacing: 0.03em;
+      color: var(--white);
+      line-height: 0.95;
+      margin-bottom: 8px;
+    }
+
+    .section-sub {
+      font-family: 'Lora', serif;
+      font-size: 15px;
+      font-style: italic;
+      color: var(--muted);
+      margin-bottom: 48px;
+      line-height: 1.5;
+    }
+
+    /* ── MARKET SLIDE ── */
+    .market-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+    }
+
+    .market-panel {
+      border: 1px solid var(--border);
+      padding: 32px;
+      position: relative;
+    }
+
+    .market-panel::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 3px;
+      height: 100%;
+      background: var(--green-dim);
+    }
+
+    .market-panel.latam::before {
+      background: var(--amber);
+    }
+
+    .market-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 24px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .market-geo {
+      font-size: 10px;
+      letter-spacing: 0.25em;
+      color: var(--green);
+    }
+
+    .market-panel.latam .market-geo {
+      color: var(--amber);
+    }
+
+    .market-tam {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 52px;
+      color: var(--white);
+      letter-spacing: 0.02em;
+      line-height: 1;
+    }
+
+    .market-tam-label {
+      font-size: 9px;
+      letter-spacing: 0.2em;
+      color: var(--muted);
+    }
+
+    .market-funnel {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 20px;
+    }
+
+    .funnel-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 11px;
+    }
+
+    .funnel-label {
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      width: 32px;
+      flex-shrink: 0;
+    }
+
+    .funnel-bar-wrap {
+      flex: 1;
+      height: 20px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+
+    .funnel-bar {
+      height: 100%;
+      background: var(--green-dim);
+      transition: width 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .funnel-bar.latam-bar {
+      background: rgba(255, 179, 71, 0.25);
+    }
+
+    .funnel-val {
+      color: var(--white);
+      font-size: 11px;
+      white-space: nowrap;
+      min-width: 90px;
+      text-align: right;
+    }
+
+    /* ── SEGMENTS TABLE ── */
+    .seg-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 11px;
+    }
+
+    .seg-table th {
+      text-align: left;
+      padding: 12px 16px;
+      font-size: 9px;
+      letter-spacing: 0.25em;
+      color: var(--muted);
+      border-bottom: 1px solid var(--border);
+      font-weight: 400;
+    }
+
+    .seg-table td {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: middle;
+      line-height: 1.4;
+    }
+
+    .seg-table tr:hover td {
+      background: var(--surface);
+    }
+
+    .seg-num {
+      font-size: 9px;
+      color: var(--muted);
+      font-family: 'IBM Plex Mono', monospace;
+    }
+
+    .seg-name {
+      color: var(--white);
+      font-size: 12px;
+      letter-spacing: 0.03em;
+    }
+
+    .seg-count {
+      color: var(--green-mid);
+      font-variant-numeric: tabular-nums;
+      text-align: right;
+    }
+
+    .seg-avg {
+      color: var(--text);
+      text-align: right;
+    }
+
+    .seg-arpu {
+      color: var(--amber);
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .seg-tam {
+      color: var(--white);
+      text-align: right;
+      font-weight: 500;
+    }
+
+    .seg-priority {
+      text-align: center;
+    }
+
+    .priority-dot {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--muted);
+    }
+
+    .priority-dot.p1 {
+      background: var(--green);
+    }
+
+    .priority-dot.p2 {
+      background: var(--amber);
+    }
+
+    .priority-dot.p3 {
+      background: var(--muted);
+    }
+
+    .total-row td {
+      border-top: 1px solid var(--green-dim);
+      border-bottom: none;
+      padding-top: 16px;
+    }
+
+    .total-row .seg-tam {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 22px;
+      color: var(--green);
+      letter-spacing: 0.05em;
+    }
+
+    /* ── UNIT ECONOMICS ── */
+    .econ-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      margin-bottom: 32px;
+    }
+
+    .econ-cell {
+      background: var(--bg);
+      padding: 32px 28px;
+    }
+
+    .econ-label {
+      font-size: 9px;
+      letter-spacing: 0.25em;
+      color: var(--muted);
+      margin-bottom: 12px;
+      text-transform: uppercase;
+    }
+
+    .econ-val {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 44px;
+      color: var(--white);
+      letter-spacing: 0.03em;
+      line-height: 1;
+    }
+
+    .econ-val.positive {
+      color: var(--green);
+    }
+
+    .econ-val.negative {
+      color: var(--red);
+    }
+
+    .econ-note {
+      font-size: 10px;
+      color: var(--muted);
+      margin-top: 8px;
+      line-height: 1.5;
+    }
+
+    /* ── SCENARIOS ── */
+    .scenario-row {
+      display: grid;
+      grid-template-columns: 120px 1fr 1fr 1fr 1fr 1fr;
+      gap: 0;
+      align-items: center;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 11px;
+    }
+
+    .scenario-row.header {
+      padding: 0 0 12px;
+      font-size: 9px;
+      letter-spacing: 0.2em;
+      color: var(--muted);
+    }
+
+    .scenario-name {
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      color: var(--muted);
+    }
+
+    .scenario-name.bear {
+      color: var(--red);
+    }
+
+    .scenario-name.base {
+      color: var(--amber);
+    }
+
+    .scenario-name.bull {
+      color: var(--green);
+    }
+
+    .scenario-val {
+      text-align: right;
+      color: var(--text);
+      padding-right: 16px;
+    }
+
+    .scenario-val.highlight {
+      color: var(--white);
+    }
+
+    /* ── GTM ── */
+    .gtm-phases {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      border: 1px solid var(--border);
+      margin-top: 40px;
+    }
+
+    .phase {
+      padding: 32px 28px;
+      border-right: 1px solid var(--border);
+      position: relative;
+    }
+
+    .phase:last-child {
+      border-right: none;
+    }
+
+    .phase-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 80px;
+      color: var(--border-bright);
+      line-height: 1;
+      position: absolute;
+      top: 16px;
+      right: 20px;
+      letter-spacing: 0.02em;
+    }
+
+    .phase-label {
+      font-size: 9px;
+      letter-spacing: 0.25em;
+      color: var(--green);
+      margin-bottom: 12px;
+    }
+
+    .phase-title {
+      font-family: 'Lora', serif;
+      font-size: 20px;
+      color: var(--white);
+      margin-bottom: 20px;
+      line-height: 1.2;
+    }
+
+    .phase-items {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .phase-items li {
+      font-size: 11px;
+      color: var(--muted);
+      line-height: 1.5;
+      padding-left: 14px;
+      position: relative;
+    }
+
+    .phase-items li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: var(--green-dim);
+    }
+
+    .phase-kpi {
+      margin-top: 24px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+    }
+
+    .phase-kpi-val {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 32px;
+      color: var(--green);
+      letter-spacing: 0.05em;
+    }
+
+    .phase-kpi-label {
+      font-size: 9px;
+      letter-spacing: 0.15em;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    /* ── CLOSING ── */
+    .closing-slide {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-height: 100vh;
+      background:
+        radial-gradient(ellipse at 80% 20%, rgba(61, 255, 143, 0.05) 0%, transparent 50%),
+        var(--bg);
+    }
+
+    .ask-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      margin-top: 48px;
+    }
+
+    .ask-block {
+      border: 1px solid var(--border);
+      padding: 32px;
+    }
+
+    .ask-label {
+      font-size: 9px;
+      letter-spacing: 0.3em;
+      color: var(--green);
+      margin-bottom: 16px;
+    }
+
+    .ask-val {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 56px;
+      color: var(--white);
+      letter-spacing: 0.03em;
+      line-height: 1;
+      margin-bottom: 12px;
+    }
+
+    .ask-desc {
+      font-size: 11px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    /* ── NAV ── */
+    .nav-bar {
+      position: fixed;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 8px;
+      z-index: 100;
+      background: rgba(8, 12, 10, 0.9);
+      border: 1px solid var(--border-bright);
+      padding: 10px 16px;
+      backdrop-filter: blur(8px);
+    }
+
+    .nav-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--border-bright);
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .nav-dot.active {
+      background: var(--green);
+      transform: scale(1.6);
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    /* ── UTILITIES ── */
+    .green {
+      color: var(--green);
+    }
+
+    .amber {
+      color: var(--amber);
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    .white {
+      color: var(--white);
+    }
+
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 32px 0;
+    }
+
+    @media (max-width: 900px) {
+      .slide {
+        padding: 48px 32px;
+      }
+
+      .cover-top,
+      .cover-center {
+        padding-left: 32px;
+        padding-right: 32px;
+      }
+
+      .cover-kpi {
+        padding: 24px 32px;
+      }
+
+      .cover-bottom {
+        grid-template-columns: 1fr;
+      }
+
+      .market-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .econ-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .gtm-phases {
+        grid-template-columns: 1fr;
+      }
+
+      .ask-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .nav-bar {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav class="nav-bar" id="navBar"></nav>
+
+  <!-- ═══ SLIDE 1: COVER ═══ -->
+  <section class="slide cover visible" data-slide="0">
+    <div class="cover-top">
+      <div class="logo-mark">A·TEAM</div>
+      <div class="cover-badge">INVESTOR DECK · CONFIDENCIAL · 2026</div>
+    </div>
+    <div class="cover-center">
+      <div class="cover-eyebrow">// MARKET OPPORTUNITY</div>
+      <div class="cover-title">COBRAR POR<br><span>TRANSFERENCIA</span><br>EN LATAM<br>ESTÁ ROTO.</div>
+      <div class="cover-desc">El agente de IA que automatiza la cobranza por transferencia — el canal más usado, menos
+        automatizado y más costoso de Latinoamérica.</div>
+    </div>
+    <div class="cover-bottom">
+      <div class="cover-kpi">
+        <div class="kpi-val green">USD 161M</div>
+        <div class="kpi-label">SAM ARGENTINA<br>SEGMENTOS ALCANZABLES</div>
+      </div>
+      <div class="cover-kpi">
+        <div class="kpi-val">USD 1.4B</div>
+        <div class="kpi-label">TAM LATAM<br>SIN BRASIL (A EXPLORAR)</div>
+      </div>
+      <div class="cover-kpi">
+        <div class="kpi-val green">23</div>
+        <div class="kpi-label">INDUSTRIAS CON<br>DOLOR VERIFICADO</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ SLIDE 2: THE PROBLEM ═══ -->
+  <section class="slide" data-slide="1">
+    <div class="slide-meta">
+      <span class="slide-id">01 / 07</span>
+      <span class="slide-label">// EL PROBLEMA</span>
+    </div>
+    <div class="section-title">EL CANAL MÁS<br>USADO, EL MÁS ROTO.</div>
+    <div class="section-sub">La transferencia bancaria domina el B2C en Argentina y LatAm. Y nadie la automatizó.</div>
+
+    <div
+      style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap: 1px; background: var(--border); border: 1px solid var(--border);">
+      <div style="background: var(--bg); padding: 32px;">
+        <div style="font-size:9px; letter-spacing:0.25em; color:var(--muted); margin-bottom:16px;">EL CICLO HOY</div>
+        <div style="font-size:11px; color:var(--text); line-height:2.2;">
+          <span style="color:var(--muted)">01 ·</span> Se emite factura por mail<br>
+          <span style="color:var(--muted)">02 ·</span> Nadie hace seguimiento<br>
+          <span style="color:var(--muted)">03 ·</span> El cliente paga cuando puede<br>
+          <span style="color:var(--muted)">04 ·</span> El pago llega sin referencia<br>
+          <span style="color:var(--muted)">05 ·</span> La empleada cruza extractos<br>
+          <span style="color:var(--muted)">06 ·</span> Hay errores, falta tiempo<br>
+          <span style="color:var(--muted)">07 ·</span> La mora se acumula en silencio
+        </div>
+      </div>
+      <div style="background: var(--bg); padding: 32px;">
+        <div style="font-size:9px; letter-spacing:0.25em; color:var(--muted); margin-bottom:16px;">CONSECUENCIAS</div>
+        <div style="display:flex; flex-direction:column; gap:16px; margin-top:4px;">
+          <div>
+            <div style="font-family:'Bebas Neue',sans-serif; font-size:40px; color:var(--red); line-height:1;">15–20%
+            </div>
+            <div style="font-size:10px; color:var(--muted); letter-spacing:0.1em; margin-top:4px;">MORA PROMEDIO MENSUAL
+            </div>
+          </div>
+          <div>
+            <div style="font-family:'Bebas Neue',sans-serif; font-size:40px; color:var(--amber); line-height:1;">7–10
+              días</div>
+            <div style="font-size:10px; color:var(--muted); letter-spacing:0.1em; margin-top:4px;">DEMORA PROMEDIO EN
+              COBRO</div>
+          </div>
+          <div>
+            <div style="font-family:'Bebas Neue',sans-serif; font-size:40px; color:var(--text); line-height:1;">USD
+              2.000</div>
+            <div style="font-size:10px; color:var(--muted); letter-spacing:0.1em; margin-top:4px;">COSTO MENSUAL ADMIN.
+              QUE NO RESUELVE EL PROBLEMA</div>
+          </div>
+        </div>
+      </div>
+      <div style="background: var(--bg); padding: 32px;">
+        <div style="font-size:9px; letter-spacing:0.25em; color:var(--muted); margin-bottom:16px;">POR QUÉ AHORA</div>
+        <div style="font-size:11px; color:var(--text); line-height:2.0;">
+          <span style="color:var(--green)">→</span> WhatsApp API disponible y estable<br>
+          <span style="color:var(--green)">→</span> Bancos con API abierta (Galicia, MP, BIND)<br>
+          <span style="color:var(--green)">→</span> LLMs capaces de leer comprobantes<br>
+          <span style="color:var(--green)">→</span> Cultura de transferencia post-COVID<br>
+          <span style="color:var(--green)">→</span> Costo laboral en USD históricamente bajo<br>
+          <span style="color:var(--muted)">→</span> Nadie lo resolvió aún en LatAm
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ SLIDE 3: 20 SEGMENTOS ═══ -->
+  <section class="slide" data-slide="2">
+    <div class="slide-meta">
+      <span class="slide-id">02 / 07</span>
+      <span class="slide-label">// MARKET SEGMENTS · ARGENTINA</span>
+    </div>
+    <div class="section-title">23 INDUSTRIAS.<br>UN MISMO DOLOR.</div>
+    <div class="section-sub">Criterio de inclusión: emisión de factura recurrente por transferencia, con estructura
+      uno-a-muchos. Sin importar la frecuencia — si se emite, hay que cobrar.</div>
+
+    <table class="seg-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>SEGMENTO</th>
+          <th style="text-align:right">UNIDADES ARG.</th>
+          <th style="text-align:right">SUSCR. PROM.</th>
+          <th style="text-align:right">ARPU USD/MES</th>
+          <th style="text-align:right">TAM ARG. USD/AÑO</th>
+          <th style="text-align:center">PRIORIDAD</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="seg-num">01</td>
+          <td>
+            <div class="seg-name">Colegios privados</div>
+            <div style="font-size:9px;color:var(--muted)">K-12, cuota mensual por alumno</div>
+          </td>
+          <td class="seg-count">14.000</td>
+          <td class="seg-avg">420</td>
+          <td class="seg-arpu">280</td>
+          <td class="seg-tam">$47.0M</td>
+          <td class="seg-priority"><span class="priority-dot p1"></span></td>
+        </tr>
+        <tr>
+          <td class="seg-num">02</td>
+          <td>
+            <div class="seg-name">Barrios privados y countries</div>
+            <div style="font-size:9px;color:var(--muted)">Expensas mensuales, consorcio</div>
+          </td>
+          <td class="seg-count">1.800</td>
+          <td class="seg-avg">280</td>
+          <td class="seg-arpu">199</td>
+          <td class="seg-tam">$4.3M</td>
+          <td class="seg-priority"><span class="priority-dot p1"></span></td>
+        </tr>
+        <tr>
+          <td class="seg-num">03</td>
+          <td>
+            <div class="seg-name">Administradoras de edificios</div>
+            <div style="font-size:9px;color:var(--muted)">Expensas, múltiples edificios por admin.</div>
+          </td>
+          <td class="seg-count">4.500</td>
+          <td class="seg-avg">80</td>
+          <td class="seg-arpu">99</td>
+          <td class="seg-tam">$5.3M</td>
+          <td class="seg-priority"><span class="priority-dot p1"></span></td>
+        </tr>
+        <tr>
+          <td class="seg-num">04</td>
+          <td>
+            <div class="seg-name">Gimnasios y centros deportivos</div>
+            <div style="font-size:9px;color:var(--muted)">Membresía mensual, alta rotación</div>
+          </td>
+          <td class="seg-count">8.600</td>
+          <td class="seg-avg">280</td>
+          <td class="seg-arpu">199</td>
+          <td class="seg-tam">$20.5M</td>
+          <td class="seg-priority"><span class="priority-dot p1"></span></td>
+        </tr>
+        <tr>
+          <td class="seg-num">05</td>
+          <td>
+            <div class="seg-name">Universidades e institutos privados</div>
+            <div style="font-size:9px;color:var(--muted)">Cuota mensual o cuatrimestral</div>
+          </td>
+          <td class="seg-count">2.800</td>
+          <td class="seg-avg">600</td>
+          <td class="seg-arpu">349</td>
+          <td class="seg-tam">$11.7M</td>
+          <td class="seg-priority"><span class="priority-dot p2"></span></td>
+        </tr>
+        <tr>
+          <td class="seg-num">06</td>
+          <td>
+            <div class="seg-name">Clubes sociales y deportivos</div>
+            <div style="font-size:9px;color:var(--muted)">Cuota socios, canon de instalaciones</div>
+          </td>
+          <td class="seg-count">5.000</td>
+          <td class="seg-avg">350</td>
+          <td class="seg-arpu">199</td>
+          <td class="seg-tam">$11.9M</td>
+          <td class="seg-priority"><span class="priority-dot p2"></span></td>
+        </tr>
+        <tr>
+          <td class="seg-num">07</td>
+          <td>
+            <div class="seg-name">Estudios contables con abono</div>
+            <div style="font-size:9px;color:var(--muted)">Honorarios fijos mensuales</div>
+          </td>
+          <td class="seg-count">12.000</td>
+          <td class="seg-avg">65</td>
+          <td class="seg-arpu">99</td>
+          <td class="seg-tam">$14.3M</td>
+          <td class="seg-priority"><span class="priority-dot p2"></span></td>
+        </tr>
+        <tr>
+          <td class="seg-num">08</td>
+          <td>
+            <div class="seg-name">Estudios jurídicos con abono</div>
+            <div style="font-size:9px;color:var(--muted)">Abono mensual por servicios legales</div>
+          </td>
+          <td class="seg-count">6.000</td>
+          <td class="seg-avg">55</td>
+          <td class="seg-arpu">99</td>
+          <td class="seg-tam">$7.1M</td>
+          <td class="seg-priority"><span class="priority-dot p2"></span></td>
+        </tr>
+        <tr>
+          <td class="seg-num">09</td>
+          <td>
+            <div class="seg-name">Alquileres comerciales (inmobiliarias)</div>
+            <div style="font-size:9px;color:var(--muted)">Carteras de +50 unidades en gestión</div>
+          </td>
+          <td class="seg-count">3.200</td>
+          <td class="seg-avg">120</td>
+          <td class="seg-arpu">199</td>
+          <td class="seg-tam">$7.6M</td>
+          <td class="seg-priority"><span class="priority-dot p2"></span></td>
+        </tr>
+        <tr>
+          <td class="seg-num">10</td>
+          <td>
+            <div class="seg-name">Prepagas y mutuales de salud</div>
+            <div style="font-size:9px;color:var(--muted)">Cuota mensual no debitada automáticamente</div>
+          </td>
+          <td class="seg-count">800</td>
+          <td class="seg-avg">800</td>
+          <td class="seg-arpu">499</td>
+          <td class="seg-tam">$4.8M</td>
+          <td class="seg-priority"><span class="priority-dot p2"></span></td>
+        </tr>
+        <tr>
+          <td class="seg-num">11</td>
+          <td>
+            <div class="seg-name">Planes de ahorro automotor</div>
+            <div style="font-size:9px;color:var(--muted)">Cuota mensual de grupos de ahorro</div>
+          </td>
+          <td class="seg-count">1.200</td>
+          <td class="seg-avg">400</td>
+          <td class="seg-arpu">280</td>
+          <td class="seg-tam">$4.0M</td>
+          <td class="seg-priority"><span class="priority-dot p3"></span></td>
+        </tr>
+        <tr>
+          <td class="seg-num">12</td>
+          <td>
+            <div class="seg-name">Jardines de infantes y guarderías</div>
+            <div style="font-size:9px;color:var(--muted)">Cuota mensual, alta sensibilidad al pago</div>
+          </td>
+          <td class="seg-count">9.000</td>
+          <td class="seg-avg">80</td>
+          <td class="seg-arpu">99</td>
+          <td class="seg-tam">$10.7M</td>
+          <td class="seg-priority"><span class="priority-dot p2"></span></td>
+        </tr>
+        <tr>
+          <td class="seg-num">13</td>
+          <td>
+            <div class="seg-name">Academias (danza, música, idiomas)</div>
+            <div style="font-size:9px;color:var(--muted)">Cuota mensual por disciplina</div>
+          </td>
+          <td class="seg-count">18.000</td>
+          <td class="seg-avg">60</td>
+          <td class="seg-arpu">99</td>
+          <td class="seg-tam">$21.4M</td>
+          <td class="seg-priority"><span class="priority-dot p3"></span></td>
+        </tr>
+        <tr>
+          <td class="seg-num">14</td>
+          <td>
+            <div class="seg-name">Clínicas y centros médicos</div>
+            <div style="font-size:9px;color:var(--muted)">Plan de salud propio, abono paciente</div>
+          </td>
+          <td class="seg-count">2.500</td>
+          <td class="seg-avg">200</td>
+          <td class="seg-arpu">199</td>
+          <td class="seg-tam">$6.0M</td>
+          <td class="seg-priority"><span class="priority-dot p3"></span></td>
+        </tr>
+        <tr>
+          <td class="seg-num">15</td>
+          <td>
+            <div class="seg-name">Cajas de crédito y mutuales</div>
+            <div style="font-size:9px;color:var(--muted)">Cuota de préstamo sin débito</div>
+          </td>
+          <td class="seg-count">650</td>
+          <td class="seg-avg">500</td>
+          <td class="seg-arpu">349</td>
+          <td class="seg-tam">$2.7M</td>
+          <td class="seg-priority"><span class="priority-dot p3"></span></td>
+        </tr>
+        <tr>
+          <td class="seg-num">16</td>
+          <td>
+            <div class="seg-name">Camarás y asociaciones empresariales</div>
+            <div style="font-size:9px;color:var(--muted)">Cuota anual o mensual de socios</div>
+          </td>
+          <td class="seg-count">3.000</td>
+          <td class="seg-avg">80</td>
+          <td class="seg-arpu">99</td>
+          <td class="seg-tam">$3.6M</td>
+          <td class="seg-priority"><span class="priority-dot p3"></span></td>
+        </tr>
+        <tr>
+          <td class="seg-num">17</td>
+          <td>
+            <div class="seg-name">Agencias de seguridad privada</div>
+            <div style="font-size:9px;color:var(--muted)">Abono mensual empresas o consorcios</div>
+          </td>
+          <td class="seg-count">1.800</td>
+          <td class="seg-avg">150</td>
+          <td class="seg-arpu">199</td>
+          <td class="seg-tam">$4.3M</td>
+          <td class="seg-priority"><span class="priority-dot p3"></span></td>
+        </tr>
+        <tr>
+          <td class="seg-num">18</td>
+          <td>
+            <div class="seg-name">Servicios de limpieza corporativa</div>
+            <div style="font-size:9px;color:var(--muted)">Facturación mensual a cartera de clientes</div>
+          </td>
+          <td class="seg-count">2.200</td>
+          <td class="seg-avg">80</td>
+          <td class="seg-arpu">99</td>
+          <td class="seg-tam">$2.6M</td>
+          <td class="seg-priority"><span class="priority-dot p3"></span></td>
+        </tr>
+        <tr>
+          <td class="seg-num">19</td>
+          <td>
+            <div class="seg-name">Consultoras y agencias B2B</div>
+            <div style="font-size:9px;color:var(--muted)">Retainer mensual, cartera de clientes</div>
+          </td>
+          <td class="seg-count">5.500</td>
+          <td class="seg-avg">55</td>
+          <td class="seg-arpu">99</td>
+          <td class="seg-tam">$6.5M</td>
+          <td class="seg-priority"><span class="priority-dot p3"></span></td>
+        </tr>
+        <tr>
+          <td class="seg-num">20</td>
+          <td>
+            <div class="seg-name">Alquileres temporarios (gestoras)</div>
+            <div style="font-size:9px;color:var(--muted)">Canon mensual, gestoras con +50 unidades</div>
+          </td>
+          <td class="seg-count">1.500</td>
+          <td class="seg-avg">90</td>
+          <td class="seg-arpu">99</td>
+          <td class="seg-tam">$1.8M</td>
+          <td class="seg-priority"><span class="priority-dot p3"></span></td>
+        </tr>
+        <tr>
+          <td class="seg-num">21</td>
+          <td>
+            <div class="seg-name">Profesionales de salud recurrente</div>
+            <div style="font-size:9px;color:var(--muted)">Psicología · Psicopedagogía · TO · Fonoaudiología · abono
+              mensual</div>
+          </td>
+          <td class="seg-count">22.000</td>
+          <td class="seg-avg">25</td>
+          <td class="seg-arpu">99</td>
+          <td class="seg-tam">$26.1M</td>
+          <td class="seg-priority"><span class="priority-dot p2"></span></td>
+        </tr>
+        <tr>
+          <td class="seg-num">22</td>
+          <td>
+            <div class="seg-name">Proveedores de insumos del hogar</div>
+            <div style="font-size:9px;color:var(--muted)">Agua · soda · filtros · vitaminas · jardineros · pileteros
+            </div>
+          </td>
+          <td class="seg-count">15.000</td>
+          <td class="seg-avg">30</td>
+          <td class="seg-arpu">99</td>
+          <td class="seg-tam">$17.8M</td>
+          <td class="seg-priority"><span class="priority-dot p3"></span></td>
+        </tr>
+        <tr>
+          <td class="seg-num">23</td>
+          <td>
+            <div class="seg-name">Distribuidores B2B (consumo masivo)</div>
+            <div style="font-size:9px;color:var(--muted)">Sueño Verde, Quento, Wakas y similares · cobran a ~96K
+              kioscos, almacenes, dietéticas y minimercados · cartera promedio 200 puntos de venta</div>
+          </td>
+          <td class="seg-count">3.500</td>
+          <td class="seg-avg">200</td>
+          <td class="seg-arpu">280</td>
+          <td class="seg-tam">$118M</td>
+          <td class="seg-priority"><span class="priority-dot p2"></span></td>
+        </tr>
+        <tr class="total-row">
+          <td colspan="3"></td>
+          <td style="font-size:9px;letter-spacing:0.2em;color:var(--muted);">TOTAL TAM ARG.</td>
+          <td></td>
+          <td class="seg-tam">USD ~358M / AÑO</td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div style="margin-top:20px; font-size:10px; color:var(--muted); line-height:1.6;">
+      <span style="color:var(--green)">●</span> P1 = Foco MVP &nbsp;&nbsp;
+      <span style="color:var(--amber)">●</span> P2 = Año 2 &nbsp;&nbsp;
+      <span style="color:var(--muted)">●</span> P3 = Año 3+ &nbsp;&nbsp;
+      · Fuentes: AIEPBA 2022, IHRSA/Mercado Fitness 2024, ARBA, CONEAU. Seg. 21–23 estimados por base de profesionales
+      matriculados y distribuidores activos. Filtro: emisión de factura recurrente por transferencia, estructura
+      uno-a-muchos.
+    </div>
+  </section>
+
+  <!-- ═══ SLIDE 4: TAM SAM SOM ═══ -->
+  <section class="slide" data-slide="3">
+    <div class="slide-meta">
+      <span class="slide-id">03 / 07</span>
+      <span class="slide-label">// TAM · SAM · SOM</span>
+    </div>
+    <div class="section-title">TAM · SAM · SOM</div>
+    <div class="section-sub">Modelo bottom-up. Cada número es derivado de unidades reales por segmento, no de
+      porcentajes de mercado global.</div>
+
+    <div class="market-grid">
+      <!-- ARGENTINA -->
+      <div class="market-panel">
+        <div class="market-header">
+          <div>
+            <div class="market-geo">// ARGENTINA · MERCADO INICIAL</div>
+            <div style="font-size:11px; color:var(--muted); margin-top:4px;">20 segmentos · suscripciones + ecommerce
+              recurrente</div>
+          </div>
+        </div>
+        <div class="market-funnel">
+          <div class="funnel-row">
+            <div class="funnel-label" style="width:48px;font-size:9px;letter-spacing:0.1em;">TAM</div>
+            <div class="funnel-bar-wrap">
+              <div class="funnel-bar" style="width:0%" data-width="100%"></div>
+            </div>
+            <div class="funnel-val"><span style="color:var(--white)">USD 358M</span> / año</div>
+          </div>
+          <div style="font-size:10px; color:var(--muted); padding: 4px 0 12px 60px;">USD 198M suscripciones recurrentes
+            + USD 118M distribuidores B2B + USD 42M otros segmentos nuevos</div>
+
+          <div class="funnel-row">
+            <div class="funnel-label" style="width:48px;font-size:9px;letter-spacing:0.1em;">SAM</div>
+            <div class="funnel-bar-wrap">
+              <div class="funnel-bar" style="width:0%" data-width="45%"></div>
+            </div>
+            <div class="funnel-val"><span style="color:var(--green-mid)">USD 161M</span> / año</div>
+          </div>
+          <div style="font-size:10px; color:var(--muted); padding: 4px 0 12px 60px;">Segmentos P1 + P2 con banco
+            API-ready y decisor accesible · 45% del TAM</div>
+
+          <div class="funnel-row">
+            <div class="funnel-label" style="width:48px;font-size:9px;letter-spacing:0.1em;">SOM</div>
+            <div class="funnel-bar-wrap">
+              <div class="funnel-bar" style="width:0%" data-width="5%"></div>
+            </div>
+            <div class="funnel-val"><span style="color:var(--green)">USD 8M</span> / año</div>
+          </div>
+          <div style="font-size:10px; color:var(--muted); padding: 4px 0 16px 60px;">5% del SAM a 36 meses = <strong
+              style="color:var(--white)">~2.800 clientes</strong> activos</div>
+        </div>
+
+        <!-- Ecommerce adjacent callout -->
+        <div style="border:1px solid var(--green-dim); padding:16px 20px; margin-top:8px;">
+          <div style="font-size:9px; letter-spacing:0.2em; color:var(--green); margin-bottom:8px;">+ MERCADO ADYACENTE ·
+            ECOMMERCE RECURRENTE</div>
+          <div style="font-size:10px; color:var(--muted); line-height:1.7;">
+            Tiendas con suscripciones, cajas mensuales o preventa recurrente pagadas por transferencia. Mismo motor de
+            conciliación, distinto flujo conversacional. <span style="color:var(--text)">No incluido en MVP.</span>
+            Tiendanube Argentina: ~150K tiendas activas, estimado 10% con modelo recurrente.
+          </div>
+        </div>
+      </div>
+
+      <!-- LATAM -->
+      <div class="market-panel latam">
+        <div class="market-header">
+          <div>
+            <div class="market-geo">// LATINOAMÉRICA · EXPANSIÓN AÑOS 3–5</div>
+            <div style="font-size:11px; color:var(--muted); margin-top:4px;">MX · COL · CHL · PER · URY · PAR</div>
+          </div>
+        </div>
+        <div class="market-funnel">
+          <div class="funnel-row">
+            <div class="funnel-label" style="width:48px;font-size:9px;letter-spacing:0.1em;">TAM</div>
+            <div class="funnel-bar-wrap">
+              <div class="funnel-bar latam-bar" style="width:0%" data-width="100%"></div>
+            </div>
+            <div class="funnel-val"><span style="color:var(--white)">USD 1.4B</span> / año</div>
+          </div>
+          <div style="font-size:10px; color:var(--muted); padding: 4px 0 12px 60px;">Mismo modelo bottom-up aplicado a 6
+            países con transferencia como canal dominante en cobro recurrente</div>
+
+          <div class="funnel-row">
+            <div class="funnel-label" style="width:48px;font-size:9px;letter-spacing:0.1em;">SAM</div>
+            <div class="funnel-bar-wrap">
+              <div class="funnel-bar latam-bar" style="width:0%" data-width="40%"></div>
+            </div>
+            <div class="funnel-val"><span style="color:var(--amber)">USD 560M</span> / año</div>
+          </div>
+          <div style="font-size:10px; color:var(--muted); padding: 4px 0 12px 60px;">Segmentos con infraestructura
+            bancaria compatible y WhatsApp penetración &gt;80%</div>
+
+          <div class="funnel-row">
+            <div class="funnel-label" style="width:48px;font-size:9px;letter-spacing:0.1em;">SOM</div>
+            <div class="funnel-bar-wrap">
+              <div class="funnel-bar latam-bar" style="width:0%" data-width="3%"></div>
+            </div>
+            <div class="funnel-val"><span style="color:var(--amber)">USD 16.8M</span> / año</div>
+          </div>
+          <div style="font-size:10px; color:var(--muted); padding: 4px 0 16px 60px;">3% del SAM LatAm a 5 años = <strong
+              style="color:var(--white)">~6.000 clientes</strong> activos</div>
+        </div>
+
+        <div
+          style="margin-top:8px; padding-top:16px; border-top:1px solid var(--border); font-size:10px; color:var(--muted); line-height:1.9;">
+          <span style="color:var(--amber)">→</span> México: SPEI dominante en B2B/B2C recurrente<br>
+          <span style="color:var(--amber)">→</span> Colombia: PSE y transferencias en fuerte expansión<br>
+          <span style="color:var(--amber)">→</span> Chile: transferencias al 80% del mercado B2C<br>
+          <span style="color:var(--amber)">→</span> Perú: CCI como estándar emergente de cobro
+        </div>
+
+        <!-- Brazil exploratory callout -->
+        <div style="border:1px solid var(--border-bright); border-style:dashed; padding:16px 20px; margin-top:16px;">
+          <div style="font-size:9px; letter-spacing:0.2em; color:var(--muted); margin-bottom:8px;">◌ BRASIL · MERCADO A
+            EXPLORAR · NO INCLUIDO EN TAM</div>
+          <div style="font-size:10px; color:var(--muted); line-height:1.7;">
+            Pix procesa +64B de transacciones/año con 15M de empresas usuarias. El dolor de conciliación recurrente
+            existe y es masivo. Requiere análisis específico del modelo Pix Automático y estructura bancaria local antes
+            de incluirlo en proyecciones. <span style="color:var(--text)">Potencial upside significativo.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ SLIDE 5: UNIT ECONOMICS ═══ -->
+  <section class="slide" data-slide="4">
+    <div class="slide-meta">
+      <span class="slide-id">04 / 07</span>
+      <span class="slide-label">// UNIT ECONOMICS</span>
+    </div>
+    <div class="section-title">LOS NÚMEROS<br>DEL NEGOCIO.</div>
+    <div class="section-sub">Modelo SaaS de suscripción mensual. Costo variable bajo. Expansión sin costo marginal
+      significativo.</div>
+
+    <div class="econ-grid">
+      <div class="econ-cell">
+        <div class="econ-label">ARPU PROMEDIO PONDERADO</div>
+        <div class="econ-val positive">USD 238</div>
+        <div class="econ-note">Mix de tiers Entry–Growth. Basado en distribución esperada 20% / 50% / 30%.</div>
+      </div>
+      <div class="econ-cell">
+        <div class="econ-label">COSTO DE SERVICIO / CLIENTE / MES</div>
+        <div class="econ-val negative">USD 38</div>
+        <div class="econ-note">ManyChat + infra cloud + soporte. Decrece con escala a ~USD 22 en 500+ clientes.</div>
+      </div>
+      <div class="econ-cell">
+        <div class="econ-label">MARGEN BRUTO ESTIMADO</div>
+        <div class="econ-val positive">84%</div>
+        <div class="econ-note">USD 200 por cliente por mes sobre ARPU base. Comparable a SaaS B2B top quartile.</div>
+      </div>
+      <div class="econ-cell">
+        <div class="econ-label">CAC ESTIMADO (VENTAS DIRECTAS)</div>
+        <div class="econ-val">USD 480</div>
+        <div class="econ-note">2 demos + onboarding asistido. Se comprime a USD 200 con canal referidos activo.</div>
+      </div>
+      <div class="econ-cell">
+        <div class="econ-label">PAYBACK PERIOD</div>
+        <div class="econ-val positive">2.4 meses</div>
+        <div class="econ-note">CAC / margen mensual. Excepcional para B2B. Churn mensual estimado &lt;3%.</div>
+      </div>
+      <div class="econ-cell">
+        <div class="econ-label">LTV / CAC RATIO</div>
+        <div class="econ-val positive">17.5x</div>
+        <div class="econ-note">Asumiendo vida media 42 meses y churn 2.4% mensual. Benchmark VC: &gt;3x = bueno.</div>
+      </div>
+    </div>
+
+    <div style="margin-top:8px;">
+      <div class="scenario-row header">
+        <div>ESCENARIO</div>
+        <div style="text-align:right;padding-right:16px;">CLIENTES M12</div>
+        <div style="text-align:right;padding-right:16px;">MRR M12</div>
+        <div style="text-align:right;padding-right:16px;">ARR M12</div>
+        <div style="text-align:right;padding-right:16px;">CLIENTES M36</div>
+        <div style="text-align:right;padding-right:16px;">ARR M36</div>
+      </div>
+      <div class="scenario-row">
+        <div class="scenario-name bear">BEAR</div>
+        <div class="scenario-val">80</div>
+        <div class="scenario-val">USD 19K</div>
+        <div class="scenario-val">USD 228K</div>
+        <div class="scenario-val">350</div>
+        <div class="scenario-val highlight">USD 1.0M</div>
+      </div>
+      <div class="scenario-row">
+        <div class="scenario-name base">BASE</div>
+        <div class="scenario-val">200</div>
+        <div class="scenario-val">USD 48K</div>
+        <div class="scenario-val">USD 570K</div>
+        <div class="scenario-val">950</div>
+        <div class="scenario-val highlight">USD 2.7M</div>
+      </div>
+      <div class="scenario-row">
+        <div class="scenario-name bull">BULL</div>
+        <div class="scenario-val">420</div>
+        <div class="scenario-val">USD 100K</div>
+        <div class="scenario-val">USD 1.2M</div>
+        <div class="scenario-val">2.100</div>
+        <div class="scenario-val highlight">USD 6.0M</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ SLIDE 6: GTM ═══ -->
+  <section class="slide" data-slide="5">
+    <div class="slide-meta">
+      <span class="slide-id">05 / 07</span>
+      <span class="slide-label">// GO-TO-MARKET</span>
+    </div>
+    <div class="section-title">CÓMO LLEGAMOS<br>AL MERCADO.</div>
+    <div class="section-sub">Tres fases. Cada una financia a la siguiente. Sin quema de capital innecesaria.</div>
+
+    <div class="gtm-phases">
+      <div class="phase">
+        <div class="phase-num">1</div>
+        <div class="phase-label">MES 1–6 · VALIDACIÓN</div>
+        <div class="phase-title">Colegios privados<br>zona norte GBA</div>
+        <ul class="phase-items">
+          <li>5 clientes piloto por red directa (fondadores)</li>
+          <li>Onboarding asistido, feedback intensivo</li>
+          <li>Foco en colegios K-12, 300–800 alumnos</li>
+          <li>Métrica clave: reducción días de cobro</li>
+          <li>Construir 3 casos de éxito con datos reales</li>
+        </ul>
+        <div class="phase-kpi">
+          <div class="phase-kpi-val">5–15</div>
+          <div class="phase-kpi-label">CLIENTES OBJETIVO</div>
+        </div>
+      </div>
+      <div class="phase">
+        <div class="phase-num">2</div>
+        <div class="phase-label">MES 6–18 · ESCALA ARG.</div>
+        <div class="phase-title">Expansión a 4 segmentos<br>P1 + canal referidos</div>
+        <ul class="phase-items">
+          <li>Sumar gimnasios, barrios privados, admins.</li>
+          <li>Onboarding semi-asistido por asistente IA</li>
+          <li>Programa de referidos: 1 mes gratis por cliente</li>
+          <li>Estudios contables como canal multiplicador</li>
+          <li>Primer partner de integración contable (Tango)</li>
+        </ul>
+        <div class="phase-kpi">
+          <div class="phase-kpi-val">200–500</div>
+          <div class="phase-kpi-label">CLIENTES OBJETIVO</div>
+        </div>
+      </div>
+      <div class="phase">
+        <div class="phase-num">3</div>
+        <div class="phase-label">MES 18–36 · LATAM</div>
+        <div class="phase-title">Chile y Colombia<br>como primer expansion</div>
+        <ul class="phase-items">
+          <li>Producto en español neutro, multi-moneda</li>
+          <li>Integración con bancos locales (BCI, Bancolombia)</li>
+          <li>Playbook de GTM replicado desde ARG</li>
+          <li>Partner local en cada país para primeros 50 clientes</li>
+          <li>Posible apertura de entidad legal en CHL</li>
+        </ul>
+        <div class="phase-kpi">
+          <div class="phase-kpi-val">1.000+</div>
+          <div class="phase-kpi-label">CLIENTES OBJETIVO</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ SLIDE 7: THE ASK ═══ -->
+  <section class="slide closing-slide" data-slide="6">
+    <div class="slide-meta">
+      <span class="slide-id">07 / 07</span>
+      <span class="slide-label">// THE ASK</span>
+    </div>
+    <div class="section-title">LO QUE<br>NECESITAMOS.</div>
+    <div class="section-sub">Seed round para llegar a 200 clientes, demostrar unit economics y preparar expansión LatAm.
+    </div>
+
+    <div class="ask-grid">
+      <div class="ask-block">
+        <div class="ask-label">// RAISING</div>
+        <div class="ask-val">USD 300K</div>
+        <div class="ask-desc">
+          Seed pre-revenue. Suficiente para 18 meses de runway con equipo de 3 personas.<br><br>
+          <span style="color:var(--muted)">→</span> USD 80K · Tech & infra (12 meses)<br>
+          <span style="color:var(--muted)">→</span> USD 120K · Salarios fundadores + 1 ops<br>
+          <span style="color:var(--muted)">→</span> USD 60K · Sales & onboarding (viajes, demos)<br>
+          <span style="color:var(--muted)">→</span> USD 40K · Legal, compliance, buffer
+        </div>
+      </div>
+      <div class="ask-block">
+        <div class="ask-label">// MILESTONES A 18 MESES</div>
+        <div class="ask-val">200 clientes</div>
+        <div class="ask-desc">
+          Con 200 clientes activos a ARPU promedio USD 238:<br><br>
+          <span style="color:var(--green)">→</span> MRR: USD 47.600<br>
+          <span style="color:var(--green)">→</span> ARR run-rate: USD 571K<br>
+          <span style="color:var(--green)">→</span> Margen bruto demostrado: +80%<br>
+          <span style="color:var(--green)">→</span> Payback period probado en campo<br>
+          <span style="color:var(--muted)">→</span> Base para Serie A o crecimiento orgánico
+        </div>
+      </div>
+      <div class="ask-block" style="border-color:var(--green-dim);">
+        <div class="ask-label" style="color:var(--muted);">// POR QUÉ AHORA</div>
+        <div
+          style="font-family:'Lora',serif; font-size:18px; font-style:italic; color:var(--text); line-height:1.6; margin-top:8px;">
+          "El mercado de cobranza por transferencia en LatAm existe, duele y no tiene solución. La ventana para
+          construir la capa de automatización es <span style="color:var(--green)">hoy</span>, antes de que lo haga
+          alguien con más capital y menos contexto local."
+        </div>
+      </div>
+      <div class="ask-block" style="border-color:var(--border-bright);">
+        <div class="ask-label">// CONTACTO</div>
+        <div style="margin-top:8px;">
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:28px; color:var(--white); letter-spacing:0.05em;">
+            THE A-TEAM</div>
+          <div style="font-size:11px; color:var(--muted); margin-top:8px; line-height:2.0; letter-spacing:0.05em;">
+            the-ateam.ai<br>
+            BUENOS AIRES · ARGENTINA<br>
+            <span style="color:var(--green)">CONFIDENCIAL · NO DISTRIBUIR</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    const nav = document.getElementById('navBar');
+
+    // Build nav
+    slides.forEach((_, i) => {
+      const d = document.createElement('div');
+      d.className = 'nav-dot' + (i === 0 ? ' active' : '');
+      d.addEventListener('click', () => slides[i].scrollIntoView({ behavior: 'smooth' }));
+      nav.appendChild(d);
+    });
+
+    // Intersection observer
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          const idx = [...slides].indexOf(entry.target);
+          document.querySelectorAll('.nav-dot').forEach((d, i) => d.classList.toggle('active', i === idx));
+
+          // Animate funnel bars
+          entry.target.querySelectorAll('.funnel-bar[data-width]').forEach(bar => {
+            setTimeout(() => { bar.style.width = bar.dataset.width; }, 200);
+          });
+        }
+      });
+    }, { threshold: 0.2 });
+
+    slides.forEach(s => observer.observe(s));
+  </script>
+</body>
+
+</html>

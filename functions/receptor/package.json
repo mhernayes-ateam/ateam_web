@@ -1,0 +1,23 @@
+{
+  "name": "@axel/receptor",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Cloud Run receptor — recibe webhooks de Chatwoot y encola en Cloud Tasks",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "ts-node src/index.ts"
+  },
+  "dependencies": {
+    "@google-cloud/firestore": "^7.8.0",
+    "@google-cloud/tasks": "^5.3.0",
+    "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.0.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.0"
+  }
+}
