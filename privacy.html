@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Política de Privacidad — A-Team</title>
+    <meta name="description"
+        content="Política de Privacidad de Datos Personales de A-Team. Conforme a la Ley N.° 25.326. Versión 1.0, Junio 2025.">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/img/isotipo.png">
+    <link rel="apple-touch-icon" href="assets/img/isotipo.png">
+    <!-- SEO -->
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#6366F1">
+    <link rel="canonical" href="https://the-ateam.ai/privacy.html">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="A-Team">
+    <meta property="og:title" content="Política de Privacidad — A-Team">
+    <meta property="og:description" content="Cómo A-Team recopila, usa y protege tus datos personales. Ley 25.326.">
+    <meta property="og:url" content="https://the-ateam.ai/privacy.html">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800;900&family=Inter:wght@400;500;700&display=swap"
+        rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        .terms-hero {
+            padding: 7rem 0 4rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .terms-hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+            letter-spacing: -1px;
+        }
+
+        .terms-hero p {
+            color: var(--text-muted);
+            font-size: 1rem;
+        }
+
+        .terms-meta {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 1.5rem;
+        }
+
+        .terms-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .terms-meta span svg {
+            width: 14px;
+            height: 14px;
+        }
+
+        .terms-layout {
+            display: grid;
+            grid-template-columns: 260px 1fr;
+            gap: 4rem;
+            padding: 4rem 0 8rem;
+            align-items: start;
+        }
+
+        .terms-toc {
+            position: sticky;
+            top: 6rem;
+        }
+
+        .terms-toc-title {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--primary);
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .terms-toc a {
+            display: block;
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            padding: 0.35rem 0;
+            border-left: 2px solid transparent;
+            padding-left: 0.75rem;
+            transition: all 0.2s;
+        }
+
+        .terms-toc a:hover {
+            color: var(--primary);
+            border-left-color: var(--primary);
+        }
+
+        .terms-toc a.active {
+            color: var(--primary);
+            border-left-color: var(--primary);
+        }
+
+        .terms-toc-sep {
+            margin: 1rem 0 0.75rem;
+            padding-left: 0.75rem;
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            opacity: 0.6;
+        }
+
+        .terms-toc-sep a {
+            color: var(--primary);
+            text-decoration: underline;
+            border-left: none !important;
+            padding-left: 0 !important;
+            display: inline !important;
+        }
+
+        .terms-content {
+            max-width: 720px;
+        }
+
+        .terms-intro {
+            background: rgba(99, 102, 241, 0.05);
+            border: 1px solid rgba(99, 102, 241, 0.15);
+            border-radius: 16px;
+            padding: 1.5rem 2rem;
+            margin-bottom: 3rem;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        .terms-intro strong {
+            color: var(--text-main);
+        }
+
+        .terms-section {
+            margin-bottom: 3rem;
+            padding-bottom: 3rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .terms-section:last-child {
+            border-bottom: none;
+        }
+
+        .terms-title {
+            font-size: 1.2rem;
+            margin-bottom: 1.25rem;
+            color: var(--text-main);
+        }
+
+        .terms-body p {
+            color: var(--text-muted);
+            font-size: 0.92rem;
+            line-height: 1.8;
+            margin-bottom: 0.85rem;
+        }
+
+        .terms-body a {
+            color: var(--primary);
+            text-decoration: underline;
+        }
+
+        .terms-body strong {
+            color: var(--text-main);
+        }
+
+        .terms-footer-note {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            padding: 2rem 0;
+            border-top: 1px solid var(--border-color);
+        }
+
+        @media (max-width: 900px) {
+            .terms-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .terms-toc {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .terms-hero h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo" aria-label="A-Team home">
+                <picture>
+                    <source media="(max-width: 768px)" srcset="assets/img/isotipo.png">
+                    <source media="(min-width: 769px)" srcset="assets/img/isologo-transparente.png">
+                    <img src="assets/img/isologo-transparente.png" alt="A Team" class="nav-logo-img">
+                </picture>
+            </a>
+            <div class="nav-links">
+                <a href="index.html"><span data-lang="es">Inicio</span><span data-lang="en">Home</span></a>
+                <a href="axel.html">Axel</a>
+                <a href="pricing.html"><span data-lang="es">Precios</span><span data-lang="en">Pricing</span></a>
+                <a href="demo.html" class="btn btn-primary"><span data-lang="es">Agendar Demo →</span><span data-lang="en">Book a Demo →</span></a>
+                <div class="lang-toggle-wrap">
+                    <span class="lang-flag active" data-for="es" onclick="setLang('es')">🇦🇷</span>
+                    <button class="lang-toggle" onclick="setLang(document.body.classList.contains('lang-en') ? 'es' : 'en')" aria-label="Switch language" title="ES / EN"></button>
+                    <span class="lang-flag" data-for="en" onclick="setLang('en')">🇺🇸</span>
+                </div>
+            </div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open menu"><svg
+                    xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="3" y1="12" x2="21" y2="12" />
+                    <line x1="3" y1="6" x2="21" y2="6" />
+                    <line x1="3" y1="18" x2="21" y2="18" />
+                </svg></button>
+        </div>
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="index.html"><span data-lang="es">Inicio</span><span data-lang="en">Home</span></a>
+            <a href="axel.html">Axel</a>
+            <a href="pricing.html"><span data-lang="es">Precios</span><span data-lang="en">Pricing</span></a>
+            <a href="demo.html" class="btn btn-primary" style="width:100%;text-align:center;"><span data-lang="es">Agendar Demo →</span><span data-lang="en">Book a Demo →</span></a>
+            <div class="lang-toggle-wrap" style="justify-content:center;margin-top:1rem;margin-left:0;">
+                <span class="lang-flag active" data-for="es" onclick="setLang('es')">🇦🇷</span>
+                <button class="lang-toggle" onclick="setLang(document.body.classList.contains('lang-en') ? 'es' : 'en')" aria-label="Switch language"></button>
+                <span class="lang-flag" data-for="en" onclick="setLang('en')">🇺🇸</span>
+            </div>
+        </div>
+    </nav>
+
+    <header class="terms-hero fade-in-up">
+        <div class="container">
+            <div class="badge" style="margin-bottom:1rem;"><span data-lang="es">Documento Legal</span><span data-lang="en">Legal Document</span></div>
+            <h1><span data-lang="es">Política de Privacidad<br><span class="text-gradient">de Datos Personales</span></span><span data-lang="en">Privacy Policy<br><span class="text-gradient">Personal Data</span></span></h1>
+            <p><span data-lang="es">Plataforma de Agentes Inteligentes A-Team</span><span data-lang="en">A-Team Intelligent Agents Platform</span></p>
+            <div class="terms-meta">
+                <span><i data-lucide="shield"></i> Ley N.° 25.326</span>
+                <span><i data-lucide="calendar"></i><span data-lang="es"> Junio 2025</span><span data-lang="en"> June 2025</span></span>
+                <span><i data-lucide="map-pin"></i><span data-lang="es"> República Argentina</span><span data-lang="en"> Republic of Argentina</span></span>
+                <span><i data-lucide="mail"></i> privacidad@ateam.ai</span>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="terms-layout">
+            <aside class="terms-toc">
+                <p class="terms-toc-title"><span data-lang="es">Contenido</span><span data-lang="en">Contents</span></p>
+                <a href="#priv-1"><span data-lang="es">I. Responsable del Tratamiento</span><span data-lang="en">I. Data Controller</span></a>
+                <a href="#priv-2"><span data-lang="es">II. Datos que Recopilamos</span><span data-lang="en">II. Data We Collect</span></a>
+                <a href="#priv-3"><span data-lang="es">III. Finalidades del Tratamiento</span><span data-lang="en">III. Purposes of Processing</span></a>
+                <a href="#priv-4"><span data-lang="es">IV. Proveedores Terceros</span><span data-lang="en">IV. Third-Party Providers</span></a>
+                <a href="#priv-5"><span data-lang="es">V. Transferencias Internacionales</span><span data-lang="en">V. International Transfers</span></a>
+                <a href="#priv-6"><span data-lang="es">VI. Plazos de Retención</span><span data-lang="en">VI. Retention Periods</span></a>
+                <a href="#priv-7"><span data-lang="es">VII. Derechos del Titular</span><span data-lang="en">VII. Data Subject Rights</span></a>
+                <a href="#priv-8"><span data-lang="es">VIII. Cookies y Tecnologías</span><span data-lang="en">VIII. Cookies &amp; Technologies</span></a>
+                <a href="#priv-9"><span data-lang="es">IX. Seguridad</span><span data-lang="en">IX. Security</span></a>
+                <a href="#priv-10"><span data-lang="es">X. Contacto de Privacidad</span><span data-lang="en">X. Privacy Contact</span></a>
+                <p class="terms-toc-sep"><span data-lang="es">Ver también: </span><span data-lang="en">See also: </span><a href="terms.html"><span data-lang="es">Términos y Condiciones</span><span data-lang="en">Terms &amp; Conditions</span></a></p>
+            </aside>
+            <main class="terms-content">
+                <div class="terms-intro">
+                    <span data-lang="es"><strong>Nota para el titular de datos:</strong> Esta Política describe cómo A-Team recopila, usa, almacena y protege sus datos personales cuando utiliza el sitio web the-ateam.ai o contrata nuestros Servicios. Le recomendamos leerla detenidamente. Si tiene dudas, puede contactarnos en <a href="mailto:privacidad@ateam.ai">privacidad@ateam.ai</a>.</span>
+                    <span data-lang="en"><strong>Notice to data subjects:</strong> This Policy describes how A-Team collects, uses, stores and protects your personal data when you use the website the-ateam.ai or contract our Services. We recommend reading it carefully. If you have questions, contact us at <a href="mailto:privacidad@ateam.ai">privacidad@ateam.ai</a>.</span>
+                </div>
+
+                <div class="terms-section stagger-fade" id="priv-1">
+                    <h2 class="terms-title"><span data-lang="es">I. RESPONSABLE DEL TRATAMIENTO</span><span data-lang="en">I. DATA CONTROLLER</span></h2>
+                    <div class="terms-body">
+                        <p data-lang="es"><strong>A-Team</strong> (en adelante, el "Responsable") es responsable del tratamiento de los datos personales recabados a través del sitio web <a href="https://the-ateam.ai">the-ateam.ai</a> y de la plataforma de agentes inteligentes.</p>
+                        <p data-lang="en"><strong>A-Team</strong> (hereinafter, the "Controller") is responsible for processing personal data collected through the website <a href="https://the-ateam.ai">the-ateam.ai</a> and the intelligent agents platform.</p>
+                        <p data-lang="es">Contacto del Responsable: <a href="mailto:privacidad@ateam.ai">privacidad@ateam.ai</a> · Canal formal: <a href="mailto:legal@ateam.ai">legal@ateam.ai</a>.</p>
+                        <p data-lang="en">Controller contact: <a href="mailto:privacidad@ateam.ai">privacidad@ateam.ai</a> · Formal channel: <a href="mailto:legal@ateam.ai">legal@ateam.ai</a>.</p>
+                    </div>
+                </div>
+
+                <div class="terms-section stagger-fade" id="priv-2">
+                    <h2 class="terms-title"><span data-lang="es">II. DATOS QUE RECOPILAMOS</span><span data-lang="en">II. DATA WE COLLECT</span></h2>
+                    <div class="terms-body">
+                        <p data-lang="es"><strong>2.1 Datos proporcionados directamente.</strong> Nombre y apellido, dirección de correo electrónico, número de teléfono/WhatsApp, razón social y CUIT/CUIL (cuando corresponda), información de pago (procesada por terceros certificados PCI-DSS), mensajes e instrucciones que el Cliente cargue en la plataforma.</p>
+                        <p data-lang="en"><strong>2.1 Directly provided data.</strong> First and last name, email address, phone/WhatsApp number, company name and tax ID (where applicable), payment information (processed by PCI-DSS certified third parties), messages and instructions uploaded by the Client to the platform.</p>
+                        <p data-lang="es"><strong>2.2 Datos recopilados automáticamente.</strong> Dirección IP, tipo de navegador y sistema operativo, páginas visitadas y duración de la sesión, identificadores de cookies y tecnologías similares, logs de uso de la plataforma (acciones, errores, marcas de tiempo).</p>
+                        <p data-lang="en"><strong>2.2 Automatically collected data.</strong> IP address, browser type and operating system, pages visited and session duration, cookie identifiers and similar technologies, platform usage logs (actions, errors, timestamps).</p>
+                        <p data-lang="es"><strong>2.3 Datos de terceros (usuarios finales del Cliente).</strong> Cuando el Cliente carga su cartera de pagadores u otros contactos, A-Team procesa dichos datos en calidad de Encargado del Tratamiento, bajo las instrucciones del Cliente (ver Sección 10 de los <a href="terms.html">Términos y Condiciones</a>).</p>
+                        <p data-lang="en"><strong>2.3 Third-party data (Client's end users).</strong> When the Client uploads their payer portfolio or other contacts, A-Team processes such data as Data Processor, under the Client's instructions (see Section 10 of the <a href="terms.html">Terms and Conditions</a>).</p>
+                    </div>
+                </div>
+
+                <div class="terms-section stagger-fade" id="priv-3">
+                    <h2 class="terms-title"><span data-lang="es">III. FINALIDADES DEL TRATAMIENTO</span><span data-lang="en">III. PURPOSES OF PROCESSING</span></h2>
+                    <div class="terms-body">
+                        <p data-lang="es"><strong>3.1 Prestación del servicio.</strong> Crear y gestionar cuentas de usuario, ejecutar las funciones de los Agentes de IA configuradas por el Cliente, procesar pagos y emitir comprobantes.</p>
+                        <p data-lang="en"><strong>3.1 Service provision.</strong> Creating and managing user accounts, executing AI Agent functions configured by the Client, processing payments and issuing receipts.</p>
+                        <p data-lang="es"><strong>3.2 Comunicaciones.</strong> Enviar notificaciones transaccionales (confirmaciones, alertas, actualizaciones), responder consultas y brindar soporte técnico.</p>
+                        <p data-lang="en"><strong>3.2 Communications.</strong> Sending transactional notifications (confirmations, alerts, updates), responding to inquiries and providing technical support.</p>
+                        <p data-lang="es"><strong>3.3 Mejora del servicio.</strong> Analizar datos anonimizados y agregados para detectar errores, optimizar el rendimiento y desarrollar nuevas funcionalidades. A-Team no utiliza datos personales individuales para entrenar modelos de IA sin consentimiento explícito.</p>
+                        <p data-lang="en"><strong>3.3 Service improvement.</strong> Analyzing anonymized and aggregated data to detect errors, optimize performance and develop new features. A-Team does not use individual personal data to train AI models without explicit consent.</p>
+                        <p data-lang="es"><strong>3.4 Cumplimiento legal.</strong> Satisfacer las obligaciones legales aplicables (impositivas, contables, de auditoría) y responder a requerimientos de autoridades competentes.</p>
+                        <p data-lang="en"><strong>3.4 Legal compliance.</strong> Meeting applicable legal obligations (tax, accounting, audit) and responding to requests from competent authorities.</p>
+                        <p data-lang="es"><strong>Base legal:</strong> consentimiento del titular (art. 5, Ley 25.326), ejecución del contrato, y cumplimiento de obligaciones legales.</p>
+                        <p data-lang="en"><strong>Legal basis:</strong> data subject consent (art. 5, Law 25,326), performance of contract, and compliance with legal obligations.</p>
+                    </div>
+                </div>
+
+                <div class="terms-section stagger-fade" id="priv-4">
+                    <h2 class="terms-title"><span data-lang="es">IV. PROVEEDORES Y DESTINATARIOS TERCEROS</span><span data-lang="en">IV. THIRD-PARTY PROVIDERS AND RECIPIENTS</span></h2>
+                    <div class="terms-body">
+                        <p data-lang="es">A-Team puede compartir datos con proveedores que actúan como subencargados del tratamiento, sujetos a acuerdos de confidencialidad y compromisos de seguridad equivalentes a los establecidos en esta Política. Entre ellos:</p>
+                        <p data-lang="en">A-Team may share data with providers acting as sub-processors, subject to confidentiality agreements and security commitments equivalent to those established in this Policy. These include:</p>
+                        <p data-lang="es"><strong>Infraestructura cloud:</strong> Google Cloud Platform (almacenamiento, cómputo, base de datos). <strong>Comunicaciones:</strong> Meta / WhatsApp Business API (mensajería), proveedores de email transaccional. <strong>Pagos:</strong> procesadores certificados PCI-DSS (los datos de tarjeta nunca son almacenados por A-Team). <strong>Analítica:</strong> herramientas de monitoreo de rendimiento con datos anonimizados.</p>
+                        <p data-lang="en"><strong>Cloud infrastructure:</strong> Google Cloud Platform (storage, compute, database). <strong>Communications:</strong> Meta / WhatsApp Business API (messaging), transactional email providers. <strong>Payments:</strong> PCI-DSS certified processors (card data is never stored by A-Team). <strong>Analytics:</strong> performance monitoring tools with anonymized data.</p>
+                        <p data-lang="es">A-Team no vende, alquila ni cede datos personales a terceros con fines comerciales propios.</p>
+                        <p data-lang="en">A-Team does not sell, rent or transfer personal data to third parties for their own commercial purposes.</p>
+                    </div>
+                </div>
+
+                <div class="terms-section stagger-fade" id="priv-5">
+                    <h2 class="terms-title"><span data-lang="es">V. TRANSFERENCIAS INTERNACIONALES DE DATOS</span><span data-lang="en">V. INTERNATIONAL DATA TRANSFERS</span></h2>
+                    <div class="terms-body">
+                        <p data-lang="es">Algunos de nuestros proveedores de infraestructura (como Google Cloud Platform) operan fuera de Argentina. Cuando esto ocurre, A-Team adopta las salvaguardas adecuadas conforme al art. 12, Ley 25.326, exigiendo contractualmente a los proveedores niveles de protección equivalentes a los vigentes en Argentina.</p>
+                        <p data-lang="en">Some of our infrastructure providers (such as Google Cloud Platform) operate outside Argentina. When this occurs, A-Team adopts appropriate safeguards pursuant to art. 12, Law 25,326, contractually requiring providers to maintain protection levels equivalent to those in force in Argentina.</p>
+                    </div>
+                </div>
+
+                <div class="terms-section stagger-fade" id="priv-6">
+                    <h2 class="terms-title"><span data-lang="es">VI. PLAZOS DE RETENCIÓN</span><span data-lang="en">VI. RETENTION PERIODS</span></h2>
+                    <div class="terms-body">
+                        <p data-lang="es"><strong>Datos de cuenta y operativos:</strong> durante la vigencia del contrato y por hasta cinco (5) años adicionales para cumplimiento de obligaciones legales y fiscales.</p>
+                        <p data-lang="en"><strong>Account and operational data:</strong> during the term of the contract and for up to five (5) additional years for compliance with legal and tax obligations.</p>
+                        <p data-lang="es"><strong>Datos de usuarios finales del Cliente:</strong> eliminados o devueltos dentro de los treinta (30) días corridos posteriores a la finalización del contrato con el Cliente responsable.</p>
+                        <p data-lang="en"><strong>Client end-user data:</strong> deleted or returned within thirty (30) calendar days following termination of the contract with the responsible Client.</p>
+                        <p data-lang="es"><strong>Logs técnicos:</strong> conservados por noventa (90) días y luego anonimizados o eliminados.</p>
+                        <p data-lang="en"><strong>Technical logs:</strong> retained for ninety (90) days and then anonymized or deleted.</p>
+                        <p data-lang="es"><strong>Datos de marketing / comunicaciones comerciales:</strong> hasta que el titular revoque su consentimiento. Toda comunicación incluye un enlace para darse de baja.</p>
+                        <p data-lang="en"><strong>Marketing / commercial communication data:</strong> until the data subject revokes their consent. All communications include an unsubscribe link.</p>
+                    </div>
+                </div>
+
+                <div class="terms-section stagger-fade" id="priv-7">
+                    <h2 class="terms-title"><span data-lang="es">VII. DERECHOS DEL TITULAR DE DATOS</span><span data-lang="en">VII. DATA SUBJECT RIGHTS</span></h2>
+                    <div class="terms-body">
+                        <p data-lang="es">En virtud de la Ley N.° 25.326 (y sus normas complementarias de la AAIP), usted tiene derecho a:</p>
+                        <p data-lang="en">Under Law No. 25,326 (and its complementary AAIP regulations), you have the right to:</p>
+                        <p data-lang="es"><strong>Acceso:</strong> conocer qué datos personales tratamos sobre usted y obtener una copia. <strong>Rectificación:</strong> corregir datos inexactos o desactualizados. <strong>Actualización y completitud:</strong> solicitar que sus datos sean completados si estuvieran incompletos. <strong>Supresión:</strong> solicitar la eliminación de sus datos cuando no exista obligación legal de conservarlos. <strong>Confidencialidad:</strong> conocer a quiénes se han comunicado sus datos. <strong>Oposición al marketing:</strong> oponerse al uso de sus datos para comunicaciones comerciales en cualquier momento, sin costo.</p>
+                        <p data-lang="en"><strong>Access:</strong> know what personal data we process about you and obtain a copy. <strong>Rectification:</strong> correct inaccurate or outdated data. <strong>Update and completion:</strong> request that your data be completed if incomplete. <strong>Deletion:</strong> request deletion of your data when there is no legal obligation to retain it. <strong>Confidentiality:</strong> know to whom your data has been disclosed. <strong>Objection to marketing:</strong> object to the use of your data for commercial communications at any time, at no cost.</p>
+                        <p data-lang="es">Para ejercer cualquiera de estos derechos, envíe su solicitud a <a href="mailto:privacidad@ateam.ai">privacidad@ateam.ai</a>, indicando su nombre completo y el derecho que desea ejercer. A-Team responderá dentro del plazo legal vigente (máximo treinta días hábiles). Si considera que su solicitud no fue atendida correctamente, puede recurrir ante la <strong>Agencia de Acceso a la Información Pública (AAIP)</strong> en <a href="https://www.argentina.gob.ar/aaip" target="_blank" rel="noopener">www.argentina.gob.ar/aaip</a>.</p>
+                        <p data-lang="en">To exercise any of these rights, send your request to <a href="mailto:privacidad@ateam.ai">privacidad@ateam.ai</a>, stating your full name and the right you wish to exercise. A-Team will respond within the applicable legal deadline (maximum thirty business days). If you believe your request was not properly addressed, you may contact the <strong>Agency for Access to Public Information (AAIP)</strong> at <a href="https://www.argentina.gob.ar/aaip" target="_blank" rel="noopener">www.argentina.gob.ar/aaip</a>.</p>
+                    </div>
+                </div>
+
+                <div class="terms-section stagger-fade" id="priv-8">
+                    <h2 class="terms-title"><span data-lang="es">VIII. COOKIES Y TECNOLOGÍAS SIMILARES</span><span data-lang="en">VIII. COOKIES AND SIMILAR TECHNOLOGIES</span></h2>
+                    <div class="terms-body">
+                        <p data-lang="es">El sitio web the-ateam.ai utiliza cookies y tecnologías similares para los siguientes fines:</p>
+                        <p data-lang="en">The website the-ateam.ai uses cookies and similar technologies for the following purposes:</p>
+                        <p data-lang="es"><strong>Cookies estrictamente necesarias:</strong> indispensables para que el sitio funcione correctamente (sesión, seguridad). No requieren consentimiento. <strong>Cookies de rendimiento:</strong> recopilan información anonimizada sobre cómo los usuarios interactúan con el sitio (páginas visitadas, errores) para mejorar la experiencia. Requieren consentimiento. <strong>Cookies de funcionalidad:</strong> recuerdan preferencias del usuario (idioma seleccionado, configuración de visualización). Requieren consentimiento.</p>
+                        <p data-lang="en"><strong>Strictly necessary cookies:</strong> essential for the site to function correctly (session, security). Do not require consent. <strong>Performance cookies:</strong> collect anonymized information about how users interact with the site (pages visited, errors) to improve the experience. Require consent. <strong>Functionality cookies:</strong> remember user preferences (selected language, display settings). Require consent.</p>
+                        <p data-lang="es">Puede gestionar o rechazar las cookies no esenciales a través de la configuración de su navegador. La desactivación de cookies de funcionalidad puede afectar algunas características del sitio. A-Team no utiliza cookies de publicidad comportamental ni comparte datos de cookies con redes de anuncios.</p>
+                        <p data-lang="en">You can manage or reject non-essential cookies through your browser settings. Disabling functionality cookies may affect some site features. A-Team does not use behavioral advertising cookies or share cookie data with advertising networks.</p>
+                    </div>
+                </div>
+
+                <div class="terms-section stagger-fade" id="priv-9">
+                    <h2 class="terms-title"><span data-lang="es">IX. MEDIDAS DE SEGURIDAD</span><span data-lang="en">IX. SECURITY MEASURES</span></h2>
+                    <div class="terms-body">
+                        <p data-lang="es">A-Team aplica un conjunto de medidas técnicas y organizativas para proteger sus datos personales contra accesos no autorizados, pérdida, alteración o divulgación:</p>
+                        <p data-lang="en">A-Team applies a set of technical and organizational measures to protect your personal data against unauthorized access, loss, alteration or disclosure:</p>
+                        <p data-lang="es"><strong>Cifrado:</strong> datos en reposo con AES-256; datos en tránsito mediante TLS 1.2 o superior. <strong>Control de acceso:</strong> principio de mínimo privilegio; autenticación multifactor para el personal de A-Team. <strong>Auditoría:</strong> registros de acceso y operaciones críticas conservados por noventa (90) días. <strong>Respuesta a incidentes:</strong> ante una brecha de seguridad que afecte sus datos, A-Team notificará al Cliente y/o titular dentro de las 72 horas de tomar conocimiento, e informará a la AAIP cuando corresponda.</p>
+                        <p data-lang="en"><strong>Encryption:</strong> data at rest with AES-256; data in transit via TLS 1.2 or higher. <strong>Access control:</strong> least-privilege principle; multi-factor authentication for A-Team staff. <strong>Audit:</strong> access logs and critical operations retained for ninety (90) days. <strong>Incident response:</strong> in the event of a security breach affecting your data, A-Team will notify the Client and/or data subject within 72 hours of becoming aware, and will report to the AAIP where required.</p>
+                    </div>
+                </div>
+
+                <div class="terms-section stagger-fade" id="priv-10">
+                    <h2 class="terms-title"><span data-lang="es">X. CONTACTO Y ACTUALIZACIONES DE LA POLÍTICA</span><span data-lang="en">X. PRIVACY CONTACT AND POLICY UPDATES</span></h2>
+                    <div class="terms-body">
+                        <p data-lang="es">Para cualquier consulta, ejercicio de derechos o reporte de incidente relacionado con privacidad, contacte a: <a href="mailto:privacidad@ateam.ai">privacidad@ateam.ai</a>.</p>
+                        <p data-lang="en">For any privacy-related inquiry, exercise of rights or incident report, contact: <a href="mailto:privacidad@ateam.ai">privacidad@ateam.ai</a>.</p>
+                        <p data-lang="es">A-Team podrá actualizar esta Política en cualquier momento. Cuando los cambios sean sustanciales, lo notificaremos por correo electrónico al titular o mediante un aviso destacado en el sitio con al menos treinta (30) días de anticipación. La versión vigente siempre estará disponible en <a href="https://the-ateam.ai/privacy.html">the-ateam.ai/privacy.html</a>. El uso continuado del sitio o los Servicios implica la aceptación de la Política actualizada.</p>
+                        <p data-lang="en">A-Team may update this Policy at any time. When changes are substantial, we will notify the data subject by email or through a prominent notice on the site at least thirty (30) days in advance. The current version will always be available at <a href="https://the-ateam.ai/privacy.html">the-ateam.ai/privacy.html</a>. Continued use of the site or Services implies acceptance of the updated Policy.</p>
+                    </div>
+                </div>
+
+                <p class="terms-footer-note"><span data-lang="es">A-Team LLC — Documento legal. Reproducción sin autorización prohibida.<br>Contacto privacidad: </span><span data-lang="en">A-Team LLC &mdash; Legal document. Reproduction without authorization is prohibited.<br>Privacy contact: </span><a href="mailto:privacidad@ateam.ai" style="color:var(--primary);">privacidad@ateam.ai</a> &nbsp;·&nbsp; <a href="terms.html" style="color:var(--primary);"><span data-lang="es">Términos y Condiciones</span><span data-lang="en">Terms &amp; Conditions</span></a></p>
+            </main>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div style="margin-bottom:0.75rem;">
+                        <img src="assets/img/isologo-transparente.png" alt="A Team" style="height:44px; width:auto;">
+                    </div>
+                    <p style="font-size:0.85rem;"><span data-lang="es">Agentes listos. Trabajo resuelto.<br>© 2026 A-Team. Todos los derechos reservados.</span><span data-lang="en">Clever agents, easy living.<br>© 2026 A-Team. All rights reserved.</span></p>
+                </div>
+                <div class="footer-col">
+                    <h5><span data-lang="es">Agentes</span><span data-lang="en">Agents</span></h5>
+                    <a href="axel.html"><span data-lang="es">Axel — Cobranzas</span><span data-lang="en">Axel — Collections</span></a>
+                    <a href="anibal.html"><span data-lang="es">Aníbal — Reportes (pronto)</span><span data-lang="en">Aníbal — Reporting (soon)</span></a>
+                    <a href="#"><span data-lang="es">Agente de Ventas (pronto)</span><span data-lang="en">Sales Agent (soon)</span></a>
+                </div>
+                <div class="footer-col">
+                    <h5><span data-lang="es">Compañía</span><span data-lang="en">Company</span></h5>
+                    <a href="index.html"><span data-lang="es">Sobre A-Team</span><span data-lang="en">About A-Team</span></a>
+                    <a href="pricing.html">Pricing</a>
+                    <a href="demo.html"><span data-lang="es">Agendar Demo</span><span data-lang="en">Book a Demo</span></a>
+                </div>
+                <div class="footer-col">
+                    <h5><span data-lang="es">Legales</span><span data-lang="en">Legal</span></h5>
+                    <a href="terms.html"><span data-lang="es">Términos y Condiciones</span><span data-lang="en">Terms &amp; Conditions</span></a>
+                    <a href="privacy.html"><span data-lang="es">Política de Privacidad</span><span data-lang="en">Privacy Policy</span></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+        const menuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        if (menuBtn && mobileMenu) {
+            menuBtn.addEventListener('click', () => mobileMenu.classList.toggle('open'));
+            mobileMenu.querySelectorAll('a').forEach(l => l.addEventListener('click', () => mobileMenu.classList.remove('open')));
+        }
+        const observer = new IntersectionObserver((entries, obs) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) { entry.target.classList.add('visible'); obs.unobserve(entry.target); }
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.fade-in, .fade-in-up, .stagger-fade').forEach(el => observer.observe(el));
+        window.addEventListener('scroll', () => {
+            document.querySelector('.navbar').classList.toggle('scrolled', window.scrollY > 50);
+        });
+        // TOC active link
+        const tocLinks = document.querySelectorAll('.terms-toc a[href^="#"]');
+        const sections = document.querySelectorAll('.terms-section[id]');
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(s => { if (window.scrollY >= s.offsetTop - 120) current = s.id; });
+            tocLinks.forEach(a => { a.classList.toggle('active', a.getAttribute('href') === '#' + current); });
+        });
+    </script>
+    <script src="assets/css/../js/lang.js" onerror="void(0)"></script>
+    <script>
+        // Inline lang fallback if lang.js not found at assets path
+        if (typeof setLang === 'undefined') {
+            function setLang(lang) {
+                document.body.classList.toggle('lang-en', lang === 'en');
+                document.querySelectorAll('.lang-flag').forEach(f => f.classList.toggle('active', f.getAttribute('data-for') === lang));
+                localStorage.setItem('lang', lang);
+            }
+            const saved = localStorage.getItem('lang') || 'es';
+            setLang(saved);
+        }
+    </script>
+</body>
+
+</html>
