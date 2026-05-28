@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<!-- saved from url=(0021)https://the-ateam.ai/ -->
+<html lang="es"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A-Team — Clever agents, easy living. | Agentes listos. Trabajo resuelto.</title>
+    <meta name="description" content="A-Team builds agentic systems that take over the operational work businesses can’t afford to staff. Clever agents. Easy living.">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="https://the-ateam.ai/assets/img/isotipo.png">
+    <link rel="apple-touch-icon" href="https://the-ateam.ai/assets/img/isotipo.png">
+    <!-- SEO -->
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#6366F1">
+    <link rel="canonical" href="https://the-ateam.ai/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="A-Team">
+    <meta property="og:title" content="A-Team — Clever agents, easy living.">
+    <meta property="og:description" content="A-Team builds agentic systems that take over the operational work businesses can’t afford to staff.">
+    <meta property="og:image" content="https://the-ateam.ai/hero-banner-mobile.jpeg">
+    <meta property="og:url" content="https://the-ateam.ai/">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="A-Team — Clever agents, easy living.">
+    <meta name="twitter:description" content="A-Team builds agentic systems that take over the operational work businesses can’t afford to staff.">
+    <meta name="twitter:image" content="https://the-ateam.ai/hero-banner-mobile.jpeg">
+    <link href="./axel_1_files/css2" rel="stylesheet">
+    <script src="./axel_1_files/lucide@latest"></script>
+    <link rel="stylesheet" href="./axel_1_files/style.css">
+    <style>
+        /* ── Page-specific overrides ─────────────────────────────────── */
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none !important;
+            }
+
+            .mobile-menu-btn {
+                display: flex !important;
+                color: #0D0F1A !important;
+                min-width: 44px;
+                min-height: 44px;
+                align-items: center;
+                justify-content: center;
+                background: none;
+                border: none;
+                cursor: pointer;
+            }
+
+            .mobile-menu-btn svg {
+                display: block !important;
+                width: 24px !important;
+                height: 24px !important;
+                stroke: #0D0F1A !important;
+            }
+        }
+
+        /* Hero: split layout desktop — text left, image right */
+        .hero-brand {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding: 120px 3rem 4rem;
+            overflow: hidden;
+        }
+
+        .hero-brand-inner {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 1200px;
+            display: grid;
+            grid-template-columns: 42% 58%;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-text {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            text-align: left;
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 24px;
+            box-shadow: 0 12px 60px rgba(123, 79, 255, 0.22), 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        /* Hero headline — distinto al slogan de la imagen */
+        .hero-headline {
+            font-family: var(--font-heading);
+            font-weight: 800;
+            font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+            color: #0D0F1A;
+            margin-bottom: 1.25rem;
+        }
+
+        .hero-headline em {
+            font-style: normal;
+            background: linear-gradient(135deg, #38B6FF 0%, #7B4FFF 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Company descriptor */
+        .brand-descriptor {
+            font-size: 1.1rem;
+            color: #64748B;
+            max-width: 480px;
+            margin: 0 0 2.5rem;
+            line-height: 1.75;
+        }
+
+        .brand-descriptor strong {
+            color: #0D0F1A;
+        }
+
+        /* Nav CTA buttons */
+        .brand-nav-ctas {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+        }
+
+        /* Scroll indicator */
+        .scroll-hint {
+            position: absolute;
+            bottom: 2.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.4rem;
+            color: #94A3B8;
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            animation: bob 2s ease-in-out infinite;
+            opacity: 0.6;
+        }
+
+        .scroll-hint svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        @media (max-width: 768px) {
+            .scroll-hint {
+                display: none;
+            }
+        }
+
+        @keyframes bob {
+
+            0%,
+            100% {
+                transform: translateX(-50%) translateY(0);
+            }
+
+            50% {
+                transform: translateX(-50%) translateY(6px);
+            }
+        }
+
+        /* ── Manifesto / Insight section ── */
+        .manifesto-section {
+            padding: 8rem 0;
+        }
+
+        .manifesto-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+        }
+
+        .manifesto-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: #7B4FFF;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        .manifesto-headline {
+            font-family: var(--font-heading);
+            font-size: 2.6rem;
+            font-weight: 800;
+            line-height: 1.15;
+            letter-spacing: -0.02em;
+            margin-bottom: 1.5rem;
+            color: #0D0F1A;
+        }
+
+        .manifesto-headline em {
+            font-style: normal;
+            background: linear-gradient(135deg, #38B6FF 0%, #7B4FFF 50%, #9B30D9 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .manifesto-body {
+            color: #64748B;
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        .manifesto-body p+p {
+            margin-top: 1rem;
+        }
+
+        /* Compare card — split panel */
+        .compare-card {
+            display: flex;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+        }
+
+        .compare-side {
+            flex: 1;
+            padding: 2rem 2rem;
+        }
+
+        .compare-bad {
+            background: #FFF5F5;
+        }
+
+        .compare-good {
+            background: #F0FDF9;
+        }
+
+        .compare-divider {
+            width: 1px;
+            background: rgba(0, 0, 0, 0.08);
+            flex-shrink: 0;
+        }
+
+        .compare-header {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .compare-bad .compare-header {
+            color: #dc2626;
+        }
+
+        .compare-good .compare-header {
+            color: #059669;
+        }
+
+        .compare-side ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.9rem;
+        }
+
+        .compare-side li {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-size: 0.9rem;
+            color: #334155;
+            font-weight: 500;
+        }
+
+        .cmp-icon-bad {
+            color: #dc2626;
+            flex-shrink: 0;
+            width: 16px;
+            height: 16px;
+        }
+
+        .cmp-icon-good {
+            color: #059669;
+            flex-shrink: 0;
+            width: 16px;
+            height: 16px;
+        }
+
+        .what-section {
+            padding: 8rem 0;
+            background: #F8FAFC;
+        }
+
+        .agents-roster {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin-top: 4rem;
+        }
+
+        .agent-card {
+            padding: 2.5rem 2rem;
+            border-radius: 20px;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            background: #FFFFFF;
+            box-shadow: 0 2px 16px rgba(0, 0, 0, 0.06);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .agent-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #38B6FF, #7B4FFF, #9B30D9);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .agent-card.live {
+            border-color: rgba(123, 79, 255, 0.2);
+            box-shadow: 0 4px 24px rgba(123, 79, 255, 0.12);
+        }
+
+        .agent-card.live::before {
+            opacity: 1;
+        }
+
+        .agent-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .agent-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            padding: 0.25rem 0.7rem;
+            border-radius: 9999px;
+            margin-bottom: 1.5rem;
+        }
+
+        .agent-status.live-badge {
+            background: rgba(16, 185, 129, 0.1);
+            color: #10b981;
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+
+        .agent-status.live-badge::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #10b981;
+            animation: pulse-dot 1.5s ease infinite;
+        }
+
+        @keyframes pulse-dot {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.3;
+            }
+        }
+
+        .agent-status.coming-badge {
+            background: rgba(255, 255, 255, 0.04);
+            color: var(--text-muted);
+            border: 1px solid var(--border-color);
+        }
+
+        .agent-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
+            background: rgba(123, 79, 255, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #7B4FFF;
+            margin-bottom: 1.25rem;
+        }
+
+        .agent-icon svg {
+            width: 26px;
+            height: 26px;
+        }
+
+        .agent-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.4rem;
+            color: #0D0F1A;
+        }
+
+        .agent-role {
+            font-size: 0.8rem;
+            color: #7B4FFF;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.75rem;
+        }
+
+        .agent-card p {
+            color: #64748B;
+            font-size: 0.9rem;
+            line-height: 1.65;
+        }
+
+        .agent-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--primary);
+            transition: gap 0.2s;
+        }
+
+        .agent-link:hover {
+            gap: 0.7rem;
+            color: var(--primary);
+        }
+
+        .agent-link svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        /* ── Vision / Principles ── */
+        .vision-section {
+            padding: 8rem 0;
+        }
+
+        .principles-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin-top: 4rem;
+        }
+
+        .principle-item {
+            padding: 2rem 2.5rem;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            border-radius: 20px;
+            background: #FFFFFF;
+            box-shadow: 0 1px 8px rgba(0, 0, 0, 0.04);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .principle-item:hover {
+            transform: translateX(6px);
+            box-shadow: 0 4px 20px rgba(123, 79, 255, 0.10);
+        }
+
+        .principle-number {
+            font-family: var(--font-heading);
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #7B4FFF;
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+        }
+
+        .principle-item h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: #0D0F1A;
+        }
+
+        .principle-item p {
+            color: #64748B;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        /* ── CTA Bottom ── */
+        .bottom-cta {
+            padding: 8rem 0;
+            background: linear-gradient(135deg, #F0F4FF 0%, #F5F0FF 50%, #FBF0FF 100%);
+            text-align: center;
+        }
+
+        .bottom-cta-inner {
+            max-width: 640px;
+            margin: 0 auto;
+        }
+
+        .bottom-cta h2 {
+            font-family: var(--font-heading);
+            font-size: 2.8rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            margin-bottom: 1rem;
+            color: #0D0F1A;
+        }
+
+        .bottom-cta p {
+            color: #64748B;
+            font-size: 1.05rem;
+            margin-bottom: 2.5rem;
+            line-height: 1.7;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .manifesto-grid {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .agents-roster {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .principles-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-brand-inner {
+                gap: 3rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .agents-roster {
+                grid-template-columns: 1fr;
+            }
+
+            .bottom-cta h2 {
+                font-size: 2rem;
+            }
+
+            .manifesto-headline {
+                font-size: 2rem;
+            }
+
+            /* Mobile: single column, image on top edge-to-edge */
+            .hero-brand {
+                padding: 46px 0 3rem;
+                min-height: auto;
+            }
+
+            .hero-brand-inner {
+                grid-template-columns: 1fr;
+                gap: 0;
+                max-width: 100%;
+            }
+
+            .hero-text {
+                align-items: center;
+                text-align: center;
+                order: 2;
+                padding: 2rem 1.5rem 0;
+            }
+
+            .hero-image {
+                order: 1;
+            }
+
+            #hero-logo {
+                border-radius: 0 !important;
+                box-shadow: none !important;
+            }
+
+            .brand-slogan {
+                font-size: clamp(2.2rem, 10vw, 3.5rem);
+            }
+
+            .brand-descriptor {
+                margin: 0 0 2rem;
+                max-width: 100%;
+            }
+
+            .brand-nav-ctas {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="https://the-ateam.ai/index.html" class="logo" aria-label="A-Team home">
+                <picture>
+                    <source media="(max-width: 768px)" srcset="assets/img/isotipo.png">
+                    <source media="(min-width: 769px)" srcset="assets/img/isologo-transparente.png">
+                    <img src="./axel_1_files/isologo-transparente.png" alt="A Team" class="nav-logo-img">
+                </picture>
+            </a>
+            <div class="nav-links">
+                <a href="https://the-ateam.ai/index.html" class="nav-active"><span data-lang="es">Inicio</span><span data-lang="en">Home</span></a>
+                <a href="https://the-ateam.ai/axel.html">Axel</a>
+                <a href="https://the-ateam.ai/pricing.html"><span data-lang="es">Precios</span><span data-lang="en">Pricing</span></a>
+                <a href="https://the-ateam.ai/demo.html" class="btn btn-primary"><span data-lang="es">Agendar Demo →</span><span data-lang="en">Book a Demo →</span></a>
+                
+                <div class="lang-toggle-wrap">
+                    <span class="lang-flag active" data-for="es" onclick="setLang(&#39;es&#39;)">🇦🇷</span>
+                    <button class="lang-toggle" onclick="setLang(document.body.classList.contains(&#39;lang-en&#39;) ? &#39;es&#39; : &#39;en&#39;)" aria-label="Switch language" title="ES / EN"></button>
+                    <span class="lang-flag" data-for="en" onclick="setLang(&#39;en&#39;)">🇺🇸</span>
+                </div>
+            </div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open menu">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="https://the-ateam.ai/index.html"><span data-lang="es">Inicio</span><span data-lang="en">Home</span></a>
+            <a href="https://the-ateam.ai/axel.html">Axel</a>
+            <a href="https://the-ateam.ai/pricing.html"><span data-lang="es">Precios</span><span data-lang="en">Pricing</span></a>
+            <a href="https://the-ateam.ai/demo.html" class="btn btn-primary" style="width:100%;text-align:center;"><span data-lang="es">Agendar Demo →</span><span data-lang="en">Book a Demo →</span></a>
+            <div class="lang-toggle-wrap" style="justify-content:center;margin-top:1rem;margin-left:0;">
+                <span class="lang-flag active" data-for="es" onclick="setLang(&#39;es&#39;)">🇦🇷</span>
+                <button class="lang-toggle" onclick="setLang(document.body.classList.contains(&#39;lang-en&#39;) ? &#39;es&#39; : &#39;en&#39;)" aria-label="Switch language"></button>
+                <span class="lang-flag" data-for="en" onclick="setLang(&#39;en&#39;)">🇺🇸</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero — Brand -->
+    <section class="hero-brand">
+        <div class="hero-brand-glow"></div>
+        <div class="hero-brand-inner fade-in-up visible">
+
+            <!-- LEFT: texto -->
+            <div class="hero-text">
+                <p class="manifesto-label" style="margin-bottom:1.25rem;" data-lang="es">IA Agéntica · 2026</p><p class="manifesto-label" style="margin-bottom:1.25rem;" data-lang="en">Agentic AI · 2026</p>
+                <h1 class="hero-headline">
+                    <span data-lang="es">Tu negocio,<br>operado por <em>agentes de IA</em><br>que realmente funcionan.</span><span data-lang="en">Your business,<br>run by <em>AI agents</em><br>that actually work.</span>
+                </h1>
+                <p class="brand-descriptor">
+                    <span data-lang="es">Construimos agentes que no sugieren — <strong>ejecutan</strong>.<br>Cada agente asume un rol operativo. Recuperá tu tiempo.</span><span data-lang="en">We build agents that don't suggest — they <strong>execute</strong>.<br>Each agent owns an operational role. You get your time back.</span>
+                </p>
+                <div class="brand-nav-ctas">
+                    <a href="https://the-ateam.ai/axel.html" class="btn btn-primary btn-large" id="hero-cta-axel"><span data-lang="es">Conocer a Axel →</span><span data-lang="en">Meet Axel →</span></a>
+                    <a href="https://the-ateam.ai/demo.html" class="btn btn-secondary btn-large" id="hero-cta-demo"><span data-lang="es">Agendar Demo</span><span data-lang="en">Book a Demo</span></a>
+                </div>
+            </div>
+
+            <!-- RIGHT: imagen -->
+            <div class="hero-image">
+                <picture>
+                    <source media="(max-width: 768px)" srcset="assets/img/hero-banner-mobile-es.jpeg">
+                    <source media="(min-width: 769px)" srcset="assets/img/hero-banner-es.jpeg">
+                    <img src="./axel_1_files/hero-banner-es.jpeg" alt="A-Team — Clever agents, easy living." id="hero-logo">
+                </picture>
+            </div>
+
+        </div>
+        <div class="scroll-hint">
+            <span data-lang="es">Deslizar</span><span data-lang="en">Scroll</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="chevron-down" aria-hidden="true" class="lucide lucide-chevron-down"><path d="m6 9 6 6 6-6"></path></svg>
+        </div>
+    </section>
+
+    <!-- Manifesto -->
+    <section class="manifesto-section">
+        <div class="container">
+            <div class="manifesto-grid">
+                <div class="fade-in-up">
+                    <p class="manifesto-label"><span data-lang="es">Nuestra historia</span><span data-lang="en">Our story</span></p>
+                    <h2 class="manifesto-headline"><span data-lang="es">Agentes listos.<br><em>Trabajo resuelto.</em></span><span data-lang="en">Clever agents,<br><em>easy living.</em></span></h2>
+                    <div class="manifesto-body">
+                        <p data-lang="es">Antes de que existiera A-Team, existía Axel. El primer empleado de Aurent hacía las cobranzas a mano: los mensajes, los seguimientos, el registro de pagos. Era bueno en lo que hacía. Pero consumía horas que podrían haber ido a otra parte.</p><p data-lang="en">Before A-Team existed, there was Axel. Aurent's first employee handled collections by hand — messages, follow-ups, payment tracking. He was good at it. But it consumed hours that could have gone elsewhere.</p>
+                        <p data-lang="es">La pregunta que nació ahí fue simple: ¿y si ese trabajo lo hiciera un agente que nunca se cansa, nunca se olvida, y está disponible las 24 horas? Axel el agente lleva ese nombre porque es justo. Y esa historia es el origen de A-Team.</p><p data-lang="en">The question that came from that was simple: what if that work was done by an agent that never gets tired, never forgets, and is available 24 hours? Axel the agent carries that name because it's fair. That story is the origin of A-Team.</p>
+                        <p data-lang="es">Hoy construimos agentes que no sugieren — ejecutan. Cada agente asume un rol operativo específico. No son herramientas, son parte del equipo. <strong>Agentes listos. Trabajo resuelto.</strong></p><p data-lang="en">Today we build agents that don't suggest — they execute. Each agent owns a specific operational role. They're not tools, they're part of the team. <strong>Clever agents, easy living.</strong></p>
+                    </div>
+                </div>
+                <div class="comparison-table glassmorphism fade-in stagger-fade" style="transition-delay: 0s;">
+                    <div class="comp-row comp-header">
+                        <div class="comp-cell"><span data-lang="es">Sin un agente</span><span data-lang="en">Without an agent</span></div>
+                        <div class="comp-cell comp-highlight"><span data-lang="es">Con A-Team</span><span data-lang="en">With A-Team</span></div>
+                    </div>
+                    <div class="comp-row">
+                        <div class="comp-cell"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="x-circle" aria-hidden="true" class="lucide lucide-x-circle comp-icon-bad"><circle cx="12" cy="12" r="10"></circle><path d="m15 9-6 6"></path><path d="m9 9 6 6"></path></svg><span data-lang="es">Recordatorios manuales</span><span data-lang="en">Manual reminders</span>
+                        </div>
+                        <div class="comp-cell comp-highlight"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="check-circle-2" aria-hidden="true" class="lucide lucide-check-circle-2 comp-icon-good"><circle cx="12" cy="12" r="10"></circle><path d="m9 12 2 2 4-4"></path></svg><span data-lang="es">Automático, siempre</span><span data-lang="en">Automatic, every time</span></div>
+                    </div>
+                    <div class="comp-row">
+                        <div class="comp-cell"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="x-circle" aria-hidden="true" class="lucide lucide-x-circle comp-icon-bad"><circle cx="12" cy="12" r="10"></circle><path d="m15 9-6 6"></path><path d="m9 9 6 6"></path></svg><span data-lang="es">Seguimientos olvidados</span><span data-lang="en">Forgotten follow-ups</span>
+                        </div>
+                        <div class="comp-cell comp-highlight"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="check-circle-2" aria-hidden="true" class="lucide lucide-check-circle-2 comp-icon-good"><circle cx="12" cy="12" r="10"></circle><path d="m9 12 2 2 4-4"></path></svg><span data-lang="es">Las secuencias de WhatsApp se ejecutan solas</span><span data-lang="en">WhatsApp sequences run themselves</span></div>
+                    </div>
+                    <div class="comp-row">
+                        <div class="comp-cell"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="x-circle" aria-hidden="true" class="lucide lucide-x-circle comp-icon-bad"><circle cx="12" cy="12" r="10"></circle><path d="m15 9-6 6"></path><path d="m9 9 6 6"></path></svg><span data-lang="es">Conciliación en hojas de cálculo</span><span data-lang="en">Spreadsheet reconciliation</span></div>
+                        <div class="comp-cell comp-highlight"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="check-circle-2" aria-hidden="true" class="lucide lucide-check-circle-2 comp-icon-good"><circle cx="12" cy="12" r="10"></circle><path d="m9 12 2 2 4-4"></path></svg><span data-lang="es">Conciliación instantánea</span><span data-lang="en">Instant reconciliation</span></div>
+                    </div>
+                    <div class="comp-row">
+                        <div class="comp-cell"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="x-circle" aria-hidden="true" class="lucide lucide-x-circle comp-icon-bad"><circle cx="12" cy="12" r="10"></circle><path d="m15 9-6 6"></path><path d="m9 9 6 6"></path></svg><span data-lang="es">Sin visibilidad en tiempo real</span><span data-lang="en">No real-time visibility</span></div>
+                        <div class="comp-cell comp-highlight"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="check-circle-2" aria-hidden="true" class="lucide lucide-check-circle-2 comp-icon-good"><circle cx="12" cy="12" r="10"></circle><path d="m9 12 2 2 4-4"></path></svg><span data-lang="es">Panel en tiempo real</span><span data-lang="en">Real-time dashboard</span></div>
+                    </div>
+                    <div class="comp-row">
+                        <div class="comp-cell"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="x-circle" aria-hidden="true" class="lucide lucide-x-circle comp-icon-bad"><circle cx="12" cy="12" r="10"></circle><path d="m15 9-6 6"></path><path d="m9 9 6 6"></path></svg><span data-lang="es">Escalar = contratar más personas</span><span data-lang="en">Scale = hire more people</span></div>
+                        <div class="comp-cell comp-highlight"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="check-circle-2" aria-hidden="true" class="lucide lucide-check-circle-2 comp-icon-good"><circle cx="12" cy="12" r="10"></circle><path d="m9 12 2 2 4-4"></path></svg><span data-lang="es">Escalar = sumar un agente</span><span data-lang="en">Scale = add an agent</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- What We Build / Agents -->
+    <section class="what-section">
+        <div class="container">
+            <div class="section-header fade-in">
+                <p class="manifesto-label"><span data-lang="es">Agentes</span><span data-lang="en"><span data-lang="es">Agentes</span><span data-lang="en">Agents</span></span></p>
+                <h2><span data-lang="es">Un equipo. Varios agentes.<br><span class="text-gradient">Cero empleados.</span></span><span data-lang="en">One team. Many agents.<br><span class="text-gradient">Zero headcount.</span></span></h2>
+                <p data-lang="es">Cada agente asume un rol operativo específico. No sugieren, hacen el trabajo.</p><p data-lang="en">Each agent owns a specific operational role. They don't suggest — they do the work.</p>
+            </div>
+
+            <div class="agents-roster">
+                <!-- Axel — Live (Cobrador) -->
+                <div class="agent-card live stagger-fade" style="transition-delay: 0.12s;">
+                    <div class="agent-status live-badge"><span data-lang="es">Activo ahora</span><span data-lang="en">Live now</span></div>
+                    <div class="agent-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="landmark" aria-hidden="true" class="lucide lucide-landmark"><path d="M10 18v-7"></path><path d="M11.119 2.205a2 2 0 0 1 1.762 0l7.84 3.846A.5.5 0 0 1 20.5 7h-17a.5.5 0 0 1-.22-.949z"></path><path d="M14 18v-7"></path><path d="M18 18v-7"></path><path d="M3 22h18"></path><path d="M6 18v-7"></path></svg>
+                    </div>
+                    <p class="agent-role"><span data-lang="es">Agente de Cobranzas</span><span data-lang="en">Collections Agent</span></p>
+                    <h3>Axel</h3>
+                    <p data-lang="es">Automatiza todo el ciclo de cobranza vía WhatsApp: mensajes, seguimientos y conciliación de pagos. Sin trabajo manual, sin facturas sin cobrar.</p>
+                    <p data-lang="en">Automates the full collections cycle via WhatsApp — messages, follow-ups, payment reconciliation. No manual work, no missed invoices.</p>
+                    <a href="https://the-ateam.ai/axel.html" class="agent-link">
+                        <span data-lang="es">Conocer a Axel</span><span data-lang="en">Meet Axel</span> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="arrow-right" aria-hidden="true" class="lucide lucide-arrow-right"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+                    </a>
+                </div>
+
+                <!-- Aníbal — Agente de Reportes (Próximamente) -->
+                <div class="agent-card stagger-fade" style="transition-delay: 0.24s;">
+                    <div class="agent-status coming-badge"><span data-lang="es">Próximamente</span><span data-lang="en">Coming soon</span></div>
+                    <div class="agent-icon" style="background:rgba(123,79,255,0.08);color:var(--primary);">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="bar-chart-2" aria-hidden="true" class="lucide lucide-bar-chart-2"><path d="M5 21v-6"></path><path d="M12 21V3"></path><path d="M19 21V9"></path></svg>
+                    </div>
+                    <p class="agent-role" style="color:var(--primary);"><span data-lang="es">Agente de Reportes</span><span data-lang="en">Reporting Agent</span></p>
+                    <h3>Aníbal</h3>
+                    <p data-lang="es">Consultá KPIs, métricas y el estado de todos los agentes por WhatsApp. El cerebro del equipo: coordina, reporta y alerta sobre desvíos en tiempo real.</p>
+                    <p data-lang="en">Query KPIs, metrics, and all agent status from WhatsApp. The brain of the team — coordinates, reports, and flags deviations in real time.</p>
+                </div>
+
+                <!-- Ventas -->
+                <div class="agent-card stagger-fade" style="transition-delay: 0s;">
+                    <div class="agent-status coming-badge"><span data-lang="es">Próximamente</span><span data-lang="en">Coming soon</span></div>
+                    <div class="agent-icon" style="background:rgba(236,72,153,0.08);color:var(--accent);">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="message-square" aria-hidden="true" class="lucide lucide-message-square"><path d="M22 17a2 2 0 0 1-2 2H6.828a2 2 0 0 0-1.414.586l-2.202 2.202A.71.71 0 0 1 2 21.286V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2z"></path></svg>
+                    </div>
+                    <p class="agent-role" style="color:var(--accent);"><span data-lang="es">Agente de Ventas</span><span data-lang="en">Sales Agent</span></p>
+                    <h3>Ventas</h3>
+                    <p data-lang="es">Responde preguntas frecuentes, califica leads automáticamente y te ayuda a cerrar más ventas sin incrementar el personal.</p>
+                    <p data-lang="en">Answers FAQs, automatically qualifies leads, and helps you close more deals without adding headcount.</p>
+                </div>
+                
+                <!-- Agendador -->
+                <div class="agent-card stagger-fade" style="transition-delay: 0.12s;">
+                    <div class="agent-status coming-badge"><span data-lang="es">Próximamente</span><span data-lang="en">Coming soon</span></div>
+                    <div class="agent-icon" style="background:rgba(56, 182, 255, 0.08);color:#38B6FF;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="calendar" aria-hidden="true" class="lucide lucide-calendar"><path d="M8 2v4"></path><path d="M16 2v4"></path><rect width="18" height="18" x="3" y="4" rx="2"></rect><path d="M3 10h18"></path></svg>
+                    </div>
+                    <p class="agent-role" style="color:#38B6FF;"><span data-lang="es">Agente Agendador</span><span data-lang="en">Scheduling Agent</span></p>
+                    <h3>Agendador</h3>
+                    <p data-lang="es">Coordina reuniones, turnos y llamadas directamente con tus clientes sincronizando con tu calendario.</p>
+                    <p data-lang="en">Coordinates meetings, appointments, and calls directly with your clients by syncing with your calendar.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Vision / Principles -->
+    <section class="vision-section">
+        <div class="container">
+            <div class="section-header fade-in">
+                <p class="manifesto-label"><span data-lang="es">Cómo pensamos</span><span data-lang="en">How we think</span></p>
+                <h2><span data-lang="es">No otro SaaS.<br><span class="text-gradient">Infraestructura de decisiones.</span></span><span data-lang="en">Not another SaaS.<br><span class="text-gradient">Decision infrastructure.</span></span></h2>
+                <p data-lang="es">A-Team se ubica por encima de las herramientas y el SaaS. Más cerca de la infraestructura: la capa que hace el trabajo para que vos no tengas que hacerlo.</p><p data-lang="en">A-Team sits above tools and SaaS. Closer to infrastructure — the layer that runs the work so you don't have to.</p>
+            </div>
+            <div class="principles-grid">
+                <div class="principle-item stagger-fade" style="transition-delay: 0.24s;">
+                    <p class="principle-number">01</p>
+                    <h4><span data-lang="es">Trabajo real, no paneles de control</span><span data-lang="en">Real work, not dashboards</span></h4>
+                    <p data-lang="es">Si no ejecuta, no es A-Team. No sumamos otra pantalla para gestionar. Eliminamos el trabajo que nunca te correspondió hacer.</p><p data-lang="en">If it doesn't execute, it's not A-Team. We don't add another screen to manage. We remove the work that was never yours to do.</p>
+                </div>
+                <div class="principle-item stagger-fade" style="transition-delay: 0s;">
+                    <p class="principle-number">02</p>
+                    <h4><span data-lang="es">Autonomía con auditabilidad</span><span data-lang="en">Autonomy with auditability</span></h4>
+                    <p data-lang="es">Los agentes actúan por su cuenta. Cada decisión se registra, es rastreable y explicable. Te mantenés informado sin tener que involucrarte.</p><p data-lang="en">Agents act on their own. Every decision is logged, traceable, and explainable. You stay informed without being involved.</p>
+                </div>
+                <div class="principle-item stagger-fade" style="transition-delay: 0.12s;">
+                    <p class="principle-number">03</p>
+                    <h4><span data-lang="es">Los humanos aprueban. Los agentes ejecutan.</span><span data-lang="en">Humans approve. Agents execute.</span></h4>
+                    <p data-lang="es">Los agentes nunca mueven dinero, modifican contratos ni toman decisiones irreversibles. El control crítico sigue siendo tuyo.</p><p data-lang="en">Agents never move money, modify contracts, or make irreversible decisions. Critical control stays with you.</p>
+                </div>
+                <div class="principle-item stagger-fade" style="transition-delay: 0.24s;">
+                    <p class="principle-number">04</p>
+                    <h4><span data-lang="es">Diseño centrado en la industria</span><span data-lang="en">Industry-first design</span></h4>
+                    <p data-lang="es">Cada agente habla el idioma de su sector. Nada de bots genéricos: sistemas diseñados específicamente para contextos operativos reales.</p><p data-lang="en">Every agent speaks the language of its sector. No generic bots — purpose-built systems for real operational contexts.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bottom CTA -->
+    <section class="bottom-cta">
+        <div class="container">
+            <div class="bottom-cta-inner fade-in-up">
+                <h2><span data-lang="es">Empezá con un agente.<br>Construí tu equipo.</span><span data-lang="en">Start with one agent.<br>Build your team.</span></h2>
+                <p data-lang="es">Axel está activo. Agendá una demo de 15 minutos y mirá cómo maneja tu operación específica, con tus datos reales.</p><p data-lang="en">Axel is live. Book a 15-minute demo and see how it handles your specific operation — with your real data.</p>
+                <div class="brand-nav-ctas" style="justify-content:center;">
+                    <a href="https://the-ateam.ai/demo.html" class="btn btn-primary btn-large">Book a Demo →</a>
+                    <a href="https://the-ateam.ai/axel.html" class="btn btn-secondary btn-large"><span data-lang="es">Ver a Axel</span><span data-lang="en">See Axel</span></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div style="margin-bottom:0.75rem;">
+                        <img src="./axel_1_files/isologo-transparente.png" alt="A Team" style="height:44px; width:auto;">
+                    </div>
+                    <p style="font-size:0.85rem;"><span data-lang="es">Agentes listos. Trabajo resuelto.<br>© 2026 A-Team. Todos los derechos reservados.</span><span data-lang="en">Clever agents, easy living.<br>© 2026 A-Team. All rights reserved.</span></p>
+                </div>
+                <div class="footer-col">
+                    <h5><span data-lang="es">Agentes</span><span data-lang="en"><span data-lang="es">Agentes</span><span data-lang="en">Agents</span></span></h5>
+                    <a href="https://the-ateam.ai/axel.html"><span data-lang="es">Axel — Cobranzas</span><span data-lang="en">Axel — Collections</span></a>
+                    <a href="https://the-ateam.ai/anibal.html"><span data-lang="es">Aníbal — Reportes (pronto)</span><span data-lang="en">Aníbal — Reporting (soon)</span></a>
+                    <a href="https://the-ateam.ai/#"><span data-lang="es">Agente de Ventas (pronto)</span><span data-lang="en">Sales Agent (soon)</span></a>
+                    <a href="https://the-ateam.ai/#"><span data-lang="es">Agente de Reportes (pronto)</span><span data-lang="en">Reporting Agent (soon)</span></a>
+                </div>
+                <div class="footer-col">
+                    <h5><span data-lang="es">Compañía</span><span data-lang="en">Company</span></h5>
+                    <a href="https://the-ateam.ai/index.html"><span data-lang="es">Sobre A-Team</span><span data-lang="en">About A-Team</span></a>
+                    <a href="https://the-ateam.ai/pricing.html">Pricing</a>
+                    <a href="https://the-ateam.ai/demo.html"><span data-lang="es">Agendar Demo</span><span data-lang="en">Book a Demo</span></a>
+                </div>
+                <div class="footer-col">
+                    <h5><span data-lang="es">Legales</span><span data-lang="en">Legal</span></h5>
+                    <a href="https://the-ateam.ai/terms.html"><span data-lang="es">Términos y Condiciones</span><span data-lang="en">Terms &amp; Conditions</span></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+        // Mobile Menu
+        const menuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        if (menuBtn && mobileMenu) {
+            menuBtn.addEventListener('click', () => mobileMenu.classList.toggle('open'));
+            mobileMenu.querySelectorAll('a').forEach(l => l.addEventListener('click', () => mobileMenu.classList.remove('open')));
+        }
+
+        // Scroll Animations
+        const observer = new IntersectionObserver((entries, obs) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    obs.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-in, .fade-in-up, .stagger-fade').forEach(el => observer.observe(el));
+        document.querySelectorAll('.stagger-fade').forEach((el, i) => {
+            el.style.transitionDelay = `${(i % 3) * 0.12}s`;
+        });
+
+        // Navbar scroll
+        window.addEventListener('scroll', () => {
+            document.querySelector('.navbar').classList.toggle('scrolled', window.scrollY > 50);
+        });
+    </script>
+    <script src="./axel_1_files/lang.js"></script>
+
+
+<script>'undefined'=== typeof _trfq || (window._trfq = []);'undefined'=== typeof _trfd && (window._trfd=[]),_trfd.push({'tccl.baseHost':'secureserver.net'},{'ap':'cpsh-oh'},{'server':'p3plzcpnl509336'},{'dcenter':'p3'},{'cp_id':'10903302'},{'cp_cl':'8'}) // Monitoring performance to make your website faster. If you want to opt-out, please contact web hosting support.</script><script src="./axel_1_files/tccl.min.js"></script></body></html>
