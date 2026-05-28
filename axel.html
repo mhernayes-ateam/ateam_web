@@ -1,2724 +1,798 @@
 <!DOCTYPE html>
-<html lang="es"><head>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Axel — Cobrá por transferencia sin perseguir a nadie | A-Team</title>
+  <meta name="description" content="Axel reclama, recibe comprobantes y concilia tus cobros por WhatsApp. Para colegios, consorcios y profesionales que cobran por transferencia.">
+  <meta property="og:title" content="Axel — Cobrá por transferencia sin perseguir a nadie">
+  <meta property="og:description" content="Reclama por WhatsApp. Concilia transferencias. Factura con ARCA. Sin Excel.">
+  <meta property="og:image" content="https://the-ateam.ai/assets/img/isotipo.png">
+  <meta property="og:url" content="https://the-ateam.ai/axel.html">
+  <link rel="icon" type="image/png" href="assets/img/isotipo.png">
+  <link rel="apple-touch-icon" href="assets/img/isotipo.png">
+  <meta name="robots" content="index, follow">
+  <!-- Site fonts + CSS -->
+  <link href="./axel_1_files/css2" rel="stylesheet">
+  <script src="./axel_1_files/lucide@latest"></script>
+  <link rel="stylesheet" href="./axel_1_files/style.css">
 
+  <style>
+    /* ── Nav override: Axel link active ── */
+    .nav-links a[href="axel.html"] { color: #7B4FFF; font-weight: 600; }
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Axel — Cobrá por transferencia sin perseguir a nadie</title>
-<meta name="description" content="Axel reclama, recibe comprobantes y concilia tus cobros por WhatsApp. Para colegios, consorcios y profesionales que cobran por transferencia.">
-<meta property="og:title" content="Axel — Cobrá por transferencia sin perseguir a nadie">
-<meta property="og:description" content="Reclama por WhatsApp. Concilia transferencias. Factura con ARCA. Sin Excel.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-<style>/* cyrillic-ext */
-@font-face {
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url("axel_assets/16f52a2c-e90d-4277-a26e-362af1ba652c.woff2") format('woff2');
-  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
-}
-/* cyrillic */
-@font-face {
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url("axel_assets/d9aee36b-0c0b-40a9-a526-1abf34953b7f.woff2") format('woff2');
-  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
-}
-/* greek-ext */
-@font-face {
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url("axel_assets/abe4d839-86c0-42f4-b291-63b1c9cf4b14.woff2") format('woff2');
-  unicode-range: U+1F00-1FFF;
-}
-/* greek */
-@font-face {
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url("axel_assets/ecc01f3d-66c6-4ab8-b2e0-245bd5aa42da.woff2") format('woff2');
-  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
-}
-/* vietnamese */
-@font-face {
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url("axel_assets/fe51003d-1e49-4366-b875-df35b42b9e57.woff2") format('woff2');
-  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
-}
-/* latin-ext */
-@font-face {
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url("axel_assets/f0c24fb9-012c-43c2-8978-08448977ec7c.woff2") format('woff2');
-  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
-}
-/* latin */
-@font-face {
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url("axel_assets/7ecd2d6f-efba-40e6-9f57-d8490b77fb7f.woff2") format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-/* cyrillic-ext */
-@font-face {
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 500;
-  font-display: swap;
-  src: url("axel_assets/16f52a2c-e90d-4277-a26e-362af1ba652c.woff2") format('woff2');
-  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
-}
-/* cyrillic */
-@font-face {
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 500;
-  font-display: swap;
-  src: url("axel_assets/d9aee36b-0c0b-40a9-a526-1abf34953b7f.woff2") format('woff2');
-  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
-}
-/* greek-ext */
-@font-face {
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 500;
-  font-display: swap;
-  src: url("axel_assets/abe4d839-86c0-42f4-b291-63b1c9cf4b14.woff2") format('woff2');
-  unicode-range: U+1F00-1FFF;
-}
-/* greek */
-@font-face {
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 500;
-  font-display: swap;
-  src: url("axel_assets/ecc01f3d-66c6-4ab8-b2e0-245bd5aa42da.woff2") format('woff2');
-  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
-}
-/* vietnamese */
-@font-face {
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 500;
-  font-display: swap;
-  src: url("axel_assets/fe51003d-1e49-4366-b875-df35b42b9e57.woff2") format('woff2');
-  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
-}
-/* latin-ext */
-@font-face {
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 500;
-  font-display: swap;
-  src: url("axel_assets/f0c24fb9-012c-43c2-8978-08448977ec7c.woff2") format('woff2');
-  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
-}
-/* latin */
-@font-face {
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 500;
-  font-display: swap;
-  src: url("axel_assets/7ecd2d6f-efba-40e6-9f57-d8490b77fb7f.woff2") format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-/* cyrillic-ext */
-@font-face {
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 600;
-  font-display: swap;
-  src: url("axel_assets/16f52a2c-e90d-4277-a26e-362af1ba652c.woff2") format('woff2');
-  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
-}
-/* cyrillic */
-@font-face {
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 600;
-  font-display: swap;
-  src: url("axel_assets/d9aee36b-0c0b-40a9-a526-1abf34953b7f.woff2") format('woff2');
-  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
-}
-/* greek-ext */
-@font-face {
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 600;
-  font-display: swap;
-  src: url("axel_assets/abe4d839-86c0-42f4-b291-63b1c9cf4b14.woff2") format('woff2');
-  unicode-range: U+1F00-1FFF;
-}
-/* greek */
-@font-face {
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 600;
-  font-display: swap;
-  src: url("axel_assets/ecc01f3d-66c6-4ab8-b2e0-245bd5aa42da.woff2") format('woff2');
-  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
-}
-/* vietnamese */
-@font-face {
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 600;
-  font-display: swap;
-  src: url("axel_assets/fe51003d-1e49-4366-b875-df35b42b9e57.woff2") format('woff2');
-  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
-}
-/* latin-ext */
-@font-face {
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 600;
-  font-display: swap;
-  src: url("axel_assets/f0c24fb9-012c-43c2-8978-08448977ec7c.woff2") format('woff2');
-  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
-}
-/* latin */
-@font-face {
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 600;
-  font-display: swap;
-  src: url("axel_assets/7ecd2d6f-efba-40e6-9f57-d8490b77fb7f.woff2") format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-/* cyrillic-ext */
-@font-face {
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 700;
-  font-display: swap;
-  src: url("axel_assets/16f52a2c-e90d-4277-a26e-362af1ba652c.woff2") format('woff2');
-  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
-}
-/* cyrillic */
-@font-face {
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 700;
-  font-display: swap;
-  src: url("axel_assets/d9aee36b-0c0b-40a9-a526-1abf34953b7f.woff2") format('woff2');
-  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
-}
-/* greek-ext */
-@font-face {
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 700;
-  font-display: swap;
-  src: url("axel_assets/abe4d839-86c0-42f4-b291-63b1c9cf4b14.woff2") format('woff2');
-  unicode-range: U+1F00-1FFF;
-}
-/* greek */
-@font-face {
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 700;
-  font-display: swap;
-  src: url("axel_assets/ecc01f3d-66c6-4ab8-b2e0-245bd5aa42da.woff2") format('woff2');
-  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
-}
-/* vietnamese */
-@font-face {
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 700;
-  font-display: swap;
-  src: url("axel_assets/fe51003d-1e49-4366-b875-df35b42b9e57.woff2") format('woff2');
-  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
-}
-/* latin-ext */
-@font-face {
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 700;
-  font-display: swap;
-  src: url("axel_assets/f0c24fb9-012c-43c2-8978-08448977ec7c.woff2") format('woff2');
-  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
-}
-/* latin */
-@font-face {
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 700;
-  font-display: swap;
-  src: url("axel_assets/7ecd2d6f-efba-40e6-9f57-d8490b77fb7f.woff2") format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-/* cyrillic-ext */
-@font-face {
-  font-family: 'JetBrains Mono';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url("axel_assets/acf3ffb4-c621-4d3a-aaaf-c3fcb1f1dd14.woff2") format('woff2');
-  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
-}
-/* cyrillic */
-@font-face {
-  font-family: 'JetBrains Mono';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url("axel_assets/e8e6135c-125c-4e90-80df-dd0f135e06cc.woff2") format('woff2');
-  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
-}
-/* greek */
-@font-face {
-  font-family: 'JetBrains Mono';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url("axel_assets/641ae21e-e395-4e54-8781-4cabca58295b.woff2") format('woff2');
-  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
-}
-/* vietnamese */
-@font-face {
-  font-family: 'JetBrains Mono';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url("axel_assets/a3ec4d07-ab6d-4d05-8234-5a71b3db75a5.woff2") format('woff2');
-  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
-}
-/* latin-ext */
-@font-face {
-  font-family: 'JetBrains Mono';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url("axel_assets/fab58573-8299-48d6-b9c1-7f7f24449449.woff2") format('woff2');
-  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
-}
-/* latin */
-@font-face {
-  font-family: 'JetBrains Mono';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url("axel_assets/b3e116a9-b065-44f1-934c-b640b661b9fe.woff2") format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-/* cyrillic-ext */
-@font-face {
-  font-family: 'JetBrains Mono';
-  font-style: normal;
-  font-weight: 500;
-  font-display: swap;
-  src: url("axel_assets/acf3ffb4-c621-4d3a-aaaf-c3fcb1f1dd14.woff2") format('woff2');
-  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
-}
-/* cyrillic */
-@font-face {
-  font-family: 'JetBrains Mono';
-  font-style: normal;
-  font-weight: 500;
-  font-display: swap;
-  src: url("axel_assets/e8e6135c-125c-4e90-80df-dd0f135e06cc.woff2") format('woff2');
-  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
-}
-/* greek */
-@font-face {
-  font-family: 'JetBrains Mono';
-  font-style: normal;
-  font-weight: 500;
-  font-display: swap;
-  src: url("axel_assets/641ae21e-e395-4e54-8781-4cabca58295b.woff2") format('woff2');
-  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
-}
-/* vietnamese */
-@font-face {
-  font-family: 'JetBrains Mono';
-  font-style: normal;
-  font-weight: 500;
-  font-display: swap;
-  src: url("axel_assets/a3ec4d07-ab6d-4d05-8234-5a71b3db75a5.woff2") format('woff2');
-  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
-}
-/* latin-ext */
-@font-face {
-  font-family: 'JetBrains Mono';
-  font-style: normal;
-  font-weight: 500;
-  font-display: swap;
-  src: url("axel_assets/fab58573-8299-48d6-b9c1-7f7f24449449.woff2") format('woff2');
-  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
-}
-/* latin */
-@font-face {
-  font-family: 'JetBrains Mono';
-  font-style: normal;
-  font-weight: 500;
-  font-display: swap;
-  src: url("axel_assets/b3e116a9-b065-44f1-934c-b640b661b9fe.woff2") format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-/* cyrillic-ext */
-@font-face {
-  font-family: 'JetBrains Mono';
-  font-style: normal;
-  font-weight: 600;
-  font-display: swap;
-  src: url("axel_assets/acf3ffb4-c621-4d3a-aaaf-c3fcb1f1dd14.woff2") format('woff2');
-  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
-}
-/* cyrillic */
-@font-face {
-  font-family: 'JetBrains Mono';
-  font-style: normal;
-  font-weight: 600;
-  font-display: swap;
-  src: url("axel_assets/e8e6135c-125c-4e90-80df-dd0f135e06cc.woff2") format('woff2');
-  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
-}
-/* greek */
-@font-face {
-  font-family: 'JetBrains Mono';
-  font-style: normal;
-  font-weight: 600;
-  font-display: swap;
-  src: url("axel_assets/641ae21e-e395-4e54-8781-4cabca58295b.woff2") format('woff2');
-  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
-}
-/* vietnamese */
-@font-face {
-  font-family: 'JetBrains Mono';
-  font-style: normal;
-  font-weight: 600;
-  font-display: swap;
-  src: url("axel_assets/a3ec4d07-ab6d-4d05-8234-5a71b3db75a5.woff2") format('woff2');
-  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
-}
-/* latin-ext */
-@font-face {
-  font-family: 'JetBrains Mono';
-  font-style: normal;
-  font-weight: 600;
-  font-display: swap;
-  src: url("axel_assets/fab58573-8299-48d6-b9c1-7f7f24449449.woff2") format('woff2');
-  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
-}
-/* latin */
-@font-face {
-  font-family: 'JetBrains Mono';
-  font-style: normal;
-  font-weight: 600;
-  font-display: swap;
-  src: url("axel_assets/b3e116a9-b065-44f1-934c-b640b661b9fe.woff2") format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-/* vietnamese */
-@font-face {
-  font-family: 'Space Grotesk';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url("axel_assets/a390a3e1-ac72-4c12-bbb7-0e1813c3e3b9.woff2") format('woff2');
-  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
-}
-/* latin-ext */
-@font-face {
-  font-family: 'Space Grotesk';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url("axel_assets/08672fe3-6157-4460-9fae-8db2cb0188b3.woff2") format('woff2');
-  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
-}
-/* latin */
-@font-face {
-  font-family: 'Space Grotesk';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url("axel_assets/873a9f9b-1122-46a9-b392-15dc7fdc1bc8.woff2") format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-/* vietnamese */
-@font-face {
-  font-family: 'Space Grotesk';
-  font-style: normal;
-  font-weight: 500;
-  font-display: swap;
-  src: url("axel_assets/a390a3e1-ac72-4c12-bbb7-0e1813c3e3b9.woff2") format('woff2');
-  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
-}
-/* latin-ext */
-@font-face {
-  font-family: 'Space Grotesk';
-  font-style: normal;
-  font-weight: 500;
-  font-display: swap;
-  src: url("axel_assets/08672fe3-6157-4460-9fae-8db2cb0188b3.woff2") format('woff2');
-  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
-}
-/* latin */
-@font-face {
-  font-family: 'Space Grotesk';
-  font-style: normal;
-  font-weight: 500;
-  font-display: swap;
-  src: url("axel_assets/873a9f9b-1122-46a9-b392-15dc7fdc1bc8.woff2") format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-/* vietnamese */
-@font-face {
-  font-family: 'Space Grotesk';
-  font-style: normal;
-  font-weight: 600;
-  font-display: swap;
-  src: url("axel_assets/a390a3e1-ac72-4c12-bbb7-0e1813c3e3b9.woff2") format('woff2');
-  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
-}
-/* latin-ext */
-@font-face {
-  font-family: 'Space Grotesk';
-  font-style: normal;
-  font-weight: 600;
-  font-display: swap;
-  src: url("axel_assets/08672fe3-6157-4460-9fae-8db2cb0188b3.woff2") format('woff2');
-  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
-}
-/* latin */
-@font-face {
-  font-family: 'Space Grotesk';
-  font-style: normal;
-  font-weight: 600;
-  font-display: swap;
-  src: url("axel_assets/873a9f9b-1122-46a9-b392-15dc7fdc1bc8.woff2") format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-/* vietnamese */
-@font-face {
-  font-family: 'Space Grotesk';
-  font-style: normal;
-  font-weight: 700;
-  font-display: swap;
-  src: url("axel_assets/a390a3e1-ac72-4c12-bbb7-0e1813c3e3b9.woff2") format('woff2');
-  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
-}
-/* latin-ext */
-@font-face {
-  font-family: 'Space Grotesk';
-  font-style: normal;
-  font-weight: 700;
-  font-display: swap;
-  src: url("axel_assets/08672fe3-6157-4460-9fae-8db2cb0188b3.woff2") format('woff2');
-  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
-}
-/* latin */
-@font-face {
-  font-family: 'Space Grotesk';
-  font-style: normal;
-  font-weight: 700;
-  font-display: swap;
-  src: url("axel_assets/873a9f9b-1122-46a9-b392-15dc7fdc1bc8.woff2") format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-</style>
+    /* ── Page CSS variables (aligned to site palette) ── */
+    :root {
+      --violet:   #7B4FFF;
+      --violet-d: #5E35CC;
+      --blue:     #38B6FF;
+      --dark:     #0D0F1A;
+      --muted:    #64748B;
+      --light:    #F8FAFC;
+      --border:   rgba(0,0,0,0.08);
+      --font-u:   var(--font-heading, 'Syne', sans-serif);
+      --radius:   14px;
+    }
 
-<style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    /* ── Shared section helpers ── */
+    .axel-section { padding: 7rem 0; }
+    .axel-section.tint { background: #F8FAFC; }
+    .section-label-ax {
+      font-size: 0.68rem; text-transform: uppercase; letter-spacing: 3px;
+      color: var(--violet); font-weight: 700; margin-bottom: 1.2rem; display: block;
+    }
+    .axel-section h2 {
+      font-family: var(--font-heading); font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      font-weight: 800; line-height: 1.15; letter-spacing: -0.02em;
+      color: var(--dark); margin-bottom: 1.4rem;
+    }
+    .section-lede {
+      font-size: 1.05rem; color: var(--muted); max-width: 640px;
+      line-height: 1.75; margin-bottom: 3rem;
+    }
+    .text-grad {
+      background: linear-gradient(135deg, #38B6FF 0%, #7B4FFF 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
 
-  :root {
-    /* A-Team brand gradient (sampled from logo) */
-    --grad-1: #22B8FF;   /* electric blue */
-    --grad-2: #7B3CF0;   /* royal violet */
-    --grad-3: #B445FF;   /* magenta-violet */
-    --grad: linear-gradient(135deg, var(--grad-1) 0%, var(--grad-2) 55%, var(--grad-3) 100%);
+    /* ── HERO ── */
+    .axel-hero {
+      padding: 7rem 0 5rem;
+      background: linear-gradient(160deg, #fff 55%, #f3f0ff 100%);
+      border-bottom: 1px solid var(--border);
+    }
+    .axel-hero-eyebrow {
+      display: inline-block; font-size: 0.7rem; text-transform: uppercase;
+      letter-spacing: 3px; font-weight: 700; color: var(--violet);
+      background: rgba(123,79,255,0.08); border: 1px solid rgba(123,79,255,0.2);
+      padding: 0.3rem 0.9rem; border-radius: 99px; margin-bottom: 1.5rem;
+    }
+    .axel-hero h1 {
+      font-family: var(--font-heading); font-size: clamp(2.2rem, 5vw, 3.5rem);
+      font-weight: 800; line-height: 1.1; letter-spacing: -0.02em;
+      color: var(--dark); margin-bottom: 1.4rem; max-width: 720px;
+    }
+    .axel-hero-sub {
+      font-size: 1.1rem; color: var(--muted); max-width: 580px;
+      line-height: 1.75; margin-bottom: 2.5rem;
+    }
+    .axel-hero-meta {
+      display: flex; gap: 2rem; flex-wrap: wrap; margin-top: 2.5rem;
+      padding-top: 2rem; border-top: 1px solid var(--border);
+    }
+    .axel-meta-item {
+      display: flex; flex-direction: column; gap: 0.2rem;
+      font-size: 0.78rem; text-transform: uppercase; letter-spacing: 1px;
+      color: var(--muted); font-weight: 600;
+    }
+    .axel-meta-item span {
+      font-size: 0.9rem; color: var(--dark); text-transform: none;
+      letter-spacing: 0; font-weight: 500;
+    }
 
-    /* Neutrals: deep ink + warm paper */
-    --ink:    #07080F;   /* deepest */
-    --ink-2:  #16161A;   /* paper-900, headline on light */
-    --body:   #3A3A35;   /* paper-700, body text */
-    --muted:  #7A7A72;   /* paper-500, secondary */
-    --soft:   #A8ACBD;   /* tertiary / hint */
-    --bg:     #FFFFFF;   /* surface */
-    --bg-2:   #FAFAF7;   /* warm paper, section tint */
-    --bg-3:   #F3F3EE;   /* outer canvas */
-    --line:   rgba(10,11,20,0.08);
-    --line-2: rgba(10,11,20,0.16);
-    --line-dash: rgba(10,11,20,0.10);
+    /* ── STATS ── */
+    .stats-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 2rem; margin-top: 3.5rem; }
+    .stat-box {
+      background: #fff; border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 2rem 1.75rem;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.05);
+    }
+    .stat-num {
+      font-family: var(--font-heading); font-size: 2.8rem; font-weight: 800;
+      background: linear-gradient(135deg,#38B6FF,#7B4FFF);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      line-height: 1; margin-bottom: 0.6rem;
+    }
+    .stat-label { font-size: 0.9rem; color: var(--dark); font-weight: 500; line-height: 1.5; margin-bottom: 0.4rem; }
+    .stat-source { font-size: 0.75rem; color: var(--muted); }
 
-    --blue:   #22B8FF;
-    --violet: #7B3CF0;
-    --magenta:#B445FF;
-    --green:  #22C55E;
-    --amber:  #F5A524;
-    --fail:   #E5484D;
+    /* ── BENEFITS ── */
+    .benefits-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.75rem; margin-top: 3rem; }
+    .benefit-card {
+      background: #fff; border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 2.25rem 2rem;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.05);
+      position: relative; overflow: hidden; transition: transform .25s, box-shadow .25s;
+    }
+    .benefit-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, #38B6FF, #7B4FFF);
+    }
+    .benefit-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,.09); }
+    .benefit-num { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 2px; color: var(--muted); margin-bottom: 1rem; }
+    .benefit-icon {
+      width: 48px; height: 48px; border-radius: 12px;
+      background: rgba(123,79,255,0.08); display: flex; align-items: center;
+      justify-content: center; color: var(--violet); margin-bottom: 1.25rem;
+    }
+    .benefit-card h3 {
+      font-family: var(--font-heading); font-size: 1.1rem; font-weight: 700;
+      color: var(--dark); margin-bottom: 0.7rem;
+    }
+    .benefit-card p { font-size: 0.9rem; color: var(--muted); line-height: 1.65; }
 
-    --font-d: 'Space Grotesk', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
-    --font-b: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
-    --font-u: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+    /* ── STEPS ── */
+    .steps-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 2rem; margin-top: 3rem; position: relative; }
+    .steps-grid::before {
+      content: ''; position: absolute; top: 28px; left: calc(16.6% + 1rem);
+      right: calc(16.6% + 1rem); height: 2px;
+      background: linear-gradient(90deg, rgba(56,182,255,.3), rgba(123,79,255,.3)); z-index: 0;
+    }
+    .step-card {
+      background: #fff; border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 2rem 1.75rem;
+      box-shadow: 0 2px 12px rgba(0,0,0,.04); position: relative; z-index: 1;
+    }
+    .step-num {
+      width: 44px; height: 44px; border-radius: 50%;
+      background: linear-gradient(135deg, #38B6FF, #7B4FFF);
+      color: #fff; font-family: var(--font-heading); font-weight: 800;
+      font-size: 0.85rem; display: flex; align-items: center; justify-content: center;
+      margin-bottom: 1.25rem;
+    }
+    .step-card h4 { font-family: var(--font-heading); font-size: 1.05rem; font-weight: 700; color: var(--dark); margin-bottom: 0.6rem; }
+    .step-card p { font-size: 0.88rem; color: var(--muted); line-height: 1.65; }
 
-    /* motion */
-    --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
-    --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
-  }
+    /* ── COMPARE TABLE ── */
+    .compare-wrap { margin-top: 3rem; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border); box-shadow: 0 4px 24px rgba(0,0,0,.06); }
+    .compare-row { display: grid; grid-template-columns: 1fr 1fr; }
+    .compare-row.head-row { background: var(--dark); }
+    .compare-row.head-row .compare-cell { color: #fff; font-weight: 700; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; padding: 1rem 1.5rem; }
+    .compare-row.head-row .compare-cell:last-child { background: rgba(123,79,255,.4); }
+    .compare-row:not(.head-row) { border-top: 1px solid var(--border); }
+    .compare-row:not(.head-row):hover { background: #fafbff; }
+    .compare-cell { padding: 1.1rem 1.5rem; font-size: 0.9rem; color: #334155; line-height: 1.5; display: flex; align-items: center; gap: 0.7rem; }
+    .compare-cell.after { background: #f0fdf9; }
+    .compare-cell .x { color: #dc2626; font-weight: 700; font-size: 1.1rem; flex-shrink: 0; }
+    .compare-cell .v { color: #059669; font-weight: 700; font-size: 1.2rem; flex-shrink: 0; }
 
-  html { scroll-behavior: smooth; }
-  body {
-    font-family: var(--font-b);
-    background: var(--bg-3);
-    color: var(--body);
-    line-height: 1.55;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    padding: 32px 16px 80px;
-  }
+    /* ── PRICING ── */
+    .pricing-shell {
+      margin-top: 2.5rem;
+      --surface: #fff;
+      --bg: #F8FAFC;
+      --bd: rgba(0,0,0,0.08);
+      --tx: #0D0F1A;
+      --muted: #64748B;
+      --violet: #7B4FFF;
+      --font-u: var(--font-heading);
+    }
+    .audience-toggle {
+      display: inline-flex; background: var(--bd); border-radius: 9999px;
+      padding: 3px; gap: 2px; margin-bottom: 2rem;
+    }
+    .audience-toggle button {
+      padding: 0.45rem 1.2rem; border-radius: 9999px; border: none; cursor: pointer;
+      font-size: 0.85rem; font-weight: 600; background: transparent;
+      color: var(--muted); transition: all .2s; font-family: inherit;
+    }
+    .audience-toggle button.is-active { background: #fff; color: var(--violet); box-shadow: 0 1px 4px rgba(0,0,0,.12); }
 
-  .sheet {
-    max-width: 780px;
-    margin: 0 auto;
-    background: var(--bg);
-    border-radius: 24px;
-    overflow: hidden;
-    box-shadow:
-      0 1px 2px rgba(10,11,20,0.04),
-      0 8px 24px rgba(10,11,20,0.06),
-      0 32px 64px -16px rgba(10,11,20,0.10);
-  }
+    /* Cards */
+    .pricing { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; }
+    .pricing.is-hidden, .pricing-detail.is-hidden { display: none; }
+    .plan {
+      background: var(--surface); border: 1px solid var(--bd); border-radius: var(--radius);
+      padding: 2rem; display: flex; flex-direction: column; gap: 1rem;
+      box-shadow: 0 2px 16px rgba(0,0,0,.05); position: relative; transition: transform .25s;
+    }
+    .plan:hover { transform: translateY(-3px); }
+    .plan.featured { border-color: rgba(123,79,255,.35); box-shadow: 0 6px 32px rgba(123,79,255,.13); }
+    .plan-tag {
+      position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+      background: linear-gradient(135deg,#38B6FF,#7B4FFF); color: #fff;
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+      padding: 0.25rem 0.85rem; border-radius: 99px;
+    }
+    .plan-soon-badge { font-size: 0.7rem; color: var(--muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase; }
+    .plan-head { display: flex; justify-content: space-between; align-items: flex-start; }
+    .plan-name { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 2px; color: var(--muted); }
+    .plan-name .num { color: var(--violet); font-weight: 800; }
+    .plan-curr { font-size: 0.72rem; color: var(--muted); font-weight: 600; }
+    .plan-title { font-family: var(--font-u); font-size: 1.35rem; font-weight: 800; color: var(--tx); }
+    .plan-price { min-height: 60px; }
+    .plan-price-from { font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.15rem; }
+    .plan-price-main { font-family: var(--font-u); font-size: 1.6rem; font-weight: 800; color: var(--tx); line-height: 1; }
+    .plan-price-main .unit { font-size: 0.8rem; font-weight: 500; color: var(--muted); }
+    .plan-price-var { font-size: 0.78rem; color: var(--muted); margin-top: 0.3rem; }
+    .plan-price-var .strike { text-decoration: line-through; margin-right: 0.3rem; }
+    .plan-features { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.55rem; flex: 1; }
+    .plan-features li { font-size: 0.85rem; color: #334155; padding-left: 1.2rem; position: relative; line-height: 1.4; }
+    .plan-features li::before { content: '✓'; position: absolute; left: 0; color: var(--violet); font-weight: 700; }
+    .plan-for { font-size: 0.8rem; color: var(--muted); border-top: 1px solid var(--bd); padding-top: 0.9rem; line-height: 1.5; }
+    .plan-cta {
+      display: block; text-align: center; padding: 0.75rem 1rem; border-radius: 9px;
+      background: linear-gradient(135deg,#38B6FF,#7B4FFF); color: #fff; font-weight: 700;
+      font-size: 0.9rem; border: none; cursor: pointer; text-decoration: none;
+      transition: opacity .2s; font-family: inherit;
+    }
+    .plan-cta:hover { opacity: 0.88; }
+    .plan-cta.is-ghost { background: transparent; border: 1px solid var(--bd); color: var(--muted); }
+    .is-soon .plan-cta { background: var(--bd); color: var(--muted); cursor: not-allowed; }
 
-  /* ─── HEADER ─────────────────────────────────────── */
-  .head {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 24px 36px;
-    border-bottom: 1px solid var(--line);
-  }
-  .brand { display: flex; align-items: center; }
-  .brand-logo { display: block; height: 32px; width: auto; }
-  .head-tag {
-    font-family: var(--font-u);
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
+    /* Flat (personal) */
+    .pricing-flat { display: block; }
+    .pricing-flat-head { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.5rem; }
+    .pricing-flat-meta .plan-name { margin-bottom: 0.3rem; }
+    .pricing-flat-desc { font-size: 0.9rem; color: var(--muted); margin-top: 0.5rem; line-height: 1.6; max-width: 560px; }
+    .pricing-flat-features { margin-bottom: 1.5rem; padding: 1.25rem 1.5rem; background: rgba(123,79,255,.04); border: 1px solid rgba(123,79,255,.12); border-radius: var(--radius); }
+    .pricing-flat-features-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; color: var(--violet); font-weight: 700; margin-bottom: 0.8rem; }
+    .pricing-flat-features ul { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 0.5rem 2rem; }
+    .pricing-flat-features li { font-size: 0.85rem; color: #334155; padding-left: 1.1rem; position: relative; }
+    .pricing-flat-features li::before { content: '✓'; position: absolute; left: 0; color: var(--violet); font-weight: 700; }
+    .pricing-flat-volume-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+    .band-section-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; color: var(--muted); font-weight: 600; }
+    .pricing-flat-bands { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.25rem; }
+    .band-card {
+      background: var(--surface); border: 1px solid var(--bd); border-radius: var(--radius);
+      padding: 1.75rem 1.5rem; display: flex; flex-direction: column; gap: 1rem;
+      position: relative; box-shadow: 0 2px 12px rgba(0,0,0,.04); transition: transform .2s;
+    }
+    .band-card:hover { transform: translateY(-3px); }
+    .band-card.is-popular { border-color: rgba(123,79,255,.35); box-shadow: 0 6px 24px rgba(123,79,255,.12); }
+    .band-card-tag { position: absolute; top: -11px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg,#38B6FF,#7B4FFF); color: #fff; font-size: 0.65rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 0.2rem 0.75rem; border-radius: 99px; }
+    .band-card-label { font-family: var(--font-u); font-size: 1rem; font-weight: 700; color: var(--tx); }
+    .band-card-sub { font-size: 0.78rem; color: var(--muted); }
+    .band-card-price-main { font-family: var(--font-u); font-size: 1.5rem; font-weight: 800; color: var(--tx); }
+    .band-card-price-main.is-free { background: linear-gradient(135deg,#38B6FF,#7B4FFF); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .band-card-price-unit { font-size: 0.78rem; color: var(--muted); font-weight: 500; }
+    .band-card-price-note { font-size: 0.75rem; color: var(--muted); margin-top: 0.15rem; }
 
-  /* ─── HERO ───────────────────────────────────────── */
-  .hero {
-    padding: 56px 36px 48px;
-    position: relative;
-    overflow: hidden;
-  }
-  .hero::before {
-    content: '';
-    position: absolute;
-    top: -200px;
-    right: -160px;
-    width: 520px;
-    height: 520px;
-    background: radial-gradient(circle at center, rgba(123, 60, 240, .18) 0%, rgba(34, 184, 255, .10) 38%, transparent 68%);
-    pointer-events: none;
-    z-index: 0;
-    filter: blur(8px);
-  }
-  .hero > * { position: relative; z-index: 1; }
-  .eyebrow {
-    font-family: var(--font-u);
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--violet);
-    margin-bottom: 24px;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .eyebrow::before {
-    content: '';
-    width: 14px;
-    height: 1.5px;
-    background: var(--grad);
-    display: inline-block;
-  }
-  .hero h1 {
-    font-family: var(--font-d);
-    font-weight: 600;
-    font-size: clamp(36px, 5.6vw, 56px);
-    line-height: 1.02;
-    letter-spacing: -0.025em;
-    color: var(--ink-2);
-    max-width: 640px;
-  }
-  .hero h1 .gradient {
-    background: var(--grad);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    color: transparent;
-  }
-  .hero-sub {
-    font-family: var(--font-b);
-    font-size: 17px;
-    color: var(--body);
-    margin-top: 22px;
-    max-width: 580px;
-    line-height: 1.55;
-    font-weight: 400;
-  }
-  .hero-sub strong { color: var(--ink-2); font-weight: 600; }
+    /* Upgrade hint */
+    .upgrade-hint { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; margin-top: 1.75rem; background: rgba(123,79,255,.04); border: 1px solid rgba(123,79,255,.15); border-radius: var(--radius); padding: 1.25rem 1.5rem; flex-wrap: wrap; }
+    .upgrade-hint-headline { font-weight: 700; color: var(--tx); font-size: 0.92rem; margin-bottom: 0.25rem; }
+    .upgrade-hint-body { font-size: 0.83rem; color: var(--muted); line-height: 1.5; }
+    .upgrade-hint-cta { padding: 0.5rem 1.1rem; border-radius: 8px; background: var(--violet); color: #fff; font-weight: 700; font-size: 0.82rem; border: none; cursor: pointer; white-space: nowrap; font-family: inherit; }
 
-  .hero-meta {
-    display: flex;
-    gap: 36px;
-    margin-top: 40px;
-    flex-wrap: wrap;
-    padding-top: 28px;
-    border-top: 1px solid var(--line);
-  }
-  .hero-meta-item {
-    font-family: var(--font-u);
-    font-size: 10.5px;
-    font-weight: 500;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
-  .hero-meta-item span {
-    font-family: var(--font-b);
-    display: block;
-    margin-top: 6px;
-    font-size: 13.5px;
-    text-transform: none;
-    letter-spacing: 0;
-    color: var(--ink-2);
-    font-weight: 500;
-  }
+    /* Detail */
+    .pricing-detail { background: var(--surface); border: 1px solid var(--bd); border-radius: var(--radius); padding: 2rem; box-shadow: 0 4px 24px rgba(0,0,0,.06); }
+    .detail-back { background: none; border: 1px solid var(--bd); color: var(--muted); font-size: 0.82rem; font-weight: 600; cursor: pointer; padding: 0.4rem 0.9rem; border-radius: 6px; margin-bottom: 1.5rem; font-family: inherit; }
+    .detail-back:hover { color: var(--tx); }
+    .detail-head { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.5rem; }
+    .detail-title { font-family: var(--font-u); font-size: 1.4rem; font-weight: 800; color: var(--tx); }
+    .detail-title .num { font-size: 0.7rem; display: block; text-transform: uppercase; letter-spacing: 2px; color: var(--violet); font-weight: 700; margin-bottom: 0.2rem; }
+    .detail-curr { font-size: 0.75rem; color: var(--muted); font-weight: 600; }
+    .detail-desc { font-size: 0.9rem; color: var(--muted); line-height: 1.65; margin-bottom: 1.5rem; }
+    .mode-toggle-wrap { margin-bottom: 1.5rem; }
+    .mode-toggle-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; color: var(--muted); font-weight: 600; display: block; margin-bottom: 0.6rem; }
+    .mode-toggle { display: inline-flex; background: var(--bd); border-radius: 9999px; padding: 3px; gap: 2px; }
+    .mode-toggle button { padding: 0.35rem 1rem; border-radius: 9999px; border: none; cursor: pointer; font-size: 0.82rem; font-weight: 600; background: transparent; color: var(--muted); font-family: inherit; transition: all .18s; }
+    .mode-toggle button.is-active { background: #fff; color: var(--violet); box-shadow: 0 1px 4px rgba(0,0,0,.12); }
+    .mode-tag { display: inline-block; background: rgba(123,79,255,.12); color: var(--violet); font-size: 0.65rem; font-weight: 700; padding: 0.1rem 0.4rem; border-radius: 4px; margin-left: 0.2rem; }
+    .mode-note { font-size: 0.8rem; color: var(--muted); margin-top: 0.6rem; line-height: 1.5; }
+    .band-options { display: flex; flex-direction: column; gap: 0.6rem; margin: 0.9rem 0; }
+    .band-option {
+      display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+      padding: 0.9rem 1.1rem; border: 1px solid var(--bd); border-radius: 10px;
+      cursor: pointer; transition: all .18s; background: var(--surface);
+    }
+    .band-option:hover { border-color: rgba(123,79,255,.3); }
+    .band-option.is-selected { border-color: var(--violet); background: rgba(123,79,255,.03); }
+    .band-info { display: flex; align-items: center; gap: 0.85rem; }
+    .band-radio { width: 16px; height: 16px; border-radius: 50%; border: 2px solid var(--bd); flex-shrink: 0; transition: all .18s; }
+    .band-option.is-selected .band-radio { border-color: var(--violet); background: var(--violet); box-shadow: 0 0 0 3px rgba(123,79,255,.15); }
+    .band-label-main { font-size: 0.9rem; font-weight: 600; color: var(--tx); }
+    .band-label-sub { font-size: 0.78rem; color: var(--muted); margin-top: 0.1rem; }
+    .band-price { text-align: right; }
+    .band-price-main { font-family: var(--font-u); font-size: 1rem; font-weight: 700; color: var(--tx); }
+    .band-price-main.is-free { color: var(--violet); }
+    .band-price-strike { font-size: 0.75rem; color: var(--muted); text-decoration: line-through; }
+    .detail-summary { margin-top: 1.5rem; border-top: 1px solid var(--bd); padding-top: 1.25rem; display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
+    .summary-block { flex: 1; }
+    .summary-block-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--muted); margin-bottom: 0.2rem; }
+    .summary-block-value { font-family: var(--font-u); font-size: 1.05rem; font-weight: 700; color: var(--tx); }
+    .summary-block-value .unit { font-size: 0.8rem; color: var(--muted); font-weight: 500; }
+    .summary-cta { padding: 0.65rem 1.4rem; border-radius: 9px; background: linear-gradient(135deg,#38B6FF,#7B4FFF); color: #fff; font-weight: 700; font-size: 0.88rem; text-decoration: none; white-space: nowrap; transition: opacity .2s; }
+    .summary-cta:hover { opacity: 0.88; }
+    .pricing-note { font-size: 0.82rem; color: var(--muted); margin-top: 1.5rem; line-height: 1.6; max-width: 760px; }
 
-  /* ─── SECTION ────────────────────────────────────── */
-  .section { padding: 64px 36px; border-top: 1px solid var(--line); }
-  .section.tint { background: var(--bg-2); }
-  .section-label {
-    font-family: var(--font-u);
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--violet);
-    margin-bottom: 14px;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .section-label::before {
-    content: '';
-    width: 14px;
-    height: 1.5px;
-    background: var(--grad);
-  }
-  .section h2 {
-    font-family: var(--font-d);
-    font-weight: 600;
-    font-size: clamp(26px, 3.4vw, 36px);
-    line-height: 1.12;
-    letter-spacing: -0.02em;
-    color: var(--ink-2);
-    max-width: 620px;
-  }
-  .section-lede {
-    font-family: var(--font-b);
-    font-size: 15.5px;
-    color: var(--body);
-    margin-top: 14px;
-    max-width: 580px;
-    line-height: 1.6;
-  }
-  .section-lede strong { color: var(--ink-2); font-weight: 600; }
-
-  /* ─── PROBLEM STATS ──────────────────────────────── */
-  .stats {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-    margin-top: 32px;
-  }
-  .stat {
-    border: 1px solid var(--line);
-    background: var(--bg);
-    border-radius: 16px;
-    padding: 24px 22px;
-    transition: border-color .24s var(--ease-in-out), box-shadow .24s var(--ease-in-out);
-  }
-  .stat:hover { border-color: var(--line-2); box-shadow: 0 1px 2px rgba(10,11,20,.04), 0 8px 24px rgba(10,11,20,.06); }
-  .stat-num {
-    font-family: var(--font-d);
-    font-size: 40px;
-    font-weight: 600;
-    line-height: 1;
-    letter-spacing: -0.03em;
-    background: var(--grad);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-  .stat-label {
-    font-family: var(--font-b);
-    font-size: 13.5px;
-    color: var(--ink-2);
-    margin-top: 12px;
-    line-height: 1.45;
-    font-weight: 500;
-  }
-  .stat-source {
-    font-family: var(--font-u);
-    font-size: 10.5px;
-    color: var(--muted);
-    margin-top: 8px;
-    letter-spacing: 0.04em;
-  }
-
-  /* ─── BENEFITS ───────────────────────────────────── */
-  .benefits {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
-    margin-top: 32px;
-  }
-  .benefit {
-    background: var(--bg);
-    border: 1px solid var(--line);
-    border-radius: 16px;
-    padding: 26px 22px;
-    position: relative;
-    overflow: hidden;
-    transition: transform .24s var(--ease-out), box-shadow .24s var(--ease-in-out), border-color .24s var(--ease-in-out);
-  }
-  .benefit:hover {
-    border-color: var(--line-2);
-    box-shadow: 0 1px 2px rgba(10,11,20,.04), 0 8px 24px rgba(10,11,20,.06);
-  }
-  .benefit-num {
-    font-family: var(--font-u);
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.14em;
-    color: var(--muted);
-    margin-bottom: 22px;
-  }
-  .benefit-icon {
-    width: 40px;
-    height: 40px;
-    border-radius: 10px;
-    background: var(--grad);
-    margin-bottom: 18px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
-    box-shadow: 0 6px 18px -6px rgba(123, 60, 240, .45);
-  }
-  .benefit h3 {
-    font-family: var(--font-d);
-    font-size: 18px;
-    font-weight: 600;
-    color: var(--ink-2);
-    margin-bottom: 8px;
-    line-height: 1.25;
-    letter-spacing: -0.01em;
-  }
-  .benefit p {
-    font-family: var(--font-b);
-    font-size: 14px;
-    color: var(--body);
-    line-height: 1.55;
-  }
-
-  /* ─── HOW IT WORKS ───────────────────────────────── */
-  .steps {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 0;
-    margin-top: 32px;
-    border: 1px solid var(--line);
-    border-radius: 16px;
-    overflow: hidden;
-    background: var(--bg);
-  }
-  .step {
-    padding: 28px 24px;
-    border-right: 1px solid var(--line);
-    position: relative;
-  }
-  .step:last-child { border-right: none; }
-  .step-num {
-    font-family: var(--font-d);
-    font-size: 48px;
-    font-weight: 600;
-    line-height: 1;
-    letter-spacing: -0.04em;
-    color: transparent;
-    background: var(--grad);
-    -webkit-background-clip: text;
-    background-clip: text;
-    margin-bottom: 16px;
-  }
-  .step h4 {
-    font-family: var(--font-d);
-    font-size: 16px;
-    font-weight: 600;
-    color: var(--ink-2);
-    margin-bottom: 6px;
-    letter-spacing: -0.005em;
-  }
-  .step p {
-    font-family: var(--font-b);
-    font-size: 13.5px;
-    color: var(--body);
-    line-height: 1.55;
-  }
-
-  /* ─── BEFORE / AFTER ─────────────────────────────── */
-  .compare {
-    margin-top: 36px;
-    border: 1px solid var(--line);
-    border-radius: 16px;
-    overflow: hidden;
-    background: var(--bg);
-  }
-  .compare-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    border-bottom: 1px solid var(--line);
-  }
-  .compare-row:last-child { border-bottom: none; }
-  .compare-row.head-row {
-    background: var(--bg-2);
-  }
-  .compare-cell {
-    padding: 18px 22px;
-    font-family: var(--font-b);
-    font-size: 14px;
-    color: var(--body);
-    border-right: 1px solid var(--line);
-    line-height: 1.5;
-  }
-  .compare-cell:last-child { border-right: none; }
-  .compare-row.head-row .compare-cell {
-    font-family: var(--font-u);
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--muted);
-    padding: 14px 22px;
-  }
-  .compare-cell.after {
-    color: var(--ink-2);
-    font-weight: 500;
-  }
-  .compare-cell .x {
-    color: var(--fail);
-    font-weight: 600;
-    margin-right: 10px;
-    font-family: var(--font-u);
-  }
-  .compare-cell .v {
-    color: var(--violet);
-    font-weight: 600;
-    margin-right: 10px;
-    font-family: var(--font-u);
-  }
-
-  /* ─── PRICING ────────────────────────────────────── */
-  .pricing {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 14px;
-    margin-top: 32px;
-    align-items: stretch;
-  }
-  .plan {
-    background: var(--bg);
-    border: 1px solid var(--line);
-    border-radius: 16px;
-    padding: 28px 22px;
-    display: flex;
-    flex-direction: column;
-    position: relative;
-  }
-  .plan-head {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 10px;
-  }
-  .plan-curr {
-    font-family: var(--font-u);
-    font-size: 10px;
-    font-weight: 500;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--violet);
-    background: rgba(123, 60, 240, .08);
-    padding: 5px 9px;
-    border-radius: 999px;
-  }
-  .plan.featured {
-    border: 1.5px solid transparent;
-    background:
-      linear-gradient(var(--bg), var(--bg)) padding-box,
-      var(--grad) border-box;
-    box-shadow: 0 10px 30px -10px rgba(123, 60, 240, .35);
-  }
-  .plan-tag {
-    position: absolute;
-    top: -10px;
-    left: 22px;
-    background: var(--grad);
-    color: #fff;
-    font-family: var(--font-u);
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    padding: 5px 11px;
-    border-radius: 999px;
-  }
-  .plan-name {
-    font-family: var(--font-u);
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
-  .plan-name .num { color: var(--violet); }
-  .plan-title {
-    font-family: var(--font-d);
-    font-size: 22px;
-    font-weight: 600;
-    color: var(--ink-2);
-    margin-top: 6px;
-    letter-spacing: -0.01em;
-  }
-  .plan-price {
-    margin-top: 18px;
-    padding-bottom: 18px;
-    border-bottom: 1px solid var(--line);
-  }
-  .plan-price-main {
-    font-family: var(--font-d);
-    font-size: 30px;
-    font-weight: 600;
-    color: var(--ink-2);
-    letter-spacing: -0.025em;
-    line-height: 1;
-  }
-  .plan-price-main .unit {
-    font-family: var(--font-b);
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--muted);
-    letter-spacing: 0;
-  }
-  .plan-price-var {
-    font-family: var(--font-u);
-    font-size: 11.5px;
-    color: var(--body);
-    margin-top: 8px;
-    font-weight: 500;
-  }
-  .plan-price-var .strike {
-    text-decoration: line-through;
-    color: var(--soft);
-    margin-right: 6px;
-  }
-  .plan-bands {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 16px;
-    font-family: var(--font-u);
-  }
-  .plan-bands td {
-    font-size: 11.5px;
-    color: var(--ink-2);
-    padding: 7px 0;
-    border-bottom: 1px dashed var(--line);
-    line-height: 1.3;
-  }
-  .plan-bands tr:last-child td { border-bottom: none; }
-  .plan-bands td:last-child {
-    text-align: right;
-    font-weight: 600;
-    color: var(--ink);
-    white-space: nowrap;
-  }
-  .plan-bands .band-label {
-    font-size: 9.5px;
-    font-weight: 600;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--soft);
-    padding-bottom: 5px;
-    border-bottom: 1px solid var(--line);
-  }
-  .plan-free {
-    font-family: var(--font-u);
-    font-size: 10.5px;
-    color: var(--green);
-    margin-top: 7px;
-    font-weight: 600;
-    letter-spacing: 0.04em;
-  }
-  .plan-features {
-    list-style: none;
-    margin-top: 18px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    flex-grow: 1;
-  }
-  .plan-features li {
-    font-family: var(--font-b);
-    font-size: 13.5px;
-    color: var(--ink-2);
-    line-height: 1.5;
-    padding-left: 22px;
-    position: relative;
-  }
-  .plan-features li::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 6px;
-    width: 11px;
-    height: 6px;
-    border-left: 2px solid var(--violet);
-    border-bottom: 2px solid var(--violet);
-    transform: rotate(-45deg);
-  }
-  .plan-for {
-    font-family: var(--font-u);
-    font-size: 10.5px;
-    color: var(--muted);
-    margin-top: 20px;
-    padding-top: 14px;
-    border-top: 1px solid var(--line);
-    line-height: 1.55;
-    letter-spacing: 0.02em;
-  }
-  .plan-for strong { color: var(--ink-2); font-weight: 600; }
-
-  .pricing-note {
-    margin-top: 24px;
-    font-family: var(--font-u);
-    font-size: 11.5px;
-    color: var(--muted);
-    text-align: center;
-    line-height: 1.7;
-    letter-spacing: 0.02em;
-  }
-  .pricing-note strong { color: var(--ink-2); font-weight: 600; }
-
-  /* ─── CTA ────────────────────────────────────────── */
-  .cta {
-    padding: 64px 36px 48px;
-    background: radial-gradient(circle at 100% 0%, #11131D 0%, #07080F 70%);
-    color: #fff;
-    position: relative;
-    overflow: hidden;
-  }
-  .cta::before {
-    content: '';
-    position: absolute;
-    bottom: -260px;
-    left: -140px;
-    width: 580px;
-    height: 580px;
-    background: radial-gradient(circle, rgba(123, 60, 240, .42) 0%, rgba(180, 69, 255, .14) 38%, transparent 65%);
-    pointer-events: none;
-  }
-  .cta::after {
-    content: '';
-    position: absolute;
-    top: -140px;
-    right: -140px;
-    width: 420px;
-    height: 420px;
-    background: radial-gradient(circle, rgba(34, 184, 255, .26) 0%, transparent 65%);
-    pointer-events: none;
-  }
-  .cta > * { position: relative; z-index: 1; }
-  .cta h2 {
-    font-family: var(--font-d);
-    font-weight: 600;
-    font-size: clamp(28px, 3.6vw, 40px);
-    line-height: 1.1;
-    letter-spacing: -0.02em;
-    color: #fff;
-    max-width: 540px;
-  }
-  .cta h2 .gradient {
-    background: var(--grad);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-  .cta p {
-    font-family: var(--font-b);
-    color: #A8ACBD;
-    margin-top: 16px;
-    font-size: 16px;
-    max-width: 500px;
-    line-height: 1.6;
-  }
-  .cta-buttons {
-    display: flex;
-    gap: 10px;
-    margin-top: 32px;
-    flex-wrap: wrap;
-  }
-  .btn {
-    font-family: var(--font-b);
-    font-weight: 500;
-    font-size: 15px;
-    padding: 14px 22px;
-    border-radius: 12px;
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    transition: transform .15s var(--ease-in-out), box-shadow .15s var(--ease-in-out), background .15s var(--ease-in-out);
-    letter-spacing: -0.005em;
-  }
-  .btn-primary {
-    background: var(--violet);
-    color: #fff;
-    box-shadow: 0 0 40px rgba(123, 60, 240, .35);
-  }
-  .btn-primary:hover {
-    background: #8B4DF5;
-    box-shadow: 0 0 60px rgba(123, 60, 240, .55), 0 0 20px rgba(34, 184, 255, .25);
-  }
-  .btn-ghost {
-    background: rgba(255, 255, 255, .06);
-    color: #fff;
-    border: 1px solid rgba(255, 255, 255, .14);
-  }
-  .btn-ghost:hover { background: rgba(255, 255, 255, .12); border-color: rgba(255, 255, 255, .22); }
-
-  .cta-foot {
-    margin-top: 44px;
-    padding-top: 24px;
-    border-top: 1px solid rgba(255, 255, 255, .08);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 14px;
-  }
-  .cta-foot-brand {
-    font-family: var(--font-u);
-    font-size: 10.5px;
-    color: rgba(255, 255, 255, .50);
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-  }
-  .cta-foot-slogan {
-    text-align: right;
-  }
-  .slogan-en {
-    font-family: var(--font-u);
-    font-size: 10.5px;
-    color: rgba(255, 255, 255, .42);
-    letter-spacing: 0.06em;
-    margin-bottom: 6px;
-  }
-  .slogan-es {
-    font-family: var(--font-d);
-    font-size: 15px;
-    font-weight: 600;
-    letter-spacing: -0.005em;
-    background: var(--grad);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-  .cta-foot-tag {
-    font-family: var(--font-d);
-    font-size: 13px;
-    color: rgba(255, 255, 255, .85);
-    font-weight: 400;
-    font-style: italic;
-  }
-
-  /* ─── A-MARK SVG inline reused ───────────────────── */
-  .amark { display: block; }
-
-  /* ─── INTERACTIVE PRICING ──────────────────────── */
-  .pricing-shell { margin-top: 28px; }
-
-  .audience-toggle {
-    display: inline-flex;
-    background: var(--bg);
-    border: 1px solid var(--line);
-    border-radius: 999px;
-    padding: 4px;
-    gap: 4px;
-    margin-bottom: 28px;
-  }
-  .audience-toggle button {
-    font-family: var(--font-b);
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--muted);
-    background: transparent;
-    border: none;
-    padding: 9px 18px;
-    border-radius: 999px;
-    cursor: pointer;
-    letter-spacing: -0.005em;
-    transition: background .18s var(--ease-in-out), color .18s var(--ease-in-out);
-  }
-  .audience-toggle button:hover { color: var(--ink-2); }
-  .audience-toggle button.is-active {
-    background: var(--ink-2);
-    color: #fff;
-  }
-
-  .plan.is-soon {
-    background:
-      linear-gradient(var(--bg), var(--bg)) padding-box,
-      linear-gradient(135deg, rgba(34,184,255,.35), rgba(180,69,255,.35)) border-box;
-    border: 1.5px dashed transparent;
-  }
-  .plan-soon-badge {
-    position: absolute;
-    top: -10px;
-    left: 22px;
-    background: var(--ink-2);
-    color: #fff;
-    font-family: var(--font-u);
-    font-size: 10px;
-    font-weight: 500;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    padding: 5px 11px;
-    border-radius: 999px;
-    display: inline-flex;
-    align-items: center;
-    gap: 7px;
-  }
-  .plan-soon-badge::before {
-    content: '';
-    width: 6px; height: 6px;
-    border-radius: 50%;
-    background: var(--grad-1);
-    box-shadow: 0 0 0 3px rgba(34,184,255,.25);
-    animation: pulse 1.8s ease-in-out infinite;
-  }
-  @keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: .55; }
-  }
-  .plan-price-from {
-    font-family: var(--font-u);
-    font-size: 10.5px;
-    font-weight: 600;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--soft);
-    margin-bottom: 6px;
-  }
-  .plan-feature-summary {
-    font-family: var(--font-d);
-    font-size: 13.5px;
-    color: var(--body);
-    margin-top: 16px;
-    line-height: 1.55;
-    flex-grow: 1;
-  }
-  .plan-cta {
-    margin-top: 18px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    width: 100%;
-    font-family: var(--font-b);
-    font-weight: 500;
-    font-size: 14px;
-    padding: 13px 16px;
-    border-radius: 12px;
-    border: 1px solid var(--ink-2);
-    background: var(--ink-2);
-    color: #fff;
-    cursor: pointer;
-    letter-spacing: -0.005em;
-    transition: transform .15s var(--ease-in-out), box-shadow .15s var(--ease-in-out), background .15s var(--ease-in-out);
-  }
-  .plan-cta:hover { background: #2A2A2F; box-shadow: 0 0 24px rgba(123,60,240,.18); }
-  .plan.featured .plan-cta {
-    background: var(--violet);
-    border-color: transparent;
-    box-shadow: 0 0 30px rgba(123, 60, 240, .35);
-  }
-  .plan.featured .plan-cta:hover { background: #8B4DF5; box-shadow: 0 0 40px rgba(123, 60, 240, .50); }
-  .plan-cta.is-ghost {
-    background: transparent;
-    color: var(--ink-2);
-    border: 1px solid var(--line-2);
-  }
-  .plan-cta.is-ghost:hover { background: var(--bg-2); }
-
-  /* Detail view */
-  .pricing-detail {
-    background: var(--bg);
-    border: 1px solid var(--line);
-    border-radius: 18px;
-    padding: 32px;
-    margin-top: 28px;
-  }
-  .detail-back {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    font-family: var(--font-u);
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--muted);
-    padding: 0;
-    margin-bottom: 24px;
-  }
-  .detail-back:hover { color: var(--ink-2); }
-  .detail-head {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 24px;
-    flex-wrap: wrap;
-  }
-  .detail-title {
-    font-family: var(--font-d);
-    font-size: 30px;
-    font-weight: 600;
-    color: var(--ink-2);
-    letter-spacing: -0.02em;
-    line-height: 1.12;
-  }
-  .detail-title .num {
-    font-family: var(--font-u);
-    font-size: 12px;
-    font-weight: 500;
-    color: var(--muted);
-    letter-spacing: 0.12em;
-    display: block;
-    margin-bottom: 6px;
-  }
-  .detail-curr {
-    font-family: var(--font-u);
-    font-size: 10.5px;
-    font-weight: 500;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--violet);
-    background: rgba(123, 60, 240, .08);
-    padding: 5px 10px;
-    border-radius: 999px;
-  }
-  .detail-desc {
-    font-family: var(--font-b);
-    font-size: 15px;
-    color: var(--body);
-    margin-top: 14px;
-    max-width: 540px;
-    line-height: 1.6;
-  }
-
-  .mode-toggle-wrap {
-    margin: 24px 0 10px;
-  }
-  .mode-toggle-label {
-    font-family: var(--font-u);
-    font-size: 10.5px;
-    font-weight: 500;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 10px;
-    display: block;
-  }
-  .mode-toggle {
-    display: inline-flex;
-    background: var(--bg-2);
-    border: 1px solid var(--line);
-    border-radius: 999px;
-    padding: 4px;
-    gap: 2px;
-  }
-  .mode-toggle button {
-    font-family: var(--font-b);
-    font-size: 13.5px;
-    font-weight: 500;
-    color: var(--muted);
-    background: transparent;
-    border: none;
-    padding: 9px 18px;
-    border-radius: 999px;
-    cursor: pointer;
-    letter-spacing: -0.005em;
-    transition: background .18s var(--ease-in-out), color .18s var(--ease-in-out), box-shadow .18s var(--ease-in-out);
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .mode-toggle button:hover { color: var(--ink-2); }
-  .mode-toggle button.is-active {
-    background:
-      linear-gradient(var(--bg), var(--bg)) padding-box,
-      var(--grad) border-box;
-    border: 1.5px solid transparent;
-    color: var(--ink-2);
-    font-weight: 600;
-    padding: 7.5px 16.5px;
-    box-shadow:
-      0 1px 2px rgba(10,11,20,.06),
-      0 6px 14px -4px rgba(123,60,240,.20);
-  }
-  .mode-tag {
-    font-family: var(--font-u);
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 0.10em;
-    color: var(--violet);
-    background: rgba(123,60,240,.10);
-    padding: 3px 7px;
-    border-radius: 4px;
-    line-height: 1;
-  }
-  .mode-toggle button.is-active .mode-tag {
-    color: #fff;
-    background: var(--violet);
-  }
-  .mode-note {
-    font-family: var(--font-u);
-    font-size: 11.5px;
-    color: var(--muted);
-    margin-top: 10px;
-    margin-bottom: 18px;
-    line-height: 1.55;
-    letter-spacing: 0.02em;
-  }
-  .mode-note strong { color: var(--ink-2); font-weight: 600; }
-
-  .band-section-label {
-    font-family: var(--font-u);
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--violet);
-    margin: 24px 0 14px;
-  }
-  .band-options {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-  .band-option {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 18px;
-    padding: 14px 18px;
-    border: 1.5px solid var(--line);
-    border-radius: 12px;
-    background: var(--bg);
-    cursor: pointer;
-    transition: border-color .15s, background .15s, transform .12s;
-  }
-  .band-option:hover { border-color: var(--line-2); background: var(--bg-2); }
-  .band-option.is-selected {
-    border: 1.5px solid transparent;
-    background:
-      linear-gradient(var(--bg), var(--bg)) padding-box,
-      var(--grad) border-box;
-    box-shadow: 0 6px 20px -8px rgba(123, 60, 240, .35);
-  }
-  .band-radio {
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    border: 1.5px solid var(--line-2);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-  }
-  .band-option.is-selected .band-radio {
-    border-color: var(--grad-3);
-  }
-  .band-option.is-selected .band-radio::after {
-    content: '';
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: var(--grad);
-  }
-  .band-info {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    flex: 1;
-    min-width: 0;
-  }
-  .band-info-text { display: flex; flex-direction: column; }
-  .band-label-main {
-    font-family: var(--font-d);
-    font-size: 15px;
-    font-weight: 600;
-    color: var(--ink-2);
-    letter-spacing: -0.005em;
-  }
-  .band-label-sub {
-    font-family: var(--font-u);
-    font-size: 11px;
-    color: var(--muted);
-    margin-top: 3px;
-    letter-spacing: 0.02em;
-  }
-  .band-price {
-    text-align: right;
-    flex-shrink: 0;
-  }
-  .band-price-main {
-    font-family: var(--font-d);
-    font-size: 19px;
-    font-weight: 600;
-    color: var(--ink-2);
-    letter-spacing: -0.015em;
-    line-height: 1.1;
-  }
-  .band-price-main.is-free {
-    background: var(--grad);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-  .band-price-strike {
-    font-family: var(--font-u);
-    font-size: 11px;
-    color: var(--soft);
-    text-decoration: line-through;
-    margin-top: 3px;
-    letter-spacing: 0.02em;
-  }
-  .band-price-note {
-    font-family: var(--font-u);
-    font-size: 10px;
-    color: var(--muted);
-    margin-top: 3px;
-    letter-spacing: 0.04em;
-  }
-
-  .detail-summary {
-    margin-top: 28px;
-    padding: 24px 26px;
-    border-radius: 16px;
-    background: linear-gradient(135deg, rgba(34,184,255,.05) 0%, rgba(123,60,240,.07) 50%, rgba(180,69,255,.06) 100%);
-    border: 1px solid var(--line);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 20px;
-    flex-wrap: wrap;
-  }
-  .summary-block { display: flex; flex-direction: column; gap: 6px; }
-  .summary-block-label {
-    font-family: var(--font-u);
-    font-size: 10.5px;
-    font-weight: 500;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
-  .summary-block-value {
-    font-family: var(--font-d);
-    font-size: 26px;
-    font-weight: 600;
-    color: var(--ink-2);
-    letter-spacing: -0.02em;
-    line-height: 1;
-  }
-  .summary-block-value .unit {
-    font-family: var(--font-b);
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--muted);
-    margin-left: 2px;
-  }
-  .summary-cta {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    font-family: var(--font-b);
-    font-weight: 500;
-    font-size: 15px;
-    padding: 14px 22px;
-    border-radius: 12px;
-    background: var(--violet);
-    color: #fff;
-    text-decoration: none;
-    box-shadow: 0 0 30px rgba(123, 60, 240, .35);
-    border: none;
-    cursor: pointer;
-    transition: background .15s var(--ease-in-out), box-shadow .15s var(--ease-in-out);
-    letter-spacing: -0.005em;
-  }
-  .summary-cta:hover { background: #8B4DF5; box-shadow: 0 0 40px rgba(123, 60, 240, .50), 0 0 16px rgba(34, 184, 255, .20); }
-
-  .is-hidden { display: none !important; }
-
-  /* ─── UPGRADE HINT (Plan 01 → Plan 02) ─────── */
-  .upgrade-hint {
-    margin-top: 12px;
-    padding: 16px 20px;
-    border: 1px dashed var(--line-2);
-    border-radius: 14px;
-    background: linear-gradient(135deg, rgba(34,184,255,.04) 0%, rgba(123,60,240,.06) 55%, rgba(180,69,255,.05) 100%);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 18px;
-    flex-wrap: wrap;
-  }
-  .upgrade-hint-text { flex: 1; min-width: 220px; }
-  .upgrade-hint-headline {
-    font-family: var(--font-d);
-    font-size: 15px;
-    font-weight: 600;
-    color: var(--ink-2);
-    letter-spacing: -0.005em;
-    margin-bottom: 4px;
-  }
-  .upgrade-hint-body {
-    font-family: var(--font-b);
-    font-size: 13.5px;
-    color: var(--body);
-    line-height: 1.5;
-  }
-  .upgrade-hint-body strong { color: var(--ink-2); font-weight: 600; }
-  .upgrade-hint-cta {
-    font-family: var(--font-u);
-    font-size: 10.5px;
-    font-weight: 500;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--violet);
-    background: var(--bg);
-    border: 1px solid var(--line-2);
-    padding: 10px 14px;
-    border-radius: 999px;
-    cursor: pointer;
-    white-space: nowrap;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    transition: background .15s var(--ease-in-out), border-color .15s var(--ease-in-out), box-shadow .15s var(--ease-in-out);
-  }
-  .upgrade-hint-cta:hover {
-    background: var(--bg-2);
-    border-color: var(--violet);
-    box-shadow: 0 0 0 3px rgba(123,60,240,0.10);
-  }
-
-  /* ─── PRICING FLAT (Emprendedor: Plan 01 con 3 bandas en una pantalla) ─ */
-  .pricing.pricing-flat { display: block; }
-  .pricing-flat-head {
-    margin-bottom: 18px;
-    padding: 26px 28px;
-    background: var(--bg);
-    border: 1px solid var(--line);
-    border-radius: 16px;
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 24px;
-    flex-wrap: wrap;
-  }
-  .pricing-flat-meta { flex: 1; min-width: 220px; }
-  .pricing-flat-meta .plan-name { margin-bottom: 4px; }
-  .pricing-flat-meta .plan-title { margin-top: 0; }
-  .pricing-flat-desc {
-    font-family: var(--font-b);
-    font-size: 14.5px;
-    color: var(--body);
-    line-height: 1.55;
-    margin-top: 12px;
-    max-width: 480px;
-  }
-  .pricing-flat-features {
-    padding: 22px 26px;
-    border: 1px solid var(--line);
-    border-radius: 14px;
-    background: var(--bg);
-    margin-bottom: 16px;
-  }
-  .pricing-flat-features-label {
-    font-family: var(--font-u);
-    font-size: 10.5px;
-    font-weight: 500;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 14px;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .pricing-flat-features-label::before {
-    content: '';
-    width: 10px;
-    height: 1.5px;
-    background: var(--grad);
-  }
-  .pricing-flat-features ul {
-    list-style: none;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px 24px;
-  }
-  .pricing-flat-features li {
-    font-family: var(--font-b);
-    font-size: 13.5px;
-    color: var(--ink-2);
-    line-height: 1.5;
-    padding-left: 22px;
-    position: relative;
-  }
-  .pricing-flat-features li::before {
-    content: '';
-    position: absolute; left: 0; top: 6px;
-    width: 11px; height: 6px;
-    border-left: 2px solid var(--violet);
-    border-bottom: 2px solid var(--violet);
-    transform: rotate(-45deg);
-  }
-
-  .pricing-flat-bands {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
-  }
-  .band-card {
-    background: var(--bg);
-    border: 1px solid var(--line);
-    border-radius: 16px;
-    padding: 26px 22px;
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    transition: border-color .2s var(--ease-in-out), box-shadow .2s var(--ease-in-out);
-  }
-  .band-card:hover {
-    border-color: var(--line-2);
-    box-shadow: 0 1px 2px rgba(10,11,20,.04), 0 8px 24px rgba(10,11,20,.06);
-  }
-  .band-card.is-popular {
-    border: 1.5px solid transparent;
-    background:
-      linear-gradient(var(--bg), var(--bg)) padding-box,
-      var(--grad) border-box;
-    box-shadow: 0 10px 30px -10px rgba(123, 60, 240, .35);
-  }
-  .band-card-tag {
-    position: absolute;
-    top: -10px;
-    left: 22px;
-    background: var(--grad);
-    color: #fff;
-    font-family: var(--font-u);
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    padding: 5px 11px;
-    border-radius: 999px;
-  }
-  .band-card-label {
-    font-family: var(--font-d);
-    font-size: 19px;
-    font-weight: 600;
-    color: var(--ink-2);
-    letter-spacing: -0.01em;
-    line-height: 1.2;
-  }
-  .band-card-sub {
-    font-family: var(--font-u);
-    font-size: 10.5px;
-    font-weight: 500;
-    color: var(--muted);
-    margin-top: 6px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-  }
-  .band-card-price {
-    margin-top: 22px;
-    padding: 18px 0;
-    border-top: 1px solid var(--line);
-    border-bottom: 1px solid var(--line);
-  }
-  .band-card-price-main {
-    font-family: var(--font-d);
-    font-size: 30px;
-    font-weight: 600;
-    color: var(--ink-2);
-    letter-spacing: -0.025em;
-    line-height: 1;
-  }
-  .band-card-price-main.is-free {
-    background: var(--grad);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-  .band-card-price-unit {
-    font-family: var(--font-b);
-    font-size: 13px;
-    color: var(--muted);
-    font-weight: 500;
-    margin-left: 2px;
-    letter-spacing: 0;
-  }
-  .band-card-price-note {
-    font-family: var(--font-u);
-    font-size: 11px;
-    color: var(--muted);
-    margin-top: 8px;
-    letter-spacing: 0.04em;
-  }
-  .band-card-price-strikeline {
-    margin-top: 4px;
-  }
-  .band-card-price-strike {
-    font-family: var(--font-u);
-    font-size: 11.5px;
-    color: var(--soft);
-    letter-spacing: 0.04em;
-    text-decoration: line-through;
-  }
-  .band-card .plan-cta { margin-top: 18px; }
-  .band-card.is-popular .plan-cta {
-    background: var(--violet);
-    border-color: transparent;
-    box-shadow: 0 0 30px rgba(123, 60, 240, .35);
-  }
-  .band-card.is-popular .plan-cta:hover {
-    background: #8B4DF5;
-    box-shadow: 0 0 40px rgba(123, 60, 240, .50);
-  }
-
-  /* duplicate of upgrade-hint margin tweak when used in flat view */
-  .pricing-flat .upgrade-hint { margin-top: 16px; }
-
-  /* ─── PRICING-FLAT VOLUME HEAD (title + sub + toggle) ──── */
-  .pricing-flat-volume { margin-bottom: 14px; }
-  .pricing-flat-volume-head {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 18px;
-    flex-wrap: wrap;
-  }
-  .pricing-flat-volume-head > div:first-child { flex: 1; min-width: 240px; }
-  .pricing-flat-volume-head .mode-toggle { margin: 0 0 0 auto; flex-shrink: 0; }
-  .band-section-sub {
-    font-family: var(--font-b);
-    font-size: 13px;
-    color: var(--muted);
-    line-height: 1.55;
-    margin-top: 2px;
-    margin-bottom: 4px;
-    max-width: 480px;
-  }
-  .band-section-sub strong { color: var(--ink-2); font-weight: 600; }
-
-  /* ─── RESPONSIVE ─────────────────────────────────── */
-  @media (max-width: 720px) {
-    body { padding: 16px 10px 60px; }
-    .sheet { border-radius: 18px; }
-    .head { padding: 18px 22px; }
-    .head-tag { display: none; }
-    .hero { padding: 40px 22px 36px; }
-    .section { padding: 40px 22px; }
-    .stats { grid-template-columns: 1fr; gap: 12px; }
-    .benefits { grid-template-columns: 1fr; gap: 12px; }
-    .steps { grid-template-columns: 1fr; }
-    .step { border-right: none; border-bottom: 1px solid var(--line); }
-    .step:last-child { border-bottom: none; }
-    .compare-cell { padding: 13px 16px; font-size: 13px; }
-    .compare-row.head-row .compare-cell { padding: 11px 16px; }
-    .pricing { grid-template-columns: 1fr; gap: 18px; }
-    .pricing-flat-bands { grid-template-columns: 1fr; gap: 12px; }
-    .pricing-flat-features ul { grid-template-columns: 1fr; }
-    .pricing-flat-head { padding: 20px; gap: 14px; }
-    .pricing-detail { padding: 22px; }
-    .detail-title { font-size: 23px; }
-    .band-option { padding: 12px 14px; gap: 10px; }
-    .band-info { gap: 10px; }
-    .band-label-main { font-size: 13.5px; }
-    .band-price-main { font-size: 16px; }
-    .detail-summary { padding: 18px; }
-    .summary-cta { width: 100%; justify-content: center; }
-    .audience-toggle button { padding: 8px 14px; font-size: 12.5px; }
-    .cta { padding: 40px 22px 44px; }
-    .cta-buttons .btn { width: 100%; justify-content: center; }
-    .hero-meta { gap: 20px; }
-  }
-
-  @media print {
-    body { background: #fff; padding: 0; }
-    .sheet { box-shadow: none; border-radius: 0; max-width: 100%; }
-    .section { page-break-inside: avoid; }
-  }
-</style>
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .benefits-grid, .stats-grid, .steps-grid { grid-template-columns: 1fr; }
+      .pricing { grid-template-columns: 1fr; }
+      .pricing-flat-bands { grid-template-columns: 1fr; }
+      .steps-grid::before { display: none; }
+    }
+    @media (max-width: 768px) {
+      .axel-hero { padding: 5rem 0 3rem; }
+      .compare-row { grid-template-columns: 1fr; }
+      .compare-row.head-row { display: grid; grid-template-columns: 1fr 1fr; }
+      .axel-hero-meta { gap: 1.2rem; }
+      .upgrade-hint { flex-direction: column; align-items: flex-start; }
+      .pricing-flat-head { flex-direction: column; gap: 0.5rem; }
+    }
+    @media (max-width: 480px) {
+      .nav-links { display: none !important; }
+      .mobile-menu-btn { display: flex !important; color: #0D0F1A !important; min-width: 44px; min-height: 44px; align-items: center; justify-content: center; background: none; border: none; cursor: pointer; }
+      .mobile-menu-btn svg { display: block !important; width: 24px !important; height: 24px !important; stroke: #0D0F1A !important; }
+    }
+  </style>
 </head>
 <body>
 
-<div class="sheet">
-
-  <!-- HEADER -->
-  <header class="head">
-    <div class="brand">
-      <img src="axel_assets/5ff2fd68-2ca9-463e-8dcc-08f8f78f2054.png" alt="A-Team" class="brand-logo">
-    </div>
-    <div class="head-tag">One-pager — Axel</div>
-  </header>
-
-  <!-- HERO -->
-  <section class="hero">
-    <div class="eyebrow">AXEL — AGENTE COBRADOR DE A‑TEAM</div>
-    <h1>Cobrá más rápido. <span class="gradient">Olvidate del Excel.</span></h1>
-    <p class="hero-sub">
-      Axel es el agente que <strong>reclama por WhatsApp, recibe los comprobantes y concilia los pagos</strong>&nbsp;en automático por vos.
-      Diseñado para colegios, consorcios, profesionales y cualquier empresa que cobre de manera recurrente por transferencia.
-    </p>
-    <div class="hero-meta">
-      <div class="hero-meta-item">Setup<span>5 minutos, sin instalar</span></div>
-      <div class="hero-meta-item">Integración<span>WhatsApp · Banco · ARCA</span></div>
-      <div class="hero-meta-item">Gratis<span>Menos de 20 facturas por mes</span></div>
-    </div>
-  </section>
-
-  <!-- PROBLEM -->
-  <section class="section tint">
-    <div class="section-label">El problema</div>
-    <h2>En los cobros por transferencia, el sistema está ROTO. El seguimiento y registro manual retrasan las cobranzas.</h2>
-    <p class="section-lede">Todos los pagos por transferencia requieren carga y seguimiento manual. Alguien tiene que cruzar comprobantes, conciliar banco a mano y perseguir morosos.</p>
-    <div class="stats">
-      <div class="stat">
-        <div class="stat-num">18&nbsp;hs</div>
-        <div class="stat-label">por semana cruzando transferencias contra planillas</div>
-        <div class="stat-source">Promedio admin de colegios</div>
-      </div>
-      <div class="stat">
-        <div class="stat-num">20%</div>
-        <div class="stat-label">de transferencias llegan desde cuentas de terceros sin cruce automático</div>
-        <div class="stat-source">Retrabajo para identificar al pagador</div>
-      </div>
-      <div class="stat">
-        <div class="stat-num">4,5</div>
-        <div class="stat-label">follow-ups manuales por cada factura cobrada fuera de término</div>
-        <div class="stat-source">Mensajes, llamados, recordatorios</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- BENEFITS -->
-  <section class="section">
-    <div class="section-label">¿QUÉ HACE AXEL?</div>
-    <h2>Tres cosas que hoy hacés a mano.<br>Axel las hace por vos.</h2>
-    <div class="benefits">
-      <div class="benefit">
-        <div class="benefit-num">01</div>
-        <div class="benefit-icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
-        </div>
-        <h3>Reclama los pagos en automático</h3>
-        <p>Mensaje personalizado por WhatsApp, mail o SMS con el monto, vencimiento y link de pago. Sin que abras el celular.</p>
-      </div>
-      <div class="benefit">
-        <div class="benefit-num">02</div>
-        <div class="benefit-icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"></path><path d="M8 9h8"></path><path d="M8 13h6"></path></svg>
-        </div>
-        <h3>Recibe y ordena los comprobantes</h3>
-        <p>Recibe los comprobantes de transferencia o depósito y ordena a tus clientes por estado, monto y mora.</p>
-      </div>
-      <div class="benefit">
-        <div class="benefit-num">03</div>
-        <div class="benefit-icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3 4 7l4 4"></path><path d="M4 7h16"></path><path d="m16 21 4-4-4-4"></path><path d="M20 17H4"></path></svg>
-        </div>
-        <h3>Concilia transferencias</h3>
-        <p>Cruza cada pago con el cliente correcto, incluso si vino desde la cuenta de la abuela, un amigo o un tercero.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- HOW IT WORKS -->
-  <section class="section tint">
-    <div class="section-label">¿CÓMO FUNCIONA?</div>
-    <h2>Cinco minutos de setup.<br>Después Axel trabaja solo.</h2>
-    <div class="steps">
-      <div class="step">
-        <div class="step-num">01</div>
-        <h4>Subís tu cartera de clientes</h4>
-        <p>Importás tus pagadores desde Excel, ERP o los cargás a mano. Axel los organiza por fecha, recurrencia y monto.</p>
-      </div>
-      <div class="step">
-        <div class="step-num">02</div>
-        <h4>Axel reclama y recibe</h4>
-        <p>Manda los WhatsApps, recibe los comprobantes, conecta con tu banco y matchea las transferencias automáticamente.</p>
-      </div>
-      <div class="step">
-        <div class="step-num">03</div>
-        <h4>Vos solo supervisás</h4>
-        <p>Un dashboard te muestra quién pagó, quién no, qué falta conciliar y el cierre del mes listo. En tiempo real.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- BEFORE / AFTER -->
-  <section class="section">
-    <div class="section-label">Antes y después</div>
-    <h2>Esto lo cambia todo!</h2>
-    <div class="compare">
-      <div class="compare-row head-row">
-        <div class="compare-cell">Sin Axel</div>
-        <div class="compare-cell">Con Axel</div>
-      </div>
-      <div class="compare-row">
-        <div class="compare-cell"><span class="x">—</span>18 horas semanales cruzando Excel con extractos bancarios</div>
-        <div class="compare-cell after"><span class="v">+</span>Dashboard automático. Cierre del mes en una pantalla.</div>
-      </div>
-      <div class="compare-row">
-        <div class="compare-cell"><span class="x">—</span>4&nbsp;a&nbsp;5 mensajes manuales por cada pago atrasado</div>
-        <div class="compare-cell after"><span class="v">+</span>Follow-up automático, escalado por días de mora.</div>
-      </div>
-      <div class="compare-row">
-        <div class="compare-cell"><span class="x">—</span>20% de transferencias sin imputar al cierre del mes</div>
-        <div class="compare-cell after"><span class="v">+</span>Matching por IA con la cuenta correcta — incluso terceros.</div>
-      </div>
-      <div class="compare-row">
-        <div class="compare-cell"><span class="x">—</span>IVA devengado sobre facturas que todavía no cobraste o no sabés si cobraste</div>
-        <div class="compare-cell after"><span class="v">+</span>Devengación real, facturación electrónica conforme ARCA.</div>
-      </div>
-      <div class="compare-row">
-        <div class="compare-cell"><span class="x">—</span>Stress mensual con el cierre, sin saber quién pagó</div>
-        <div class="compare-cell after"><span class="v">+</span>Visibilidad total. Axel te avisa solo cuando algo merece tu atención.</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- PRICING -->
-  <section class="section tint" id="pricing">
-    <div class="section-label">Pricing</div>
-    <h2>El mejor plan a tu medida.</h2>
-    <p class="section-lede">
-      Flat mensual por banda de facturas. Sin variable, sin comisiones, sin sorpresas.
-      <strong>30 días gratis</strong> en todos los planes · <strong>50% off</strong> bloqueado por 12 meses para quien contrate hasta noviembre 2026.
-    </p>
-
-    <div class="pricing-shell">
-
-      <!-- AUDIENCE TOGGLE -->
-      <div class="audience-toggle" role="tablist" aria-label="Tipo de uso">
-        <button type="button" class="" role="tab" data-audience="personal">Emprendedor</button>
-        <button type="button" class="is-active" role="tab" data-audience="business" aria-selected="true">Empresa</button>
-      </div>
-
-      <!-- CARDS VIEW -->
-      <div class="pricing" id="pricing-cards"><!-- populated by JS --></div>
-
-      <!-- DETAIL VIEW -->
-      <div class="pricing-detail is-hidden" id="pricing-detail"><!-- populated by JS --></div>
-
-    </div>
-
-    <p class="pricing-note" id="pricing-note">Precios mostrados con 50% off de lanzamiento, bloqueado por 12 meses para quien contrate hasta noviembre 2026. Sin permanencia mínima. Integraciones con ERP se cotizan aparte.</p>
-  </section>
-
-  <!-- CTA -->
-  <section class="cta">
-    <h2>Probá Axel <span class="gradient">en una semana.</span></h2>
-    <p>Te conectamos, cargamos tu primera cartera y a los 7 días vas a saber exactamente cuántas horas te devolvió. Sin compromiso.</p>
-    <div class="cta-buttons">
-      <a class="btn btn-primary" href="https://wa.me/5491100000000?text=Hola%20Axel%2C%20quiero%20agendar%20una%20demo" target="_blank" rel="noopener">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
-        Hablar por WhatsApp
+  <!-- ── Nav ── -->
+  <nav class="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="logo" aria-label="A-Team home">
+        <picture>
+          <source media="(max-width: 768px)" srcset="assets/img/isotipo.png">
+          <source media="(min-width: 769px)" srcset="assets/img/isologo-transparente.png">
+          <img src="./axel_1_files/isologo-transparente.png" alt="A Team" class="nav-logo-img">
+        </picture>
       </a>
-      <a class="btn btn-ghost" href="mailto:hola@ateam.com.ar?subject=Demo%20Axel">
-        Pedir demo por mail
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="m13 5 7 7-7 7"></path></svg>
-      </a>
+      <div class="nav-links">
+        <a href="index.html"><span data-lang="es">Inicio</span><span data-lang="en">Home</span></a>
+        <a href="axel.html" class="nav-active">Axel</a>
+        <a href="pricing.html"><span data-lang="es">Precios</span><span data-lang="en">Pricing</span></a>
+        <a href="demo.html" class="btn btn-primary"><span data-lang="es">Agendar Demo →</span><span data-lang="en">Book a Demo →</span></a>
+        <div class="lang-toggle-wrap">
+          <span class="lang-flag active" data-for="es" onclick="setLang('es')">🇦🇷</span>
+          <button class="lang-toggle" onclick="setLang(document.body.classList.contains('lang-en') ? 'es' : 'en')" aria-label="Switch language" title="ES / EN"></button>
+          <span class="lang-flag" data-for="en" onclick="setLang('en')">🇺🇸</span>
+        </div>
+      </div>
+      <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open menu">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
     </div>
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="index.html"><span data-lang="es">Inicio</span><span data-lang="en">Home</span></a>
+      <a href="axel.html">Axel</a>
+      <a href="pricing.html"><span data-lang="es">Precios</span><span data-lang="en">Pricing</span></a>
+      <a href="demo.html" class="btn btn-primary" style="width:100%;text-align:center;"><span data-lang="es">Agendar Demo →</span><span data-lang="en">Book a Demo →</span></a>
+      <div class="lang-toggle-wrap" style="justify-content:center;margin-top:1rem;margin-left:0;">
+        <span class="lang-flag active" data-for="es" onclick="setLang('es')">🇦🇷</span>
+        <button class="lang-toggle" onclick="setLang(document.body.classList.contains('lang-en') ? 'es' : 'en')" aria-label="Switch language"></button>
+        <span class="lang-flag" data-for="en" onclick="setLang('en')">🇺🇸</span>
+      </div>
+    </div>
+  </nav>
 
-    <div class="cta-foot">
-      <div class="cta-foot-brand">A-Team — Axel</div>
-      <div class="cta-foot-slogan">
-        <div class="slogan-en">Clever agents, easy living.</div>
-        <div class="slogan-es">Agentes listos. Trabajo resuelto.</div>
+  <!-- ── HERO ── -->
+  <section class="axel-hero">
+    <div class="container">
+      <div class="axel-hero-eyebrow">Axel — Agente Cobrador de A‑Team</div>
+      <h1>Cobrá más rápido. <span class="text-grad">Olvidate del Excel.</span></h1>
+      <p class="axel-hero-sub">
+        Axel es el agente que <strong>reclama por WhatsApp, recibe los comprobantes y concilia los pagos</strong>&nbsp;en automático por vos.
+        Diseñado para colegios, consorcios, profesionales y cualquier empresa que cobre de manera recurrente por transferencia.
+      </p>
+      <div class="brand-nav-ctas">
+        <a href="demo.html" class="btn btn-primary btn-large" id="axel-hero-cta">Agendar Demo →</a>
+        <a href="#pricing" class="btn btn-secondary btn-large">Ver Precios</a>
+      </div>
+      <div class="axel-hero-meta">
+        <div class="axel-meta-item">Setup<span>5 minutos, sin instalar</span></div>
+        <div class="axel-meta-item">Integración<span>WhatsApp · Banco · ARCA</span></div>
+        <div class="axel-meta-item">Gratis<span>Hasta 20 facturas por mes</span></div>
       </div>
     </div>
   </section>
 
-</div>
+  <!-- ── PROBLEM ── -->
+  <section class="axel-section tint">
+    <div class="container">
+      <span class="section-label-ax">El problema</span>
+      <h2>En los cobros por transferencia,<br>el sistema está <span class="text-grad">roto.</span></h2>
+      <p class="section-lede">Todos los pagos por transferencia requieren carga y seguimiento manual. Alguien tiene que cruzar comprobantes, conciliar banco a mano y perseguir morosos.</p>
+      <div class="stats-grid">
+        <div class="stat-box fade-in-up">
+          <div class="stat-num">18&nbsp;hs</div>
+          <div class="stat-label">por semana cruzando transferencias contra planillas</div>
+          <div class="stat-source">Promedio admin de colegios</div>
+        </div>
+        <div class="stat-box fade-in-up">
+          <div class="stat-num">20%</div>
+          <div class="stat-label">de transferencias llegan desde cuentas de terceros sin cruce automático</div>
+          <div class="stat-source">Retrabajo para identificar al pagador</div>
+        </div>
+        <div class="stat-box fade-in-up">
+          <div class="stat-num">4,5</div>
+          <div class="stat-label">follow-ups manuales por cada factura cobrada fuera de término</div>
+          <div class="stat-source">Mensajes, llamados, recordatorios</div>
+        </div>
+      </div>
+    </div>
+  </section>
 
+  <!-- ── BENEFITS ── -->
+  <section class="axel-section">
+    <div class="container">
+      <span class="section-label-ax">¿Qué hace Axel?</span>
+      <h2>Tres cosas que hoy hacés a mano.<br>Axel las hace por vos.</h2>
+      <div class="benefits-grid">
+        <div class="benefit-card fade-in-up">
+          <div class="benefit-num">01</div>
+          <div class="benefit-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+          </div>
+          <h3>Reclama los pagos en automático</h3>
+          <p>Mensaje personalizado por WhatsApp, mail o SMS con el monto, vencimiento y link de pago. Sin que abras el celular.</p>
+        </div>
+        <div class="benefit-card fade-in-up">
+          <div class="benefit-num">02</div>
+          <div class="benefit-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"></path><path d="M8 9h8"></path><path d="M8 13h6"></path></svg>
+          </div>
+          <h3>Recibe y ordena los comprobantes</h3>
+          <p>Recibe los comprobantes de transferencia o depósito y ordena a tus clientes por estado, monto y mora.</p>
+        </div>
+        <div class="benefit-card fade-in-up">
+          <div class="benefit-num">03</div>
+          <div class="benefit-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3 4 7l4 4"></path><path d="M4 7h16"></path><path d="m16 21 4-4-4-4"></path><path d="M20 17H4"></path></svg>
+          </div>
+          <h3>Concilia transferencias</h3>
+          <p>Cruza cada pago con el cliente correcto, incluso si vino desde la cuenta de la abuela, un amigo o un tercero.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
+  <!-- ── HOW IT WORKS ── -->
+  <section class="axel-section tint">
+    <div class="container">
+      <span class="section-label-ax">¿Cómo funciona?</span>
+      <h2>Cinco minutos de setup.<br>Después Axel trabaja solo.</h2>
+      <div class="steps-grid">
+        <div class="step-card fade-in-up">
+          <div class="step-num">01</div>
+          <h4>Subís tu cartera de clientes</h4>
+          <p>Importás tus pagadores desde Excel, ERP o los cargás a mano. Axel los organiza por fecha, recurrencia y monto.</p>
+        </div>
+        <div class="step-card fade-in-up">
+          <div class="step-num">02</div>
+          <h4>Axel reclama y recibe</h4>
+          <p>Manda los WhatsApps, recibe los comprobantes, conecta con tu banco y matchea las transferencias automáticamente.</p>
+        </div>
+        <div class="step-card fade-in-up">
+          <div class="step-num">03</div>
+          <h4>Vos solo supervisás</h4>
+          <p>Un dashboard te muestra quién pagó, quién no, qué falta conciliar y el cierre del mes listo. En tiempo real.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<script>
+  <!-- ── BEFORE / AFTER ── -->
+  <section class="axel-section">
+    <div class="container">
+      <span class="section-label-ax">Antes y después</span>
+      <h2>Esto lo cambia todo.</h2>
+      <div class="compare-wrap fade-in-up">
+        <div class="compare-row head-row">
+          <div class="compare-cell">Sin Axel</div>
+          <div class="compare-cell">Con Axel</div>
+        </div>
+        <div class="compare-row">
+          <div class="compare-cell"><span class="x">—</span>18 horas semanales cruzando Excel con extractos bancarios</div>
+          <div class="compare-cell after"><span class="v">+</span>Dashboard automático. Cierre del mes en una pantalla.</div>
+        </div>
+        <div class="compare-row">
+          <div class="compare-cell"><span class="x">—</span>4&nbsp;a&nbsp;5 mensajes manuales por cada pago atrasado</div>
+          <div class="compare-cell after"><span class="v">+</span>Follow-up automático, escalado por días de mora.</div>
+        </div>
+        <div class="compare-row">
+          <div class="compare-cell"><span class="x">—</span>20% de transferencias sin imputar al cierre del mes</div>
+          <div class="compare-cell after"><span class="v">+</span>Matching por IA con la cuenta correcta — incluso terceros.</div>
+        </div>
+        <div class="compare-row">
+          <div class="compare-cell"><span class="x">—</span>IVA devengado sobre facturas que todavía no cobraste</div>
+          <div class="compare-cell after"><span class="v">+</span>Devengación real, facturación electrónica conforme ARCA.</div>
+        </div>
+        <div class="compare-row">
+          <div class="compare-cell"><span class="x">—</span>Stress mensual con el cierre, sin saber quién pagó</div>
+          <div class="compare-cell after"><span class="v">+</span>Visibilidad total. Axel te avisa solo cuando algo merece tu atención.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── PRICING ── -->
+  <section class="axel-section tint" id="pricing">
+    <div class="container">
+      <span class="section-label-ax">Pricing</span>
+      <h2>El mejor plan a tu medida.</h2>
+      <p class="section-lede">
+        Flat mensual por banda de facturas. Sin variable, sin comisiones, sin sorpresas.
+        <strong>30 días gratis</strong> en todos los planes · <strong>50% off</strong> bloqueado por 12 meses para quien contrate hasta noviembre 2026.
+      </p>
+      <div class="pricing-shell">
+        <!-- AUDIENCE TOGGLE -->
+        <div class="audience-toggle" role="tablist" aria-label="Tipo de uso">
+          <button type="button" class="" role="tab" data-audience="personal">Emprendedor</button>
+          <button type="button" class="is-active" role="tab" data-audience="business" aria-selected="true">Empresa</button>
+        </div>
+        <!-- CARDS VIEW -->
+        <div class="pricing" id="pricing-cards"><!-- populated by JS --></div>
+        <!-- DETAIL VIEW -->
+        <div class="pricing-detail is-hidden" id="pricing-detail"><!-- populated by JS --></div>
+      </div>
+      <p class="pricing-note" id="pricing-note">Precios mostrados con 50% off de lanzamiento, bloqueado por 12 meses para quien contrate hasta noviembre 2026. Sin permanencia mínima. Integraciones con ERP se cotizan aparte.</p>
+    </div>
+  </section>
+
+  <!-- ── BOTTOM CTA ── -->
+  <section class="bottom-cta">
+    <div class="container">
+      <div class="bottom-cta-inner fade-in-up">
+        <h2>Probá Axel en una semana.<br><span class="text-gradient">Sin compromiso.</span></h2>
+        <p>Te conectamos, cargamos tu primera cartera y a los 7 días vas a saber exactamente cuántas horas te devolvió.</p>
+        <div class="brand-nav-ctas" style="justify-content:center; gap: 1rem;">
+          <a href="https://wa.me/5491100000000?text=Hola%20Axel%2C%20quiero%20agendar%20una%20demo" target="_blank" rel="noopener" class="btn btn-primary btn-large">
+            Hablar por WhatsApp →
+          </a>
+          <a href="demo.html" class="btn btn-secondary btn-large">Agendar Demo</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Footer ── -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <div style="margin-bottom:0.75rem;">
+            <img src="./axel_1_files/isologo-transparente.png" alt="A Team" style="height:44px; width:auto;">
+          </div>
+          <p style="font-size:0.85rem;"><span data-lang="es">Agentes listos. Trabajo resuelto.<br>© 2026 A-Team. Todos los derechos reservados.</span><span data-lang="en">Clever agents, easy living.<br>© 2026 A-Team. All rights reserved.</span></p>
+        </div>
+        <div class="footer-col">
+          <h5><span data-lang="es">Agentes</span><span data-lang="en">Agents</span></h5>
+          <a href="axel.html"><span data-lang="es">Axel — Cobranzas</span><span data-lang="en">Axel — Collections</span></a>
+          <a href="anibal.html"><span data-lang="es">Aníbal — Reportes (pronto)</span><span data-lang="en">Aníbal — Reporting (soon)</span></a>
+          <a href="#"><span data-lang="es">Agente de Ventas (pronto)</span><span data-lang="en">Sales Agent (soon)</span></a>
+        </div>
+        <div class="footer-col">
+          <h5><span data-lang="es">Compañía</span><span data-lang="en">Company</span></h5>
+          <a href="index.html"><span data-lang="es">Sobre A-Team</span><span data-lang="en">About A-Team</span></a>
+          <a href="pricing.html">Pricing</a>
+          <a href="demo.html"><span data-lang="es">Agendar Demo</span><span data-lang="en">Book a Demo</span></a>
+        </div>
+        <div class="footer-col">
+          <h5><span data-lang="es">Legales</span><span data-lang="en">Legal</span></h5>
+          <a href="terms.html"><span data-lang="es">Términos y Condiciones</span><span data-lang="en">Terms &amp; Conditions</span></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ── Site scripts ── -->
+  <script>
+    lucide.createIcons();
+    const menuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (menuBtn && mobileMenu) {
+      menuBtn.addEventListener('click', () => mobileMenu.classList.toggle('open'));
+      mobileMenu.querySelectorAll('a').forEach(l => l.addEventListener('click', () => mobileMenu.classList.remove('open')));
+    }
+    const observer = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) { entry.target.classList.add('visible'); obs.unobserve(entry.target); }
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-in, .fade-in-up, .stagger-fade').forEach(el => observer.observe(el));
+    window.addEventListener('scroll', () => {
+      document.querySelector('.navbar').classList.toggle('scrolled', window.scrollY > 50);
+    });
+  </script>
+  <script src="./axel_1_files/lang.js"></script>
+
+  <!-- ── Pricing JS ── -->
+  <script>
 (function() {
-  // ─── DATA ────────────────────────────────────────
-  // Plan 1 Empresarial (USD): valores tentativos a confirmar con el equipo.
   const PLANS = {
     personal: [
       {
-        id: 'p1-ar',
-        num: '01',
-        title: 'Reclamo',
-        currency: 'AR$ + IVA',
-        from: 'Gratis',
-        fromUnit: ' / hasta 20 facturas',
+        id: 'p1-ar', num: '01', title: 'Reclamo', currency: 'AR$ + IVA',
+        from: 'Gratis', fromUnit: ' / hasta 20 facturas',
         desc: 'Reclama por WhatsApp, recibe comprobantes y muestra el estado de cada cobro en un dashboard. Sin conexión bancaria.',
         summary: 'WhatsApp + comprobantes + dashboard — sin conexión bancaria.',
-        features: [
-          'Reclamo automático por WhatsApp',
-          'Recepción y carga de comprobantes',
-          'Dashboard de estado de cobro',
-          'Importación de cartera desde Excel'
-        ],
+        features: ['Reclamo automático por WhatsApp','Recepción y carga de comprobantes','Dashboard de estado de cobro','Importación de cartera desde Excel'],
         featuresNote: 'Las features son las mismas en las tres bandas — lo único que cambia es el volumen de facturas por mes.',
         forWho: 'Profesionales, monotributistas y pymes que recién arrancan.',
         modes: ['monthly'],
         bands: [
-          { id: 'b1', label: 'Hasta 20 facturas', sub: 'Free tier',           monthly: { price: 'Gratis', free: true } },
-          { id: 'b2', label: '21 – 50 facturas',  sub: 'Profesional+',        monthly: { price: '$ 9.900',  priceUnit: '/mes' } },
+          { id: 'b1', label: 'Hasta 20 facturas', sub: 'Free tier',             monthly: { price: 'Gratis', free: true } },
+          { id: 'b2', label: '21 – 50 facturas',  sub: 'Profesional+',          monthly: { price: '$ 9.900',  priceUnit: '/mes' } },
           { id: 'b3', label: '51 – 100 facturas', sub: 'Consultorio / estudio', monthly: { price: '$ 39.900', priceUnit: '/mes' } }
         ],
-        upgradeHint: {
-          to: 'p2',
-          headline: '¿Más de 100 facturas por mes?',
-          body: 'El Plan 01 llega hasta 100. A partir de ahí, el agente que necesitás es <strong>Conciliación</strong> — con conexión bancaria y matching automático.',
-          cta: 'Ver Plan 02'
-        }
+        upgradeHint: { to: 'p2', headline: '¿Más de 100 facturas por mes?', body: 'El Plan 01 llega hasta 100. A partir de ahí, el agente que necesitás es <strong>Conciliación</strong> — con conexión bancaria y matching automático.', cta: 'Ver Plan 02' }
       }
     ],
     business: [
       {
-        id: 'p1-usd',
-        num: '01',
-        title: 'Reclamo',
-        currency: 'USD',
-        from: 'Gratis',
-        fromUnit: ' / hasta 20 facturas',
-        desc: 'Reclamo por WhatsApp, recepción de comprobantes y dashboard de estado. Sin conexión bancaria — la conciliación queda manual.',
+        id: 'p1-usd', num: '01', title: 'Reclamo', currency: 'USD',
+        from: 'Gratis', fromUnit: ' / hasta 20 facturas',
+        desc: 'Reclamo por WhatsApp, recepción de comprobantes y dashboard de estado. Sin conexión bancaria.',
         summary: 'WhatsApp + comprobantes + dashboard — sin conexión bancaria.',
-        features: [
-          'Reclamo automático por WhatsApp',
-          'Recepción y carga de comprobantes',
-          'Dashboard de estado de cobro',
-          'Importación de cartera desde Excel'
-        ],
+        features: ['Reclamo automático por WhatsApp','Recepción y carga de comprobantes','Dashboard de estado de cobro','Importación de cartera desde Excel'],
         featuresNote: 'Las features son las mismas en las tres bandas — lo único que cambia es el volumen de facturas por mes.',
         forWho: 'Emprendimientos chicos y equipos que recién arrancan a profesionalizar su cobranza.',
         modes: ['monthly'],
         bands: [
-          { id: 'b1', label: 'Hasta 20 facturas', sub: 'Free tier',     monthly: { price: 'Gratis', free: true } },
-          { id: 'b2', label: '21 – 50 facturas',  sub: 'Equipo chico',  monthly: { price: 'USD 19', priceUnit: '/mes' } },
-          { id: 'b3', label: '51 – 100 facturas', sub: 'Equipo grande', monthly: { price: 'USD 39', priceUnit: '/mes' } }
+          { id: 'b1', label: 'Hasta 20 facturas', sub: 'Free tier',    monthly: { price: 'Gratis', free: true } },
+          { id: 'b2', label: '21 – 50 facturas',  sub: 'Equipo chico', monthly: { price: 'USD 19', priceUnit: '/mes' } },
+          { id: 'b3', label: '51 – 100 facturas', sub: 'Equipo grande',monthly: { price: 'USD 39', priceUnit: '/mes' } }
         ],
-        upgradeHint: {
-          to: 'p2',
-          headline: '¿Más de 100 facturas por mes?',
-          body: 'El Plan 01 llega hasta 100. A partir de ahí, el agente que necesitás es <strong>Conciliación</strong> — con conexión bancaria y matching automático.',
-          cta: 'Ver Plan 02'
-        },
+        upgradeHint: { to: 'p2', headline: '¿Más de 100 facturas por mes?', body: 'El Plan 01 llega hasta 100. A partir de ahí, el agente que necesitás es <strong>Conciliación</strong> — con conexión bancaria y matching automático.', cta: 'Ver Plan 02' },
         confirmCopy: 'Valores Plan 01 empresarial estimados — confirmar con el equipo.'
       },
       {
-        id: 'p2',
-        num: '02',
-        title: 'Conciliación',
-        currency: 'USD',
-        from: 'USD 39',
-        fromUnit: ' / mes',
-        fromStrike: 'USD 79',
+        id: 'p2', num: '02', title: 'Conciliación', currency: 'USD',
+        from: 'USD 39', fromUnit: ' / mes', fromStrike: 'USD 79',
         desc: 'Todo el plan Reclamo + reclamo multicanal (WhatsApp + email + SMS), conexión bancaria, matching automático con terceros e integración ARCA opcional.',
         summary: 'Multicanal · Banco · Matching · ARCA opcional.',
         featured: true,
-        features: [
-          'Todo el plan Reclamo',
-          'Reclamo multicanal: WhatsApp + email + SMS',
-          'Conexión bancaria',
-          'Matching automático (incluye pagos de terceros)',
-          'Integración ARCA opcional'
-        ],
+        features: ['Todo el plan Reclamo','Reclamo multicanal: WhatsApp + email + SMS','Conexión bancaria','Matching automático (incluye pagos de terceros)','Integración ARCA opcional'],
         forWho: 'Colegios, consorcios, inmobiliarias, clubes y prepagas.',
         modes: ['annual', 'monthly'],
         bands: [
-          { id: 'b1', label: 'Hasta 200 facturas',   sub: 'Colegio chico / consorcio',     annual: { price: 'USD 39',  priceUnit: '/mes', priceStrike: 'USD 79' },  monthly: { price: 'USD 47',  priceUnit: '/mes', priceStrike: 'USD 95' } },
-          { id: 'b2', label: 'Hasta 500 facturas',   sub: 'Colegio medio',                 annual: { price: 'USD 89',  priceUnit: '/mes', priceStrike: 'USD 179' }, monthly: { price: 'USD 107', priceUnit: '/mes', priceStrike: 'USD 215' } },
-          { id: 'b3', label: 'Hasta 1.000 facturas', sub: 'Consorcio grande',              annual: { price: 'USD 149', priceUnit: '/mes', priceStrike: 'USD 299' }, monthly: { price: 'USD 179', priceUnit: '/mes', priceStrike: 'USD 359' } },
-          { id: 'b4', label: 'Hasta 2.500 facturas', sub: 'Admin grande / club',           annual: { price: 'USD 224', priceUnit: '/mes', priceStrike: 'USD 449' }, monthly: { price: 'USD 269', priceUnit: '/mes', priceStrike: 'USD 539' } },
-          { id: 'b5', label: '+ 2.500 facturas',     sub: 'Enterprise',                    annual: { price: 'Custom' }, monthly: { price: 'Custom' }, enterprise: true }
+          { id: 'b1', label: 'Hasta 200 facturas',   sub: 'Colegio chico / consorcio', annual: { price: 'USD 39',  priceUnit: '/mes', priceStrike: 'USD 79' },  monthly: { price: 'USD 47',  priceUnit: '/mes', priceStrike: 'USD 95' } },
+          { id: 'b2', label: 'Hasta 500 facturas',   sub: 'Colegio medio',              annual: { price: 'USD 89',  priceUnit: '/mes', priceStrike: 'USD 179' }, monthly: { price: 'USD 107', priceUnit: '/mes', priceStrike: 'USD 215' } },
+          { id: 'b3', label: 'Hasta 1.000 facturas', sub: 'Consorcio grande',           annual: { price: 'USD 149', priceUnit: '/mes', priceStrike: 'USD 299' }, monthly: { price: 'USD 179', priceUnit: '/mes', priceStrike: 'USD 359' } },
+          { id: 'b4', label: 'Hasta 2.500 facturas', sub: 'Admin grande / club',        annual: { price: 'USD 224', priceUnit: '/mes', priceStrike: 'USD 449' }, monthly: { price: 'USD 269', priceUnit: '/mes', priceStrike: 'USD 539' } },
+          { id: 'b5', label: '+ 2.500 facturas',     sub: 'Enterprise',                 annual: { price: 'Custom' }, monthly: { price: 'Custom' }, enterprise: true }
         ]
       },
       {
-        id: 'p3',
-        num: '03',
-        title: 'Inteligencia',
-        currency: 'USD',
-        from: 'USD 59',
-        fromUnit: ' / mes',
-        fromStrike: 'USD 119',
+        id: 'p3', num: '03', title: 'Inteligencia', currency: 'USD',
+        from: 'USD 59', fromUnit: ' / mes', fromStrike: 'USD 119',
         desc: 'Todo el plan Conciliación + forecast de cashflow, scoring de pagadores, planes de pago inteligentes, reportes automatizados y API.',
         summary: 'Conciliación + Cashflow forecast + Scoring + API.',
         soon: true,
-        features: [
-          'Todo el plan Conciliación',
-          'Cashflow forecasting',
-          'Scoring de pagadores',
-          'Planes de pago inteligentes',
-          'Reportes automatizados',
-          'API'
-        ],
+        features: ['Todo el plan Conciliación','Cashflow forecasting','Scoring de pagadores','Planes de pago inteligentes','Reportes automatizados','API'],
         forWho: 'Admins grandes, countries, franquicias, cooperativas y clientes con volumen.',
         modes: ['annual', 'monthly'],
         bands: [
-          { id: 'b1', label: 'Hasta 200 facturas',   sub: 'Country chico',         annual: { price: 'USD 59',  priceUnit: '/mes', priceStrike: 'USD 119' }, monthly: { price: 'USD 71',  priceUnit: '/mes', priceStrike: 'USD 143' } },
-          { id: 'b2', label: 'Hasta 500 facturas',   sub: 'Country medio',         annual: { price: 'USD 124', priceUnit: '/mes', priceStrike: 'USD 249' }, monthly: { price: 'USD 149', priceUnit: '/mes', priceStrike: 'USD 299' } },
-          { id: 'b3', label: 'Hasta 1.000 facturas', sub: 'Cooperativa grande',    annual: { price: 'USD 199', priceUnit: '/mes', priceStrike: 'USD 399' }, monthly: { price: 'USD 239', priceUnit: '/mes', priceStrike: 'USD 479' } },
-          { id: 'b4', label: 'Hasta 2.500 facturas', sub: 'Admin enterprise',      annual: { price: 'USD 299', priceUnit: '/mes', priceStrike: 'USD 599' }, monthly: { price: 'USD 359', priceUnit: '/mes', priceStrike: 'USD 719' } },
-          { id: 'b5', label: '+ 2.500 facturas',     sub: 'Enterprise',            annual: { price: 'Custom' }, monthly: { price: 'Custom' }, enterprise: true }
+          { id: 'b1', label: 'Hasta 200 facturas',   sub: 'Country chico',      annual: { price: 'USD 59',  priceUnit: '/mes', priceStrike: 'USD 119' }, monthly: { price: 'USD 71',  priceUnit: '/mes', priceStrike: 'USD 143' } },
+          { id: 'b2', label: 'Hasta 500 facturas',   sub: 'Country medio',      annual: { price: 'USD 124', priceUnit: '/mes', priceStrike: 'USD 249' }, monthly: { price: 'USD 149', priceUnit: '/mes', priceStrike: 'USD 299' } },
+          { id: 'b3', label: 'Hasta 1.000 facturas', sub: 'Cooperativa grande', annual: { price: 'USD 199', priceUnit: '/mes', priceStrike: 'USD 399' }, monthly: { price: 'USD 239', priceUnit: '/mes', priceStrike: 'USD 479' } },
+          { id: 'b4', label: 'Hasta 2.500 facturas', sub: 'Admin enterprise',   annual: { price: 'USD 299', priceUnit: '/mes', priceStrike: 'USD 599' }, monthly: { price: 'USD 359', priceUnit: '/mes', priceStrike: 'USD 719' } },
+          { id: 'b5', label: '+ 2.500 facturas',     sub: 'Enterprise',         annual: { price: 'Custom' }, monthly: { price: 'Custom' }, enterprise: true }
         ]
       }
     ]
   };
 
-  // ─── PRICING NOTE COPY ──────────────────────────
   const PRICING_NOTE = {
-    personal: 'Plan 01 en pesos argentinos + IVA, facturación mensual. <strong>30 días gratis</strong> al contratar, cancelás cuando quieras. El límite de facturas se renueva el <strong>1° de cada mes calendario</strong> — la facturación es por mes calendario completo, sin prorrateo. Al checkout elegís cómo pagás: <strong>transferencia (prepago)</strong> o <strong>débito automático con tarjeta (5% off)</strong>.',
-    business: '<strong>Plan 01</strong> en USD con facturación mensual, sin descuentos. <strong>Plan 02 y 03</strong> con <strong>50% off de lanzamiento</strong> (anual y mensual) bloqueado por 12 meses para quien contrate hasta noviembre 2026. El límite de facturas se renueva el <strong>1° de cada mes calendario</strong> — la facturación es por mes calendario completo, sin prorrateo. Pago empresarial vía <strong>débito automático con tarjeta</strong>. Integraciones con ERP se cotizan aparte.'
+    personal: 'Plan 01 en pesos argentinos + IVA, facturación mensual. <strong>30 días gratis</strong> al contratar, cancelás cuando quieras. Al checkout elegís cómo pagás: <strong>transferencia (prepago)</strong> o <strong>débito automático con tarjeta (5% off)</strong>.',
+    business: '<strong>Plan 01</strong> en USD con facturación mensual, sin descuentos. <strong>Plan 02 y 03</strong> con <strong>50% off de lanzamiento</strong> (anual y mensual) bloqueado por 12 meses para quien contrate hasta noviembre 2026. Sin permanencia mínima.'
   };
 
-  // ─── STATE ───────────────────────────────────────
-  const state = {
-    audience: 'business',   // 'personal' | 'business'
-    view: 'cards',          // 'cards' | 'detail'
-    planId: null,
-    mode: 'annual',         // 'annual' | 'monthly'
-    bandId: null
-  };
-
-  // ─── DOM REFS ────────────────────────────────────
+  const state = { audience: 'business', view: 'cards', planId: null, mode: 'annual', bandId: null };
   const $toggle = document.querySelector('.audience-toggle');
-  const $cards = document.getElementById('pricing-cards');
+  const $cards  = document.getElementById('pricing-cards');
   const $detail = document.getElementById('pricing-detail');
-  const $note = document.getElementById('pricing-note');
+  const $note   = document.getElementById('pricing-note');
 
-  // ─── RENDER: CARDS ───────────────────────────────
   function renderCards() {
-    // Personal audience: only Plan 01 — render all 3 bandas in one flat screen.
-    if (state.audience === 'personal') {
-      $cards.classList.add('pricing-flat');
-      return renderPersonalFlat();
-    }
+    if (state.audience === 'personal') { $cards.classList.add('pricing-flat'); return renderPersonalFlat(); }
     $cards.classList.remove('pricing-flat');
-
     const plans = PLANS[state.audience];
     $cards.innerHTML = plans.map(p => {
-      const isFeatured = p.featured;
-      const isSoon = p.soon;
-      const cardClasses = ['plan'];
-      if (isFeatured) cardClasses.push('featured');
-      if (isSoon) cardClasses.push('is-soon');
-
-      const headBadge = isFeatured
-        ? '<div class="plan-tag">Más elegido</div>'
-        : (isSoon ? '<div class="plan-soon-badge">Próximamente</div>' : '');
-
-      const priceBlock = `
-        <div class="plan-price-from">Desde</div>
-        <div class="plan-price-main">${p.from}<span class="unit">${p.fromUnit || ''}</span></div>
-        ${p.fromStrike ? `<div class="plan-price-var"><span class="strike">${p.fromStrike}</span>50% off hasta nov&nbsp;2026</div>` : ''}
-      `;
-
-      const ctaBtn = isSoon
-        ? `<button type="button" class="plan-cta is-ghost" data-soon="1">Avisame cuando salga</button>`
-        : `<button type="button" class="plan-cta" data-plan="${p.id}">Elegir este plan <span aria-hidden="true">→</span></button>`;
-
-      return `
-        <div class="${cardClasses.join(' ')}">
-          ${headBadge}
-          <div class="plan-head">
-            <div class="plan-name">Plan <span class="num">${p.num}</span></div>
-            <div class="plan-curr">${p.currency}</div>
-          </div>
-          <div class="plan-title">${p.title}</div>
-          <div class="plan-price">${priceBlock}</div>
-          <ul class="plan-features">${p.features.map(f => `<li>${f}</li>`).join('')}</ul>
-          <div class="plan-for"><strong>Ideal para:</strong> ${p.forWho}</div>
-          ${ctaBtn}
-        </div>
-      `;
+      const headBadge = p.featured ? '<div class="plan-tag">Más elegido</div>' : (p.soon ? '<div class="plan-soon-badge">Próximamente</div>' : '');
+      const priceBlock = `<div class="plan-price-from">Desde</div><div class="plan-price-main">${p.from}<span class="unit">${p.fromUnit||''}</span></div>${p.fromStrike ? `<div class="plan-price-var"><span class="strike">${p.fromStrike}</span>50% off hasta nov&nbsp;2026</div>` : ''}`;
+      const ctaBtn = p.soon ? `<button type="button" class="plan-cta is-ghost" data-soon="1">Avisame cuando salga</button>` : `<button type="button" class="plan-cta" data-plan="${p.id}">Elegir este plan <span aria-hidden="true">→</span></button>`;
+      return `<div class="${['plan', p.featured?'featured':'', p.soon?'is-soon':''].join(' ').trim()}">${headBadge}<div class="plan-head"><div class="plan-name">Plan <span class="num">${p.num}</span></div><div class="plan-curr">${p.currency}</div></div><div class="plan-title">${p.title}</div><div class="plan-price">${priceBlock}</div><ul class="plan-features">${p.features.map(f=>`<li>${f}</li>`).join('')}</ul><div class="plan-for"><strong>Ideal para:</strong> ${p.forWho}</div>${ctaBtn}</div>`;
     }).join('');
-
-    // Wire CTAs
     $cards.querySelectorAll('[data-plan]').forEach(btn => {
       btn.addEventListener('click', () => {
         state.planId = btn.getAttribute('data-plan');
         const plan = findPlan(state.planId);
-        state.mode = plan.modes[0];
-        state.bandId = plan.bands[0].id;
-        state.view = 'detail';
-        renderAll();
-        // Scroll the detail into view
-        setTimeout(() => {
-          $detail.scrollIntoView ? null : null; // noop, intentionally avoiding
-          window.scrollTo({ top: document.getElementById('pricing').offsetTop - 12, behavior: 'smooth' });
-        }, 50);
+        state.mode = plan.modes[0]; state.bandId = plan.bands[0].id; state.view = 'detail'; renderAll();
+        setTimeout(() => window.scrollTo({ top: document.getElementById('pricing').offsetTop - 12, behavior: 'smooth' }), 50);
       });
     });
-    $cards.querySelectorAll('[data-soon]').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const msg = encodeURIComponent('Hola, quiero que me avisen cuando salga el Plan Inteligencia de Axel.');
-        window.open(`https://wa.me/5491100000000?text=${msg}`, '_blank');
-      });
-    });
+    $cards.querySelectorAll('[data-soon]').forEach(btn => btn.addEventListener('click', () => window.open(`https://wa.me/5491100000000?text=${encodeURIComponent('Hola, quiero que me avisen cuando salga el Plan Inteligencia de Axel.')}`, '_blank')));
   }
 
-  // ─── RENDER: PERSONAL FLAT (3 bandas en una pantalla) ─────────
   function renderPersonalFlat() {
     const plan = PLANS.personal[0];
-    const popularBandId = 'b2';
-
     const bandsHtml = plan.bands.map(b => {
       const bp = b.monthly;
-      const isPopular = b.id === popularBandId;
       const priceClass = bp.free ? 'band-card-price-main is-free' : 'band-card-price-main';
       const unit = bp.priceUnit ? `<span class="band-card-price-unit">${bp.priceUnit}</span>` : '';
-      const strike = '';
-      const ctaLabel = bp.free ? 'Empezar gratis' : 'Contratar este plan';
-      const noteText = bp.free
-        ? 'Sin tarjeta · sin permanencia'
-        : 'Facturación mensual · 30 días gratis';
       const ctaMsg = encodeURIComponent(`Hola, quiero contratar Axel — Plan 01 Reclamo (${b.label}).`);
-      return `
-        <div class="band-card ${isPopular ? 'is-popular' : ''}">
-          ${isPopular ? '<div class="band-card-tag">Más elegido</div>' : ''}
-          <div class="band-card-label">${b.label}</div>
-          ${b.sub ? `<div class="band-card-sub">${b.sub}</div>` : ''}
-          <div class="band-card-price">
-            <div class="${priceClass}">${bp.price}${unit}</div>
-            ${strike ? `<div class="band-card-price-strikeline">${strike}</div>` : ''}
-            <div class="band-card-price-note">${noteText}</div>
-          </div>
-          <a class="plan-cta" href="https://wa.me/5491100000000?text=${ctaMsg}" target="_blank" rel="noopener">
-            ${ctaLabel} <span aria-hidden="true">→</span>
-          </a>
-        </div>
-      `;
+      return `<div class="band-card ${b.id==='b2'?'is-popular':''}">${b.id==='b2'?'<div class="band-card-tag">Más elegido</div>':''}<div class="band-card-label">${b.label}</div>${b.sub?`<div class="band-card-sub">${b.sub}</div>`:''}<div class="band-card-price"><div class="${priceClass}">${bp.price}${unit}</div><div class="band-card-price-note">${bp.free?'Sin tarjeta · sin permanencia':'Facturación mensual · 30 días gratis'}</div></div><a class="plan-cta" href="https://wa.me/5491100000000?text=${ctaMsg}" target="_blank" rel="noopener">${bp.free?'Empezar gratis':'Contratar este plan'} <span aria-hidden="true">→</span></a></div>`;
     }).join('');
-
-    const modeToggleHtml = '';
-
-    const upgradeBlock = plan.upgradeHint ? `
-      <div class="upgrade-hint">
-        <div class="upgrade-hint-text">
-          <div class="upgrade-hint-headline">${plan.upgradeHint.headline}</div>
-          <div class="upgrade-hint-body">${plan.upgradeHint.body}</div>
-        </div>
-        <button type="button" class="upgrade-hint-cta" data-upgrade="${plan.upgradeHint.to}">
-          ${plan.upgradeHint.cta} <span aria-hidden="true">→</span>
-        </button>
-      </div>
-    ` : '';
-
-    $cards.innerHTML = `
-      <div class="pricing-flat-head">
-        <div class="pricing-flat-meta">
-          <div class="plan-name">Plan <span class="num">${plan.num}</span></div>
-          <div class="plan-title">${plan.title}</div>
-          <p class="pricing-flat-desc">${plan.desc}</p>
-        </div>
-        <div class="plan-curr">${plan.currency}</div>
-      </div>
-      <div class="pricing-flat-features">
-        <div class="pricing-flat-features-label">Incluye en todas las opciones</div>
-        <ul>${plan.features.map(f => `<li>${f}</li>`).join('')}</ul>
-      </div>
-      <div class="pricing-flat-volume">
-        <div class="pricing-flat-volume-head">
-          <div>
-            <div class="band-section-label">Elegí tu volumen de facturas por mes</div>
-          </div>
-          ${modeToggleHtml}
-        </div>
-      </div>
-      <div class="pricing-flat-bands">${bandsHtml}</div>
-      ${upgradeBlock}
-    `;
-
-
-
-    // Wire upgrade button → switch audience to business + open Plan 02 detail
+    const upgradeBlock = plan.upgradeHint ? `<div class="upgrade-hint"><div class="upgrade-hint-text"><div class="upgrade-hint-headline">${plan.upgradeHint.headline}</div><div class="upgrade-hint-body">${plan.upgradeHint.body}</div></div><button type="button" class="upgrade-hint-cta" data-upgrade="${plan.upgradeHint.to}">${plan.upgradeHint.cta} <span aria-hidden="true">→</span></button></div>` : '';
+    $cards.innerHTML = `<div class="pricing-flat-head"><div class="pricing-flat-meta"><div class="plan-name">Plan <span class="num">${plan.num}</span></div><div class="plan-title">${plan.title}</div><p class="pricing-flat-desc">${plan.desc}</p></div><div class="plan-curr">${plan.currency}</div></div><div class="pricing-flat-features"><div class="pricing-flat-features-label">Incluye en todas las opciones</div><ul>${plan.features.map(f=>`<li>${f}</li>`).join('')}</ul></div><div class="pricing-flat-volume"><div class="pricing-flat-volume-head"><div><div class="band-section-label">Elegí tu volumen de facturas por mes</div></div></div></div><div class="pricing-flat-bands">${bandsHtml}</div>${upgradeBlock}`;
     $cards.querySelectorAll('[data-upgrade]').forEach(btn => {
       btn.addEventListener('click', () => {
-        const targetId = btn.getAttribute('data-upgrade');
         state.audience = 'business';
-        $toggle.querySelectorAll('button').forEach(b => {
-          const isBiz = b.getAttribute('data-audience') === 'business';
-          b.classList.toggle('is-active', isBiz);
-          b.setAttribute('aria-selected', isBiz);
-        });
-        const targetPlan = PLANS.business.find(p => p.id === targetId)
-          || PLANS.business.find(p => p.num === '02');
-        if (!targetPlan) return;
-        state.planId = targetPlan.id;
-        state.mode = targetPlan.modes[0];
-        state.bandId = targetPlan.bands[0].id;
-        state.view = 'detail';
-        renderAll();
+        $toggle.querySelectorAll('button').forEach(b => { const isBiz = b.getAttribute('data-audience')==='business'; b.classList.toggle('is-active', isBiz); b.setAttribute('aria-selected', isBiz); });
+        const tp = PLANS.business.find(p=>p.num==='02'); if(!tp) return;
+        state.planId=tp.id; state.mode=tp.modes[0]; state.bandId=tp.bands[0].id; state.view='detail'; renderAll();
         window.scrollTo({ top: document.getElementById('pricing').offsetTop - 12, behavior: 'smooth' });
       });
     });
   }
 
-  // ─── RENDER: DETAIL ──────────────────────────────
   function renderDetail() {
-    const plan = findPlan(state.planId);
-    if (!plan) return;
-
-    const band = plan.bands.find(b => b.id === state.bandId) || plan.bands[0];
-    const priceObj = band[state.mode] || band.annual;
-
-    const hasBothModes = plan.modes.length > 1;
-    const hasMonthly = hasBothModes;
-    const annualSavings = state.mode === 'annual' && hasMonthly;
-    const hasLaunchDiscount = plan.num === '02' || plan.num === '03';
-    const annualTag = plan.num === '01' && state.audience === 'business'
-      ? ''
-      : (hasLaunchDiscount ? '<span class="mode-tag">−50%</span>' : '');
+    const plan = findPlan(state.planId); if (!plan) return;
+    const band = plan.bands.find(b=>b.id===state.bandId)||plan.bands[0];
+    const priceObj = band[state.mode]||band.annual;
+    const hasBothModes = plan.modes.length>1;
+    const hasLaunchDiscount = plan.num==='02'||plan.num==='03';
+    const annualTag = hasLaunchDiscount ? '<span class="mode-tag">−50%</span>' : '';
     const monthlyTag = hasLaunchDiscount ? '<span class="mode-tag">−50%</span>' : '';
-    const modeNoteAnnual = hasLaunchDiscount
-      ? 'Anual con 50% off de lanzamiento, bloqueado por 12 meses para quien contrate antes de noviembre 2026.'
-      : 'Precio anual de Plan 01. Mensual sale ≈20% más caro.';
-    const modeNoteMonthly = hasLaunchDiscount
-      ? 'Mensual con 50% off de lanzamiento, bloqueado por 12 meses. Cancelás cuando quieras.'
-      : 'Mensual sin descuento. Sale ≈20% más caro que el anual. Cancelás cuando quieras.';
-
-    const modeToggle = hasMonthly ? `
-      <div class="mode-toggle-wrap">
-        <span class="mode-toggle-label">Modalidad de pago</span>
-        <div class="mode-toggle" role="tablist">
-          <button type="button" class="${state.mode === 'annual' ? 'is-active' : ''}" data-mode="annual">
-            Anual ${annualTag}
-          </button>
-          <button type="button" class="${state.mode === 'monthly' ? 'is-active' : ''}" data-mode="monthly">
-            Mensual ${monthlyTag}
-          </button>
-        </div>
-        <div class="mode-note">${state.mode === 'annual' ? modeNoteAnnual : modeNoteMonthly}</div>
-      </div>
-    ` : `
-      <div class="mode-note" style="margin-top:18px">Facturación mensual, sin descuentos ni permanencia mínima. <strong>30 días gratis</strong> al contratar.</div>
-    `;
-
+    const modeNoteAnnual = hasLaunchDiscount ? 'Anual con 50% off de lanzamiento, bloqueado por 12 meses para quien contrate antes de noviembre 2026.' : 'Precio anual. Mensual sale ≈20% más caro.';
+    const modeNoteMonthly = hasLaunchDiscount ? 'Mensual con 50% off de lanzamiento, bloqueado por 12 meses. Cancelás cuando quieras.' : 'Mensual sin descuento. Cancelás cuando quieras.';
+    const modeToggle = hasBothModes ? `<div class="mode-toggle-wrap"><span class="mode-toggle-label">Modalidad de pago</span><div class="mode-toggle" role="tablist"><button type="button" class="${state.mode==='annual'?'is-active':''}" data-mode="annual">Anual ${annualTag}</button><button type="button" class="${state.mode==='monthly'?'is-active':''}" data-mode="monthly">Mensual ${monthlyTag}</button></div><div class="mode-note">${state.mode==='annual'?modeNoteAnnual:modeNoteMonthly}</div></div>` : `<div class="mode-note" style="margin-top:18px">Facturación mensual, sin descuentos ni permanencia mínima. <strong>30 días gratis</strong> al contratar.</div>`;
     const bandsHtml = plan.bands.map(b => {
-      const bp = b[state.mode] || b.annual;
-      const isSelected = b.id === state.bandId;
-      const priceClass = bp.free ? 'band-price-main is-free' : 'band-price-main';
-      const priceUnit = bp.priceUnit ? `<span style="font-family:var(--font-u);font-size:11px;color:var(--muted);font-weight:500"> ${bp.priceUnit}</span>` : '';
-      const strike = bp.priceStrike ? `<div class="band-price-strike">${bp.priceStrike}</div>` : '';
-      const note = bp.priceNote ? `<div class="band-price-note">${bp.priceNote}</div>` : '';
-      return `
-        <div class="band-option ${isSelected ? 'is-selected' : ''}" data-band="${b.id}" role="radio" aria-checked="${isSelected}" tabindex="0">
-          <div class="band-info">
-            <div class="band-radio"></div>
-            <div class="band-info-text">
-              <div class="band-label-main">${b.label}</div>
-              ${b.sub ? `<div class="band-label-sub">${b.sub}</div>` : ''}
-            </div>
-          </div>
-          <div class="band-price">
-            <div class="${priceClass}">${bp.price}${priceUnit}</div>
-            ${strike}
-            ${note}
-          </div>
-        </div>
-      `;
+      const bp = b[state.mode]||b.annual; const isSelected = b.id===state.bandId;
+      const priceClass = bp.free?'band-price-main is-free':'band-price-main';
+      const priceUnit = bp.priceUnit?`<span style="font-size:11px;color:var(--muted);font-weight:500"> ${bp.priceUnit}</span>`:'';
+      const strike = bp.priceStrike?`<div class="band-price-strike">${bp.priceStrike}</div>`:'';
+      return `<div class="band-option ${isSelected?'is-selected':''}" data-band="${b.id}" role="radio" aria-checked="${isSelected}" tabindex="0"><div class="band-info"><div class="band-radio"></div><div class="band-info-text"><div class="band-label-main">${b.label}</div>${b.sub?`<div class="band-label-sub">${b.sub}</div>`:''}</div></div><div class="band-price"><div class="${priceClass}">${bp.price}${priceUnit}</div>${strike}</div></div>`;
     }).join('');
-
-    const summaryPrice = priceObj.free ? 'Gratis' : `${priceObj.price}${priceObj.priceUnit ? `<span class="unit"> ${priceObj.priceUnit}</span>` : ''}`;
-    const ctaMsg = encodeURIComponent(`Hola, quiero contratar Axel — plan ${plan.title} (${band.label}, ${state.mode === 'annual' ? 'anual' : 'mensual'}).`);
-    const ctaLabel = band.enterprise ? 'Hablar con ventas' : 'Contratar este plan';
-
-    const confirmNote = plan.confirmCopy ? `<div class="mode-note" style="margin-top:8px;color:var(--violet)">${plan.confirmCopy}</div>` : '';
-
-    $detail.innerHTML = `
-      <button type="button" class="detail-back" id="detail-back">
-        <span aria-hidden="true">←</span> Volver a planes
-      </button>
-      <div class="detail-head">
-        <div>
-          <div class="detail-title">
-            <span class="num">PLAN ${plan.num}</span>
-            ${plan.title}
-          </div>
-        </div>
-        <div class="detail-curr">${plan.currency}</div>
-      </div>
-      <p class="detail-desc">${plan.desc}</p>
-
-      ${modeToggle}
-      ${confirmNote}
-
-      <div class="band-section-label">Elegí tu volumen de facturas por mes</div>
-      <div class="band-options" role="radiogroup">${bandsHtml}</div>
-      ${plan.upgradeHint ? `
-        <div class="upgrade-hint">
-          <div class="upgrade-hint-text">
-            <div class="upgrade-hint-headline">${plan.upgradeHint.headline}</div>
-            <div class="upgrade-hint-body">${plan.upgradeHint.body}</div>
-          </div>
-          <button type="button" class="upgrade-hint-cta" data-upgrade="${plan.upgradeHint.to}">
-            ${plan.upgradeHint.cta} <span aria-hidden="true">→</span>
-          </button>
-        </div>
-      ` : ''}
-
-      <div class="detail-summary">
-        <div class="summary-block">
-          <div class="summary-block-label">Tu plan</div>
-          <div class="summary-block-value">${plan.title} · ${band.label.replace('facturas', 'fact')}</div>
-        </div>
-        <div class="summary-block">
-          <div class="summary-block-label">${state.mode === 'annual' ? 'Anual · contado' : 'Mensual'}</div>
-          <div class="summary-block-value">${summaryPrice}</div>
-        </div>
-        <a class="summary-cta" href="https://wa.me/5491100000000?text=${ctaMsg}" target="_blank" rel="noopener">
-          ${ctaLabel} <span aria-hidden="true">→</span>
-        </a>
-      </div>
-    `;
-
-    // Wire events
-    document.getElementById('detail-back').addEventListener('click', () => {
-      state.view = 'cards';
-      state.planId = null;
-      renderAll();
-      window.scrollTo({ top: document.getElementById('pricing').offsetTop - 12, behavior: 'smooth' });
-    });
-    $detail.querySelectorAll('[data-mode]').forEach(btn => {
-      btn.addEventListener('click', () => {
-        state.mode = btn.getAttribute('data-mode');
-        renderDetail();
-      });
-    });
+    const summaryPrice = priceObj.free?'Gratis':`${priceObj.price}${priceObj.priceUnit?`<span class="unit"> ${priceObj.priceUnit}</span>`:''}`;
+    const ctaMsg = encodeURIComponent(`Hola, quiero contratar Axel — plan ${plan.title} (${band.label}, ${state.mode==='annual'?'anual':'mensual'}).`);
+    const ctaLabel = band.enterprise?'Hablar con ventas':'Contratar este plan';
+    const confirmNote = plan.confirmCopy?`<div class="mode-note" style="margin-top:8px;color:var(--violet)">${plan.confirmCopy}</div>`:'';
+    $detail.innerHTML = `<button type="button" class="detail-back" id="detail-back"><span aria-hidden="true">←</span> Volver a planes</button><div class="detail-head"><div><div class="detail-title"><span class="num">PLAN ${plan.num}</span>${plan.title}</div></div><div class="detail-curr">${plan.currency}</div></div><p class="detail-desc">${plan.desc}</p>${modeToggle}${confirmNote}<div class="band-section-label" style="margin-top:1.25rem">Elegí tu volumen de facturas por mes</div><div class="band-options" role="radiogroup">${bandsHtml}</div>${plan.upgradeHint?`<div class="upgrade-hint"><div class="upgrade-hint-text"><div class="upgrade-hint-headline">${plan.upgradeHint.headline}</div><div class="upgrade-hint-body">${plan.upgradeHint.body}</div></div><button type="button" class="upgrade-hint-cta" data-upgrade="${plan.upgradeHint.to}">${plan.upgradeHint.cta} <span aria-hidden="true">→</span></button></div>`:''}<div class="detail-summary"><div class="summary-block"><div class="summary-block-label">Tu plan</div><div class="summary-block-value">${plan.title} · ${band.label.replace('facturas','fact')}</div></div><div class="summary-block"><div class="summary-block-label">${state.mode==='annual'?'Anual · contado':'Mensual'}</div><div class="summary-block-value">${summaryPrice}</div></div><a class="summary-cta" href="https://wa.me/5491100000000?text=${ctaMsg}" target="_blank" rel="noopener">${ctaLabel} <span aria-hidden="true">→</span></a></div>`;
+    document.getElementById('detail-back').addEventListener('click', () => { state.view='cards'; state.planId=null; renderAll(); window.scrollTo({ top: document.getElementById('pricing').offsetTop-12, behavior:'smooth' }); });
+    $detail.querySelectorAll('[data-mode]').forEach(btn => btn.addEventListener('click', () => { state.mode=btn.getAttribute('data-mode'); renderDetail(); }));
     $detail.querySelectorAll('[data-band]').forEach(btn => {
-      btn.addEventListener('click', () => {
-        state.bandId = btn.getAttribute('data-band');
-        renderDetail();
-      });
-      btn.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          state.bandId = btn.getAttribute('data-band');
-          renderDetail();
-        }
-      });
+      btn.addEventListener('click', () => { state.bandId=btn.getAttribute('data-band'); renderDetail(); });
+      btn.addEventListener('keydown', e => { if(e.key==='Enter'||e.key===' '){ e.preventDefault(); state.bandId=btn.getAttribute('data-band'); renderDetail(); } });
     });
     $detail.querySelectorAll('[data-upgrade]').forEach(btn => {
       btn.addEventListener('click', () => {
-        const targetId = btn.getAttribute('data-upgrade');
-        // Plan 02 only lives in business audience — switch if needed.
-        if (state.audience === 'personal') {
-          state.audience = 'business';
-          $toggle.querySelectorAll('button').forEach(b => {
-            const isBiz = b.getAttribute('data-audience') === 'business';
-            b.classList.toggle('is-active', isBiz);
-            b.setAttribute('aria-selected', isBiz);
-          });
-        }
-        const targetPlan = PLANS[state.audience].find(p => p.id === targetId)
-          || PLANS[state.audience].find(p => p.num === '02');
-        if (!targetPlan) return;
-        state.planId = targetPlan.id;
-        state.mode = targetPlan.modes[0];
-        state.bandId = targetPlan.bands[0].id;
-        renderAll();
-        window.scrollTo({ top: document.getElementById('pricing').offsetTop - 12, behavior: 'smooth' });
+        if(state.audience==='personal'){ state.audience='business'; $toggle.querySelectorAll('button').forEach(b=>{ const isBiz=b.getAttribute('data-audience')==='business'; b.classList.toggle('is-active',isBiz); b.setAttribute('aria-selected',isBiz); }); }
+        const tp = PLANS[state.audience].find(p=>p.num==='02'); if(!tp) return;
+        state.planId=tp.id; state.mode=tp.modes[0]; state.bandId=tp.bands[0].id; renderAll();
+        window.scrollTo({ top: document.getElementById('pricing').offsetTop-12, behavior:'smooth' });
       });
     });
   }
 
-  // ─── RENDER: ALL ─────────────────────────────────
   function renderAll() {
-    if ($note) $note.innerHTML = PRICING_NOTE[state.audience];
-    if (state.view === 'cards') {
-      $cards.classList.remove('is-hidden');
-      $detail.classList.add('is-hidden');
-      renderCards();
-    } else {
-      $cards.classList.add('is-hidden');
-      $detail.classList.remove('is-hidden');
-      renderDetail();
-    }
+    if($note) $note.innerHTML = PRICING_NOTE[state.audience];
+    if(state.view==='cards'){ $cards.classList.remove('is-hidden'); $detail.classList.add('is-hidden'); renderCards(); }
+    else { $cards.classList.add('is-hidden'); $detail.classList.remove('is-hidden'); renderDetail(); }
   }
+  function findPlan(id){ return PLANS[state.audience].find(p=>p.id===id); }
 
-  // ─── HELPERS ─────────────────────────────────────
-  function findPlan(id) {
-    return PLANS[state.audience].find(p => p.id === id);
-  }
-
-  // ─── WIRE: AUDIENCE TOGGLE ───────────────────────
   $toggle.querySelectorAll('button').forEach(btn => {
     btn.addEventListener('click', () => {
       const aud = btn.getAttribute('data-audience');
-      if (aud === state.audience) return;
-      state.audience = aud;
-      state.view = 'cards';
-      state.planId = null;
-      state.mode = 'annual';
-      $toggle.querySelectorAll('button').forEach(b => {
-        b.classList.toggle('is-active', b.getAttribute('data-audience') === aud);
-        b.setAttribute('aria-selected', b.getAttribute('data-audience') === aud);
-      });
+      if(aud===state.audience) return;
+      state.audience=aud; state.view='cards'; state.planId=null; state.mode='annual';
+      $toggle.querySelectorAll('button').forEach(b => { b.classList.toggle('is-active', b.getAttribute('data-audience')===aud); b.setAttribute('aria-selected', b.getAttribute('data-audience')===aud); });
       renderAll();
     });
   });
 
-  // ─── INIT ────────────────────────────────────────
   renderAll();
 })();
-</script>
+  </script>
 
-</body></html>
+</body>
+</html>
