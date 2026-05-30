@@ -1,70 +1,188 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pricing — A-Team</title>
-    <meta name="description"
-        content="Simple, transparent pricing for Anibal — the AI collections agent. Start free. Scale as you grow.">
-    <!-- Favicon -->
+    <title>Precios — A-Team</title>
+    <meta name="description" content="Precios simples y transparentes para Axel, el agente de cobranza con IA. Empezá gratis. Escalá según tu negocio.">
     <link rel="shortcut icon" href="assets/img/favicon.png">
     <link rel="icon" type="image/png" href="assets/img/favicon.png">
     <link rel="apple-touch-icon" href="assets/img/favicon.png">
-    <!-- SEO -->
     <meta name="robots" content="index, follow">
     <meta name="theme-color" content="#6366F1">
     <link rel="canonical" href="https://the-ateam.ai/pricing.html">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="A-Team">
-    <meta property="og:title" content="Pricing — A-Team">
-    <meta property="og:description"
-        content="Simple, transparent pricing for Anibal — the AI collections agent. Start free. Scale as you grow.">
-    <meta property="og:image" content="https://the-ateam.ai/hero-banner-mobile.jpeg">
+    <meta property="og:title" content="Precios — A-Team">
+    <meta property="og:description" content="Precios simples y transparentes para Axel, el agente de cobranza con IA.">
+    <meta property="og:image" content="https://the-ateam.ai/assets/img/isotipo.png">
     <meta property="og:url" content="https://the-ateam.ai/pricing.html">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Pricing — A-Team">
-    <meta name="twitter:description"
-        content="Simple, transparent pricing for Anibal — the AI collections agent. Start free. Scale as you grow.">
-    <meta name="twitter:image" content="https://the-ateam.ai/hero-banner-mobile.jpeg">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800;900&family=Inter:wght@400;500;700&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800;900&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <link rel="stylesheet" href="assets/css/style.css">
     <style>
-        .nav-active {
-            color: var(--primary) !important;
-        }
-
+        /* ── Pricing hero ── */
         .pricing-hero {
-            padding: 7rem 0 5rem;
-            text-align: center;
+            padding: 8rem 0 4rem; text-align: center; position: relative; overflow: hidden;
         }
-
+        .pricing-hero-bg {
+            position: absolute; inset: 0; z-index: 0; pointer-events: none;
+            background:
+                radial-gradient(ellipse 55% 50% at 50% 0%, rgba(99,102,241,0.1) 0%, transparent 70%);
+        }
+        .pricing-hero .container { position: relative; z-index: 1; }
         .pricing-hero h1 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            letter-spacing: -1px;
+            font-size: 3rem; letter-spacing: -1px; margin-bottom: 1rem;
         }
-
         .pricing-hero p {
-            color: var(--text-muted);
-            font-size: 1.15rem;
-            max-width: 520px;
-            margin: 0 auto;
+            color: var(--text-muted); font-size: 1.1rem;
+            max-width: 520px; margin: 0 auto 1.5rem;
+        }
+        .pricing-note-top {
+            font-size: 0.85rem; color: var(--text-muted);
+            margin-top: 0.5rem;
         }
 
+        /* ── Period toggle ── */
+        .billing-toggle {
+            display: inline-flex; align-items: center; gap: 0.75rem;
+            background: #F1F5F9; border-radius: 99px; padding: 0.35rem 0.5rem;
+            margin-bottom: 3rem;
+        }
+        .billing-btn {
+            padding: 0.4rem 1.1rem; border-radius: 99px; font-size: 0.88rem;
+            font-weight: 600; cursor: pointer; border: none; background: transparent;
+            color: var(--text-muted); transition: all 0.2s; font-family: var(--font-body);
+        }
+        .billing-btn.active {
+            background: #fff; color: var(--primary);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        .billing-save-badge {
+            font-size: 0.72rem; font-weight: 700; color: #10b981;
+            background: rgba(16,185,129,0.1); padding: 0.15rem 0.5rem;
+            border-radius: 99px; border: 1px solid rgba(16,185,129,0.2);
+        }
+
+        /* ── Plans grid ── */
+        .plans-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            align-items: start;
+        }
+        .plan-card {
+            background: #fff; border: 1.5px solid rgba(0,0,0,0.08);
+            border-radius: 20px; padding: 2rem;
+            display: flex; flex-direction: column;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .plan-card:hover { transform: translateY(-4px); box-shadow: 0 8px 32px rgba(0,0,0,0.08); }
+        .plan-card.featured {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(123,79,255,0.1), 0 8px 32px rgba(123,79,255,0.12);
+            position: relative;
+        }
+        .plan-ribbon {
+            position: absolute; top: -1px; left: 50%; transform: translateX(-50%);
+            background: var(--brand-gradient); color: #fff;
+            font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
+            padding: 0.25rem 1rem; border-radius: 0 0 10px 10px;
+        }
+        .plan-name {
+            font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px;
+            font-weight: 700; color: var(--text-muted); margin-bottom: 0.5rem;
+        }
+        .plan-price {
+            font-family: var(--font-heading); font-size: 2.6rem; font-weight: 800;
+            line-height: 1; margin-bottom: 0.2rem;
+            display: flex; align-items: flex-end; gap: 0.3rem;
+        }
+        .plan-price-currency { font-size: 1.2rem; font-weight: 600; align-self: flex-start; padding-top: 0.5rem; }
+        .plan-price-period { font-size: 0.9rem; font-weight: 400; color: var(--text-muted); margin-bottom: 0.2rem; }
+        .plan-volume { color: var(--text-muted); font-size: 0.83rem; margin-bottom: 0.5rem; }
+        .plan-roi { font-size: 0.8rem; color: #10b981; font-weight: 600; margin-bottom: 1.25rem; }
+        .plan-divider { height: 1px; background: rgba(0,0,0,0.06); margin: 1rem 0; }
+        .plan-features { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; flex: 1; margin-bottom: 1.5rem; }
+        .plan-features li {
+            display: flex; align-items: flex-start; gap: 0.55rem;
+            font-size: 0.87rem; color: var(--text-muted);
+        }
+        .plan-features li svg { width: 15px; height: 15px; flex-shrink: 0; margin-top: 2px; }
+        .plan-features li.included { color: var(--text-main); }
+        .plan-features li.included svg { color: #10b981; }
+        .plan-features li.excluded { opacity: 0.45; }
+        .plan-features li.excluded svg { color: #94A3B8; }
+        .plan-cta { margin-top: auto; }
+        .plan-cta .btn { width: 100%; justify-content: center; }
+
+        /* ── Custom pricing banner ── */
+        .custom-plan {
+            margin-top: 2rem; text-align: center; padding: 2rem;
+            background: rgba(123,79,255,0.04); border: 1.5px dashed rgba(123,79,255,0.2);
+            border-radius: 16px;
+        }
+        .custom-plan h4 { font-size: 1.1rem; margin-bottom: 0.4rem; }
+        .custom-plan p { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1rem; }
+
+        /* ── Feature comparison table ── */
+        .comparison-section { padding: 4rem 0 5rem; }
+        .comparison-section .section-header { margin-bottom: 2.5rem; }
+        .comp-table { border: 1px solid var(--border-color); border-radius: 16px; overflow: hidden; }
+        .comp-row { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; }
+        .comp-row:not(:last-child) { border-bottom: 1px solid var(--border-color); }
+        .comp-row.header-row { background: #F8FAFC; }
+        .comp-cell {
+            padding: 0.9rem 1.25rem; font-size: 0.88rem; color: var(--text-muted);
+            display: flex; align-items: center; gap: 0.5rem;
+        }
+        .comp-cell:not(:first-child) { justify-content: center; }
+        .comp-row.header-row .comp-cell {
+            font-family: var(--font-heading); font-weight: 700; font-size: 0.82rem;
+            text-transform: uppercase; letter-spacing: 1px; color: var(--text-main);
+        }
+        .comp-cell svg { width: 16px; height: 16px; flex-shrink: 0; }
+        .comp-cell .yes { color: #10b981; }
+        .comp-cell .no { color: #CBD5E1; }
+        .comp-cell .partial { color: var(--primary); }
+
+        /* ── FAQ ── */
+        .faq-section { padding: 4rem 0 5rem; background: var(--bg-darker); }
+        .faq-list { max-width: 700px; margin: 0 auto; display: flex; flex-direction: column; gap: 0.75rem; }
+        .faq-item {
+            background: #fff; border: 1px solid var(--border-color);
+            border-radius: 14px; overflow: hidden;
+        }
+        .faq-q {
+            width: 100%; padding: 1.1rem 1.5rem; text-align: left;
+            display: flex; justify-content: space-between; align-items: center;
+            cursor: pointer; background: none; border: none; font-family: var(--font-body);
+            font-size: 0.95rem; font-weight: 600; color: var(--text-main);
+        }
+        .faq-q svg { width: 18px; height: 18px; color: var(--primary); transition: transform 0.2s; flex-shrink: 0; }
+        .faq-item.open .faq-q svg { transform: rotate(180deg); }
+        .faq-a { display: none; padding: 0 1.5rem 1.1rem; color: var(--text-muted); font-size: 0.9rem; line-height: 1.7; }
+        .faq-item.open .faq-a { display: block; }
+
+        /* ── CTA final ── */
+        .pricing-cta { text-align: center; padding: 5rem 0; }
+        .pricing-cta h2 { font-size: 2.2rem; margin-bottom: 1rem; }
+        .pricing-cta p { color: var(--text-muted); max-width: 500px; margin: 0 auto 2rem; }
+
+        /* ── Responsive ── */
+        @media (max-width: 1024px) {
+            .plans-grid { grid-template-columns: 1fr; max-width: 440px; margin: 0 auto; }
+            .comp-table { display: none; }
+        }
         @media (max-width: 768px) {
-            .pricing-hero h1 {
-                font-size: 2rem;
-            }
+            .pricing-hero h1 { font-size: 2rem; }
+            .plans-grid { max-width: 100%; }
         }
     </style>
 </head>
-
 <body>
-
     <nav class="navbar">
         <div class="container nav-container">
             <a href="index.html" class="logo" aria-label="A-Team home">
@@ -76,14 +194,292 @@
             </a>
             <div class="nav-links">
                 <a href="index.html"><span data-lang="es">Inicio</span><span data-lang="en">Home</span></a>
-                <a href="axel.html"><span data-lang="es">Axel — Cobrador</span><span data-lang="en">Axel — Collections</span></a>
+                <a href="axel.html">Axel</a>
+                <a href="pricing.html" class="nav-active"><span data-lang="es">Precios</span><span data-lang="en">Pricing</span></a>
+                <a href="demo.html" class="btn btn-primary"><span data-lang="es">Agendar Demo →</span><span data-lang="en">Book a Demo →</span></a>
+                <div class="lang-toggle-wrap">
+                    <span class="lang-flag active" data-for="es" onclick="setLang('es')">🇦🇷</span>
+                    <button class="lang-toggle" onclick="setLang(document.body.classList.contains('lang-en')?'es':'en')" aria-label="Switch language" title="ES / EN"></button>
+                    <span class="lang-flag" data-for="en" onclick="setLang('en')">🇺🇸</span>
+                </div>
+            </div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open menu">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/>
+                </svg>
+            </button>
+        </div>
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="index.html"><span data-lang="es">Inicio</span><span data-lang="en">Home</span></a>
+            <a href="axel.html">Axel</a>
+            <a href="pricing.html" class="nav-active"><span data-lang="es">Precios</span><span data-lang="en">Pricing</span></a>
+            <a href="demo.html" class="btn btn-primary" style="width:100%;text-align:center;"><span data-lang="es">Agendar Demo →</span><span data-lang="en">Book a Demo →</span></a>
+            <div class="lang-toggle-wrap" style="justify-content:center;margin-top:1rem;margin-left:0;">
+                <span class="lang-flag active" data-for="es" onclick="setLang('es')">🇦🇷</span>
+                <button class="lang-toggle" onclick="setLang(document.body.classList.contains('lang-en')?'es':'en')" aria-label="Switch language"></button>
+                <span class="lang-flag" data-for="en" onclick="setLang('en')">🇺🇸</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ── Hero ── -->
+    <section class="pricing-hero">
+        <div class="pricing-hero-bg"></div>
+        <div class="container">
+            <div class="badge badge-accent" style="margin-bottom:1.25rem;">
+                <span data-lang="es">Precio justo. ROI claro.</span><span data-lang="en">Fair price. Clear ROI.</span>
+            </div>
+            <h1>
+                <span data-lang="es"><span class="text-gradient">Precios</span> simples y transparentes</span><span data-lang="en"><span class="text-gradient">Simple</span> and transparent pricing</span>
+            </h1>
+            <p>
+                <span data-lang="es">Sin letra chica. Sin comisiones sobre lo cobrado. Pagás por lo que usás.</span><span data-lang="en">No fine print. No commission on collected invoices. Pay for what you use.</span>
+            </p>
+
+            <!-- Billing toggle -->
+            <div class="billing-toggle" style="margin-top:1.5rem;">
+                <button class="billing-btn active" id="btn-monthly" onclick="setBilling('monthly')">
+                    <span data-lang="es">Mensual</span><span data-lang="en">Monthly</span>
+                </button>
+                <button class="billing-btn" id="btn-annual" onclick="setBilling('annual')">
+                    <span data-lang="es">Anual</span><span data-lang="en">Annual</span>
+                    <span class="billing-save-badge">-20%</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── Plans ── -->
+    <section class="section" style="padding-top:0;">
+        <div class="container">
+            <div class="plans-grid fade-in-up">
+
+                <!-- Starter -->
+                <div class="plan-card">
+                    <div class="plan-name">Starter</div>
+                    <div class="plan-price">
+                        <span class="plan-price-currency">$</span>
+                        <span class="price-val" data-monthly="0" data-annual="0">0</span>
+                        <span class="plan-price-period">/ <span data-lang="es">mes</span><span data-lang="en">mo</span></span>
+                    </div>
+                    <div class="plan-volume"><span data-lang="es">Hasta 30 cobros / mes</span><span data-lang="en">Up to 30 collections / month</span></div>
+                    <div class="plan-roi"><span data-lang="es">Ideal para empezar a probar</span><span data-lang="en">Perfect for testing it out</span></div>
+                    <div class="plan-divider"></div>
+                    <ul class="plan-features">
+                        <li class="included"><i data-lucide="check"></i><span data-lang="es">Axel por WhatsApp</span><span data-lang="en">Axel via WhatsApp</span></li>
+                        <li class="included"><i data-lucide="check"></i><span data-lang="es">30 recordatorios / mes</span><span data-lang="en">30 reminders / month</span></li>
+                        <li class="included"><i data-lucide="check"></i><span data-lang="es">Panel de seguimiento básico</span><span data-lang="en">Basic tracking panel</span></li>
+                        <li class="excluded"><i data-lucide="minus"></i><span data-lang="es">Integración contable</span><span data-lang="en">Accounting integration</span></li>
+                        <li class="excluded"><i data-lucide="minus"></i><span data-lang="es">Reportes automáticos</span><span data-lang="en">Automatic reports</span></li>
+                        <li class="excluded"><i data-lucide="minus"></i><span data-lang="es">Conciliación bancaria</span><span data-lang="en">Bank reconciliation</span></li>
+                    </ul>
+                    <div class="plan-cta">
+                        <a href="demo.html" class="btn btn-secondary"><span data-lang="es">Empezar gratis →</span><span data-lang="en">Start for free →</span></a>
+                    </div>
+                </div>
+
+                <!-- Pro (featured) -->
+                <div class="plan-card featured">
+                    <div class="plan-ribbon"><span data-lang="es">Más elegido</span><span data-lang="en">Most popular</span></div>
+                    <div class="plan-name">Pro</div>
+                    <div class="plan-price">
+                        <span class="plan-price-currency">$</span>
+                        <span class="price-val" data-monthly="149" data-annual="119">149</span>
+                        <span class="plan-price-period">USD / <span data-lang="es">mes</span><span data-lang="en">mo</span></span>
+                    </div>
+                    <div class="plan-volume"><span data-lang="es">Hasta 300 cobros / mes</span><span data-lang="en">Up to 300 collections / month</span></div>
+                    <div class="plan-roi"><span data-lang="es">ROI promedio: 8× en 90 días</span><span data-lang="en">Avg. ROI: 8× in 90 days</span></div>
+                    <div class="plan-divider"></div>
+                    <ul class="plan-features">
+                        <li class="included"><i data-lucide="check"></i><span data-lang="es">Axel por WhatsApp</span><span data-lang="en">Axel via WhatsApp</span></li>
+                        <li class="included"><i data-lucide="check"></i><span data-lang="es">300 recordatorios / mes</span><span data-lang="en">300 reminders / month</span></li>
+                        <li class="included"><i data-lucide="check"></i><span data-lang="es">Integración contable (Tango, Colppy)</span><span data-lang="en">Accounting integration (Tango, Colppy)</span></li>
+                        <li class="included"><i data-lucide="check"></i><span data-lang="es">Reportes automáticos semanales</span><span data-lang="en">Automatic weekly reports</span></li>
+                        <li class="included"><i data-lucide="check"></i><span data-lang="es">Conciliación bancaria básica</span><span data-lang="en">Basic bank reconciliation</span></li>
+                        <li class="excluded"><i data-lucide="minus"></i><span data-lang="es">Multi-empresa</span><span data-lang="en">Multi-company</span></li>
+                    </ul>
+                    <div class="plan-cta">
+                        <a href="demo.html" class="btn btn-primary"><span data-lang="es">Agendar demo →</span><span data-lang="en">Book a demo →</span></a>
+                    </div>
+                </div>
+
+                <!-- Business -->
+                <div class="plan-card">
+                    <div class="plan-name">Business</div>
+                    <div class="plan-price">
+                        <span class="plan-price-currency">$</span>
+                        <span class="price-val" data-monthly="349" data-annual="279">349</span>
+                        <span class="plan-price-period">USD / <span data-lang="es">mes</span><span data-lang="en">mo</span></span>
+                    </div>
+                    <div class="plan-volume"><span data-lang="es">Cobros ilimitados</span><span data-lang="en">Unlimited collections</span></div>
+                    <div class="plan-roi"><span data-lang="es">Para empresas en crecimiento</span><span data-lang="en">For growing companies</span></div>
+                    <div class="plan-divider"></div>
+                    <ul class="plan-features">
+                        <li class="included"><i data-lucide="check"></i><span data-lang="es">Todo lo de Pro</span><span data-lang="en">Everything in Pro</span></li>
+                        <li class="included"><i data-lucide="check"></i><span data-lang="es">Cobros ilimitados</span><span data-lang="en">Unlimited collections</span></li>
+                        <li class="included"><i data-lucide="check"></i><span data-lang="es">Multi-empresa / sucursales</span><span data-lang="en">Multi-company / branches</span></li>
+                        <li class="included"><i data-lucide="check"></i><span data-lang="es">Conciliación bancaria completa</span><span data-lang="en">Full bank reconciliation</span></li>
+                        <li class="included"><i data-lucide="check"></i><span data-lang="es">API personalizada</span><span data-lang="en">Custom API</span></li>
+                        <li class="included"><i data-lucide="check"></i><span data-lang="es">Soporte prioritario</span><span data-lang="en">Priority support</span></li>
+                    </ul>
+                    <div class="plan-cta">
+                        <a href="demo.html" class="btn btn-secondary"><span data-lang="es">Agendar demo →</span><span data-lang="en">Book a demo →</span></a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Enterprise banner -->
+            <div class="custom-plan fade-in-up" style="max-width:700px;margin:2rem auto 0;">
+                <h4><span data-lang="es">¿Volumen alto o necesidades especiales?</span><span data-lang="en">High volume or special needs?</span></h4>
+                <p><span data-lang="es">Armamos un plan a medida para tu operación. Integraciones custom, SLA garantizado, facturación local.</span><span data-lang="en">We build a custom plan for your operation. Custom integrations, guaranteed SLA, local billing.</span></p>
+                <a href="mailto:hola@the-ateam.ai" class="btn btn-secondary"><span data-lang="es">Hablar con el equipo →</span><span data-lang="en">Talk to the team →</span></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── Comparison table (desktop) ── -->
+    <section class="comparison-section">
+        <div class="container">
+            <div class="section-header">
+                <h2><span data-lang="es">Compará los planes</span><span data-lang="en">Compare plans</span></h2>
+            </div>
+            <div class="comp-table">
+                <div class="comp-row header-row">
+                    <div class="comp-cell"><span data-lang="es">Funcionalidad</span><span data-lang="en">Feature</span></div>
+                    <div class="comp-cell">Starter</div>
+                    <div class="comp-cell">Pro</div>
+                    <div class="comp-cell">Business</div>
+                </div>
+                <div class="comp-row">
+                    <div class="comp-cell"><span data-lang="es">Axel por WhatsApp</span><span data-lang="en">Axel via WhatsApp</span></div>
+                    <div class="comp-cell"><i data-lucide="check" class="yes"></i></div>
+                    <div class="comp-cell"><i data-lucide="check" class="yes"></i></div>
+                    <div class="comp-cell"><i data-lucide="check" class="yes"></i></div>
+                </div>
+                <div class="comp-row">
+                    <div class="comp-cell"><span data-lang="es">Recordatorios / mes</span><span data-lang="en">Reminders / month</span></div>
+                    <div class="comp-cell">30</div>
+                    <div class="comp-cell">300</div>
+                    <div class="comp-cell"><span data-lang="es">Ilimitados</span><span data-lang="en">Unlimited</span></div>
+                </div>
+                <div class="comp-row">
+                    <div class="comp-cell"><span data-lang="es">Integración contable</span><span data-lang="en">Accounting integration</span></div>
+                    <div class="comp-cell"><i data-lucide="minus" class="no"></i></div>
+                    <div class="comp-cell"><i data-lucide="check" class="yes"></i></div>
+                    <div class="comp-cell"><i data-lucide="check" class="yes"></i></div>
+                </div>
+                <div class="comp-row">
+                    <div class="comp-cell"><span data-lang="es">Reportes automáticos</span><span data-lang="en">Automatic reports</span></div>
+                    <div class="comp-cell"><i data-lucide="minus" class="no"></i></div>
+                    <div class="comp-cell"><span data-lang="es">Semanales</span><span data-lang="en">Weekly</span></div>
+                    <div class="comp-cell"><span data-lang="es">Diarios</span><span data-lang="en">Daily</span></div>
+                </div>
+                <div class="comp-row">
+                    <div class="comp-cell"><span data-lang="es">Conciliación bancaria</span><span data-lang="en">Bank reconciliation</span></div>
+                    <div class="comp-cell"><i data-lucide="minus" class="no"></i></div>
+                    <div class="comp-cell"><span data-lang="es">Básica</span><span data-lang="en">Basic</span></div>
+                    <div class="comp-cell"><span data-lang="es">Completa</span><span data-lang="en">Full</span></div>
+                </div>
+                <div class="comp-row">
+                    <div class="comp-cell"><span data-lang="es">Multi-empresa</span><span data-lang="en">Multi-company</span></div>
+                    <div class="comp-cell"><i data-lucide="minus" class="no"></i></div>
+                    <div class="comp-cell"><i data-lucide="minus" class="no"></i></div>
+                    <div class="comp-cell"><i data-lucide="check" class="yes"></i></div>
+                </div>
+                <div class="comp-row">
+                    <div class="comp-cell"><span data-lang="es">API personalizada</span><span data-lang="en">Custom API</span></div>
+                    <div class="comp-cell"><i data-lucide="minus" class="no"></i></div>
+                    <div class="comp-cell"><i data-lucide="minus" class="no"></i></div>
+                    <div class="comp-cell"><i data-lucide="check" class="yes"></i></div>
+                </div>
+                <div class="comp-row">
+                    <div class="comp-cell"><span data-lang="es">Soporte</span><span data-lang="en">Support</span></div>
+                    <div class="comp-cell"><span data-lang="es">Comunidad</span><span data-lang="en">Community</span></div>
+                    <div class="comp-cell">Email</div>
+                    <div class="comp-cell"><span data-lang="es">Prioritario</span><span data-lang="en">Priority</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── FAQ ── -->
+    <section class="faq-section">
+        <div class="container">
+            <div class="section-header">
+                <h2><span data-lang="es">Preguntas frecuentes</span><span data-lang="en">Frequently asked questions</span></h2>
+            </div>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <button class="faq-q">
+                        <span data-lang="es">¿Puedo cambiar de plan en cualquier momento?</span><span data-lang="en">Can I change plans at any time?</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                    </button>
+                    <div class="faq-a"><span data-lang="es">Sí. Podés subir o bajar de plan en cualquier momento desde el panel. Los cambios se aplican en el próximo ciclo de facturación.</span><span data-lang="en">Yes. You can upgrade or downgrade at any time from the dashboard. Changes apply in the next billing cycle.</span></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-q">
+                        <span data-lang="es">¿Cobran comisión sobre lo que recupero?</span><span data-lang="en">Do you charge a commission on recovered amounts?</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                    </button>
+                    <div class="faq-a"><span data-lang="es">No. El precio es fijo por mes. Lo que Axel recupera es 100% tuyo, sin comisiones ni porcentajes ocultos.</span><span data-lang="en">No. The price is a flat monthly fee. Whatever Axel recovers is 100% yours — no commissions, no hidden percentages.</span></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-q">
+                        <span data-lang="es">¿Qué sistemas de facturación soportan?</span><span data-lang="en">Which invoicing systems do you support?</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                    </button>
+                    <div class="faq-a"><span data-lang="es">Actualmente integramos con Tango, Colppy, Bejerman, y archivos Excel/CSV. Más integraciones en camino.</span><span data-lang="en">We currently integrate with Tango, Colppy, Bejerman, and Excel/CSV files. More integrations coming soon.</span></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-q">
+                        <span data-lang="es">¿Cómo funciona la prueba gratuita?</span><span data-lang="en">How does the free trial work?</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                    </button>
+                    <div class="faq-a"><span data-lang="es">El plan Starter es gratuito para siempre, sin necesidad de tarjeta de crédito. Además, los planes Pro y Business incluyen 14 días de prueba gratuita.</span><span data-lang="en">The Starter plan is free forever with no credit card required. Pro and Business plans also include a 14-day free trial.</span></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-q">
+                        <span data-lang="es">¿En qué moneda se cobra?</span><span data-lang="en">What currency do you charge in?</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                    </button>
+                    <div class="faq-a"><span data-lang="es">Los precios están en USD. Ofrecemos facturación local en Argentina con opciones en ARS. Consultanos si necesitás otras opciones.</span><span data-lang="en">Prices are in USD. We offer local billing in Argentina with ARS options. Contact us for other billing arrangements.</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── Final CTA ── -->
+    <section class="pricing-cta">
+        <div class="container">
+            <div class="badge badge-accent" style="margin-bottom:1rem;">
+                <span data-lang="es">Sin compromiso. 14 días gratis.</span><span data-lang="en">No commitment. 14 days free.</span>
+            </div>
+            <h2><span data-lang="es">¿Listo para recuperar lo que te deben?</span><span data-lang="en">Ready to recover what you're owed?</span></h2>
+            <p><span data-lang="es">Agendá una demo de 15 minutos con tus datos reales y te mostramos cuánto recuperarías con Axel.</span><span data-lang="en">Book a 15-minute demo with your real data and we'll show you exactly how much Axel would recover for you.</span></p>
+            <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+                <a href="demo.html" class="btn btn-primary btn-large"><span data-lang="es">Agendar demo gratis →</span><span data-lang="en">Book free demo →</span></a>
+                <a href="axel.html" class="btn btn-secondary btn-large"><span data-lang="es">Conocer a Axel</span><span data-lang="en">Meet Axel</span></a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div style="margin-bottom:0.75rem;"><img src="assets/img/isologo-transparente.png" alt="A Team" style="height:44px;width:auto;"></div>
+                    <p style="font-size:0.85rem;"><span data-lang="es">Agentes listos. Trabajo resuelto.<br>© 2026 A-Team. Todos los derechos reservados.</span><span data-lang="en">Clever agents, easy living.<br>© 2026 A-Team. All rights reserved.</span></p>
+                </div>
+                <div class="footer-col">
+                    <h5><span data-lang="es">Agentes</span><span data-lang="en">Agents</span></h5>
+                    <a href="axel.html"><span data-lang="es">Axel — Cobrador</span><span data-lang="en">Axel — Collections</span></a>
                     <a href="anibal.html"><span data-lang="es">Aníbal — Líder de Report (pronto)</span><span data-lang="en">Aníbal — Lead Reporter (soon)</span></a>
                     <a href="#"><span data-lang="es">Alma — Ventas (pronto)</span><span data-lang="en">Alma — Sales (soon)</span></a>
                 </div>
                 <div class="footer-col">
                     <h5><span data-lang="es">Compañía</span><span data-lang="en">Company</span></h5>
                     <a href="index.html"><span data-lang="es">Sobre A-Team</span><span data-lang="en">About A-Team</span></a>
-                    <a href="pricing.html">Pricing</a>
+                    <a href="pricing.html"><span data-lang="es">Precios</span><span data-lang="en">Pricing</span></a>
                     <a href="demo.html"><span data-lang="es">Agendar Demo</span><span data-lang="en">Book a Demo</span></a>
                 </div>
                 <div class="footer-col">
@@ -98,20 +494,42 @@
     <script>
         lucide.createIcons();
 
+        // ── Mobile menu ──
         const menuBtn = document.getElementById('mobileMenuBtn');
         const mobileMenu = document.getElementById('mobileMenu');
         if (menuBtn && mobileMenu) {
             menuBtn.addEventListener('click', () => mobileMenu.classList.toggle('open'));
             mobileMenu.querySelectorAll('a').forEach(l => l.addEventListener('click', () => mobileMenu.classList.remove('open')));
         }
-        const observer = new IntersectionObserver((entries, obs) => {
-            entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+
+        // ── Animations ──
+        const obs = new IntersectionObserver((entries, o) => {
+            entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); o.unobserve(e.target); } });
         }, { threshold: 0.1 });
-        document.querySelectorAll('.fade-in, .fade-in-up, .stagger-fade').forEach(el => observer.observe(el));
-        document.querySelectorAll('.stagger-fade').forEach((el, i) => { el.style.transitionDelay = `${i * 0.1}s`; });
-        window.addEventListener('scroll', () => { document.querySelector('.navbar').classList.toggle('scrolled', window.scrollY > 50); });
+        document.querySelectorAll('.fade-in, .fade-in-up').forEach(el => obs.observe(el));
+        window.addEventListener('scroll', () => {
+            document.querySelector('.navbar').classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // ── Billing toggle ──
+        function setBilling(mode) {
+            document.getElementById('btn-monthly').classList.toggle('active', mode === 'monthly');
+            document.getElementById('btn-annual').classList.toggle('active', mode === 'annual');
+            document.querySelectorAll('.price-val').forEach(el => {
+                el.textContent = mode === 'annual' ? el.dataset.annual : el.dataset.monthly;
+            });
+        }
+
+        // ── FAQ accordion ──
+        document.querySelectorAll('.faq-q').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const item = btn.closest('.faq-item');
+                const isOpen = item.classList.contains('open');
+                document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+                if (!isOpen) item.classList.add('open');
+            });
+        });
     </script>
     <script src="assets/js/lang.js"></script>
 </body>
-
 </html>
