@@ -132,6 +132,8 @@ a { color: var(--text-main); text-decoration: none; transition: all 0.3s ease; }
 .nav-links a:not(.btn) { color: #3D4555; font-weight: 500; }
 .nav-links a:not(.btn):hover { color: var(--primary); }
 .nav-active { color: var(--primary) !important; }
+/* Keep white text on gradient buttons even when they're also marked nav-active */
+.btn-primary.nav-active { color: white !important; }
 
 /* ── Language Toggle Switch ──────────────────────────────── */
 .lang-toggle-wrap {
