@@ -307,6 +307,80 @@
     .summary-cta:hover { opacity: 0.88; }
     .pricing-note { font-size: 0.82rem; color: var(--muted); margin-top: 1.5rem; line-height: 1.6; max-width: 760px; }
 
+    /* ── BOTTOM CTA ── */
+    .bottom-cta {
+      padding: 7rem 0;
+      background: linear-gradient(135deg, #0D0F1A 0%, #1a1040 50%, #0D0F1A 100%);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .bottom-cta::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse 60% 50% at 50% 0%, rgba(123,79,255,0.18) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .bottom-cta-inner { position: relative; z-index: 1; max-width: 640px; margin: 0 auto; }
+    .bottom-cta-inner h2 {
+      font-family: var(--font-u); font-size: 2.6rem; font-weight: 800;
+      color: #fff; line-height: 1.15; letter-spacing: -1px; margin-bottom: 1rem;
+    }
+    .bottom-cta-inner p {
+      font-size: 1.05rem; color: rgba(255,255,255,0.65); line-height: 1.65;
+      max-width: 500px; margin: 0 auto 2rem;
+    }
+    .bottom-cta-btns {
+      display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
+    }
+    .bottom-cta-btns .btn-wa {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.85rem 1.75rem; border-radius: 12px; font-weight: 700;
+      font-size: 0.95rem; text-decoration: none; font-family: inherit;
+      background: linear-gradient(135deg, #25D366, #128C7E); color: #fff;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .bottom-cta-btns .btn-wa:hover { opacity: 0.9; transform: translateY(-2px); }
+    .bottom-cta-btns .btn-demo {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.85rem 1.75rem; border-radius: 12px; font-weight: 700;
+      font-size: 0.95rem; text-decoration: none; font-family: inherit;
+      background: rgba(255,255,255,0.1); color: #fff;
+      border: 1px solid rgba(255,255,255,0.2); backdrop-filter: blur(4px);
+      transition: all 0.2s;
+    }
+    .bottom-cta-btns .btn-demo:hover { background: rgba(255,255,255,0.18); transform: translateY(-2px); }
+    @media (max-width: 640px) {
+      .bottom-cta-inner h2 { font-size: 1.8rem; }
+      .bottom-cta-btns { flex-direction: column; align-items: center; }
+      .bottom-cta-btns .btn-wa, .bottom-cta-btns .btn-demo { width: 100%; justify-content: center; }
+    }
+
+    /* ── PRICING LINK CARD ── */
+    .pricing-redirect {
+      padding: 5rem 0;
+      text-align: center;
+    }
+    .pricing-redirect-card {
+      display: inline-flex; flex-direction: column; align-items: center;
+      background: #fff; border: 1.5px solid rgba(123,79,255,0.2);
+      border-radius: 20px; padding: 3rem 3.5rem;
+      box-shadow: 0 4px 32px rgba(123,79,255,0.08);
+      max-width: 560px; width: 100%;
+    }
+    .pricing-redirect-card .plan-tag-static {
+      background: linear-gradient(135deg,#38B6FF,#7B4FFF); color: #fff;
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+      padding: 0.3rem 1rem; border-radius: 99px; margin-bottom: 1.25rem;
+    }
+    .pricing-redirect-card h3 {
+      font-family: var(--font-u); font-size: 1.5rem; font-weight: 800;
+      color: var(--tx); margin-bottom: 0.5rem;
+    }
+    .pricing-redirect-card p {
+      font-size: 0.9rem; color: var(--muted); line-height: 1.65;
+      margin-bottom: 1.5rem; max-width: 380px;
+    }
+
     /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
       .benefits-grid, .stats-grid, .steps-grid { grid-template-columns: 1fr; }
@@ -517,31 +591,20 @@
     </div>
   </section>
 
-  <!-- ── PRICING ── -->
-  <section class="axel-section tint" id="pricing">
+  <!-- ── PRICING LINK ── -->
+  <section class="pricing-redirect axel-section tint" id="pricing">
     <div class="container">
-      <span class="section-label-ax">Pricing</span>
-      <h2><span data-lang="es">El mejor plan a tu medida.</span><span data-lang="en">The best plan for your needs.</span></h2>
-      <p class="section-lede" data-lang="es">
-        Flat mensual por banda de facturas. Sin variable, sin comisiones, sin sorpresas.
-        <strong>30 días gratis</strong> en todos los planes · <strong>50% off</strong> bloqueado por 12 meses para quien contrate hasta noviembre 2026.
-      </p>
-      <p class="section-lede" data-lang="en">
-        Monthly flat fee by invoice band. No variables, no commissions, no surprises.
-        <strong>30 free days</strong> on all plans · <strong>50% off</strong> locked for 12 months for contracts signed before November 2026.
-      </p>
-      <div class="pricing-shell">
-        <!-- AUDIENCE TOGGLE -->
-        <div class="audience-toggle" role="tablist" aria-label="Tipo de uso">
-          <button type="button" class="" role="tab" data-audience="personal"><span data-lang="es">Emprendedor</span><span data-lang="en">Starter</span></button>
-          <button type="button" class="is-active" role="tab" data-audience="business" aria-selected="true"><span data-lang="es">Empresa</span><span data-lang="en">Business</span></button>
-        </div>
-        <!-- CARDS VIEW -->
-        <div class="pricing" id="pricing-cards"><!-- populated by JS --></div>
-        <!-- DETAIL VIEW -->
-        <div class="pricing-detail is-hidden" id="pricing-detail"><!-- populated by JS --></div>
+      <div class="pricing-redirect-card fade-in-up">
+        <div class="plan-tag-static">Pricing</div>
+        <h3><span data-lang="es">Flat mensual por banda de facturas</span><span data-lang="en">Flat monthly fee by invoice band</span></h3>
+        <p>
+          <span data-lang="es">Sin variable, sin comisiones, sin sorpresas. <strong>30 días gratis</strong> en todos los planes · <strong>50% off</strong> bloqueado por 12 meses hasta noviembre 2026.</span>
+          <span data-lang="en">No variables, no commissions, no surprises. <strong>30 free days</strong> on all plans · <strong>50% off</strong> locked for 12 months until November 2026.</span>
+        </p>
+        <a href="pricing.html" class="plan-cta" style="padding:0.8rem 2rem;font-size:0.95rem;border-radius:12px;">
+          <span data-lang="es">Ver todos los planes →</span><span data-lang="en">View all plans →</span>
+        </a>
       </div>
-      <p class="pricing-note" id="pricing-note"><span data-lang="es">Precios mostrados con 50% off de lanzamiento, bloqueado por 12 meses para quien contrate hasta noviembre 2026. Sin permanencia mínima. Integraciones con ERP se cotizan aparte.</span><span data-lang="en">Prices shown with 50% launch discount, locked for 12 months for contracts signed before November 2026. No minimum commitment. ERP integrations quoted separately.</span></p>
     </div>
   </section>
 
@@ -549,18 +612,24 @@
   <section class="bottom-cta">
     <div class="container">
       <div class="bottom-cta-inner fade-in-up">
-        <h2><span data-lang="es">Probá Axel en una semana.<br><span class="text-gradient">Sin compromiso.</span></span><span data-lang="en">Try Axel for a week.<br><span class="text-gradient">No commitment.</span></span></h2>
-        <p data-lang="es">Te conectamos, cargamos tu primera cartera y a los 7 días vas a saber exactamente cuántas horas te devolvió.</p><p data-lang="en">We connect you, load your first portfolio and in 7 days you'll know exactly how many hours you got back.</p>
-        <div class="brand-nav-ctas" style="justify-content:center; gap: 1rem;">
-          <a href="https://wa.me/5491100000000?text=Hola%20Axel%2C%20quiero%20agendar%20una%20demo" target="_blank" rel="noopener" class="btn btn-primary btn-large">
+        <h2>
+          <span data-lang="es">Probá Axel en una semana.<br><span class="text-gradient">Sin compromiso.</span></span>
+          <span data-lang="en">Try Axel for a week.<br><span class="text-gradient">No commitment.</span></span>
+        </h2>
+        <p data-lang="es">Te conectamos, cargamos tu primera cartera y a los 7 días vas a saber exactamente cuántas horas te devolvió.</p>
+        <p data-lang="en">We connect you, load your first portfolio and in 7 days you'll know exactly how many hours you got back.</p>
+        <div class="bottom-cta-btns">
+          <a href="https://wa.me/5491100000000?text=Hola%20Axel%2C%20quiero%20agendar%20una%20demo" target="_blank" rel="noopener" class="btn-wa">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
             <span data-lang="es">Hablar por WhatsApp →</span><span data-lang="en">Chat on WhatsApp →</span>
           </a>
-          <a href="demo.html" class="btn btn-secondary btn-large"><span data-lang="es">Agendar Demo</span><span data-lang="en">Book a Demo</span></a>
+          <a href="demo.html" class="btn-demo">
+            <span data-lang="es">Agendar Demo</span><span data-lang="en">Book a Demo</span>
+          </a>
         </div>
       </div>
     </div>
   </section>
-
   <!-- ── Footer ── -->
   <footer class="footer">
     <div class="container">
@@ -613,196 +682,6 @@
   </script>
   <script src="./axel_1_files/lang.js"></script>
 
-  <!-- ── Pricing JS ── -->
-  <script>
-(function() {
-  const PLANS = {
-    personal: [
-      {
-        id: 'p1-ar', num: '01', title: 'Reclamo', currency: 'AR$ + IVA',
-        from: 'Gratis', fromUnit: ' / hasta 20 facturas',
-        desc: 'Reclama por WhatsApp, recibe comprobantes y muestra el estado de cada cobro en un dashboard. Sin conexión bancaria.',
-        summary: 'WhatsApp + comprobantes + dashboard — sin conexión bancaria.',
-        features: ['Reclamo automático por WhatsApp','Recepción y carga de comprobantes','Dashboard de estado de cobro','Importación de cartera desde Excel'],
-        featuresNote: 'Las features son las mismas en las tres bandas — lo único que cambia es el volumen de facturas por mes.',
-        forWho: 'Profesionales, monotributistas y pymes que recién arrancan.',
-        modes: ['monthly'],
-        bands: [
-          { id: 'b1', label: 'Hasta 20 facturas', sub: 'Free tier',             monthly: { price: 'Gratis', free: true } },
-          { id: 'b2', label: '21 – 50 facturas',  sub: 'Profesional+',          monthly: { price: '$ 9.900',  priceUnit: '/mes' } },
-          { id: 'b3', label: '51 – 100 facturas', sub: 'Consultorio / estudio', monthly: { price: '$ 39.900', priceUnit: '/mes' } }
-        ],
-        upgradeHint: { to: 'p2', headline: '¿Más de 100 facturas por mes?', body: 'El Plan 01 llega hasta 100. A partir de ahí, el agente que necesitás es <strong>Conciliación</strong> — con conexión bancaria y matching automático.', cta: 'Ver Plan 02' }
-      }
-    ],
-    business: [
-      {
-        id: 'p1-usd', num: '01', title: 'Reclamo', currency: 'USD',
-        from: 'Gratis', fromUnit: ' / hasta 20 facturas',
-        desc: 'Reclamo por WhatsApp, recepción de comprobantes y dashboard de estado. Sin conexión bancaria.',
-        summary: 'WhatsApp + comprobantes + dashboard — sin conexión bancaria.',
-        features: ['Reclamo automático por WhatsApp','Recepción y carga de comprobantes','Dashboard de estado de cobro','Importación de cartera desde Excel'],
-        featuresNote: 'Las features son las mismas en las tres bandas — lo único que cambia es el volumen de facturas por mes.',
-        forWho: 'Emprendimientos chicos y equipos que recién arrancan a profesionalizar su cobranza.',
-        modes: ['monthly'],
-        bands: [
-          { id: 'b1', label: 'Hasta 20 facturas', sub: 'Free tier',    monthly: { price: 'Gratis', free: true } },
-          { id: 'b2', label: '21 – 50 facturas',  sub: 'Equipo chico', monthly: { price: 'USD 19', priceUnit: '/mes' } },
-          { id: 'b3', label: '51 – 100 facturas', sub: 'Equipo grande',monthly: { price: 'USD 39', priceUnit: '/mes' } }
-        ],
-        upgradeHint: { to: 'p2', headline: '¿Más de 100 facturas por mes?', body: 'El Plan 01 llega hasta 100. A partir de ahí, el agente que necesitás es <strong>Conciliación</strong> — con conexión bancaria y matching automático.', cta: 'Ver Plan 02' },
-        confirmCopy: 'Valores Plan 01 empresarial estimados — confirmar con el equipo.'
-      },
-      {
-        id: 'p2', num: '02', title: 'Conciliación', currency: 'USD',
-        from: 'USD 39', fromUnit: ' / mes', fromStrike: 'USD 79',
-        desc: 'Todo el plan Reclamo + reclamo multicanal (WhatsApp + email + SMS), conexión bancaria, matching automático con terceros e integración ARCA opcional.',
-        summary: 'Multicanal · Banco · Matching · ARCA opcional.',
-        featured: true,
-        features: ['Todo el plan Reclamo','Reclamo multicanal: WhatsApp + email + SMS','Conexión bancaria','Matching automático (incluye pagos de terceros)','Integración ARCA opcional'],
-        forWho: 'Colegios, consorcios, inmobiliarias, clubes y prepagas.',
-        modes: ['annual', 'monthly'],
-        bands: [
-          { id: 'b1', label: 'Hasta 200 facturas',   sub: 'Colegio chico / consorcio', annual: { price: 'USD 39',  priceUnit: '/mes', priceStrike: 'USD 79' },  monthly: { price: 'USD 47',  priceUnit: '/mes', priceStrike: 'USD 95' } },
-          { id: 'b2', label: 'Hasta 500 facturas',   sub: 'Colegio medio',              annual: { price: 'USD 89',  priceUnit: '/mes', priceStrike: 'USD 179' }, monthly: { price: 'USD 107', priceUnit: '/mes', priceStrike: 'USD 215' } },
-          { id: 'b3', label: 'Hasta 1.000 facturas', sub: 'Consorcio grande',           annual: { price: 'USD 149', priceUnit: '/mes', priceStrike: 'USD 299' }, monthly: { price: 'USD 179', priceUnit: '/mes', priceStrike: 'USD 359' } },
-          { id: 'b4', label: 'Hasta 2.500 facturas', sub: 'Admin grande / club',        annual: { price: 'USD 224', priceUnit: '/mes', priceStrike: 'USD 449' }, monthly: { price: 'USD 269', priceUnit: '/mes', priceStrike: 'USD 539' } },
-          { id: 'b5', label: '+ 2.500 facturas',     sub: 'Enterprise',                 annual: { price: 'Custom' }, monthly: { price: 'Custom' }, enterprise: true }
-        ]
-      },
-      {
-        id: 'p3', num: '03', title: 'Inteligencia', currency: 'USD',
-        from: 'USD 59', fromUnit: ' / mes', fromStrike: 'USD 119',
-        desc: 'Todo el plan Conciliación + forecast de cashflow, scoring de pagadores, planes de pago inteligentes, reportes automatizados y API.',
-        summary: 'Conciliación + Cashflow forecast + Scoring + API.',
-        soon: true,
-        features: ['Todo el plan Conciliación','Cashflow forecasting','Scoring de pagadores','Planes de pago inteligentes','Reportes automatizados','API'],
-        forWho: 'Admins grandes, countries, franquicias, cooperativas y clientes con volumen.',
-        modes: ['annual', 'monthly'],
-        bands: [
-          { id: 'b1', label: 'Hasta 200 facturas',   sub: 'Country chico',      annual: { price: 'USD 59',  priceUnit: '/mes', priceStrike: 'USD 119' }, monthly: { price: 'USD 71',  priceUnit: '/mes', priceStrike: 'USD 143' } },
-          { id: 'b2', label: 'Hasta 500 facturas',   sub: 'Country medio',      annual: { price: 'USD 124', priceUnit: '/mes', priceStrike: 'USD 249' }, monthly: { price: 'USD 149', priceUnit: '/mes', priceStrike: 'USD 299' } },
-          { id: 'b3', label: 'Hasta 1.000 facturas', sub: 'Cooperativa grande', annual: { price: 'USD 199', priceUnit: '/mes', priceStrike: 'USD 399' }, monthly: { price: 'USD 239', priceUnit: '/mes', priceStrike: 'USD 479' } },
-          { id: 'b4', label: 'Hasta 2.500 facturas', sub: 'Admin enterprise',   annual: { price: 'USD 299', priceUnit: '/mes', priceStrike: 'USD 599' }, monthly: { price: 'USD 359', priceUnit: '/mes', priceStrike: 'USD 719' } },
-          { id: 'b5', label: '+ 2.500 facturas',     sub: 'Enterprise',         annual: { price: 'Custom' }, monthly: { price: 'Custom' }, enterprise: true }
-        ]
-      }
-    ]
-  };
-
-  const PRICING_NOTE = {
-    personal: 'Plan 01 en pesos argentinos + IVA, facturación mensual. <strong>30 días gratis</strong> al contratar, cancelás cuando quieras. Al checkout elegís cómo pagás: <strong>transferencia (prepago)</strong> o <strong>débito automático con tarjeta (5% off)</strong>.',
-    business: '<strong>Plan 01</strong> en USD con facturación mensual, sin descuentos. <strong>Plan 02 y 03</strong> con <strong>50% off de lanzamiento</strong> (anual y mensual) bloqueado por 12 meses para quien contrate hasta noviembre 2026. Sin permanencia mínima.'
-  };
-
-  const state = { audience: 'business', view: 'cards', planId: null, mode: 'annual', bandId: null };
-  const $toggle = document.querySelector('.audience-toggle');
-  const $cards  = document.getElementById('pricing-cards');
-  const $detail = document.getElementById('pricing-detail');
-  const $note   = document.getElementById('pricing-note');
-
-  function renderCards() {
-    if (state.audience === 'personal') { $cards.classList.add('pricing-flat'); return renderPersonalFlat(); }
-    $cards.classList.remove('pricing-flat');
-    const plans = PLANS[state.audience];
-    $cards.innerHTML = plans.map(p => {
-      const headBadge = p.featured ? '<div class="plan-tag">Más elegido</div>' : (p.soon ? '<div class="plan-soon-badge">Próximamente</div>' : '');
-      const priceBlock = `<div class="plan-price-from">Desde</div><div class="plan-price-main">${p.from}<span class="unit">${p.fromUnit||''}</span></div>${p.fromStrike ? `<div class="plan-price-var"><span class="strike">${p.fromStrike}</span>50% off hasta nov&nbsp;2026</div>` : ''}`;
-      const ctaBtn = p.soon ? `<button type="button" class="plan-cta is-ghost" data-soon="1">Avisame cuando salga</button>` : `<button type="button" class="plan-cta" data-plan="${p.id}">Elegir este plan <span aria-hidden="true">→</span></button>`;
-      return `<div class="${['plan', p.featured?'featured':'', p.soon?'is-soon':''].join(' ').trim()}">${headBadge}<div class="plan-head"><div class="plan-name">Plan <span class="num">${p.num}</span></div><div class="plan-curr">${p.currency}</div></div><div class="plan-title">${p.title}</div><div class="plan-price">${priceBlock}</div><ul class="plan-features">${p.features.map(f=>`<li>${f}</li>`).join('')}</ul><div class="plan-for"><strong>Ideal para:</strong> ${p.forWho}</div>${ctaBtn}</div>`;
-    }).join('');
-    $cards.querySelectorAll('[data-plan]').forEach(btn => {
-      btn.addEventListener('click', () => {
-        state.planId = btn.getAttribute('data-plan');
-        const plan = findPlan(state.planId);
-        state.mode = plan.modes[0]; state.bandId = plan.bands[0].id; state.view = 'detail'; renderAll();
-        setTimeout(() => window.scrollTo({ top: document.getElementById('pricing').offsetTop - 12, behavior: 'smooth' }), 50);
-      });
-    });
-    $cards.querySelectorAll('[data-soon]').forEach(btn => btn.addEventListener('click', () => window.open(`https://wa.me/5491100000000?text=${encodeURIComponent('Hola, quiero que me avisen cuando salga el Plan Inteligencia de Axel.')}`, '_blank')));
-  }
-
-  function renderPersonalFlat() {
-    const plan = PLANS.personal[0];
-    const bandsHtml = plan.bands.map(b => {
-      const bp = b.monthly;
-      const priceClass = bp.free ? 'band-card-price-main is-free' : 'band-card-price-main';
-      const unit = bp.priceUnit ? `<span class="band-card-price-unit">${bp.priceUnit}</span>` : '';
-      const ctaMsg = encodeURIComponent(`Hola, quiero contratar Axel — Plan 01 Reclamo (${b.label}).`);
-      return `<div class="band-card ${b.id==='b2'?'is-popular':''}">${b.id==='b2'?'<div class="band-card-tag">Más elegido</div>':''}<div class="band-card-label">${b.label}</div>${b.sub?`<div class="band-card-sub">${b.sub}</div>`:''}<div class="band-card-price"><div class="${priceClass}">${bp.price}${unit}</div><div class="band-card-price-note">${bp.free?'Sin tarjeta · sin permanencia':'Facturación mensual · 30 días gratis'}</div></div><a class="plan-cta" href="https://wa.me/5491100000000?text=${ctaMsg}" target="_blank" rel="noopener">${bp.free?'Empezar gratis':'Contratar este plan'} <span aria-hidden="true">→</span></a></div>`;
-    }).join('');
-    const upgradeBlock = plan.upgradeHint ? `<div class="upgrade-hint"><div class="upgrade-hint-text"><div class="upgrade-hint-headline">${plan.upgradeHint.headline}</div><div class="upgrade-hint-body">${plan.upgradeHint.body}</div></div><button type="button" class="upgrade-hint-cta" data-upgrade="${plan.upgradeHint.to}">${plan.upgradeHint.cta} <span aria-hidden="true">→</span></button></div>` : '';
-    $cards.innerHTML = `<div class="pricing-flat-head"><div class="pricing-flat-meta"><div class="plan-name">Plan <span class="num">${plan.num}</span></div><div class="plan-title">${plan.title}</div><p class="pricing-flat-desc">${plan.desc}</p></div><div class="plan-curr">${plan.currency}</div></div><div class="pricing-flat-features"><div class="pricing-flat-features-label">Incluye en todas las opciones</div><ul>${plan.features.map(f=>`<li>${f}</li>`).join('')}</ul></div><div class="pricing-flat-volume"><div class="pricing-flat-volume-head"><div><div class="band-section-label">Elegí tu volumen de facturas por mes</div></div></div></div><div class="pricing-flat-bands">${bandsHtml}</div>${upgradeBlock}`;
-    $cards.querySelectorAll('[data-upgrade]').forEach(btn => {
-      btn.addEventListener('click', () => {
-        state.audience = 'business';
-        $toggle.querySelectorAll('button').forEach(b => { const isBiz = b.getAttribute('data-audience')==='business'; b.classList.toggle('is-active', isBiz); b.setAttribute('aria-selected', isBiz); });
-        const tp = PLANS.business.find(p=>p.num==='02'); if(!tp) return;
-        state.planId=tp.id; state.mode=tp.modes[0]; state.bandId=tp.bands[0].id; state.view='detail'; renderAll();
-        window.scrollTo({ top: document.getElementById('pricing').offsetTop - 12, behavior: 'smooth' });
-      });
-    });
-  }
-
-  function renderDetail() {
-    const plan = findPlan(state.planId); if (!plan) return;
-    const band = plan.bands.find(b=>b.id===state.bandId)||plan.bands[0];
-    const priceObj = band[state.mode]||band.annual;
-    const hasBothModes = plan.modes.length>1;
-    const hasLaunchDiscount = plan.num==='02'||plan.num==='03';
-    const annualTag = hasLaunchDiscount ? '<span class="mode-tag">−50%</span>' : '';
-    const monthlyTag = hasLaunchDiscount ? '<span class="mode-tag">−50%</span>' : '';
-    const modeNoteAnnual = hasLaunchDiscount ? 'Anual con 50% off de lanzamiento, bloqueado por 12 meses para quien contrate antes de noviembre 2026.' : 'Precio anual. Mensual sale ≈20% más caro.';
-    const modeNoteMonthly = hasLaunchDiscount ? 'Mensual con 50% off de lanzamiento, bloqueado por 12 meses. Cancelás cuando quieras.' : 'Mensual sin descuento. Cancelás cuando quieras.';
-    const modeToggle = hasBothModes ? `<div class="mode-toggle-wrap"><span class="mode-toggle-label">Modalidad de pago</span><div class="mode-toggle" role="tablist"><button type="button" class="${state.mode==='annual'?'is-active':''}" data-mode="annual">Anual ${annualTag}</button><button type="button" class="${state.mode==='monthly'?'is-active':''}" data-mode="monthly">Mensual ${monthlyTag}</button></div><div class="mode-note">${state.mode==='annual'?modeNoteAnnual:modeNoteMonthly}</div></div>` : `<div class="mode-note" style="margin-top:18px">Facturación mensual, sin descuentos ni permanencia mínima. <strong>30 días gratis</strong> al contratar.</div>`;
-    const bandsHtml = plan.bands.map(b => {
-      const bp = b[state.mode]||b.annual; const isSelected = b.id===state.bandId;
-      const priceClass = bp.free?'band-price-main is-free':'band-price-main';
-      const priceUnit = bp.priceUnit?`<span style="font-size:11px;color:var(--muted);font-weight:500"> ${bp.priceUnit}</span>`:'';
-      const strike = bp.priceStrike?`<div class="band-price-strike">${bp.priceStrike}</div>`:'';
-      return `<div class="band-option ${isSelected?'is-selected':''}" data-band="${b.id}" role="radio" aria-checked="${isSelected}" tabindex="0"><div class="band-info"><div class="band-radio"></div><div class="band-info-text"><div class="band-label-main">${b.label}</div>${b.sub?`<div class="band-label-sub">${b.sub}</div>`:''}</div></div><div class="band-price"><div class="${priceClass}">${bp.price}${priceUnit}</div>${strike}</div></div>`;
-    }).join('');
-    const summaryPrice = priceObj.free?'Gratis':`${priceObj.price}${priceObj.priceUnit?`<span class="unit"> ${priceObj.priceUnit}</span>`:''}`;
-    const ctaMsg = encodeURIComponent(`Hola, quiero contratar Axel — plan ${plan.title} (${band.label}, ${state.mode==='annual'?'anual':'mensual'}).`);
-    const ctaLabel = band.enterprise?'Hablar con ventas':'Contratar este plan';
-    const confirmNote = plan.confirmCopy?`<div class="mode-note" style="margin-top:8px;color:var(--violet)">${plan.confirmCopy}</div>`:'';
-    $detail.innerHTML = `<button type="button" class="detail-back" id="detail-back"><span aria-hidden="true">←</span> Volver a planes</button><div class="detail-head"><div><div class="detail-title"><span class="num">PLAN ${plan.num}</span>${plan.title}</div></div><div class="detail-curr">${plan.currency}</div></div><p class="detail-desc">${plan.desc}</p>${modeToggle}${confirmNote}<div class="band-section-label" style="margin-top:1.25rem">Elegí tu volumen de facturas por mes</div><div class="band-options" role="radiogroup">${bandsHtml}</div>${plan.upgradeHint?`<div class="upgrade-hint"><div class="upgrade-hint-text"><div class="upgrade-hint-headline">${plan.upgradeHint.headline}</div><div class="upgrade-hint-body">${plan.upgradeHint.body}</div></div><button type="button" class="upgrade-hint-cta" data-upgrade="${plan.upgradeHint.to}">${plan.upgradeHint.cta} <span aria-hidden="true">→</span></button></div>`:''}<div class="detail-summary"><div class="summary-block"><div class="summary-block-label">Tu plan</div><div class="summary-block-value">${plan.title} · ${band.label.replace('facturas','fact')}</div></div><div class="summary-block"><div class="summary-block-label">${state.mode==='annual'?'Anual · contado':'Mensual'}</div><div class="summary-block-value">${summaryPrice}</div></div><a class="summary-cta" href="https://wa.me/5491100000000?text=${ctaMsg}" target="_blank" rel="noopener">${ctaLabel} <span aria-hidden="true">→</span></a></div>`;
-    document.getElementById('detail-back').addEventListener('click', () => { state.view='cards'; state.planId=null; renderAll(); window.scrollTo({ top: document.getElementById('pricing').offsetTop-12, behavior:'smooth' }); });
-    $detail.querySelectorAll('[data-mode]').forEach(btn => btn.addEventListener('click', () => { state.mode=btn.getAttribute('data-mode'); renderDetail(); }));
-    $detail.querySelectorAll('[data-band]').forEach(btn => {
-      btn.addEventListener('click', () => { state.bandId=btn.getAttribute('data-band'); renderDetail(); });
-      btn.addEventListener('keydown', e => { if(e.key==='Enter'||e.key===' '){ e.preventDefault(); state.bandId=btn.getAttribute('data-band'); renderDetail(); } });
-    });
-    $detail.querySelectorAll('[data-upgrade]').forEach(btn => {
-      btn.addEventListener('click', () => {
-        if(state.audience==='personal'){ state.audience='business'; $toggle.querySelectorAll('button').forEach(b=>{ const isBiz=b.getAttribute('data-audience')==='business'; b.classList.toggle('is-active',isBiz); b.setAttribute('aria-selected',isBiz); }); }
-        const tp = PLANS[state.audience].find(p=>p.num==='02'); if(!tp) return;
-        state.planId=tp.id; state.mode=tp.modes[0]; state.bandId=tp.bands[0].id; renderAll();
-        window.scrollTo({ top: document.getElementById('pricing').offsetTop-12, behavior:'smooth' });
-      });
-    });
-  }
-
-  function renderAll() {
-    if($note) $note.innerHTML = PRICING_NOTE[state.audience];
-    if(state.view==='cards'){ $cards.classList.remove('is-hidden'); $detail.classList.add('is-hidden'); renderCards(); }
-    else { $cards.classList.add('is-hidden'); $detail.classList.remove('is-hidden'); renderDetail(); }
-  }
-  function findPlan(id){ return PLANS[state.audience].find(p=>p.id===id); }
-
-  $toggle.querySelectorAll('button').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const aud = btn.getAttribute('data-audience');
-      if(aud===state.audience) return;
-      state.audience=aud; state.view='cards'; state.planId=null; state.mode='annual';
-      $toggle.querySelectorAll('button').forEach(b => { b.classList.toggle('is-active', b.getAttribute('data-audience')===aud); b.setAttribute('aria-selected', b.getAttribute('data-audience')===aud); });
-      renderAll();
-    });
-  });
-
-  renderAll();
-})();
-  </script>
 
 </body>
 </html>
