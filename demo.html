@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Book a Demo — A-Team</title>
+    <title>Agendar Demo — A-Team</title>
     <meta name="description"
         content="See Axel in action with your real invoices. 15-minute demo, no commitment. Book a session with the A-Team.">
     <!-- Favicon -->
@@ -20,48 +20,18 @@
     <meta property="og:title" content="Book a Demo — A-Team">
     <meta property="og:description"
         content="See Axel in action with your real invoices. 15-minute demo, no commitment.">
-    <meta property="og:image" content="https://the-ateam.ai/hero-banner-mobile.jpeg">
+    <meta property="og:image" content="https://the-ateam.ai/assets/img/isotipo.png">
     <meta property="og:url" content="https://the-ateam.ai/demo.html">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Book a Demo — A-Team">
     <meta name="twitter:description"
         content="See Axel in action with your real invoices. 15-minute demo, no commitment.">
-    <meta name="twitter:image" content="https://the-ateam.ai/hero-banner-mobile.jpeg">
     <link
         href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800;900&family=Inter:wght@400;500;700&display=swap"
         rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <link rel="stylesheet" href="assets/css/style.css">
     <style>
-        .nav-active {
-            color: var(--primary) !important;
-        }
-
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none !important;
-            }
-
-            .mobile-menu-btn {
-                display: flex !important;
-                color: #0D0F1A !important;
-                min-width: 44px;
-                min-height: 44px;
-                align-items: center;
-                justify-content: center;
-                background: none;
-                border: none;
-                cursor: pointer;
-            }
-
-            .mobile-menu-btn svg {
-                display: block !important;
-                width: 24px !important;
-                height: 24px !important;
-                stroke: #0D0F1A !important;
-            }
-        }
-
         .demo-page {
             min-height: 100vh;
             display: flex;
@@ -177,6 +147,7 @@
             font-family: var(--font-body);
             outline: none;
             transition: border-color 0.2s;
+            box-sizing: border-box;
         }
 
         .form-group input:focus,
@@ -214,7 +185,7 @@
 
         /* Alt contact */
         .demo-alt {
-            margin-top: 3rem;
+            margin-top: 2rem;
             display: flex;
             gap: 1rem;
             flex-wrap: wrap;
@@ -277,12 +248,15 @@
             .form-row {
                 grid-template-columns: 1fr;
             }
+
+            .demo-form-card {
+                padding: 1.5rem;
+            }
         }
     </style>
 </head>
 
 <body>
-
     <nav class="navbar">
         <div class="container nav-container">
             <a href="index.html" class="logo" aria-label="A-Team home">
@@ -294,7 +268,155 @@
             </a>
             <div class="nav-links">
                 <a href="index.html"><span data-lang="es">Inicio</span><span data-lang="en">Home</span></a>
-                <a href="axel.html"><span data-lang="es">Axel — Cobrador</span><span data-lang="en">Axel — Collections</span></a>
+                <a href="axel.html">Axel</a>
+                <a href="pricing.html"><span data-lang="es">Precios</span><span data-lang="en">Pricing</span></a>
+                <a href="demo.html" class="btn btn-primary nav-active"><span data-lang="es">Agendar Demo →</span><span data-lang="en">Book a Demo →</span></a>
+                <div class="lang-toggle-wrap">
+                    <span class="lang-flag active" data-for="es" onclick="setLang('es')">🇦🇷</span>
+                    <button class="lang-toggle" onclick="setLang(document.body.classList.contains('lang-en') ? 'es' : 'en')" aria-label="Switch language" title="ES / EN"></button>
+                    <span class="lang-flag" data-for="en" onclick="setLang('en')">🇺🇸</span>
+                </div>
+            </div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open menu">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="3" y1="12" x2="21" y2="12" />
+                    <line x1="3" y1="6" x2="21" y2="6" />
+                    <line x1="3" y1="18" x2="21" y2="18" />
+                </svg>
+            </button>
+        </div>
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="index.html"><span data-lang="es">Inicio</span><span data-lang="en">Home</span></a>
+            <a href="axel.html">Axel</a>
+            <a href="pricing.html"><span data-lang="es">Precios</span><span data-lang="en">Pricing</span></a>
+            <a href="demo.html" class="btn btn-primary" style="width:100%;text-align:center;"><span data-lang="es">Agendar Demo →</span><span data-lang="en">Book a Demo →</span></a>
+            <div class="lang-toggle-wrap" style="justify-content:center;margin-top:1rem;margin-left:0;">
+                <span class="lang-flag active" data-for="es" onclick="setLang('es')">🇦🇷</span>
+                <button class="lang-toggle" onclick="setLang(document.body.classList.contains('lang-en') ? 'es' : 'en')" aria-label="Switch language"></button>
+                <span class="lang-flag" data-for="en" onclick="setLang('en')">🇺🇸</span>
+            </div>
+        </div>
+    </nav>
+
+    <section class="demo-page">
+        <div class="demo-bg"></div>
+        <div class="container">
+            <div class="demo-grid">
+                <!-- Left: Value prop -->
+                <div class="fade-in-up">
+                    <div class="badge badge-accent" style="margin-bottom:1.5rem;">
+                        <span data-lang="es">Sesión de 15 min · Sin compromiso</span><span data-lang="en">15-minute session · No commitment</span>
+                    </div>
+                    <h1 class="demo-headline">
+                        <span data-lang="es">Mirá Axel con<br><span class="text-gradient">tus datos reales.</span></span><span data-lang="en">See Axel with<br><span class="text-gradient">your real data.</span></span>
+                    </h1>
+                    <p class="demo-subtext" data-lang="es">Nos conectamos a tu sistema de facturación y te mostramos exactamente cuánto recuperarías, con tus facturas y tus clientes reales.</p>
+                    <p class="demo-subtext" data-lang="en">We'll connect to your invoicing system and show you exactly how much you'd recover — with your actual invoices and your actual clients.</p>
+                    <ul class="demo-bullets">
+                        <li>
+                            <i data-lucide="check-circle-2"></i>
+                            <span data-lang="es">Calculamos <strong>tu capital flotante</strong> en tiempo real</span><span data-lang="en">We calculate <strong>your floating capital</strong> in real time</span>
+                        </li>
+                        <li>
+                            <i data-lucide="check-circle-2"></i>
+                            <span data-lang="es">Ves una <strong>simulación en vivo por WhatsApp</strong> con los nombres de tus clientes</span><span data-lang="en">You see a <strong>live WhatsApp simulation</strong> with your client names</span>
+                        </li>
+                        <li>
+                            <i data-lucide="check-circle-2"></i>
+                            <span data-lang="es">Te mostramos cuántas horas por semana te devuelve Axel</span><span data-lang="en">We show you how many hours per week Axel gives back to you</span>
+                        </li>
+                        <li>
+                            <i data-lucide="check-circle-2"></i>
+                            <span data-lang="es">Sin instalar nada. Sin tarjeta. Sin compromiso.</span><span data-lang="en">No install. No card. No commitment.</span>
+                        </li>
+                    </ul>
+                    <div class="demo-alt">
+                        <a href="https://wa.me/5491100000000?text=Hola%2C%20quiero%20agendar%20una%20demo%20de%20Axel" target="_blank" rel="noopener">
+                            <i data-lucide="message-circle"></i>
+                            <span data-lang="es">WhatsApp directo</span><span data-lang="en">Direct WhatsApp</span>
+                        </a>
+                        <a href="mailto:hola@the-ateam.ai">
+                            <i data-lucide="mail"></i>
+                            hola@the-ateam.ai
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right: Form -->
+                <div class="demo-form-card fade-in-up">
+                    <h3><span data-lang="es">Reservá tu demo</span><span data-lang="en">Book your demo</span></h3>
+                    <p class="form-sub"><span data-lang="es">Te confirmamos horario en menos de 24&nbsp;hs.</span><span data-lang="en">We'll confirm your slot in under 24&nbsp;hrs.</span></p>
+
+                    <form id="demoForm" novalidate>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="demo-name"><span data-lang="es">Nombre</span><span data-lang="en">Name</span></label>
+                                <input type="text" id="demo-name" name="name" required placeholder="Martín">
+                            </div>
+                            <div class="form-group">
+                                <label for="demo-company"><span data-lang="es">Empresa / Institución</span><span data-lang="en">Company / Organization</span></label>
+                                <input type="text" id="demo-company" name="company" required placeholder="Mi Empresa S.A.">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="demo-email">Email</label>
+                            <input type="email" id="demo-email" name="email" required placeholder="martin@empresa.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="demo-phone">WhatsApp / <span data-lang="es">Teléfono</span><span data-lang="en">Phone</span></label>
+                            <input type="tel" id="demo-phone" name="phone" placeholder="+54 9 11 0000-0000">
+                        </div>
+                        <div class="form-group">
+                            <label for="demo-type"><span data-lang="es">Tipo de organización</span><span data-lang="en">Organization type</span></label>
+                            <select id="demo-type" name="type">
+                                <option value="" disabled selected><span data-lang="es">Seleccioná una opción</span><span data-lang="en">Select an option</span></option>
+                                <option value="colegio"><span data-lang="es">Colegio / Instituto</span><span data-lang="en">School / Institute</span></option>
+                                <option value="consorcio"><span data-lang="es">Consorcio / Administración</span><span data-lang="en">HOA / Property Management</span></option>
+                                <option value="profesional"><span data-lang="es">Profesional independiente</span><span data-lang="en">Independent professional</span></option>
+                                <option value="pyme"><span data-lang="es">Pyme / Empresa</span><span data-lang="en">SMB / Company</span></option>
+                                <option value="otro"><span data-lang="es">Otro</span><span data-lang="en">Other</span></option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="demo-invoices"><span data-lang="es">¿Cuántas facturas emitís por mes?</span><span data-lang="en">How many invoices do you issue per month?</span></label>
+                            <select id="demo-invoices" name="invoices">
+                                <option value="" disabled selected><span data-lang="es">Seleccioná una opción</span><span data-lang="en">Select an option</span></option>
+                                <option value="menos20"><span data-lang="es">Menos de 20</span><span data-lang="en">Less than 20</span></option>
+                                <option value="20-100">20 – 100</option>
+                                <option value="100-500">100 – 500</option>
+                                <option value="mas500"><span data-lang="es">Más de 500</span><span data-lang="en">More than 500</span></option>
+                            </select>
+                        </div>
+                        <button type="submit" id="submitBtn" class="btn btn-primary form-submit">
+                            <span data-lang="es">Reservar mi demo →</span><span data-lang="en">Book my demo →</span>
+                        </button>
+                    </form>
+
+                    <div id="formSuccess" class="form-success">
+                        <i data-lucide="check-circle-2"></i>
+                        <h4><span data-lang="es">¡Listo! Te vemos pronto.</span><span data-lang="en">Done! See you soon.</span></h4>
+                        <p><span data-lang="es">Confirmamos tu demo en menos de 24&nbsp;hs por email y WhatsApp.</span><span data-lang="en">We'll confirm your demo in under 24&nbsp;hrs via email and WhatsApp.</span></p>
+                    </div>
+
+                    <p class="form-note"><span data-lang="es">Sin spam. Tus datos no se comparten con terceros.</span><span data-lang="en">No spam. Your data is never shared.</span></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div style="margin-bottom:0.75rem;">
+                        <img src="assets/img/isologo-transparente.png" alt="A Team" style="height:44px; width:auto;">
+                    </div>
+                    <p style="font-size:0.85rem;"><span data-lang="es">Agentes listos. Trabajo resuelto.<br>© 2026 A-Team. Todos los derechos reservados.</span><span data-lang="en">Clever agents, easy living.<br>© 2026 A-Team. All rights reserved.</span></p>
+                </div>
+                <div class="footer-col">
+                    <h5><span data-lang="es">Agentes</span><span data-lang="en">Agents</span></h5>
+                    <a href="axel.html"><span data-lang="es">Axel — Cobrador</span><span data-lang="en">Axel — Collections</span></a>
                     <a href="anibal.html"><span data-lang="es">Aníbal — Líder de Report (pronto)</span><span data-lang="en">Aníbal — Lead Reporter (soon)</span></a>
                     <a href="#"><span data-lang="es">Alma — Ventas (pronto)</span><span data-lang="en">Alma — Sales (soon)</span></a>
                 </div>
@@ -315,7 +437,6 @@
 
     <script>
         lucide.createIcons();
-
         const menuBtn = document.getElementById('mobileMenuBtn');
         const mobileMenu = document.getElementById('mobileMenu');
         if (menuBtn && mobileMenu) {
@@ -328,7 +449,7 @@
         document.querySelectorAll('.fade-in, .fade-in-up').forEach(el => observer.observe(el));
         window.addEventListener('scroll', () => { document.querySelector('.navbar').classList.toggle('scrolled', window.scrollY > 50); });
 
-        // Form submit (simulated)
+        // Form submit
         document.getElementById('demoForm').addEventListener('submit', function (e) {
             e.preventDefault();
             const btn = document.getElementById('submitBtn');
@@ -336,9 +457,9 @@
             btn.disabled = true;
             setTimeout(() => {
                 this.style.display = 'none';
-                document.getElementById('formSuccess').style.display = 'block';
+                const success = document.getElementById('formSuccess');
+                success.style.display = 'block';
                 lucide.createIcons();
-
             }, 1200);
         });
     </script>
