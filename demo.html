@@ -1,257 +1,204 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agendar Demo — A-Team</title>
-    <meta name="description"
-        content="See Axel in action with your real invoices. 15-minute demo, no commitment. Book a session with the A-Team.">
-    <!-- Favicon -->
+    <meta name="description" content="See Axel in action with your real invoices. 15-minute demo, no commitment. Book a session with the A-Team.">
     <link rel="shortcut icon" href="assets/img/favicon.png">
     <link rel="icon" type="image/png" href="assets/img/favicon.png">
     <link rel="apple-touch-icon" href="assets/img/favicon.png">
-    <!-- SEO -->
     <meta name="robots" content="index, follow">
     <meta name="theme-color" content="#6366F1">
     <link rel="canonical" href="https://the-ateam.ai/demo.html">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="A-Team">
     <meta property="og:title" content="Book a Demo — A-Team">
-    <meta property="og:description"
-        content="See Axel in action with your real invoices. 15-minute demo, no commitment.">
+    <meta property="og:description" content="See Axel in action with your real invoices. 15-minute demo, no commitment.">
     <meta property="og:image" content="https://the-ateam.ai/assets/img/isotipo.png">
     <meta property="og:url" content="https://the-ateam.ai/demo.html">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Book a Demo — A-Team">
-    <meta name="twitter:description"
-        content="See Axel in action with your real invoices. 15-minute demo, no commitment.">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800;900&family=Inter:wght@400;500;700&display=swap"
-        rel="stylesheet">
+    <meta name="twitter:description" content="See Axel in action with your real invoices. 15-minute demo, no commitment.">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800;900&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <link rel="stylesheet" href="assets/css/style.css">
     <style>
+        /* ── Demo page layout ── */
         .demo-page {
             min-height: 100vh;
             display: flex;
-            align-items: center;
-            padding: 7rem 0 6rem;
+            align-items: flex-start;
+            padding: 7rem 0 5rem;
             position: relative;
             overflow: hidden;
         }
-
         .demo-bg {
-            position: absolute;
-            inset: 0;
-            z-index: 0;
+            position: absolute; inset: 0; z-index: 0;
             background:
-                radial-gradient(ellipse 60% 60% at 80% 20%, rgba(99, 102, 241, 0.15) 0%, transparent 70%),
-                radial-gradient(ellipse 40% 50% at 10% 80%, rgba(236, 72, 153, 0.08) 0%, transparent 70%);
+                radial-gradient(ellipse 60% 60% at 80% 20%, rgba(99,102,241,0.12) 0%, transparent 70%),
+                radial-gradient(ellipse 40% 50% at 10% 80%, rgba(155,48,217,0.07) 0%, transparent 70%);
             pointer-events: none;
         }
-
         .demo-grid {
-            position: relative;
-            z-index: 1;
+            position: relative; z-index: 1;
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 5rem;
-            align-items: center;
+            grid-template-columns: 1fr 1.15fr;
+            gap: 4rem;
+            align-items: start;
         }
-
         .demo-headline {
             font-family: var(--font-heading);
-            font-size: 3rem;
-            font-weight: 800;
-            letter-spacing: -0.02em;
-            margin-bottom: 1.25rem;
-            line-height: 1.1;
+            font-size: 2.8rem; font-weight: 800;
+            letter-spacing: -0.02em; margin-bottom: 1.25rem; line-height: 1.1;
         }
+        .demo-subtext { color: var(--text-muted); font-size: 1rem; line-height: 1.75; margin-bottom: 2rem; }
+        .demo-bullets { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 2rem; }
+        .demo-bullets li { display: flex; align-items: center; gap: 0.65rem; color: var(--text-muted); font-size: 0.93rem; }
+        .demo-bullets li svg { width: 17px; height: 17px; color: #10b981; flex-shrink: 0; }
+        .demo-bullets li strong { color: var(--text-main); }
+        .demo-alt { margin-top: 1.5rem; display: flex; gap: 1.25rem; flex-wrap: wrap; }
+        .demo-alt a { display: flex; align-items: center; gap: 0.45rem; color: var(--text-muted); font-size: 0.88rem; transition: color 0.2s; }
+        .demo-alt a:hover { color: var(--primary); }
+        .demo-alt a svg { width: 15px; height: 15px; }
 
-        .demo-subtext {
-            color: var(--text-muted);
-            font-size: 1.05rem;
-            line-height: 1.75;
-            margin-bottom: 2rem;
-        }
-
-        .demo-bullets {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 0.85rem;
-            margin-bottom: 2.5rem;
-        }
-
-        .demo-bullets li {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            color: var(--text-muted);
-            font-size: 0.95rem;
-        }
-
-        .demo-bullets li svg {
-            width: 18px;
-            height: 18px;
-            color: #10b981;
-            flex-shrink: 0;
-        }
-
-        .demo-bullets li strong {
-            color: var(--text-main);
-        }
-
-        /* Form card */
+        /* ── Form card ── */
         .demo-form-card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 24px;
-            padding: 2.5rem;
+            background: #fff;
+            border: 1px solid rgba(0,0,0,0.08);
+            border-radius: 20px;
+            padding: 2rem 2rem 1.5rem;
+            box-shadow: 0 4px 32px rgba(0,0,0,0.07);
         }
-
-        .demo-form-card h3 {
-            font-size: 1.3rem;
-            margin-bottom: 0.4rem;
+        .form-card-title {
+            font-size: 1.25rem; font-weight: 800; margin-bottom: 0.2rem;
+            display: flex; align-items: center; gap: 0.6rem;
         }
-
-        .demo-form-card .form-sub {
-            color: var(--text-muted);
-            font-size: 0.875rem;
-            margin-bottom: 2rem;
+        .form-badge-gratis {
+            font-size: 0.65rem; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 1px; padding: 0.15rem 0.55rem; border-radius: 99px;
+            background: rgba(123,79,255,0.1); color: var(--primary); border: 1px solid rgba(123,79,255,0.2);
         }
+        .form-card-sub { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1.5rem; }
 
-        .form-group {
-            margin-bottom: 1.25rem;
+        /* ── Section dividers ── */
+        .form-section {
+            margin-top: 1.4rem; margin-bottom: 0.9rem;
+            display: flex; align-items: center; gap: 0.75rem;
         }
+        .form-section-label {
+            font-size: 0.62rem; text-transform: uppercase; letter-spacing: 2px;
+            font-weight: 700; color: #94A3B8; white-space: nowrap;
+        }
+        .form-section-line { flex: 1; height: 1px; background: rgba(0,0,0,0.07); }
 
+        /* ── Standard inputs ── */
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+        .form-group { margin-bottom: 0.75rem; }
         .form-group label {
-            display: block;
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            margin-bottom: 0.4rem;
-            font-weight: 500;
+            display: block; font-size: 0.8rem; color: var(--text-muted);
+            margin-bottom: 0.3rem; font-weight: 500;
         }
-
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            width: 100%;
-            padding: 0.8rem 1rem;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            color: var(--text-main);
-            font-size: 0.95rem;
-            font-family: var(--font-body);
-            outline: none;
-            transition: border-color 0.2s;
+        .form-group input[type="text"],
+        .form-group input[type="email"],
+        .form-group input[type="tel"],
+        .form-group input[type="url"] {
+            width: 100%; padding: 0.65rem 0.9rem;
+            background: #fff; border: 1.5px solid rgba(0,0,0,0.1);
+            border-radius: 10px; color: var(--text-main); font-size: 0.9rem;
+            font-family: var(--font-body); outline: none; transition: border-color 0.18s;
             box-sizing: border-box;
         }
+        .form-group input:focus { border-color: var(--primary); }
+        .form-group input::placeholder { color: #B0BAC8; }
 
-        .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
-            border-color: var(--primary);
+        /* ── Pill radio groups (single-select) ── */
+        .pill-group { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-top: 0.35rem; }
+        .pill-opt {
+            display: inline-flex; align-items: center; gap: 0.45rem;
+            padding: 0.4rem 0.8rem; border: 1.5px solid rgba(0,0,0,0.11);
+            border-radius: 9px; cursor: pointer; font-size: 0.84rem;
+            color: #475569; background: #fff; user-select: none;
+            transition: border-color 0.15s, color 0.15s, background 0.15s;
+        }
+        .pill-opt:hover { border-color: var(--primary); color: var(--primary); }
+        .pill-dot {
+            width: 14px; height: 14px; border-radius: 50%;
+            border: 1.5px solid #CBD5E1; flex-shrink: 0; position: relative;
+            transition: border-color 0.15s, background 0.15s;
+        }
+        .pill-opt.sel { border-color: var(--primary); color: var(--primary); background: rgba(123,79,255,0.05); }
+        .pill-opt.sel .pill-dot { border-color: var(--primary); background: var(--primary); }
+        .pill-opt.sel .pill-dot::after {
+            content: ''; position: absolute;
+            top: 50%; left: 50%; transform: translate(-50%,-50%);
+            width: 5px; height: 5px; border-radius: 50%; background: #fff;
         }
 
-        .form-group select option {
-            background: #0a0a0f;
+        /* ── Multi-select pills (checkbox style) ── */
+        .pill-opt.multi .pill-dot { border-radius: 4px; }
+        .pill-opt.multi.sel .pill-dot::after {
+            content: ''; position: absolute;
+            top: 50%; left: 50%; transform: translate(-50%,-52%) rotate(45deg);
+            width: 4px; height: 7px;
+            border-right: 2px solid #fff; border-bottom: 2px solid #fff;
+            border-radius: 0;
         }
 
-        .form-group textarea {
-            resize: vertical;
-            min-height: 90px;
+        /* ── Custom styled dropdown (no native select) ── */
+        .custom-dd { position: relative; }
+        .custom-dd-trigger {
+            width: 100%; padding: 0.65rem 0.9rem;
+            background: #fff; border: 1.5px solid rgba(0,0,0,0.1);
+            border-radius: 10px; color: #B0BAC8; font-size: 0.9rem;
+            font-family: var(--font-body); cursor: pointer; outline: none;
+            display: flex; align-items: center; justify-content: space-between;
+            transition: border-color 0.18s; user-select: none; box-sizing: border-box;
         }
-
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
+        .custom-dd-trigger.has-val { color: var(--text-main); }
+        .custom-dd-trigger:hover, .custom-dd-trigger.open { border-color: var(--primary); }
+        .custom-dd-chevron {
+            width: 15px; height: 15px; flex-shrink: 0;
+            transition: transform 0.2s; color: #94A3B8;
         }
-
-        .form-submit {
-            width: 100%;
-            margin-top: 0.5rem;
+        .custom-dd-trigger.open .custom-dd-chevron { transform: rotate(180deg); }
+        .custom-dd-menu {
+            display: none; position: absolute; top: calc(100% + 4px);
+            left: 0; right: 0; z-index: 60;
+            background: #fff; border: 1.5px solid rgba(123,79,255,0.2);
+            border-radius: 10px; box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+            overflow: hidden;
         }
-
-        .form-note {
-            text-align: center;
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            margin-top: 1rem;
+        .custom-dd-menu.open { display: block; }
+        .dd-item {
+            padding: 0.6rem 0.9rem; font-size: 0.88rem;
+            color: var(--text-muted); cursor: pointer;
+            transition: background 0.1s, color 0.1s;
         }
+        .dd-item:hover { background: rgba(123,79,255,0.06); color: var(--primary); }
+        .dd-item.active { color: var(--primary); font-weight: 600; background: rgba(123,79,255,0.04); }
+        .dd-item:not(:last-child) { border-bottom: 1px solid rgba(0,0,0,0.04); }
 
-        /* Alt contact */
-        .demo-alt {
-            margin-top: 2rem;
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
+        /* ── Form bottom ── */
+        .form-submit { width: 100%; margin-top: 1.25rem; padding: 0.85rem; font-size: 1rem; font-weight: 600; }
+        .form-note { text-align: center; font-size: 0.77rem; color: var(--text-muted); margin-top: 0.75rem; }
 
-        .demo-alt a {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            transition: color 0.2s;
-        }
-
-        .demo-alt a:hover {
-            color: var(--primary);
-        }
-
-        .demo-alt a svg {
-            width: 16px;
-            height: 16px;
-        }
-
-        /* Success state */
+        /* ── Success state ── */
         .form-success {
-            display: none;
-            text-align: center;
-            padding: 2rem 0;
+            display: none; text-align: center; padding: 2.5rem 1rem;
         }
+        .form-success svg { width: 48px; height: 48px; color: #10b981; margin-bottom: 1rem; }
+        .form-success h4 { font-size: 1.25rem; margin-bottom: 0.4rem; }
+        .form-success p { color: var(--text-muted); font-size: 0.88rem; }
 
-        .form-success svg {
-            width: 48px;
-            height: 48px;
-            color: #10b981;
-            margin-bottom: 1rem;
-        }
-
-        .form-success h4 {
-            font-size: 1.3rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .form-success p {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-        }
-
+        /* ── Responsive ── */
         @media (max-width: 1024px) {
-            .demo-grid {
-                grid-template-columns: 1fr;
-                gap: 3rem;
-            }
-
-            .demo-headline {
-                font-size: 2.2rem;
-            }
+            .demo-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+            .demo-headline { font-size: 2.2rem; }
         }
-
         @media (max-width: 600px) {
-            .form-row {
-                grid-template-columns: 1fr;
-            }
-
-            .demo-form-card {
-                padding: 1.5rem;
-            }
+            .form-row { grid-template-columns: 1fr; }
+            .demo-form-card { padding: 1.5rem 1.25rem; }
         }
     </style>
 </head>
@@ -273,16 +220,13 @@
                 <a href="demo.html" class="btn btn-primary nav-active"><span data-lang="es">Agendar Demo →</span><span data-lang="en">Book a Demo →</span></a>
                 <div class="lang-toggle-wrap">
                     <span class="lang-flag active" data-for="es" onclick="setLang('es')">🇦🇷</span>
-                    <button class="lang-toggle" onclick="setLang(document.body.classList.contains('lang-en') ? 'es' : 'en')" aria-label="Switch language" title="ES / EN"></button>
+                    <button class="lang-toggle" onclick="setLang(document.body.classList.contains('lang-en')?'es':'en')" aria-label="Switch language" title="ES / EN"></button>
                     <span class="lang-flag" data-for="en" onclick="setLang('en')">🇺🇸</span>
                 </div>
             </div>
             <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open menu">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <line x1="3" y1="12" x2="21" y2="12" />
-                    <line x1="3" y1="6" x2="21" y2="6" />
-                    <line x1="3" y1="18" x2="21" y2="18" />
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/>
                 </svg>
             </button>
         </div>
@@ -293,7 +237,7 @@
             <a href="demo.html" class="btn btn-primary" style="width:100%;text-align:center;"><span data-lang="es">Agendar Demo →</span><span data-lang="en">Book a Demo →</span></a>
             <div class="lang-toggle-wrap" style="justify-content:center;margin-top:1rem;margin-left:0;">
                 <span class="lang-flag active" data-for="es" onclick="setLang('es')">🇦🇷</span>
-                <button class="lang-toggle" onclick="setLang(document.body.classList.contains('lang-en') ? 'es' : 'en')" aria-label="Switch language"></button>
+                <button class="lang-toggle" onclick="setLang(document.body.classList.contains('lang-en')?'es':'en')" aria-label="Switch language"></button>
                 <span class="lang-flag" data-for="en" onclick="setLang('en')">🇺🇸</span>
             </div>
         </div>
@@ -303,8 +247,9 @@
         <div class="demo-bg"></div>
         <div class="container">
             <div class="demo-grid">
-                <!-- Left: Value prop -->
-                <div class="fade-in-up">
+
+                <!-- ── Left: Value prop ── -->
+                <div class="fade-in-up" style="padding-top:1rem;">
                     <div class="badge badge-accent" style="margin-bottom:1.5rem;">
                         <span data-lang="es">Sesión de 15 min · Sin compromiso</span><span data-lang="en">15-minute session · No commitment</span>
                     </div>
@@ -320,11 +265,11 @@
                         </li>
                         <li>
                             <i data-lucide="check-circle-2"></i>
-                            <span data-lang="es">Ves una <strong>simulación en vivo por WhatsApp</strong> con los nombres de tus clientes</span><span data-lang="en">You see a <strong>live WhatsApp simulation</strong> with your client names</span>
+                            <span data-lang="es">Ves una <strong>simulación en vivo por WhatsApp</strong> con tus clientes</span><span data-lang="en">You see a <strong>live WhatsApp simulation</strong> with your clients</span>
                         </li>
                         <li>
                             <i data-lucide="check-circle-2"></i>
-                            <span data-lang="es">Te mostramos cuántas horas por semana te devuelve Axel</span><span data-lang="en">We show you how many hours per week Axel gives back to you</span>
+                            <span data-lang="es">Te mostramos cuántas horas por semana te devuelve Axel</span><span data-lang="en">We show you how many hours per week Axel gives back</span>
                         </li>
                         <li>
                             <i data-lucide="check-circle-2"></i>
@@ -343,63 +288,174 @@
                     </div>
                 </div>
 
-                <!-- Right: Form -->
+                <!-- ── Right: Form ── -->
                 <div class="demo-form-card fade-in-up">
-                    <h3><span data-lang="es">Reservá tu demo</span><span data-lang="en">Book your demo</span></h3>
-                    <p class="form-sub"><span data-lang="es">Te confirmamos horario en menos de 24&nbsp;hs.</span><span data-lang="en">We'll confirm your slot in under 24&nbsp;hrs.</span></p>
+                    <div class="form-card-title">
+                        <span data-lang="es">Pedí tu demo</span><span data-lang="en">Book your demo</span>
+                        <span class="form-badge-gratis">gratis</span>
+                    </div>
+                    <p class="form-card-sub">
+                        <span data-lang="es">Completá el formulario y te contactamos en menos de 24&nbsp;hs.</span><span data-lang="en">Fill in the form and we'll contact you within 24&nbsp;hrs.</span>
+                    </p>
 
                     <form id="demoForm" novalidate>
+
+                        <!-- TUS DATOS -->
+                        <div class="form-section">
+                            <span class="form-section-label"><span data-lang="es">Tus datos</span><span data-lang="en">Your info</span></span>
+                            <div class="form-section-line"></div>
+                        </div>
+
                         <div class="form-row">
                             <div class="form-group">
-                                <label for="demo-name"><span data-lang="es">Nombre</span><span data-lang="en">Name</span></label>
-                                <input type="text" id="demo-name" name="name" required placeholder="Martín">
+                                <label for="demo-name"><span data-lang="es">Nombre y apellido</span><span data-lang="en">Full name</span></label>
+                                <input type="text" id="demo-name" name="name" required autocomplete="name" placeholder="Juan García">
                             </div>
                             <div class="form-group">
-                                <label for="demo-company"><span data-lang="es">Empresa / Institución</span><span data-lang="en">Company / Organization</span></label>
-                                <input type="text" id="demo-company" name="company" required placeholder="Mi Empresa S.A.">
+                                <label><span data-lang="es">Cargo</span><span data-lang="en">Role</span></label>
+                                <div class="custom-dd" id="dd-cargo">
+                                    <div class="custom-dd-trigger" id="dd-cargo-trigger" tabindex="0" role="combobox" aria-expanded="false" aria-label="Cargo">
+                                        <span id="dd-cargo-val" data-placeholder-es="Dueño / Gerente / Admin" data-placeholder-en="Owner / Manager / Admin">
+                                            <span data-lang="es">Dueño / Gerente / Admin</span><span data-lang="en">Owner / Manager / Admin</span>
+                                        </span>
+                                        <svg class="custom-dd-chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                                    </div>
+                                    <div class="custom-dd-menu" id="dd-cargo-menu">
+                                        <div class="dd-item" data-value="dueno"><span data-lang="es">Dueño / Socio</span><span data-lang="en">Owner / Partner</span></div>
+                                        <div class="dd-item" data-value="gerente"><span data-lang="es">Gerente</span><span data-lang="en">Manager</span></div>
+                                        <div class="dd-item" data-value="admin"><span data-lang="es">Admin / Tesorero</span><span data-lang="en">Admin / Treasurer</span></div>
+                                        <div class="dd-item" data-value="director"><span data-lang="es">Director</span><span data-lang="en">Director</span></div>
+                                        <div class="dd-item" data-value="contador"><span data-lang="es">Contador</span><span data-lang="en">Accountant</span></div>
+                                        <div class="dd-item" data-value="otro"><span data-lang="es">Otro</span><span data-lang="en">Other</span></div>
+                                    </div>
+                                    <input type="hidden" name="cargo" id="cargo-hidden">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="demo-email">Mail</label>
+                                <input type="email" id="demo-email" name="email" required autocomplete="email" placeholder="juan@empresa.com">
+                            </div>
+                            <div class="form-group">
+                                <label for="demo-phone"><span data-lang="es">Teléfono / WhatsApp</span><span data-lang="en">Phone / WhatsApp</span></label>
+                                <input type="tel" id="demo-phone" name="phone" autocomplete="tel" placeholder="+54 9 11 ...">
+                            </div>
+                        </div>
+
+                        <!-- TU EMPRESA -->
+                        <div class="form-section">
+                            <span class="form-section-label"><span data-lang="es">Tu empresa</span><span data-lang="en">Your company</span></span>
+                            <div class="form-section-line"></div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="demo-company"><span data-lang="es">Empresa</span><span data-lang="en">Company</span></label>
+                                <input type="text" id="demo-company" name="company" required placeholder="Nombre de la empresa">
+                            </div>
+                            <div class="form-group">
+                                <label for="demo-rubro"><span data-lang="es">Rubro</span><span data-lang="en">Industry</span></label>
+                                <input type="text" id="demo-rubro" name="rubro" placeholder="Salud, Logística, etc.">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="demo-email">Email</label>
-                            <input type="email" id="demo-email" name="email" required placeholder="martin@empresa.com">
+                            <label for="demo-url"><span data-lang="es">Sitio web</span><span data-lang="en">Website</span> <span style="color:#B0BAC8;font-size:0.75rem;">(<span data-lang="es">opcional</span><span data-lang="en">optional</span>)</span></label>
+                            <input type="url" id="demo-url" name="url" placeholder="https://miempresa.com">
                         </div>
+
                         <div class="form-group">
-                            <label for="demo-phone">WhatsApp / <span data-lang="es">Teléfono</span><span data-lang="en">Phone</span></label>
-                            <input type="tel" id="demo-phone" name="phone" placeholder="+54 9 11 0000-0000">
+                            <label><span data-lang="es">¿A quién le cobrás?</span><span data-lang="en">Who do you bill?</span></label>
+                            <div class="pill-group" data-group="clientes">
+                                <div class="pill-opt" data-value="consumidores"><span class="pill-dot"></span><span data-lang="es">Consumidores finales</span><span data-lang="en">End consumers</span></div>
+                                <div class="pill-opt" data-value="empresas"><span class="pill-dot"></span><span data-lang="es">Empresas</span><span data-lang="en">Businesses</span></div>
+                                <div class="pill-opt" data-value="ambos"><span class="pill-dot"></span><span data-lang="es">Ambos</span><span data-lang="en">Both</span></div>
+                            </div>
+                            <input type="hidden" name="clientes" id="inp-clientes">
                         </div>
+
                         <div class="form-group">
-                            <label for="demo-type"><span data-lang="es">Tipo de organización</span><span data-lang="en">Organization type</span></label>
-                            <select id="demo-type" name="type">
-                                <option value="" disabled selected><span data-lang="es">Seleccioná una opción</span><span data-lang="en">Select an option</span></option>
-                                <option value="colegio"><span data-lang="es">Colegio / Instituto</span><span data-lang="en">School / Institute</span></option>
-                                <option value="consorcio"><span data-lang="es">Consorcio / Administración</span><span data-lang="en">HOA / Property Management</span></option>
-                                <option value="profesional"><span data-lang="es">Profesional independiente</span><span data-lang="en">Independent professional</span></option>
-                                <option value="pyme"><span data-lang="es">Pyme / Empresa</span><span data-lang="en">SMB / Company</span></option>
-                                <option value="otro"><span data-lang="es">Otro</span><span data-lang="en">Other</span></option>
-                            </select>
+                            <label><span data-lang="es">Cobros por mes</span><span data-lang="en">Collections per month</span></label>
+                            <div class="pill-group" data-group="cobros">
+                                <div class="pill-opt" data-value="1-50"><span class="pill-dot"></span>1 – 50</div>
+                                <div class="pill-opt" data-value="50-200"><span class="pill-dot"></span>50 – 200</div>
+                                <div class="pill-opt" data-value="+200"><span class="pill-dot"></span>+200</div>
+                            </div>
+                            <input type="hidden" name="cobros" id="inp-cobros">
                         </div>
+
                         <div class="form-group">
-                            <label for="demo-invoices"><span data-lang="es">¿Cuántas facturas emitís por mes?</span><span data-lang="en">How many invoices do you issue per month?</span></label>
-                            <select id="demo-invoices" name="invoices">
-                                <option value="" disabled selected><span data-lang="es">Seleccioná una opción</span><span data-lang="en">Select an option</span></option>
-                                <option value="menos20"><span data-lang="es">Menos de 20</span><span data-lang="en">Less than 20</span></option>
-                                <option value="20-100">20 – 100</option>
-                                <option value="100-500">100 – 500</option>
-                                <option value="mas500"><span data-lang="es">Más de 500</span><span data-lang="en">More than 500</span></option>
-                            </select>
+                            <label><span data-lang="es">Monto promedio por cobro</span><span data-lang="en">Average amount per collection</span></label>
+                            <div class="pill-group" data-group="monto">
+                                <div class="pill-opt" data-value="0-200k"><span class="pill-dot"></span>$0 – $200k</div>
+                                <div class="pill-opt" data-value="200k-600k"><span class="pill-dot"></span>$200k – $600k</div>
+                                <div class="pill-opt" data-value="+600k"><span class="pill-dot"></span><span data-lang="es">Más de $600k</span><span data-lang="en">More than $600k</span></div>
+                            </div>
+                            <input type="hidden" name="monto" id="inp-monto">
                         </div>
+
+                        <!-- TU PROCESO ACTUAL -->
+                        <div class="form-section">
+                            <span class="form-section-label"><span data-lang="es">Tu proceso actual</span><span data-lang="en">Your current process</span></span>
+                            <div class="form-section-line"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label><span data-lang="es">¿Cómo enviás la factura?</span><span data-lang="en">How do you send invoices?</span></label>
+                            <div class="pill-group" data-group="factura">
+                                <div class="pill-opt" data-value="mail"><span class="pill-dot"></span>Mail</div>
+                                <div class="pill-opt" data-value="whatsapp"><span class="pill-dot"></span>WhatsApp</div>
+                                <div class="pill-opt" data-value="papel"><span class="pill-dot"></span><span data-lang="es">Papel</span><span data-lang="en">Paper</span></div>
+                                <div class="pill-opt" data-value="sistema"><span class="pill-dot"></span><span data-lang="es">Sistema / ERP</span><span data-lang="en">System / ERP</span></div>
+                            </div>
+                            <input type="hidden" name="factura" id="inp-factura">
+                        </div>
+
+                        <div class="form-group">
+                            <label><span data-lang="es">¿Cómo reclamás el pago?</span><span data-lang="en">How do you chase payments?</span></label>
+                            <div class="pill-group" data-group="reclamo">
+                                <div class="pill-opt" data-value="automatico"><span class="pill-dot"></span><span data-lang="es">Automático</span><span data-lang="en">Automatic</span></div>
+                                <div class="pill-opt" data-value="manual"><span class="pill-dot"></span><span data-lang="es">Manual</span><span data-lang="en">Manual</span></div>
+                                <div class="pill-opt" data-value="no-reclamo"><span class="pill-dot"></span><span data-lang="es">No reclamo</span><span data-lang="en">I don't chase</span></div>
+                            </div>
+                            <input type="hidden" name="reclamo" id="inp-reclamo">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="demo-banco"><span data-lang="es">¿Qué banco usás?</span><span data-lang="en">Which bank do you use?</span></label>
+                            <input type="text" id="demo-banco" name="banco" placeholder="Ej: Galicia, Santander, Brubank...">
+                        </div>
+
+                        <!-- TU MAYOR PROBLEMA HOY -->
+                        <div class="form-section">
+                            <span class="form-section-label"><span data-lang="es">Tu mayor problema hoy</span><span data-lang="en">Your biggest pain point</span></span>
+                            <div class="form-section-line"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="pill-group" data-group="problema" data-multi="true">
+                                <div class="pill-opt multi" data-value="pagos-atrasados"><span class="pill-dot"></span><span data-lang="es">Pagos atrasados</span><span data-lang="en">Late payments</span></div>
+                                <div class="pill-opt multi" data-value="conciliacion"><span class="pill-dot"></span><span data-lang="es">Conciliación bancaria</span><span data-lang="en">Bank reconciliation</span></div>
+                                <div class="pill-opt multi" data-value="trazabilidad"><span class="pill-dot"></span><span data-lang="es">Falta de trazabilidad</span><span data-lang="en">Lack of traceability</span></div>
+                                <div class="pill-opt multi" data-value="tiempo"><span class="pill-dot"></span><span data-lang="es">Tiempo en tareas manuales</span><span data-lang="en">Time on manual tasks</span></div>
+                                <div class="pill-opt multi" data-value="otro"><span class="pill-dot"></span><span data-lang="es">Otro</span><span data-lang="en">Other</span></div>
+                            </div>
+                            <input type="hidden" name="problema" id="inp-problema">
+                        </div>
+
                         <button type="submit" id="submitBtn" class="btn btn-primary form-submit">
-                            <span data-lang="es">Reservar mi demo →</span><span data-lang="en">Book my demo →</span>
+                            <span data-lang="es">Quiero mi demo →</span><span data-lang="en">Book my demo →</span>
                         </button>
                     </form>
 
                     <div id="formSuccess" class="form-success">
                         <i data-lucide="check-circle-2"></i>
                         <h4><span data-lang="es">¡Listo! Te vemos pronto.</span><span data-lang="en">Done! See you soon.</span></h4>
-                        <p><span data-lang="es">Confirmamos tu demo en menos de 24&nbsp;hs por email y WhatsApp.</span><span data-lang="en">We'll confirm your demo in under 24&nbsp;hrs via email and WhatsApp.</span></p>
+                        <p><span data-lang="es">Te confirmamos en menos de 24&nbsp;hs por WhatsApp y email.</span><span data-lang="en">We'll confirm in under 24&nbsp;hrs via WhatsApp and email.</span></p>
                     </div>
 
-                    <p class="form-note"><span data-lang="es">Sin spam. Tus datos no se comparten con terceros.</span><span data-lang="en">No spam. Your data is never shared.</span></p>
+                    <p class="form-note"><span data-lang="es">Sin compromiso. Te respondemos en menos de 24hs.</span><span data-lang="en">No commitment. We respond within 24hrs.</span></p>
                 </div>
             </div>
         </div>
@@ -410,7 +466,7 @@
             <div class="footer-grid">
                 <div class="footer-col">
                     <div style="margin-bottom:0.75rem;">
-                        <img src="assets/img/isologo-transparente.png" alt="A Team" style="height:44px; width:auto;">
+                        <img src="assets/img/isologo-transparente.png" alt="A Team" style="height:44px;width:auto;">
                     </div>
                     <p style="font-size:0.85rem;"><span data-lang="es">Agentes listos. Trabajo resuelto.<br>© 2026 A-Team. Todos los derechos reservados.</span><span data-lang="en">Clever agents, easy living.<br>© 2026 A-Team. All rights reserved.</span></p>
                 </div>
@@ -437,23 +493,110 @@
 
     <script>
         lucide.createIcons();
+
+        // ── Mobile menu ──
         const menuBtn = document.getElementById('mobileMenuBtn');
         const mobileMenu = document.getElementById('mobileMenu');
         if (menuBtn && mobileMenu) {
             menuBtn.addEventListener('click', () => mobileMenu.classList.toggle('open'));
             mobileMenu.querySelectorAll('a').forEach(l => l.addEventListener('click', () => mobileMenu.classList.remove('open')));
         }
+
+        // ── Scroll ──
         const observer = new IntersectionObserver((entries, obs) => {
             entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
         }, { threshold: 0.1 });
         document.querySelectorAll('.fade-in, .fade-in-up').forEach(el => observer.observe(el));
-        window.addEventListener('scroll', () => { document.querySelector('.navbar').classList.toggle('scrolled', window.scrollY > 50); });
+        window.addEventListener('scroll', () => {
+            document.querySelector('.navbar').classList.toggle('scrolled', window.scrollY > 50);
+        });
 
-        // Form submit
-        document.getElementById('demoForm').addEventListener('submit', function (e) {
+        // ── Custom dropdown ──
+        function initDropdown(ddId) {
+            const wrap = document.getElementById(ddId);
+            if (!wrap) return;
+            const trigger = wrap.querySelector('.custom-dd-trigger');
+            const menu = wrap.querySelector('.custom-dd-menu');
+            const valSpan = wrap.querySelector('[id$="-val"]');
+            const hidden = wrap.querySelector('input[type="hidden"]');
+
+            trigger.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const isOpen = menu.classList.contains('open');
+                document.querySelectorAll('.custom-dd-menu.open').forEach(m => {
+                    m.classList.remove('open');
+                    m.previousElementSibling.classList.remove('open');
+                    m.previousElementSibling.setAttribute('aria-expanded', 'false');
+                });
+                if (!isOpen) {
+                    menu.classList.add('open');
+                    trigger.classList.add('open');
+                    trigger.setAttribute('aria-expanded', 'true');
+                }
+            });
+
+            menu.querySelectorAll('.dd-item').forEach(item => {
+                item.addEventListener('click', () => {
+                    menu.querySelectorAll('.dd-item').forEach(i => i.classList.remove('active'));
+                    item.classList.add('active');
+                    valSpan.innerHTML = item.innerHTML;
+                    trigger.classList.add('has-val');
+                    if (hidden) hidden.value = item.dataset.value;
+                    menu.classList.remove('open');
+                    trigger.classList.remove('open');
+                    trigger.setAttribute('aria-expanded', 'false');
+                });
+            });
+
+            trigger.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); trigger.click(); }
+                if (e.key === 'Escape') { menu.classList.remove('open'); trigger.classList.remove('open'); }
+            });
+        }
+        initDropdown('dd-cargo');
+        document.addEventListener('click', () => {
+            document.querySelectorAll('.custom-dd-menu.open').forEach(m => {
+                m.classList.remove('open');
+                if (m.previousElementSibling) {
+                    m.previousElementSibling.classList.remove('open');
+                    m.previousElementSibling.setAttribute('aria-expanded', 'false');
+                }
+            });
+        });
+
+        // ── Pill groups ──
+        document.querySelectorAll('.pill-group').forEach(group => {
+            const isMulti = group.dataset.multi === 'true';
+            const groupName = group.dataset.group;
+            const hidden = document.getElementById('inp-' + groupName);
+
+            group.querySelectorAll('.pill-opt').forEach(pill => {
+                pill.addEventListener('click', () => {
+                    if (isMulti) {
+                        pill.classList.toggle('sel');
+                    } else {
+                        group.querySelectorAll('.pill-opt').forEach(p => p.classList.remove('sel'));
+                        pill.classList.add('sel');
+                    }
+                    if (hidden) {
+                        if (isMulti) {
+                            const vals = Array.from(group.querySelectorAll('.pill-opt.sel')).map(p => p.dataset.value);
+                            hidden.value = vals.join(',');
+                        } else {
+                            const sel = group.querySelector('.pill-opt.sel');
+                            hidden.value = sel ? sel.dataset.value : '';
+                        }
+                    }
+                });
+            });
+        });
+
+        // ── Form submit ──
+        document.getElementById('demoForm').addEventListener('submit', function(e) {
             e.preventDefault();
             const btn = document.getElementById('submitBtn');
-            btn.textContent = document.body.classList.contains('lang-en') ? 'Sending...' : 'Enviando...';
+            const isEn = document.body.classList.contains('lang-en');
+            btn.innerHTML = isEn ? 'Sending…' : 'Enviando…';
             btn.disabled = true;
             setTimeout(() => {
                 this.style.display = 'none';
@@ -465,5 +608,4 @@
     </script>
     <script src="assets/js/lang.js"></script>
 </body>
-
 </html>
