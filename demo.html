@@ -86,6 +86,16 @@
         .form-group input:focus { border-color: var(--primary); }
         .form-group input::placeholder { color: #B0BAC8; }
 
+        /* ── Phone compound input ── */
+        .phone-wrap { display: flex; gap: 0.4rem; }
+        .phone-code-dd { flex: 0 0 auto; width: 110px; }
+        .phone-code-dd .custom-dd-trigger { padding: 0.65rem 0.6rem; }
+        .phone-number-input { flex: 1; }
+        .phone-flag { font-size: 1rem; flex-shrink: 0; }
+        .phone-code-text { font-size: 0.87rem; font-weight: 600; color: var(--text-main); }
+        #dd-code .custom-dd-menu { max-height: 240px; width: 220px; }
+        #dd-code .dd-item { gap: 0.5rem; font-size: 0.84rem; }
+
         /* ── Custom dropdown (single & multi) ── */
         .custom-dd { position: relative; }
         .custom-dd-trigger {
@@ -285,8 +295,36 @@
                                 <input type="email" id="f-email" name="email" required autocomplete="email" placeholder="juan@empresa.com">
                             </div>
                             <div class="form-group">
-                                <label for="f-phone"><span data-lang="es">Teléfono / WhatsApp</span><span data-lang="en">Phone / WhatsApp</span></label>
-                                <input type="tel" id="f-phone" name="phone" autocomplete="tel" placeholder="+54 9 11 ...">
+                                <label><span data-lang="es">Teléfono / WhatsApp</span><span data-lang="en">Phone / WhatsApp</span></label>
+                                <div class="phone-wrap">
+                                    <div class="custom-dd phone-code-dd" id="dd-code">
+                                        <div class="custom-dd-trigger has-val" tabindex="0" role="combobox" aria-expanded="false">
+                                            <span class="phone-flag" id="code-flag">🇦🇷</span>
+                                            <span class="dd-trigger-text phone-code-text" id="code-val">+54</span>
+                                            <svg class="dd-chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                                        </div>
+                                        <div class="custom-dd-menu">
+                                            <div class="dd-item" data-value="+54" data-flag="🇦🇷"><span class="phone-flag">🇦🇷</span>Argentina +54</div>
+                                            <div class="dd-item" data-value="+55" data-flag="🇧🇷"><span class="phone-flag">🇧🇷</span>Brasil +55</div>
+                                            <div class="dd-item" data-value="+598" data-flag="🇺🇾"><span class="phone-flag">🇺🇾</span>Uruguay +598</div>
+                                            <div class="dd-item" data-value="+595" data-flag="🇵🇾"><span class="phone-flag">🇵🇾</span>Paraguay +595</div>
+                                            <div class="dd-item" data-value="+591" data-flag="🇧🇴"><span class="phone-flag">🇧🇴</span>Bolivia +591</div>
+                                            <div class="dd-item" data-value="+56" data-flag="🇨🇱"><span class="phone-flag">🇨🇱</span>Chile +56</div>
+                                            <div class="dd-item" data-value="+51" data-flag="🇵🇪"><span class="phone-flag">🇵🇪</span>Perú +51</div>
+                                            <div class="dd-item" data-value="+57" data-flag="🇨🇴"><span class="phone-flag">🇨🇴</span>Colombia +57</div>
+                                            <div class="dd-item" data-value="+593" data-flag="🇪🇨"><span class="phone-flag">🇪🇨</span>Ecuador +593</div>
+                                            <div class="dd-item" data-value="+52" data-flag="🇲🇽"><span class="phone-flag">🇲🇽</span>México +52</div>
+                                            <div class="dd-item" data-value="+58" data-flag="🇻🇪"><span class="phone-flag">🇻🇪</span>Venezuela +58</div>
+                                            <div class="dd-item" data-value="+1" data-flag="🇺🇸"><span class="phone-flag">🇺🇸</span>USA / Canada +1</div>
+                                            <div class="dd-item" data-value="+34" data-flag="🇪🇸"><span class="phone-flag">🇪🇸</span>España +34</div>
+                                            <div class="dd-item" data-value="+44" data-flag="🇬🇧"><span class="phone-flag">🇬🇧</span>UK +44</div>
+                                            <div class="dd-item" data-value="+49" data-flag="🇩🇪"><span class="phone-flag">🇩🇪</span>Alemania +49</div>
+                                        </div>
+                                        <input type="hidden" name="phone_code" id="phone-code-hidden" value="+54">
+                                    </div>
+                                    <input type="tel" id="f-phone" name="phone_number" class="phone-number-input" autocomplete="tel-national" placeholder="9 11 1234-5678">
+                                </div>
+                                <input type="hidden" name="phone" id="phone-full-hidden">
                             </div>
                         </div>
 
@@ -652,6 +690,49 @@
 
     // ── Register all dropdowns ──
     ['dd-cargo','dd-rubro','dd-clientes','dd-cobros','dd-monto','dd-factura','dd-reclamo','dd-banco'].forEach(initSingleDD);
+
+    // ── Country code DD (special: updates flag + code text) ──
+    (function() {
+        const wrap = document.getElementById('dd-code');
+        if (!wrap) return;
+        const trigger = wrap.querySelector('.custom-dd-trigger');
+        const menu = wrap.querySelector('.custom-dd-menu');
+        const flagEl = document.getElementById('code-flag');
+        const codeEl = document.getElementById('code-val');
+        const codeHidden = document.getElementById('phone-code-hidden');
+        const numInput = document.getElementById('f-phone');
+        const fullHidden = document.getElementById('phone-full-hidden');
+
+        function syncFull() {
+            fullHidden.value = (codeHidden.value || '') + (numInput.value || '').replace(/\s/g,'');
+        }
+        numInput.addEventListener('input', syncFull);
+        syncFull();
+
+        trigger.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const isOpen = menu.classList.contains('open');
+            closeAll();
+            if (!isOpen) { menu.classList.add('open'); trigger.classList.add('open'); trigger.setAttribute('aria-expanded','true'); }
+        });
+        trigger.addEventListener('keydown', (e) => {
+            if (e.key==='Enter'||e.key===' ') { e.preventDefault(); trigger.click(); }
+            if (e.key==='Escape') closeAll();
+        });
+        menu.querySelectorAll('.dd-item').forEach(item => {
+            item.addEventListener('click', (e) => {
+                e.stopPropagation();
+                menu.querySelectorAll('.dd-item').forEach(i => i.classList.remove('active'));
+                item.classList.add('active');
+                flagEl.textContent = item.dataset.flag;
+                codeEl.textContent = item.dataset.value;
+                codeHidden.value = item.dataset.value;
+                syncFull();
+                closeAll();
+                numInput.focus();
+            });
+        });
+    })();
     initMultiDD('dd-problema', 'problema-hidden', 'problema-label');
 
     // ── Form submit ──
