@@ -265,6 +265,37 @@
 
                     <form id="demoForm" novalidate>
 
+                        <!-- PLAN ELEGIDO -->
+                        <div class="form-section" style="margin-top:0;margin-bottom:0.9rem;">
+                            <span class="form-section-label" style="color:#7B4FFF;"><span data-lang="es">Plan elegido</span><span data-lang="en">Selected plan</span></span>
+                            <div class="form-section-line" style="background:rgba(123,79,255,0.2);"></div>
+                        </div>
+                        <div class="form-group" style="margin-bottom:1.1rem;">
+                            <div class="custom-dd" id="dd-plan">
+                                <div class="custom-dd-trigger" id="plan-trigger" tabindex="0" role="combobox" aria-expanded="false" style="border-color:rgba(123,79,255,0.3);background:rgba(123,79,255,0.03);">
+                                    <span class="dd-trigger-text" id="plan-label"><span data-lang="es">Seleccioná un plan (opcional)</span><span data-lang="en">Select a plan (optional)</span></span>
+                                    <svg class="dd-chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                                </div>
+                                <div class="custom-dd-menu" id="plan-menu">
+                                    <div class="dd-item" data-value="" data-label-es="Sin plan especificado" data-label-en="No plan specified"><span data-lang="es">Sin plan especificado</span><span data-lang="en">No plan specified</span></div>
+                                    <div class="dd-item" data-value="p1-free" data-label-es="Plan 01 Reclamo — Gratis (hasta 20 facturas)" data-label-en="Plan 01 Claim — Free (up to 20 invoices)"><span data-lang="es">Plan 01 Reclamo — Gratis</span><span data-lang="en">Plan 01 Claim — Free</span></div>
+                                    <div class="dd-item" data-value="p1-ar-b2" data-label-es="Plan 01 Reclamo AR$ — 21–50 facturas" data-label-en="Plan 01 Claim ARS — 21–50 invoices"><span data-lang="es">Plan 01 AR$ — 21–50 facturas</span><span data-lang="en">Plan 01 ARS — 21–50 invoices</span></div>
+                                    <div class="dd-item" data-value="p1-ar-b3" data-label-es="Plan 01 Reclamo AR$ — 51–100 facturas" data-label-en="Plan 01 Claim ARS — 51–100 invoices"><span data-lang="es">Plan 01 AR$ — 51–100 facturas</span><span data-lang="en">Plan 01 ARS — 51–100 invoices</span></div>
+                                    <div class="dd-item" data-value="p1-usd-b2" data-label-es="Plan 01 Reclamo USD — 21–50 facturas" data-label-en="Plan 01 Claim USD — 21–50 invoices"><span data-lang="es">Plan 01 USD — 21–50 facturas</span><span data-lang="en">Plan 01 USD — 21–50 invoices</span></div>
+                                    <div class="dd-item" data-value="p1-usd-b3" data-label-es="Plan 01 Reclamo USD — 51–100 facturas" data-label-en="Plan 01 Claim USD — 51–100 invoices"><span data-lang="es">Plan 01 USD — 51–100 facturas</span><span data-lang="en">Plan 01 USD — 51–100 invoices</span></div>
+                                    <div class="dd-item" data-value="p2-b1" data-label-es="Plan 02 Conciliación — hasta 200 facturas" data-label-en="Plan 02 Reconciliation — up to 200 invoices"><span data-lang="es">Plan 02 Conciliación — hasta 200 fact.</span><span data-lang="en">Plan 02 Reconciliation — up to 200 inv.</span></div>
+                                    <div class="dd-item" data-value="p2-b2" data-label-es="Plan 02 Conciliación — hasta 500 facturas" data-label-en="Plan 02 Reconciliation — up to 500 invoices"><span data-lang="es">Plan 02 Conciliación — hasta 500 fact.</span><span data-lang="en">Plan 02 Reconciliation — up to 500 inv.</span></div>
+                                    <div class="dd-item" data-value="p2-b3" data-label-es="Plan 02 Conciliación — hasta 1.000 facturas" data-label-en="Plan 02 Reconciliation — up to 1,000 invoices"><span data-lang="es">Plan 02 Conciliación — hasta 1.000 fact.</span><span data-lang="en">Plan 02 Reconciliation — up to 1,000 inv.</span></div>
+                                    <div class="dd-item" data-value="p2-b4" data-label-es="Plan 02 Conciliación — hasta 2.500 facturas" data-label-en="Plan 02 Reconciliation — up to 2,500 invoices"><span data-lang="es">Plan 02 Conciliación — hasta 2.500 fact.</span><span data-lang="en">Plan 02 Reconciliation — up to 2,500 inv.</span></div>
+                                    <div class="dd-item" data-value="p2-enterprise" data-label-es="Plan 02 Conciliación — Enterprise" data-label-en="Plan 02 Reconciliation — Enterprise"><span data-lang="es">Plan 02 Conciliación — Enterprise</span><span data-lang="en">Plan 02 Reconciliation — Enterprise</span></div>
+                                    <div class="dd-item" data-value="p3-b1" data-label-es="Plan 03 Inteligencia — hasta 200 facturas" data-label-en="Plan 03 Intelligence — up to 200 invoices"><span data-lang="es">Plan 03 Inteligencia — hasta 200 fact.</span><span data-lang="en">Plan 03 Intelligence — up to 200 inv.</span></div>
+                                    <div class="dd-item" data-value="p3-b2" data-label-es="Plan 03 Inteligencia — hasta 500 facturas" data-label-en="Plan 03 Intelligence — up to 500 invoices"><span data-lang="es">Plan 03 Inteligencia — hasta 500 fact.</span><span data-lang="en">Plan 03 Intelligence — up to 500 inv.</span></div>
+                                    <div class="dd-item" data-value="p3-enterprise" data-label-es="Plan 03 Inteligencia — Enterprise" data-label-en="Plan 03 Intelligence — Enterprise"><span data-lang="es">Plan 03 Inteligencia — Enterprise</span><span data-lang="en">Plan 03 Intelligence — Enterprise</span></div>
+                                </div>
+                                <input type="hidden" name="plan_elegido" id="plan-hidden">
+                            </div>
+                        </div>
+
                         <!-- TUS DATOS -->
                         <div class="form-section">
                             <span class="form-section-label"><span data-lang="es">Tus datos</span><span data-lang="en">Your info</span></span>
@@ -764,5 +795,90 @@
     });
     </script>
     <script src="/assets/js/lang.js"></script>
+    <script>
+    // ── Plan elegido dropdown + URL pre-selection ──
+    (function() {
+      const trigger = document.getElementById('plan-trigger');
+      const menu    = document.getElementById('plan-menu');
+      const hidden  = document.getElementById('plan-hidden');
+      const labelEl = document.getElementById('plan-label');
+      if (!trigger || !menu || !hidden) return;
+
+      // Open / close
+      trigger.addEventListener('click', () => {
+        const open = trigger.classList.toggle('open');
+        menu.classList.toggle('open', open);
+        trigger.setAttribute('aria-expanded', open);
+      });
+      document.addEventListener('click', e => {
+        if (!trigger.closest('#dd-plan').contains(e.target)) {
+          trigger.classList.remove('open');
+          menu.classList.remove('open');
+          trigger.setAttribute('aria-expanded', 'false');
+        }
+      });
+
+      // Select item
+      function selectPlan(value) {
+        menu.querySelectorAll('.dd-item').forEach(item => {
+          const isMatch = item.getAttribute('data-value') === value;
+          item.classList.toggle('active', isMatch);
+          if (isMatch) {
+            // Show the es/en label based on current lang
+            const isEn = document.body.classList.contains('lang-en');
+            const lbl  = item.getAttribute(isEn ? 'data-label-en' : 'data-label-es') || item.textContent.trim();
+            labelEl.textContent = lbl;
+            trigger.classList.add('has-val');
+          }
+        });
+        hidden.value = value;
+      }
+
+      menu.querySelectorAll('.dd-item').forEach(item => {
+        item.addEventListener('click', () => {
+          selectPlan(item.getAttribute('data-value'));
+          trigger.classList.remove('open');
+          menu.classList.remove('open');
+          trigger.setAttribute('aria-expanded', 'false');
+        });
+      });
+
+      // ── Pre-select from URL ──
+      // Map plan+band params → dropdown value
+      // URL format: ?plan=p2&band=b2&mode=annual
+      const params  = new URLSearchParams(window.location.search);
+      const planId  = params.get('plan')  || '';
+      const bandId  = params.get('band')  || '';
+      const modeVal = params.get('mode')  || '';
+
+      // Build the composite key used in data-value attributes
+      // Rules:
+      //   p1-ar + b1 → p1-free   p1-ar + b2 → p1-ar-b2   p1-ar + b3 → p1-ar-b3
+      //   p1-usd + b1 → p1-free  p1-usd + b2 → p1-usd-b2 etc.
+      //   p2 + b1-b5, p3 + b1-b5
+      let compositeKey = '';
+      if (planId) {
+        if ((planId === 'p1-ar' || planId === 'p1-usd') && bandId === 'b1') {
+          compositeKey = 'p1-free';
+        } else if (planId === 'p1-ar' && bandId) {
+          compositeKey = `p1-ar-${bandId}`;
+        } else if (planId === 'p1-usd' && bandId) {
+          compositeKey = `p1-usd-${bandId}`;
+        } else if ((planId === 'p2' || planId === 'p3') && bandId) {
+          compositeKey = bandId === 'b5' ? `${planId}-enterprise` : `${planId}-${bandId}`;
+        } else {
+          compositeKey = planId;
+        }
+      }
+
+      if (compositeKey) {
+        selectPlan(compositeKey);
+        // Scroll form into view smoothly
+        setTimeout(() => {
+          document.getElementById('dd-plan')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }, 300);
+      }
+    })();
+    </script>
 </body>
 </html>
