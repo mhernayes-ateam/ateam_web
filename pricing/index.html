@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Precios — A-Team</title>
+    <meta name="description" content="Precios simples y transparentes para Axel, el agente de cobranza con IA. Empezá gratis. Escalá según tu negocio.">
+    <link rel="shortcut icon" href="/assets/img/favicon.png">
+    <link rel="icon" type="image/png" href="/assets/img/favicon.png">
+    <link rel="apple-touch-icon" href="/assets/img/favicon.png">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#6366F1">
+    <link rel="canonical" href="https://the-ateam.ai/pricing/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="A-Team">
+    <meta property="og:title" content="Precios — A-Team">
+    <meta property="og:description" content="Precios simples y transparentes para Axel, el agente de cobranza con IA.">
+    <meta property="og:image" content="https://the-ateam.ai/assets/img/isotipo.png">
+    <meta property="og:url" content="https://the-ateam.ai/pricing/">
+    <meta name="twitter:card" content="summary_large_image">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800;900&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <style>
+        /* ── Pricing shell (from Axel) ── */
+        .pricing-shell {
+            margin-top: 2rem;
+            --surface: #fff; --bg: #F8FAFC; --bd: rgba(0,0,0,0.08);
+            --tx: #0D0F1A; --muted: #64748B; --violet: #7B4FFF;
+            --font-u: var(--font-heading); --radius: 14px;
+        }
+        .audience-toggle { display: inline-flex; background: rgba(0,0,0,0.08); border-radius: 9999px; padding: 3px; gap: 2px; margin-bottom: 2rem; }
+        .audience-toggle button { padding: 0.45rem 1.2rem; border-radius: 9999px; border: none; cursor: pointer; font-size: 0.85rem; font-weight: 600; background: transparent; color: #64748B; transition: all .2s; font-family: inherit; }
+        .audience-toggle button.is-active { background: #fff; color: #7B4FFF; box-shadow: 0 1px 4px rgba(0,0,0,.12); }
+        .pricing { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; }
+        .pricing.is-hidden, .pricing-detail.is-hidden { display: none; }
+        .plan { background: #fff; border: 1px solid rgba(0,0,0,0.08); border-radius: 14px; padding: 2rem; display: flex; flex-direction: column; gap: 1rem; box-shadow: 0 2px 16px rgba(0,0,0,.05); position: relative; transition: transform .25s; }
+        .plan:hover { transform: translateY(-3px); }
+        .plan.featured { border-color: rgba(123,79,255,.35); box-shadow: 0 6px 32px rgba(123,79,255,.13); }
+        .plan-tag { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg,#38B6FF,#7B4FFF); color: #fff; font-size: 0.7rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 0.25rem 0.85rem; border-radius: 99px; }
+        .plan-soon-badge { font-size: 0.7rem; color: #64748B; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; }
+        .plan-head { display: flex; justify-content: space-between; align-items: flex-start; }
+        .plan-name { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 2px; color: #64748B; }
+        .plan-name .num { color: #7B4FFF; font-weight: 800; }
+        .plan-curr { font-size: 0.72rem; color: #64748B; font-weight: 600; }
+        .plan-title { font-family: var(--font-heading); font-size: 1.35rem; font-weight: 800; color: #0D0F1A; }
+        .plan-price { min-height: 60px; }
+        .plan-price-from { font-size: 0.72rem; color: #64748B; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.15rem; }
+        .plan-price-main { font-family: var(--font-heading); font-size: 1.6rem; font-weight: 800; color: #0D0F1A; line-height: 1; }
+        .plan-price-main .unit { font-size: 0.8rem; font-weight: 500; color: #64748B; }
+        .plan-price-var { font-size: 0.78rem; color: #64748B; margin-top: 0.3rem; }
+        .plan-price-var .strike { text-decoration: line-through; margin-right: 0.3rem; }
+        .plan-features { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.55rem; flex: 1; }
+        .plan-features li { font-size: 0.85rem; color: #334155; padding-left: 1.2rem; position: relative; line-height: 1.4; }
+        .plan-features li::before { content: '✓'; position: absolute; left: 0; color: #7B4FFF; font-weight: 700; }
+        .plan-for { font-size: 0.8rem; color: #64748B; border-top: 1px solid rgba(0,0,0,0.08); padding-top: 0.9rem; line-height: 1.5; }
+        .plan-cta { display: block; text-align: center; padding: 0.75rem 1rem; border-radius: 9px; background: linear-gradient(135deg,#38B6FF,#7B4FFF); color: #fff; font-weight: 700; font-size: 0.9rem; border: none; cursor: pointer; text-decoration: none; transition: opacity .2s; font-family: inherit; }
+        .plan-cta:hover { opacity: 0.88; }
+        .plan-cta.is-ghost { background: transparent; border: 1px solid rgba(0,0,0,0.08); color: #64748B; }
+        .is-soon .plan-cta { background: rgba(0,0,0,0.08); color: #64748B; cursor: not-allowed; }
+        /* Flat (personal) */
+        .pricing-flat { display: block; }
+        .pricing-flat-head { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.5rem; }
+        .pricing-flat-meta .plan-name { margin-bottom: 0.3rem; }
+        .pricing-flat-desc { font-size: 0.9rem; color: #64748B; margin-top: 0.5rem; line-height: 1.6; max-width: 560px; }
+        .pricing-flat-features { margin-bottom: 1.5rem; padding: 1.25rem 1.5rem; background: rgba(123,79,255,.04); border: 1px solid rgba(123,79,255,.12); border-radius: 14px; }
+        .pricing-flat-features-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; color: #7B4FFF; font-weight: 700; margin-bottom: 0.8rem; }
+        .pricing-flat-features ul { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 0.5rem 2rem; }
+        .pricing-flat-features li { font-size: 0.85rem; color: #334155; padding-left: 1.1rem; position: relative; }
+        .pricing-flat-features li::before { content: '✓'; position: absolute; left: 0; color: #7B4FFF; font-weight: 700; }
+        .pricing-flat-volume-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+        .band-section-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; color: #64748B; font-weight: 600; }
+        .pricing-flat-bands { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.25rem; }
+        .band-card { background: #fff; border: 1px solid rgba(0,0,0,0.08); border-radius: 14px; padding: 1.75rem 1.5rem; display: flex; flex-direction: column; gap: 1rem; position: relative; box-shadow: 0 2px 12px rgba(0,0,0,.04); transition: transform .2s; }
+        .band-card:hover { transform: translateY(-3px); }
+        .band-card.is-popular { border-color: rgba(123,79,255,.35); box-shadow: 0 6px 24px rgba(123,79,255,.12); }
+        .band-card-tag { position: absolute; top: -11px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg,#38B6FF,#7B4FFF); color: #fff; font-size: 0.65rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 0.2rem 0.75rem; border-radius: 99px; }
+        .band-card-label { font-family: var(--font-heading); font-size: 1rem; font-weight: 700; color: #0D0F1A; }
+        .band-card-sub { font-size: 0.78rem; color: #64748B; }
+        .band-card-price-main { font-family: var(--font-heading); font-size: 1.5rem; font-weight: 800; color: #0D0F1A; }
+        .band-card-price-main.is-free { background: linear-gradient(135deg,#38B6FF,#7B4FFF); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .band-card-price-unit { font-size: 0.78rem; color: #64748B; font-weight: 500; }
+        .band-card-price-note { font-size: 0.75rem; color: #64748B; margin-top: 0.15rem; }
+        /* Upgrade hint */
+        .upgrade-hint { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; margin-top: 1.75rem; background: rgba(123,79,255,.04); border: 1px solid rgba(123,79,255,.15); border-radius: 14px; padding: 1.25rem 1.5rem; flex-wrap: wrap; }
+        .upgrade-hint-headline { font-weight: 700; color: #0D0F1A; font-size: 0.92rem; margin-bottom: 0.25rem; }
+        .upgrade-hint-body { font-size: 0.83rem; color: #64748B; line-height: 1.5; }
+        .upgrade-hint-cta { padding: 0.5rem 1.1rem; border-radius: 8px; background: #7B4FFF; color: #fff; font-weight: 700; font-size: 0.82rem; border: none; cursor: pointer; white-space: nowrap; font-family: inherit; }
+        /* Detail */
+        .pricing-detail { background: #fff; border: 1px solid rgba(0,0,0,0.08); border-radius: 14px; padding: 2rem; box-shadow: 0 4px 24px rgba(0,0,0,.06); }
+        .detail-back { background: none; border: 1px solid rgba(0,0,0,0.08); color: #64748B; font-size: 0.82rem; font-weight: 600; cursor: pointer; padding: 0.4rem 0.9rem; border-radius: 6px; margin-bottom: 1.5rem; font-family: inherit; }
+        .detail-back:hover { color: #0D0F1A; }
+        .detail-head { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.5rem; }
+        .detail-title { font-family: var(--font-heading); font-size: 1.4rem; font-weight: 800; color: #0D0F1A; }
+        .detail-title .num { font-size: 0.7rem; display: block; text-transform: uppercase; letter-spacing: 2px; color: #7B4FFF; font-weight: 700; margin-bottom: 0.2rem; }
+        .detail-curr { font-size: 0.75rem; color: #64748B; font-weight: 600; }
+        .detail-desc { font-size: 0.9rem; color: #64748B; line-height: 1.65; margin-bottom: 1.5rem; }
+        .mode-toggle-wrap { margin-bottom: 1.5rem; }
+        .mode-toggle-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; color: #64748B; font-weight: 600; display: block; margin-bottom: 0.6rem; }
+        .mode-toggle { display: inline-flex; background: rgba(0,0,0,0.08); border-radius: 9999px; padding: 3px; gap: 2px; }
+        .mode-toggle button { padding: 0.35rem 1rem; border-radius: 9999px; border: none; cursor: pointer; font-size: 0.82rem; font-weight: 600; background: transparent; color: #64748B; font-family: inherit; transition: all .18s; }
+        .mode-toggle button.is-active { background: #fff; color: #7B4FFF; box-shadow: 0 1px 4px rgba(0,0,0,.12); }
+        .mode-tag { display: inline-block; background: rgba(123,79,255,.12); color: #7B4FFF; font-size: 0.65rem; font-weight: 700; padding: 0.1rem 0.4rem; border-radius: 4px; margin-left: 0.2rem; }
+        .mode-note { font-size: 0.8rem; color: #64748B; margin-top: 0.6rem; line-height: 1.5; }
+        .band-options { display: flex; flex-direction: column; gap: 0.6rem; margin: 0.9rem 0; }
+        .band-option { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 0.9rem 1.1rem; border: 1px solid rgba(0,0,0,0.08); border-radius: 10px; cursor: pointer; transition: all .18s; background: #fff; }
+        .band-option:hover { border-color: rgba(123,79,255,.3); }
+        .band-option.is-selected { border-color: #7B4FFF; background: rgba(123,79,255,.03); }
+        .band-info { display: flex; align-items: center; gap: 0.85rem; }
+        .band-radio { width: 16px; height: 16px; border-radius: 50%; border: 2px solid rgba(0,0,0,0.15); flex-shrink: 0; transition: all .18s; }
+        .band-option.is-selected .band-radio { border-color: #7B4FFF; background: #7B4FFF; box-shadow: 0 0 0 3px rgba(123,79,255,.15); }
+        .band-label-main { font-size: 0.9rem; font-weight: 600; color: #0D0F1A; }
+        .band-label-sub { font-size: 0.78rem; color: #64748B; margin-top: 0.1rem; }
+        .band-price { text-align: right; }
+        .band-price-main { font-family: var(--font-heading); font-size: 1rem; font-weight: 700; color: #0D0F1A; }
+        .band-price-main.is-free { color: #7B4FFF; }
+        .band-price-strike { font-size: 0.75rem; color: #64748B; text-decoration: line-through; }
+        .detail-summary { margin-top: 1.5rem; border-top: 1px solid rgba(0,0,0,0.08); padding-top: 1.25rem; display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
+        .summary-block { flex: 1; }
+        .summary-block-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1.5px; color: #64748B; margin-bottom: 0.2rem; }
+        .summary-block-value { font-family: var(--font-heading); font-size: 1.05rem; font-weight: 700; color: #0D0F1A; }
+        .summary-block-value .unit { font-size: 0.8rem; color: #64748B; font-weight: 500; }
+        .summary-cta { padding: 0.65rem 1.4rem; border-radius: 9px; background: linear-gradient(135deg,#38B6FF,#7B4FFF); color: #fff; font-weight: 700; font-size: 0.88rem; text-decoration: none; white-space: nowrap; transition: opacity .2s; }
+        .summary-cta:hover { opacity: 0.88; }
+        .pricing-note { font-size: 0.82rem; color: #64748B; margin-top: 1.5rem; line-height: 1.6; max-width: 760px; }
+        /* ── Pricing hero ── */
+        .pricing-hero {
+            padding: 8rem 0 4rem; text-align: center; position: relative; overflow: hidden;
+        }
+        .pricing-hero-bg {
+            position: absolute; inset: 0; z-index: 0; pointer-events: none;
+            background:
+                radial-gradient(ellipse 55% 50% at 50% 0%, rgba(99,102,241,0.1) 0%, transparent 70%);
+        }
+        .pricing-hero .container { position: relative; z-index: 1; }
+        .pricing-hero h1 {
+            font-size: 3rem; letter-spacing: -1px; margin-bottom: 1rem;
+        }
+        .pricing-hero p {
+            color: var(--text-muted); font-size: 1.1rem;
+            max-width: 520px; margin: 0 auto 1.5rem;
+        }
+        .pricing-note-top {
+            font-size: 0.85rem; color: var(--text-muted);
+            margin-top: 0.5rem;
+        }
+
+        /* ── Period toggle ── */
+        .billing-toggle {
+            display: inline-flex; align-items: center; gap: 0.75rem;
+            background: #F1F5F9; border-radius: 99px; padding: 0.35rem 0.5rem;
+            margin-bottom: 3rem;
+        }
+        .billing-btn {
+            padding: 0.4rem 1.1rem; border-radius: 99px; font-size: 0.88rem;
+            font-weight: 600; cursor: pointer; border: none; background: transparent;
+            color: var(--text-muted); transition: all 0.2s; font-family: var(--font-body);
+        }
+        .billing-btn.active {
+            background: #fff; color: var(--primary);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        .billing-save-badge {
+            font-size: 0.72rem; font-weight: 700; color: #10b981;
+            background: rgba(16,185,129,0.1); padding: 0.15rem 0.5rem;
+            border-radius: 99px; border: 1px solid rgba(16,185,129,0.2);
+        }
+
+        /* ── Plans grid ── */
+        .plans-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            align-items: start;
+        }
+        .plan-card {
+            background: #fff; border: 1.5px solid rgba(0,0,0,0.08);
+            border-radius: 20px; padding: 2rem;
+            display: flex; flex-direction: column;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .plan-card:hover { transform: translateY(-4px); box-shadow: 0 8px 32px rgba(0,0,0,0.08); }
+        .plan-card.featured {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(123,79,255,0.1), 0 8px 32px rgba(123,79,255,0.12);
+            position: relative;
+        }
+        .plan-ribbon {
+            position: absolute; top: -1px; left: 50%; transform: translateX(-50%);
+            background: var(--brand-gradient); color: #fff;
+            font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
+            padding: 0.25rem 1rem; border-radius: 0 0 10px 10px;
+        }
+        .plan-name {
+            font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px;
+            font-weight: 700; color: var(--text-muted); margin-bottom: 0.5rem;
+        }
+        .plan-price {
+            font-family: var(--font-heading); font-size: 2.6rem; font-weight: 800;
+            line-height: 1; margin-bottom: 0.2rem;
+            display: flex; align-items: flex-end; gap: 0.3rem;
+        }
+        .plan-price-currency { font-size: 1.2rem; font-weight: 600; align-self: flex-start; padding-top: 0.5rem; }
+        .plan-price-period { font-size: 0.9rem; font-weight: 400; color: var(--text-muted); margin-bottom: 0.2rem; }
+        .plan-volume { color: var(--text-muted); font-size: 0.83rem; margin-bottom: 0.5rem; }
+        .plan-roi { font-size: 0.8rem; color: #10b981; font-weight: 600; margin-bottom: 1.25rem; }
+        .plan-divider { height: 1px; background: rgba(0,0,0,0.06); margin: 1rem 0; }
+        .plan-features { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; flex: 1; margin-bottom: 1.5rem; }
+        .plan-features li {
+            display: flex; align-items: flex-start; gap: 0.55rem;
+            font-size: 0.87rem; color: var(--text-muted);
+        }
+        .plan-features li svg { width: 15px; height: 15px; flex-shrink: 0; margin-top: 2px; }
+        .plan-features li.included { color: var(--text-main); }
+        .plan-features li.included svg { color: #10b981; }
+        .plan-features li.excluded { opacity: 0.45; }
+        .plan-features li.excluded svg { color: #94A3B8; }
+        .plan-cta { margin-top: auto; }
+        .plan-cta .btn { width: 100%; justify-content: center; }
+
+        /* ── Custom pricing banner ── */
+        .custom-plan {
+            margin-top: 2rem; text-align: center; padding: 2rem;
+            background: rgba(123,79,255,0.04); border: 1.5px dashed rgba(123,79,255,0.2);
+            border-radius: 16px;
+        }
+        .custom-plan h4 { font-size: 1.1rem; margin-bottom: 0.4rem; }
+        .custom-plan p { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1rem; }
+
+        /* ── Feature comparison table ── */
+        .comparison-section { padding: 4rem 0 5rem; }
+        .comparison-section .section-header { margin-bottom: 2.5rem; }
+        .comp-table { border: 1px solid var(--border-color); border-radius: 16px; overflow: hidden; }
+        .comp-row { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; }
+        .comp-row:not(:last-child) { border-bottom: 1px solid var(--border-color); }
+        .comp-row.header-row { background: #F8FAFC; }
+        .comp-cell {
+            padding: 0.9rem 1.25rem; font-size: 0.88rem; color: var(--text-muted);
+            display: flex; align-items: center; gap: 0.5rem;
+        }
+        .comp-cell:not(:first-child) { justify-content: center; }
+        .comp-row.header-row .comp-cell {
+            font-family: var(--font-heading); font-weight: 700; font-size: 0.82rem;
+            text-transform: uppercase; letter-spacing: 1px; color: var(--text-main);
+        }
+        .comp-cell svg { width: 16px; height: 16px; flex-shrink: 0; }
+        .comp-cell .yes { color: #10b981; }
+        .comp-cell .no { color: #CBD5E1; }
+        .comp-cell .partial { color: var(--primary); }
+
+        /* ── FAQ ── */
+        .faq-section { padding: 4rem 0 5rem; background: var(--bg-darker); }
+        .faq-list { max-width: 700px; margin: 0 auto; display: flex; flex-direction: column; gap: 0.75rem; }
+        .faq-item {
+            background: #fff; border: 1px solid var(--border-color);
+            border-radius: 14px; overflow: hidden;
+        }
+        .faq-q {
+            width: 100%; padding: 1.1rem 1.5rem; text-align: left;
+            display: flex; justify-content: space-between; align-items: center;
+            cursor: pointer; background: none; border: none; font-family: var(--font-body);
+            font-size: 0.95rem; font-weight: 600; color: var(--text-main);
+        }
+        .faq-q svg { width: 18px; height: 18px; color: var(--primary); transition: transform 0.2s; flex-shrink: 0; }
+        .faq-item.open .faq-q svg { transform: rotate(180deg); }
+        .faq-a { display: none; padding: 0 1.5rem 1.1rem; color: var(--text-muted); font-size: 0.9rem; line-height: 1.7; }
+        .faq-item.open .faq-a { display: block; }
+
+        /* ── CTA final ── */
+        .pricing-cta { text-align: center; padding: 5rem 0; }
+        .pricing-cta h2 { font-size: 2.2rem; margin-bottom: 1rem; }
+        .pricing-cta p { color: var(--text-muted); max-width: 500px; margin: 0 auto 2rem; }
+
+        /* ── Responsive ── */
+        @media (max-width: 1024px) {
+            .plans-grid { grid-template-columns: 1fr; max-width: 440px; margin: 0 auto; }
+            .comp-table { display: none; }
+        }
+        @media (max-width: 768px) {
+            .pricing-hero h1 { font-size: 2rem; }
+            .plans-grid { max-width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="/" class="logo" aria-label="A-Team home">
+                <picture>
+                    <source media="(max-width: 768px)" srcset="assets/img/isotipo.png">
+                    <source media="(min-width: 769px)" srcset="assets/img/isologo-transparente.png">
+                    <img src="/assets/img/isologo-transparente.png" alt="A Team" class="nav-logo-img">
+                </picture>
+            </a>
+            <div class="nav-links">
+                <a href="/"><span data-lang="es">Inicio</span><span data-lang="en">Home</span></a>
+                <a href="/agentes/axel/">Axel</a>
+                <a href="/pricing/" class="nav-active"><span data-lang="es">Precios</span><span data-lang="en">Pricing</span></a>
+<!-- CASOS_HIDDEN                 <a href="/casos/"><span data-lang="es">Casos</span><span data-lang="en">Cases</span></a> -->
+                <a href="/nosotros/"><span data-lang="es">Nosotros</span><span data-lang="en">About</span></a>
+                <a href="/demo/" class="btn btn-primary"><span data-lang="es">Agendar Demo →</span><span data-lang="en">Book a Demo →</span></a>
+                <div class="lang-toggle-wrap">
+                    <span class="lang-flag active" data-for="es" onclick="setLang('es')">🇦🇷</span>
+                    <button class="lang-toggle" onclick="setLang(document.body.classList.contains('lang-en')?'es':'en')" aria-label="Switch language" title="ES / EN"></button>
+                    <span class="lang-flag" data-for="en" onclick="setLang('en')">🇺🇸</span>
+                </div>
+            </div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open menu">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/>
+                </svg>
+            </button>
+        </div>
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="/"><span data-lang="es">Inicio</span><span data-lang="en">Home</span></a>
+            <a href="/agentes/axel/">Axel</a>
+            <a href="/pricing/" class="nav-active"><span data-lang="es">Precios</span><span data-lang="en">Pricing</span></a>
+                <a href="/nosotros/"><span data-lang="es">Nosotros</span><span data-lang="en">About</span></a>
+            <a href="/demo/" class="btn btn-primary" style="width:100%;text-align:center;"><span data-lang="es">Agendar Demo →</span><span data-lang="en">Book a Demo →</span></a>
+            <div class="lang-toggle-wrap" style="justify-content:center;margin-top:1rem;margin-left:0;">
+                <span class="lang-flag active" data-for="es" onclick="setLang('es')">🇦🇷</span>
+                <button class="lang-toggle" onclick="setLang(document.body.classList.contains('lang-en')?'es':'en')" aria-label="Switch language"></button>
+                <span class="lang-flag" data-for="en" onclick="setLang('en')">🇺🇸</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ── Hero ── -->
+    <section class="pricing-hero">
+        <div class="pricing-hero-bg"></div>
+        <div class="container">
+            <div class="badge badge-accent" style="margin-bottom:1.25rem;">
+                <span data-lang="es">Precio justo. ROI claro.</span><span data-lang="en">Fair price. Clear ROI.</span>
+            </div>
+            <h1>
+                <span data-lang="es"><span class="text-gradient">Precios</span> simples y transparentes</span><span data-lang="en"><span class="text-gradient">Simple</span> and transparent pricing</span>
+            </h1>
+            <p>
+                <span data-lang="es">Sin letra chica. Sin comisiones sobre lo cobrado. Pagás por lo que usás.</span><span data-lang="en">No fine print. No commission on collected invoices. Pay for what you use.</span>
+            </p>
+
+            <p style="font-size:0.82rem;color:var(--text-muted);margin-top:0.5rem;">
+                <span data-lang="es">30 días gratis en todos los planes · 50% off bloqueado por 12 meses para contratos antes de noviembre 2026.</span><span data-lang="en">30 free days on all plans · 50% off locked for 12 months for contracts before November 2026.</span>
+            </p>
+        </div>
+    </section>
+
+    <!-- ── Plans (from Axel) ── -->
+    <section class="section" style="padding-top:0;">
+        <div class="container">
+            <div class="pricing-shell fade-in-up">
+                <div class="audience-toggle" role="tablist" aria-label="Tipo de uso">
+                    <button type="button" class="" role="tab" data-audience="personal"><span data-lang="es">Emprendedor</span><span data-lang="en">Starter</span></button>
+                    <button type="button" class="is-active" role="tab" data-audience="business" aria-selected="true"><span data-lang="es">Empresa</span><span data-lang="en">Business</span></button>
+                </div>
+                <div class="pricing" id="pricing-cards"><!-- populated by JS --></div>
+                <div class="pricing-detail is-hidden" id="pricing-detail"><!-- populated by JS --></div>
+            </div>
+            <p class="pricing-note" id="pricing-note"></p>
+        </div>
+    </section>
+
+    <!-- ── FAQ ── -->
+    <section class="faq-section">
+        <div class="container">
+            <div class="section-header">
+                <h2><span data-lang="es">Preguntas frecuentes</span><span data-lang="en">Frequently asked questions</span></h2>
+            </div>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <button class="faq-q"><span data-lang="es">¿Puedo cambiar de plan en cualquier momento?</span><span data-lang="en">Can I change plans at any time?</span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+                    <div class="faq-a"><span data-lang="es">Sí. Subís o bajás de plan cuando quieras. Sin permanencia mínima. El 50% off de lanzamiento se bloquea al contratar antes de noviembre 2026 y se mantiene 12 meses aunque cambies de banda.</span><span data-lang="en">Yes. You can upgrade or downgrade at any time. No minimum commitment. The 50% launch discount locks in at sign-up (before November 2026) and stays for 12 months even if you change your volume band.</span></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-q"><span data-lang="es">¿Cobran comisión sobre lo que cobro?</span><span data-lang="en">Do you charge a commission on what I collect?</span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+                    <div class="faq-a"><span data-lang="es">No. Es un flat mensual por banda de facturas. Sin variable. Sin comisión. Lo que cobrás es tuyo.</span><span data-lang="en">No. It's a flat monthly fee by invoice volume band. No variable. No commission. What you collect is yours.</span></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-q"><span data-lang="es">¿Cuál es la diferencia entre Plan 01 y Plan 02?</span><span data-lang="en">What's the difference between Plan 01 and Plan 02?</span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+                    <div class="faq-a"><span data-lang="es">El Plan 01 (Reclamo) hace WhatsApp + comprobantes + dashboard. El Plan 02 (Conciliación) suma conexión bancaria, matching automático con terceros, reclamo multicanal y ARCA opcional. El 02 es el más elegido por colegios, consorcios y administradores.</span><span data-lang="en">Plan 01 (Claim) covers WhatsApp + receipts + dashboard. Plan 02 (Reconciliation) adds bank connection, automatic third-party matching, multi-channel claims and optional ARCA integration. Plan 02 is the most popular among schools, HOAs and admins.</span></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-q"><span data-lang="es">¿Qué cuenta como "factura" en las bandas de volumen?</span><span data-lang="en">What counts as an "invoice" in the volume bands?</span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+                    <div class="faq-a"><span data-lang="es">Cada cuota o cobro mensual que Axel gestiona cuenta como una factura, sin importar el monto. Por ejemplo, un colegio con 200 alumnos que paga una cuota mensual = 200 facturas por mes.</span><span data-lang="en">Each monthly payment or invoice that Axel manages counts as one invoice, regardless of amount. For example, a school with 200 students paying one monthly fee = 200 invoices/month.</span></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-q"><span data-lang="es">¿En qué moneda se factura y cómo se paga?</span><span data-lang="en">What currency and how do I pay?</span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+                    <div class="faq-a"><span data-lang="es">El plan Emprendedor se factura en ARS + IVA. Los planes Empresa se facturan en USD. Aceptamos transferencia bancaria (prepago) o débito automático con tarjeta (5% off). Facturación local disponible en Argentina.</span><span data-lang="en">The Starter plan is billed in ARS + VAT. Business plans are billed in USD. We accept bank transfer (prepaid) or automatic card debit (5% off). Local invoicing available in Argentina.</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── Final CTA ── -->
+    <section class="pricing-cta">
+        <div class="container">
+            <div class="badge badge-accent" style="margin-bottom:1rem;">
+                <span data-lang="es">Sin compromiso. 14 días gratis.</span><span data-lang="en">No commitment. 14 days free.</span>
+            </div>
+            <h2><span data-lang="es">¿Listo para recuperar lo que te deben?</span><span data-lang="en">Ready to recover what you're owed?</span></h2>
+            <p><span data-lang="es">Agendá una demo de 15 minutos con tus datos reales y te mostramos cuánto recuperarías con Axel.</span><span data-lang="en">Book a 15-minute demo with your real data and we'll show you exactly how much Axel would recover for you.</span></p>
+            <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+                <a href="/demo/" class="btn btn-primary btn-large"><span data-lang="es">Agendar demo gratis →</span><span data-lang="en">Book free demo →</span></a>
+                <a href="/agentes/axel/" class="btn btn-secondary btn-large"><span data-lang="es">Conocer a Axel</span><span data-lang="en">Meet Axel</span></a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div style="margin-bottom:0.75rem;"><img src="/assets/img/isologo-transparente.png" alt="A Team" style="height:44px;width:auto;"></div>
+                    <p style="font-size:0.85rem;"><span data-lang="es">Agentes listos. Trabajo resuelto.<br>© 2026 A-Team. Todos los derechos reservados.</span><span data-lang="en">Clever agents, easy living.<br>© 2026 A-Team. All rights reserved.</span></p>
+                </div>
+                <div class="footer-col">
+                    <h5><span data-lang="es">Agentes</span><span data-lang="en">Agents</span></h5>
+                    <a href="/agentes/axel/"><span data-lang="es">Axel — Cobrador</span><span data-lang="en">Axel — Collections</span></a>
+                    <a href="/agentes/anibal/"><span data-lang="es">Aníbal — Reportes (pronto)</span><span data-lang="en">Aníbal — Reportes (soon)</span></a>
+                    <a href="#"><span data-lang="es">Alma — Ventas (pronto)</span><span data-lang="en">Alma — Sales (soon)</span></a>
+                </div>
+                <div class="footer-col">
+                    <h5><span data-lang="es">Compañía</span><span data-lang="en">Company</span></h5>
+                    <a href="/nosotros/"><span data-lang="es">Sobre A-Team</span><span data-lang="en">About A-Team</span></a>
+                    <a href="/pricing/"><span data-lang="es">Precios</span><span data-lang="en">Pricing</span></a>
+                    <a href="/demo/"><span data-lang="es">Agendar Demo</span><span data-lang="en">Book a Demo</span></a>
+                </div>
+                <div class="footer-col">
+                    <h5><span data-lang="es">Legales</span><span data-lang="en">Legal</span></h5>
+                    <a href="/terminos/"><span data-lang="es">Términos y Condiciones</span><span data-lang="en">Terms &amp; Conditions</span></a>
+                    <a href="/privacidad/"><span data-lang="es">Política de Privacidad</span><span data-lang="en">Privacy Policy</span></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+
+        // ── Mobile menu ──
+        const menuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        if (menuBtn && mobileMenu) {
+            menuBtn.addEventListener('click', () => mobileMenu.classList.toggle('open'));
+            mobileMenu.querySelectorAll('a').forEach(l => l.addEventListener('click', () => mobileMenu.classList.remove('open')));
+        }
+
+        // ── Animations ──
+        const obs = new IntersectionObserver((entries, o) => {
+            entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); o.unobserve(e.target); } });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.fade-in, .fade-in-up').forEach(el => obs.observe(el));
+        window.addEventListener('scroll', () => {
+            document.querySelector('.navbar').classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // ── Billing toggle ──
+        function setBilling(mode) {
+            document.getElementById('btn-monthly').classList.toggle('active', mode === 'monthly');
+            document.getElementById('btn-annual').classList.toggle('active', mode === 'annual');
+            document.querySelectorAll('.price-val').forEach(el => {
+                el.textContent = mode === 'annual' ? el.dataset.annual : el.dataset.monthly;
+            });
+        }
+
+        // ── FAQ accordion ──
+        document.querySelectorAll('.faq-q').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const item = btn.closest('.faq-item');
+                const isOpen = item.classList.contains('open');
+                document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+                if (!isOpen) item.classList.add('open');
+            });
+        });
+    </script>
+    <!-- ── Pricing JS (same as Axel) ── -->
+    <script>
+(function() {
+  const PLANS = {
+    personal: [
+      {
+        id: 'p1-ar', num: '01', title: 'Reclamo', currency: 'AR$ + IVA',
+        from: 'Gratis', fromUnit: ' / hasta 20 facturas',
+        desc: 'Reclama por WhatsApp, recibe comprobantes y muestra el estado de cada cobro en un dashboard. Sin conexión bancaria.',
+        summary: 'WhatsApp + comprobantes + dashboard — sin conexión bancaria.',
+        features: ['Reclamo automático por WhatsApp','Recepción y carga de comprobantes','Dashboard de estado de cobro','Importación de cartera desde Excel'],
+        featuresNote: 'Las features son las mismas en las tres bandas — lo único que cambia es el volumen de facturas por mes.',
+        forWho: 'Profesionales, monotributistas y pymes que recién arrancan.',
+        modes: ['monthly'],
+        bands: [
+          { id: 'b1', label: 'Hasta 20 facturas', sub: 'Free tier',             monthly: { price: 'Gratis', free: true } },
+          { id: 'b2', label: '21 – 50 facturas',  sub: 'Profesional+',          monthly: { price: '$ 9.900',  priceUnit: '/mes' } },
+          { id: 'b3', label: '51 – 100 facturas', sub: 'Consultorio / estudio', monthly: { price: '$ 39.900', priceUnit: '/mes' } }
+        ],
+        upgradeHint: { to: 'p2', headline: '¿Más de 100 facturas por mes?', body: 'El Plan 01 llega hasta 100. A partir de ahí, el agente que necesitás es <strong>Conciliación</strong> — con conexión bancaria y matching automático.', cta: 'Ver Plan 02' }
+      }
+    ],
+    business: [
+      {
+        id: 'p1-usd', num: '01', title: 'Reclamo', currency: 'USD',
+        from: 'Gratis', fromUnit: ' / hasta 20 facturas',
+        desc: 'Reclamo por WhatsApp, recepción de comprobantes y dashboard de estado. Sin conexión bancaria.',
+        summary: 'WhatsApp + comprobantes + dashboard — sin conexión bancaria.',
+        features: ['Reclamo automático por WhatsApp','Recepción y carga de comprobantes','Dashboard de estado de cobro','Importación de cartera desde Excel'],
+        featuresNote: 'Las features son las mismas en las tres bandas — lo único que cambia es el volumen de facturas por mes.',
+        forWho: 'Emprendimientos chicos y equipos que recién arrancan a profesionalizar su cobranza.',
+        modes: ['monthly'],
+        bands: [
+          { id: 'b1', label: 'Hasta 20 facturas', sub: 'Free tier',    monthly: { price: 'Gratis', free: true } },
+          { id: 'b2', label: '21 – 50 facturas',  sub: 'Equipo chico', monthly: { price: 'USD 19', priceUnit: '/mes' } },
+          { id: 'b3', label: '51 – 100 facturas', sub: 'Equipo grande',monthly: { price: 'USD 39', priceUnit: '/mes' } }
+        ],
+        upgradeHint: { to: 'p2', headline: '¿Más de 100 facturas por mes?', body: 'El Plan 01 llega hasta 100. A partir de ahí, el agente que necesitás es <strong>Conciliación</strong> — con conexión bancaria y matching automático.', cta: 'Ver Plan 02' },
+        confirmCopy: 'Valores Plan 01 empresarial estimados — confirmar con el equipo.'
+      },
+      {
+        id: 'p2', num: '02', title: 'Conciliación', currency: 'USD',
+        from: 'USD 39', fromUnit: ' / mes', fromStrike: 'USD 79',
+        desc: 'Todo el plan Reclamo + reclamo multicanal (WhatsApp + email + SMS), conexión bancaria, matching automático con terceros e integración ARCA opcional.',
+        summary: 'Multicanal · Banco · Matching · ARCA opcional.',
+        featured: true,
+        features: ['Todo el plan Reclamo','Reclamo multicanal: WhatsApp + email + SMS','Conexión bancaria','Matching automático (incluye pagos de terceros)','Integración ARCA opcional'],
+        forWho: 'Colegios, consorcios, inmobiliarias, clubes y prepagas.',
+        modes: ['annual', 'monthly'],
+        bands: [
+          { id: 'b1', label: 'Hasta 200 facturas',   sub: 'Colegio chico / consorcio', annual: { price: 'USD 39',  priceUnit: '/mes', priceStrike: 'USD 79' },  monthly: { price: 'USD 47',  priceUnit: '/mes', priceStrike: 'USD 95' } },
+          { id: 'b2', label: 'Hasta 500 facturas',   sub: 'Colegio medio',              annual: { price: 'USD 89',  priceUnit: '/mes', priceStrike: 'USD 179' }, monthly: { price: 'USD 107', priceUnit: '/mes', priceStrike: 'USD 215' } },
+          { id: 'b3', label: 'Hasta 1.000 facturas', sub: 'Consorcio grande',           annual: { price: 'USD 149', priceUnit: '/mes', priceStrike: 'USD 299' }, monthly: { price: 'USD 179', priceUnit: '/mes', priceStrike: 'USD 359' } },
+          { id: 'b4', label: 'Hasta 2.500 facturas', sub: 'Admin grande / club',        annual: { price: 'USD 224', priceUnit: '/mes', priceStrike: 'USD 449' }, monthly: { price: 'USD 269', priceUnit: '/mes', priceStrike: 'USD 539' } },
+          { id: 'b5', label: '+ 2.500 facturas',     sub: 'Enterprise',                 annual: { price: 'Custom' }, monthly: { price: 'Custom' }, enterprise: true }
+        ]
+      },
+      {
+        id: 'p3', num: '03', title: 'Inteligencia', currency: 'USD',
+        from: 'USD 59', fromUnit: ' / mes', fromStrike: 'USD 119',
+        desc: 'Todo el plan Conciliación + forecast de cashflow, scoring de pagadores, planes de pago inteligentes, reportes automatizados y API.',
+        summary: 'Conciliación + Cashflow forecast + Scoring + API.',
+        soon: true,
+        features: ['Todo el plan Conciliación','Cashflow forecasting','Scoring de pagadores','Planes de pago inteligentes','Reportes automatizados','API'],
+        forWho: 'Admins grandes, countries, franquicias, cooperativas y clientes con volumen.',
+        modes: ['annual', 'monthly'],
+        bands: [
+          { id: 'b1', label: 'Hasta 200 facturas',   sub: 'Country chico',      annual: { price: 'USD 59',  priceUnit: '/mes', priceStrike: 'USD 119' }, monthly: { price: 'USD 71',  priceUnit: '/mes', priceStrike: 'USD 143' } },
+          { id: 'b2', label: 'Hasta 500 facturas',   sub: 'Country medio',      annual: { price: 'USD 124', priceUnit: '/mes', priceStrike: 'USD 249' }, monthly: { price: 'USD 149', priceUnit: '/mes', priceStrike: 'USD 299' } },
+          { id: 'b3', label: 'Hasta 1.000 facturas', sub: 'Cooperativa grande', annual: { price: 'USD 199', priceUnit: '/mes', priceStrike: 'USD 399' }, monthly: { price: 'USD 239', priceUnit: '/mes', priceStrike: 'USD 479' } },
+          { id: 'b4', label: 'Hasta 2.500 facturas', sub: 'Admin enterprise',   annual: { price: 'USD 299', priceUnit: '/mes', priceStrike: 'USD 599' }, monthly: { price: 'USD 359', priceUnit: '/mes', priceStrike: 'USD 719' } },
+          { id: 'b5', label: '+ 2.500 facturas',     sub: 'Enterprise',         annual: { price: 'Custom' }, monthly: { price: 'Custom' }, enterprise: true }
+        ]
+      }
+    ]
+  };
+
+  const PRICING_NOTE = {
+    personal: 'Plan 01 en pesos argentinos + IVA, facturación mensual. <strong>30 días gratis</strong> al contratar, cancelás cuando quieras. Al checkout elegís cómo pagás: <strong>transferencia (prepago)</strong> o <strong>débito automático con tarjeta (5% off)</strong>.',
+    business: '<strong>Plan 01</strong> en USD con facturación mensual, sin descuentos. <strong>Plan 02 y 03</strong> con <strong>50% off de lanzamiento</strong> (anual y mensual) bloqueado por 12 meses para quien contrate hasta noviembre 2026. Sin permanencia mínima.'
+  };
+
+  const state = { audience: 'business', view: 'cards', planId: null, mode: 'annual', bandId: null };
+  const $toggle = document.querySelector('.audience-toggle');
+  const $cards  = document.getElementById('pricing-cards');
+  const $detail = document.getElementById('pricing-detail');
+  const $note   = document.getElementById('pricing-note');
+
+  function renderCards() {
+    if (state.audience === 'personal') { $cards.classList.add('pricing-flat'); return renderPersonalFlat(); }
+    $cards.classList.remove('pricing-flat');
+    const plans = PLANS[state.audience];
+    $cards.innerHTML = plans.map(p => {
+      const headBadge = p.featured ? '<div class="plan-tag">Más elegido</div>' : (p.soon ? '<div class="plan-soon-badge">Próximamente</div>' : '');
+      const priceBlock = `<div class="plan-price-from">Desde</div><div class="plan-price-main">${p.from}<span class="unit">${p.fromUnit||''}</span></div>${p.fromStrike ? `<div class="plan-price-var"><span class="strike">${p.fromStrike}</span>50% off hasta nov&nbsp;2026</div>` : ''}`;
+      const ctaBtn = p.soon ? `<button type="button" class="plan-cta is-ghost" data-soon="1">Avisame cuando salga</button>` : `<button type="button" class="plan-cta" data-plan="${p.id}">Elegir este plan <span aria-hidden="true">→</span></button>`;
+      return `<div class="${['plan', p.featured?'featured':'', p.soon?'is-soon':''].join(' ').trim()}">${headBadge}<div class="plan-head"><div class="plan-name">Plan <span class="num">${p.num}</span></div><div class="plan-curr">${p.currency}</div></div><div class="plan-title">${p.title}</div><div class="plan-price">${priceBlock}</div><ul class="plan-features">${p.features.map(f=>`<li>${f}</li>`).join('')}</ul><div class="plan-for"><strong>Ideal para:</strong> ${p.forWho}</div>${ctaBtn}</div>`;
+    }).join('');
+    $cards.querySelectorAll('[data-plan]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        state.planId = btn.getAttribute('data-plan');
+        const plan = findPlan(state.planId);
+        state.mode = plan.modes[0]; state.bandId = plan.bands[0].id; state.view = 'detail'; renderAll();
+        setTimeout(() => window.scrollTo({ top: document.getElementById('pricing-cards').offsetTop - 80, behavior: 'smooth' }), 50);
+      });
+    });
+    $cards.querySelectorAll('[data-soon]').forEach(btn => btn.addEventListener('click', () => window.open(`https://wa.me/5491100000000?text=${encodeURIComponent('Hola, quiero que me avisen cuando salga el Plan Inteligencia de Axel.')}`, '_blank')));
+  }
+
+  function renderPersonalFlat() {
+    const plan = PLANS.personal[0];
+    const bandsHtml = plan.bands.map(b => {
+      const bp = b.monthly;
+      const priceClass = bp.free ? 'band-card-price-main is-free' : 'band-card-price-main';
+      const unit = bp.priceUnit ? `<span class="band-card-price-unit">${bp.priceUnit}</span>` : '';
+      const ctaMsg = encodeURIComponent(`Hola, quiero contratar Axel — Plan 01 Reclamo (${b.label}).`);
+      return `<div class="band-card ${b.id==='b2'?'is-popular':''}">${b.id==='b2'?'<div class="band-card-tag">Más elegido</div>':''}<div class="band-card-label">${b.label}</div>${b.sub?`<div class="band-card-sub">${b.sub}</div>`:''}<div class="band-card-price"><div class="${priceClass}">${bp.price}${unit}</div><div class="band-card-price-note">${bp.free?'Sin tarjeta · sin permanencia':'Facturación mensual · 30 días gratis'}</div></div><a class="plan-cta" href="https://wa.me/5491100000000?text=${ctaMsg}" target="_blank" rel="noopener">${bp.free?'Empezar gratis':'Contratar este plan'} <span aria-hidden="true">→</span></a></div>`;
+    }).join('');
+    const upgradeBlock = plan.upgradeHint ? `<div class="upgrade-hint"><div class="upgrade-hint-text"><div class="upgrade-hint-headline">${plan.upgradeHint.headline}</div><div class="upgrade-hint-body">${plan.upgradeHint.body}</div></div><button type="button" class="upgrade-hint-cta" data-upgrade="${plan.upgradeHint.to}">${plan.upgradeHint.cta} <span aria-hidden="true">→</span></button></div>` : '';
+    $cards.innerHTML = `<div class="pricing-flat-head"><div class="pricing-flat-meta"><div class="plan-name">Plan <span class="num">${plan.num}</span></div><div class="plan-title">${plan.title}</div><p class="pricing-flat-desc">${plan.desc}</p></div><div class="plan-curr">${plan.currency}</div></div><div class="pricing-flat-features"><div class="pricing-flat-features-label">Incluye en todas las opciones</div><ul>${plan.features.map(f=>`<li>${f}</li>`).join('')}</ul></div><div class="pricing-flat-volume"><div class="pricing-flat-volume-head"><div><div class="band-section-label">Elegí tu volumen de facturas por mes</div></div></div></div><div class="pricing-flat-bands">${bandsHtml}</div>${upgradeBlock}`;
+    $cards.querySelectorAll('[data-upgrade]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        state.audience = 'business';
+        $toggle.querySelectorAll('button').forEach(b => { const isBiz = b.getAttribute('data-audience')==='business'; b.classList.toggle('is-active', isBiz); b.setAttribute('aria-selected', isBiz); });
+        const tp = PLANS.business.find(p=>p.num==='02'); if(!tp) return;
+        state.planId=tp.id; state.mode=tp.modes[0]; state.bandId=tp.bands[0].id; state.view='detail'; renderAll();
+      });
+    });
+  }
+
+  function renderDetail() {
+    const plan = findPlan(state.planId); if (!plan) return;
+    const band = plan.bands.find(b=>b.id===state.bandId)||plan.bands[0];
+    const priceObj = band[state.mode]||band.annual;
+    const hasBothModes = plan.modes.length>1;
+    const hasLaunchDiscount = plan.num==='02'||plan.num==='03';
+    const annualTag = hasLaunchDiscount ? '<span class="mode-tag">−50%</span>' : '';
+    const monthlyTag = hasLaunchDiscount ? '<span class="mode-tag">−50%</span>' : '';
+    const modeNoteAnnual = hasLaunchDiscount ? 'Anual con 50% off de lanzamiento, bloqueado por 12 meses para quien contrate antes de noviembre 2026.' : 'Precio anual. Mensual sale ≈20% más caro.';
+    const modeNoteMonthly = hasLaunchDiscount ? 'Mensual con 50% off de lanzamiento, bloqueado por 12 meses. Cancelás cuando quieras.' : 'Mensual sin descuento. Cancelás cuando quieras.';
+    const modeToggle = hasBothModes ? `<div class="mode-toggle-wrap"><span class="mode-toggle-label">Modalidad de pago</span><div class="mode-toggle" role="tablist"><button type="button" class="${state.mode==='annual'?'is-active':''}" data-mode="annual">Anual ${annualTag}</button><button type="button" class="${state.mode==='monthly'?'is-active':''}" data-mode="monthly">Mensual ${monthlyTag}</button></div><div class="mode-note">${state.mode==='annual'?modeNoteAnnual:modeNoteMonthly}</div></div>` : `<div class="mode-note" style="margin-top:18px">Facturación mensual, sin descuentos ni permanencia mínima. <strong>30 días gratis</strong> al contratar.</div>`;
+    const bandsHtml = plan.bands.map(b => {
+      const bp = b[state.mode]||b.annual; const isSelected = b.id===state.bandId;
+      const priceClass = bp.free?'band-price-main is-free':'band-price-main';
+      const priceUnit = bp.priceUnit?`<span style="font-size:11px;color:#64748B;font-weight:500"> ${bp.priceUnit}</span>`:'';
+      const strike = bp.priceStrike?`<div class="band-price-strike">${bp.priceStrike}</div>`:'';
+      return `<div class="band-option ${isSelected?'is-selected':''}" data-band="${b.id}" role="radio" aria-checked="${isSelected}" tabindex="0"><div class="band-info"><div class="band-radio"></div><div class="band-info-text"><div class="band-label-main">${b.label}</div>${b.sub?`<div class="band-label-sub">${b.sub}</div>`:''}</div></div><div class="band-price"><div class="${priceClass}">${bp.price}${priceUnit}</div>${strike}</div></div>`;
+    }).join('');
+    const summaryPrice = priceObj.free?'Gratis':`${priceObj.price}${priceObj.priceUnit?`<span class="unit"> ${priceObj.priceUnit}</span>`:''}`;
+    const ctaMsg = encodeURIComponent(`Hola, quiero contratar Axel — plan ${plan.title} (${band.label}, ${state.mode==='annual'?'anual':'mensual'}).`);
+    const ctaLabel = band.enterprise?'Hablar con ventas':'Contratar este plan';
+    const confirmNote = plan.confirmCopy?`<div class="mode-note" style="margin-top:8px;color:#7B4FFF">${plan.confirmCopy}</div>`:'';
+    $detail.innerHTML = `<button type="button" class="detail-back" id="detail-back"><span aria-hidden="true">←</span> Volver a planes</button><div class="detail-head"><div><div class="detail-title"><span class="num">PLAN ${plan.num}</span>${plan.title}</div></div><div class="detail-curr">${plan.currency}</div></div><p class="detail-desc">${plan.desc}</p>${modeToggle}${confirmNote}<div class="band-section-label" style="margin-top:1.25rem">Elegí tu volumen de facturas por mes</div><div class="band-options" role="radiogroup">${bandsHtml}</div>${plan.upgradeHint?`<div class="upgrade-hint"><div class="upgrade-hint-text"><div class="upgrade-hint-headline">${plan.upgradeHint.headline}</div><div class="upgrade-hint-body">${plan.upgradeHint.body}</div></div><button type="button" class="upgrade-hint-cta" data-upgrade="${plan.upgradeHint.to}">${plan.upgradeHint.cta} <span aria-hidden="true">→</span></button></div>`:''}<div class="detail-summary"><div class="summary-block"><div class="summary-block-label">Tu plan</div><div class="summary-block-value">${plan.title} · ${band.label.replace('facturas','fact')}</div></div><div class="summary-block"><div class="summary-block-label">${state.mode==='annual'?'Anual · contado':'Mensual'}</div><div class="summary-block-value">${summaryPrice}</div></div><a class="summary-cta" href="https://wa.me/5491100000000?text=${ctaMsg}" target="_blank" rel="noopener">${ctaLabel} <span aria-hidden="true">→</span></a></div>`;
+    document.getElementById('detail-back').addEventListener('click', () => { state.view='cards'; state.planId=null; renderAll(); });
+    $detail.querySelectorAll('[data-mode]').forEach(btn => btn.addEventListener('click', () => { state.mode=btn.getAttribute('data-mode'); renderDetail(); }));
+    $detail.querySelectorAll('[data-band]').forEach(btn => {
+      btn.addEventListener('click', () => { state.bandId=btn.getAttribute('data-band'); renderDetail(); });
+      btn.addEventListener('keydown', e => { if(e.key==='Enter'||e.key===' '){ e.preventDefault(); state.bandId=btn.getAttribute('data-band'); renderDetail(); } });
+    });
+    $detail.querySelectorAll('[data-upgrade]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        if(state.audience==='personal'){ state.audience='business'; $toggle.querySelectorAll('button').forEach(b=>{ const isBiz=b.getAttribute('data-audience')==='business'; b.classList.toggle('is-active',isBiz); b.setAttribute('aria-selected',isBiz); }); }
+        const tp = PLANS[state.audience].find(p=>p.num==='02'); if(!tp) return;
+        state.planId=tp.id; state.mode=tp.modes[0]; state.bandId=tp.bands[0].id; renderAll();
+      });
+    });
+  }
+
+  function renderAll() {
+    if($note) $note.innerHTML = PRICING_NOTE[state.audience];
+    if(state.view==='cards'){ $cards.classList.remove('is-hidden'); $detail.classList.add('is-hidden'); renderCards(); }
+    else { $cards.classList.add('is-hidden'); $detail.classList.remove('is-hidden'); renderDetail(); }
+  }
+  function findPlan(id){ return PLANS[state.audience].find(p=>p.id===id); }
+
+  $toggle.querySelectorAll('button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const aud = btn.getAttribute('data-audience');
+      if(aud===state.audience) return;
+      state.audience=aud; state.view='cards'; state.planId=null; state.mode='annual';
+      $toggle.querySelectorAll('button').forEach(b => { b.classList.toggle('is-active', b.getAttribute('data-audience')===aud); b.setAttribute('aria-selected', b.getAttribute('data-audience')===aud); });
+      renderAll();
+    });
+  });
+
+  renderAll();
+})();
+    </script>
+    <script src="/assets/js/lang.js"></script>
+</body>
+
+</html>
