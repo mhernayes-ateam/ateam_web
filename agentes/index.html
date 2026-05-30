@@ -114,6 +114,34 @@
         .icon-live { background: rgba(123,79,255,0.08); }
         .icon-soon { background: rgba(148,163,184,0.08); }
 
+        /* Agent image panel (for cards with a real photo) */
+        .agent-img-panel {
+            margin: -2.5rem -2rem 1.5rem;
+            height: 200px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 22px 22px 0 0;
+        }
+        .agent-img-panel img {
+            width: 100%; height: 100%;
+            object-fit: cover; object-position: center top;
+            display: block;
+            transition: transform 0.4s ease;
+        }
+        .agent-card:hover .agent-img-panel img { transform: scale(1.04); }
+        .agent-img-panel::after {
+            content: '';
+            position: absolute; inset: 0;
+            background: linear-gradient(to bottom,
+                transparent 40%,
+                rgba(13,15,26,0.55) 100%);
+        }
+        /* Status badge floated over image */
+        .agent-img-panel .agent-status {
+            position: absolute; bottom: 0.75rem; left: 0.75rem;
+            z-index: 2; margin-bottom: 0;
+        }
+
         /* Content */
         .agent-card h2 {
             font-family: var(--font-heading);
@@ -255,10 +283,13 @@
 
                 <!-- AXEL -->
                 <div class="agent-card live fade-in-up">
-                    <div class="agent-status status-live">
-                        <span data-lang="es">● En producción</span><span data-lang="en">● Live</span>
+                    <!-- Image panel with status badge floating over it -->
+                    <div class="agent-img-panel">
+                        <img src="/assets/img/axel.jpg" alt="Axel — Agente Cobrador" loading="lazy">
+                        <div class="agent-status status-live">
+                            <span data-lang="es">● En producción</span><span data-lang="en">● Live</span>
+                        </div>
                     </div>
-                    <div class="agent-icon icon-live">💰</div>
                     <h2>Axel</h2>
                     <div class="agent-role"><span data-lang="es">Agente Cobrador</span><span data-lang="en">Collections Agent</span></div>
                     <p class="agent-desc">
