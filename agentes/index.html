@@ -1,17 +1,195 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Agentes — A-Team</title>
-<meta name="description" content="Los agentes de IA de A-Team: Axel (cobrador), Aníbal (reportes) y Alma (calificadora de leads).">
-<link rel="shortcut icon" href="/assets/img/favicon.png">
-<link rel="canonical" href="https://the-ateam.ai/agentes/">
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/css/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agentes — A-Team · Axel, Aníbal y Alma</title>
+    <meta name="description" content="Los agentes de IA de A-Team: Axel (cobrador de deudas), Aníbal (reportes automáticos) y Alma (calificadora de leads). Cada uno resuelve una operación específica.">
+    <link rel="shortcut icon" href="/assets/img/favicon.png">
+    <link rel="icon" type="image/png" href="/assets/img/favicon.png">
+    <link rel="apple-touch-icon" href="/assets/img/favicon.png">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#6366F1">
+    <link rel="canonical" href="https://the-ateam.ai/agentes/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="A-Team">
+    <meta property="og:title" content="Agentes — A-Team · Axel, Aníbal y Alma">
+    <meta property="og:description" content="Tres agentes de IA que resuelven operaciones reales: cobranza, reportes y calificación de leads.">
+    <meta property="og:url" content="https://the-ateam.ai/agentes/">
+    <meta name="twitter:card" content="summary_large_image">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800;900&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <style>
+        /* ── Hero ── */
+        .agentes-hero {
+            padding: 8rem 0 5rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .agentes-hero-bg {
+            position: absolute; inset: 0; z-index: 0; pointer-events: none;
+            background: radial-gradient(ellipse 70% 50% at 50% 0%,
+                rgba(123,79,255,0.06) 0%, transparent 70%);
+        }
+        .agentes-hero .container { position: relative; z-index: 1; }
+        .agentes-hero h1 {
+            font-family: var(--font-heading);
+            font-size: clamp(2.2rem, 5vw, 3.5rem);
+            font-weight: 900; letter-spacing: -2px;
+            margin-bottom: 1rem; line-height: 1.1;
+        }
+        .agentes-hero .lead {
+            color: var(--text-muted); font-size: 1.1rem;
+            max-width: 560px; margin: 0 auto; line-height: 1.75;
+        }
+
+        /* ── Agent cards grid ── */
+        .agents-section { padding: 4rem 0 7rem; }
+        .agents-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .agent-card {
+            background: #fff;
+            border: 1.5px solid rgba(0,0,0,0.08);
+            border-radius: 24px;
+            padding: 2.5rem 2rem 2rem;
+            display: flex; flex-direction: column;
+            position: relative; overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s;
+        }
+        .agent-card::before {
+            content: '';
+            position: absolute; top: 0; left: 0; right: 0; height: 4px;
+            background: linear-gradient(90deg, #7B4FFF, #38B6FF);
+            opacity: 0; transition: opacity 0.3s;
+        }
+        .agent-card.live {
+            border-color: rgba(123,79,255,0.2);
+            box-shadow: 0 4px 24px rgba(123,79,255,0.08);
+        }
+        .agent-card.live::before { opacity: 1; }
+        .agent-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 16px 48px rgba(0,0,0,0.1);
+        }
+        .agent-card.live:hover {
+            box-shadow: 0 16px 48px rgba(123,79,255,0.16);
+            border-color: rgba(123,79,255,0.35);
+        }
+
+        /* Status badge */
+        .agent-status {
+            display: inline-flex; align-items: center; gap: 0.4rem;
+            font-size: 0.65rem; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 1.5px;
+            padding: 0.25rem 0.7rem; border-radius: 99px;
+            margin-bottom: 1.75rem; width: fit-content;
+        }
+        .status-live {
+            background: rgba(16,185,129,0.1); color: #10b981;
+            border: 1px solid rgba(16,185,129,0.2);
+        }
+        .status-live::before {
+            content: ''; width: 6px; height: 6px; border-radius: 50%;
+            background: #10b981; animation: pulse-dot 1.5s ease infinite;
+        }
+        @keyframes pulse-dot { 0%,100%{opacity:1} 50%{opacity:0.3} }
+        .status-soon {
+            background: rgba(148,163,184,0.1); color: #94A3B8;
+            border: 1px solid rgba(148,163,184,0.2);
+        }
+
+        /* Agent icon */
+        .agent-icon {
+            width: 56px; height: 56px; border-radius: 16px;
+            display: flex; align-items: center; justify-content: center;
+            margin-bottom: 1.25rem; font-size: 1.75rem;
+        }
+        .icon-live { background: rgba(123,79,255,0.08); }
+        .icon-soon { background: rgba(148,163,184,0.08); }
+
+        /* Content */
+        .agent-card h2 {
+            font-family: var(--font-heading);
+            font-size: 1.6rem; font-weight: 900;
+            letter-spacing: -0.5px; margin-bottom: 0.3rem;
+        }
+        .agent-role {
+            font-size: 0.75rem; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 1.5px;
+            color: #7B4FFF; margin-bottom: 1rem;
+        }
+        .agent-desc {
+            color: var(--text-muted); font-size: 0.92rem;
+            line-height: 1.75; flex: 1; margin-bottom: 1.5rem;
+        }
+        .agent-features {
+            list-style: none; display: flex; flex-direction: column;
+            gap: 0.5rem; margin-bottom: 2rem;
+        }
+        .agent-features li {
+            display: flex; align-items: flex-start; gap: 0.5rem;
+            font-size: 0.85rem; color: #475569;
+        }
+        .agent-features li::before {
+            content: '→'; color: #38B6FF; font-weight: 700;
+            flex-shrink: 0; margin-top: 1px;
+        }
+        .agent-card .btn {
+            margin-top: auto; align-self: flex-start;
+        }
+        .agent-card-soon .btn { opacity: 0.5; pointer-events: none; }
+
+        /* Coming soon overlay */
+        .soon-note {
+            display: flex; align-items: center; gap: 0.4rem;
+            font-size: 0.8rem; color: #94A3B8; margin-top: auto;
+            padding-top: 1.5rem; border-top: 1px solid rgba(0,0,0,0.06);
+        }
+
+        /* ── How it works strip ── */
+        .how-section {
+            background: #F8FAFC;
+            padding: 5rem 0;
+            border-top: 1px solid rgba(0,0,0,0.06);
+            border-bottom: 1px solid rgba(0,0,0,0.06);
+        }
+        .how-grid {
+            display: grid; grid-template-columns: repeat(3,1fr);
+            gap: 2rem; margin-top: 3rem;
+        }
+        .how-item { text-align: center; }
+        .how-num {
+            font-family: var(--font-heading); font-size: 2.5rem;
+            font-weight: 900; color: rgba(123,79,255,0.15);
+            line-height: 1; margin-bottom: 0.75rem;
+        }
+        .how-item h4 { font-size: 1rem; font-weight: 700; margin-bottom: 0.4rem; }
+        .how-item p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.65; }
+
+        /* ── CTA ── */
+        .agentes-cta { padding: 5rem 0; text-align: center; }
+        .agentes-cta h2 {
+            font-family: var(--font-heading); font-size: 2.2rem;
+            font-weight: 800; letter-spacing: -0.5px; margin-bottom: 1rem;
+        }
+        .agentes-cta p { color: var(--text-muted); max-width: 480px; margin: 0 auto 2rem; }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .agents-grid { grid-template-columns: 1fr; max-width: 480px; margin-left: auto; margin-right: auto; }
+            .how-grid { grid-template-columns: 1fr; max-width: 360px; margin-left:auto; margin-right:auto; }
+        }
+    </style>
 </head>
 <body>
-<nav class="navbar">
+    <nav class="navbar">
         <div class="container nav-container">
             <a href="/" class="logo" aria-label="A-Team home">
                 <picture>
@@ -22,7 +200,7 @@
             </a>
             <div class="nav-links">
                 <a href="/"><span data-lang="es">Inicio</span><span data-lang="en">Home</span></a>
-                <a href="/agentes/axel/">Axel</a>
+                <a href="/agentes/" class="nav-active"><span data-lang="es">Agentes</span><span data-lang="en">Agents</span></a>
                 <a href="/pricing/"><span data-lang="es">Precios</span><span data-lang="en">Pricing</span></a>
                 <!-- CASOS_HIDDEN <a href="/casos/"><span data-lang="es">Casos</span><span data-lang="en">Cases</span></a> -->
                 <a href="/nosotros/"><span data-lang="es">Nosotros</span><span data-lang="en">About</span></a>
@@ -39,7 +217,7 @@
         </div>
         <div class="mobile-menu" id="mobileMenu">
             <a href="/"><span data-lang="es">Inicio</span><span data-lang="en">Home</span></a>
-            <a href="/agentes/axel/">Axel</a>
+            <a href="/agentes/" class="nav-active"><span data-lang="es">Agentes</span><span data-lang="en">Agents</span></a>
             <a href="/pricing/"><span data-lang="es">Precios</span><span data-lang="en">Pricing</span></a>
             <!-- CASOS_HIDDEN <a href="/casos/"><span data-lang="es">Casos</span><span data-lang="en">Cases</span></a> -->
             <a href="/nosotros/"><span data-lang="es">Nosotros</span><span data-lang="en">About</span></a>
@@ -51,43 +229,158 @@
             </div>
         </div>
     </nav>
-<section style="padding:8rem 0 5rem;text-align:center;">
-  <div class="container">
-    <h1 style="font-family:var(--font-heading);font-size:3rem;font-weight:900;letter-spacing:-2px;margin-bottom:1rem;">
-      <span data-lang="es">El equipo de <span class="text-gradient">agentes</span></span>
-      <span data-lang="en">The <span class="text-gradient">agents</span> team</span>
-    </h1>
-    <p style="color:var(--text-muted);max-width:540px;margin:0 auto 3rem;line-height:1.7;">
-      <span data-lang="es">Cada agente resuelve una operación específica. Trabajan solos o juntos. Nunca se cansan.</span>
-      <span data-lang="en">Each agent solves one specific operation. They work alone or together. They never get tired.</span>
-    </p>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.5rem;max-width:900px;margin:0 auto;">
-      <a href="/agentes/axel/" style="text-decoration:none;background:#fff;border:1.5px solid rgba(123,79,255,0.2);border-radius:20px;padding:2rem;text-align:left;transition:transform 0.2s,box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 12px 40px rgba(0,0,0,0.09)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
-        <div style="font-size:2rem;margin-bottom:1rem;">💰</div>
-        <div style="font-size:0.65rem;text-transform:uppercase;letter-spacing:2px;font-weight:700;color:#10b981;margin-bottom:0.5rem;">● Live</div>
-        <h3 style="font-size:1.3rem;font-weight:800;margin-bottom:0.4rem;">Axel</h3>
-        <p style="font-size:0.82rem;text-transform:uppercase;letter-spacing:1px;font-weight:700;color:#7B4FFF;margin-bottom:0.75rem;"><span data-lang="es">Cobrador</span><span data-lang="en">Collections Agent</span></p>
-        <p style="color:var(--text-muted);font-size:0.88rem;line-height:1.65;"><span data-lang="es">Reclama pagos por WhatsApp, concilia transferencias y cierra el mes en automático.</span><span data-lang="en">Claims payments via WhatsApp, reconciles transfers and closes the month automatically.</span></p>
-      </a>
-      <a href="/agentes/anibal/" style="text-decoration:none;background:#fff;border:1.5px solid rgba(0,0,0,0.08);border-radius:20px;padding:2rem;text-align:left;transition:transform 0.2s,box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform=''">
-        <div style="font-size:2rem;margin-bottom:1rem;">📊</div>
-        <div style="font-size:0.65rem;text-transform:uppercase;letter-spacing:2px;font-weight:700;color:var(--text-muted);margin-bottom:0.5rem;"><span data-lang="es">Próximamente</span><span data-lang="en">Coming soon</span></div>
-        <h3 style="font-size:1.3rem;font-weight:800;margin-bottom:0.4rem;">Aníbal</h3>
-        <p style="font-size:0.82rem;text-transform:uppercase;letter-spacing:1px;font-weight:700;color:#7B4FFF;margin-bottom:0.75rem;"><span data-lang="es">Reportes</span><span data-lang="en">Reporting</span></p>
-        <p style="color:var(--text-muted);font-size:0.88rem;line-height:1.65;"><span data-lang="es">Genera y distribuye reportes operativos sin intervención humana.</span><span data-lang="en">Generates and distributes operational reports with no human intervention.</span></p>
-      </a>
-      <a href="/agentes/alma/" style="text-decoration:none;background:#fff;border:1.5px solid rgba(0,0,0,0.08);border-radius:20px;padding:2rem;text-align:left;transition:transform 0.2s,box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform=''">
-        <div style="font-size:2rem;margin-bottom:1rem;">🎯</div>
-        <div style="font-size:0.65rem;text-transform:uppercase;letter-spacing:2px;font-weight:700;color:var(--text-muted);margin-bottom:0.5rem;"><span data-lang="es">Próximamente</span><span data-lang="en">Coming soon</span></div>
-        <h3 style="font-size:1.3rem;font-weight:800;margin-bottom:0.4rem;">Alma</h3>
-        <p style="font-size:0.82rem;text-transform:uppercase;letter-spacing:1px;font-weight:700;color:#7B4FFF;margin-bottom:0.75rem;"><span data-lang="es">Calificadora de Leads</span><span data-lang="en">Lead Qualifier</span></p>
-        <p style="color:var(--text-muted);font-size:0.88rem;line-height:1.65;"><span data-lang="es">Califica y prioriza leads por WhatsApp antes de que tu equipo de ventas intervenga.</span><span data-lang="en">Qualifies and prioritises leads via WhatsApp before your sales team steps in.</span></p>
-      </a>
-    </div>
-  </div>
-</section>
-<script src="/assets/js/lang.js"></script>
-<footer class="footer">
+
+    <!-- ── HERO ── -->
+    <section class="agentes-hero">
+        <div class="agentes-hero-bg"></div>
+        <div class="container">
+            <div class="badge badge-accent" style="margin-bottom:1.25rem;">
+                <span data-lang="es">El equipo</span><span data-lang="en">The team</span>
+            </div>
+            <h1>
+                <span data-lang="es">Agentes que hacen el <span class="text-gradient">trabajo operativo</span></span>
+                <span data-lang="en">Agents that do the <span class="text-gradient">operational work</span></span>
+            </h1>
+            <p class="lead" style="margin-top:1rem;">
+                <span data-lang="es">Cada agente está diseñado para una tarea específica. Trabajan solos, en tu nombre, con el tono que vos definís.</span>
+                <span data-lang="en">Each agent is built for one specific task. They work on their own, on your behalf, with the tone you define.</span>
+            </p>
+        </div>
+    </section>
+
+    <!-- ── AGENTS GRID ── -->
+    <section class="agents-section">
+        <div class="container">
+            <div class="agents-grid">
+
+                <!-- AXEL -->
+                <div class="agent-card live fade-in-up">
+                    <div class="agent-status status-live">
+                        <span data-lang="es">● En producción</span><span data-lang="en">● Live</span>
+                    </div>
+                    <div class="agent-icon icon-live">💰</div>
+                    <h2>Axel</h2>
+                    <div class="agent-role"><span data-lang="es">Agente Cobrador</span><span data-lang="en">Collections Agent</span></div>
+                    <p class="agent-desc">
+                        <span data-lang="es">Reclama pagos vencidos por WhatsApp, concilia transferencias bancarias contra tu cartera de clientes y cierra el mes sin que tengas que levantar el teléfono.</span>
+                        <span data-lang="en">Claims overdue payments via WhatsApp, reconciles bank transfers against your client portfolio, and closes the month without you picking up the phone.</span>
+                    </p>
+                    <ul class="agent-features">
+                        <li><span data-lang="es">Reclamos automáticos por WhatsApp</span><span data-lang="en">Automatic WhatsApp claims</span></li>
+                        <li><span data-lang="es">Conciliación de transferencias bancarias</span><span data-lang="en">Bank transfer reconciliation</span></li>
+                        <li><span data-lang="es">Escalado inteligente a un humano</span><span data-lang="en">Smart escalation to a human</span></li>
+                        <li><span data-lang="es">Reportes de cartera en tiempo real</span><span data-lang="en">Real-time portfolio reports</span></li>
+                    </ul>
+                    <a href="/agentes/axel/" class="btn btn-primary">
+                        <span data-lang="es">Conocer a Axel →</span><span data-lang="en">Meet Axel →</span>
+                    </a>
+                </div>
+
+                <!-- ANÍBAL -->
+                <div class="agent-card fade-in-up" style="transition-delay:0.1s;">
+                    <div class="agent-status status-soon">
+                        <span data-lang="es">Próximamente</span><span data-lang="en">Coming soon</span>
+                    </div>
+                    <div class="agent-icon icon-soon">📊</div>
+                    <h2>Aníbal</h2>
+                    <div class="agent-role"><span data-lang="es">Agente de Reportes</span><span data-lang="en">Reporting Agent</span></div>
+                    <p class="agent-desc">
+                        <span data-lang="es">Genera y distribuye reportes operativos automáticamente — sin que nadie tenga que armar el Excel, completar el template ni enviar el mail.</span>
+                        <span data-lang="en">Generates and distributes operational reports automatically — without anyone having to build the spreadsheet, fill in the template, or send the email.</span>
+                    </p>
+                    <ul class="agent-features">
+                        <li><span data-lang="es">Consolidación de datos de múltiples fuentes</span><span data-lang="en">Data consolidation from multiple sources</span></li>
+                        <li><span data-lang="es">Reportes en PDF/Excel/WhatsApp</span><span data-lang="en">Reports in PDF/Excel/WhatsApp</span></li>
+                        <li><span data-lang="es">Distribución automática a destinatarios</span><span data-lang="en">Automatic distribution to recipients</span></li>
+                        <li><span data-lang="es">Alertas cuando algo sale del rango</span><span data-lang="en">Alerts when something is out of range</span></li>
+                    </ul>
+                    <div class="soon-note">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                        <span data-lang="es">Avisame cuando esté disponible</span><span data-lang="en">Notify me when available</span>
+                    </div>
+                </div>
+
+                <!-- ALMA -->
+                <div class="agent-card fade-in-up" style="transition-delay:0.2s;">
+                    <div class="agent-status status-soon">
+                        <span data-lang="es">Próximamente</span><span data-lang="en">Coming soon</span>
+                    </div>
+                    <div class="agent-icon icon-soon">🎯</div>
+                    <h2>Alma</h2>
+                    <div class="agent-role"><span data-lang="es">Calificadora de Leads</span><span data-lang="en">Lead Qualifier</span></div>
+                    <p class="agent-desc">
+                        <span data-lang="es">Califica y prioriza tus leads por WhatsApp antes de que tu equipo de ventas intervenga. Pregunta, puntúa y entrega solo los que valen la pena.</span>
+                        <span data-lang="en">Qualifies and prioritises your leads via WhatsApp before your sales team steps in. Asks, scores, and delivers only the ones worth pursuing.</span>
+                    </p>
+                    <ul class="agent-features">
+                        <li><span data-lang="es">Calificación automática por WhatsApp</span><span data-lang="en">Automatic qualification via WhatsApp</span></li>
+                        <li><span data-lang="es">Scoring según criterios de tu negocio</span><span data-lang="en">Scoring based on your business criteria</span></li>
+                        <li><span data-lang="es">Entrega de leads calificados al CRM</span><span data-lang="en">Qualified lead delivery to CRM</span></li>
+                        <li><span data-lang="es">Seguimiento de leads fríos sin esfuerzo</span><span data-lang="en">Effortless cold lead follow-up</span></li>
+                    </ul>
+                    <div class="soon-note">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                        <span data-lang="es">Avisame cuando esté disponible</span><span data-lang="en">Notify me when available</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ── HOW IT WORKS ── -->
+    <section class="how-section">
+        <div class="container">
+            <div class="section-header">
+                <h2><span data-lang="es">¿Cómo funciona un agente?</span><span data-lang="en">How does an agent work?</span></h2>
+                <p><span data-lang="es">Mismo patrón para todos. Distintos objetivos.</span><span data-lang="en">Same pattern for all. Different goals.</span></p>
+            </div>
+            <div class="how-grid fade-in-up">
+                <div class="how-item">
+                    <div class="how-num">01</div>
+                    <h4><span data-lang="es">Conectás tu operación</span><span data-lang="en">You connect your operation</span></h4>
+                    <p><span data-lang="es">El agente se conecta a tus herramientas actuales — tu banco, tu sistema de gestión, tu CRM. Sin cambiar nada de tu flujo.</span><span data-lang="en">The agent connects to your current tools — your bank, your management system, your CRM. Without changing your flow.</span></p>
+                </div>
+                <div class="how-item">
+                    <div class="how-num">02</div>
+                    <h4><span data-lang="es">Definís las reglas</span><span data-lang="en">You define the rules</span></h4>
+                    <p><span data-lang="es">Le decís cómo querés que actúe: el tono, el timing, los límites. El agente aprende tu forma de hacer las cosas.</span><span data-lang="en">You tell it how to act: the tone, the timing, the limits. The agent learns your way of doing things.</span></p>
+                </div>
+                <div class="how-item">
+                    <div class="how-num">03</div>
+                    <h4><span data-lang="es">El agente opera solo</span><span data-lang="en">The agent operates alone</span></h4>
+                    <p><span data-lang="es">Ejecuta, registra y escala solo cuando necesita un humano. Vos solo te enterás de lo que importa.</span><span data-lang="en">Executes, logs, and escalates only when it needs a human. You only hear about what matters.</span></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── CTA ── -->
+    <section class="agentes-cta">
+        <div class="container">
+            <div class="badge badge-accent" style="margin-bottom:1rem;">
+                <span data-lang="es">Empezá hoy</span><span data-lang="en">Start today</span>
+            </div>
+            <h2>
+                <span data-lang="es">Axel está listo.<br>¿Tu empresa también?</span>
+                <span data-lang="en">Axel is ready.<br>Is your company?</span>
+            </h2>
+            <p>
+                <span data-lang="es">Agendá una demo de 15 minutos. Te mostramos cómo Axel se conecta a tu proceso y lo que podría ahorrarle a tu equipo este mes.</span>
+                <span data-lang="en">Book a 15-minute demo. We'll show you how Axel connects to your process and what it could save your team this month.</span>
+            </p>
+            <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+                <a href="/demo/" class="btn btn-primary btn-large">
+                    <span data-lang="es">Agendar demo gratis →</span><span data-lang="en">Book free demo →</span>
+                </a>
+                <a href="/agentes/axel/" class="btn btn-secondary btn-large">
+                    <span data-lang="es">Ver Axel en detalle</span><span data-lang="en">See Axel in detail</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-col">
@@ -116,5 +409,23 @@
             </div>
         </div>
     </footer>
+
+    <script>
+        lucide.createIcons();
+        const menuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        if (menuBtn && mobileMenu) {
+            menuBtn.addEventListener('click', () => mobileMenu.classList.toggle('open'));
+            mobileMenu.querySelectorAll('a').forEach(l => l.addEventListener('click', () => mobileMenu.classList.remove('open')));
+        }
+        window.addEventListener('scroll', () => {
+            document.querySelector('.navbar').classList.toggle('scrolled', window.scrollY > 50);
+        });
+        const obs = new IntersectionObserver((entries, o) => {
+            entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); o.unobserve(e.target); } });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.fade-in-up, .fade-in').forEach(el => obs.observe(el));
+    </script>
+    <script src="/assets/js/lang.js"></script>
 </body>
 </html>
