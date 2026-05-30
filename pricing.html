@@ -22,6 +22,107 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <link rel="stylesheet" href="assets/css/style.css">
     <style>
+        /* ── Pricing shell (from Axel) ── */
+        .pricing-shell {
+            margin-top: 2rem;
+            --surface: #fff; --bg: #F8FAFC; --bd: rgba(0,0,0,0.08);
+            --tx: #0D0F1A; --muted: #64748B; --violet: #7B4FFF;
+            --font-u: var(--font-heading); --radius: 14px;
+        }
+        .audience-toggle { display: inline-flex; background: rgba(0,0,0,0.08); border-radius: 9999px; padding: 3px; gap: 2px; margin-bottom: 2rem; }
+        .audience-toggle button { padding: 0.45rem 1.2rem; border-radius: 9999px; border: none; cursor: pointer; font-size: 0.85rem; font-weight: 600; background: transparent; color: #64748B; transition: all .2s; font-family: inherit; }
+        .audience-toggle button.is-active { background: #fff; color: #7B4FFF; box-shadow: 0 1px 4px rgba(0,0,0,.12); }
+        .pricing { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; }
+        .pricing.is-hidden, .pricing-detail.is-hidden { display: none; }
+        .plan { background: #fff; border: 1px solid rgba(0,0,0,0.08); border-radius: 14px; padding: 2rem; display: flex; flex-direction: column; gap: 1rem; box-shadow: 0 2px 16px rgba(0,0,0,.05); position: relative; transition: transform .25s; }
+        .plan:hover { transform: translateY(-3px); }
+        .plan.featured { border-color: rgba(123,79,255,.35); box-shadow: 0 6px 32px rgba(123,79,255,.13); }
+        .plan-tag { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg,#38B6FF,#7B4FFF); color: #fff; font-size: 0.7rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 0.25rem 0.85rem; border-radius: 99px; }
+        .plan-soon-badge { font-size: 0.7rem; color: #64748B; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; }
+        .plan-head { display: flex; justify-content: space-between; align-items: flex-start; }
+        .plan-name { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 2px; color: #64748B; }
+        .plan-name .num { color: #7B4FFF; font-weight: 800; }
+        .plan-curr { font-size: 0.72rem; color: #64748B; font-weight: 600; }
+        .plan-title { font-family: var(--font-heading); font-size: 1.35rem; font-weight: 800; color: #0D0F1A; }
+        .plan-price { min-height: 60px; }
+        .plan-price-from { font-size: 0.72rem; color: #64748B; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.15rem; }
+        .plan-price-main { font-family: var(--font-heading); font-size: 1.6rem; font-weight: 800; color: #0D0F1A; line-height: 1; }
+        .plan-price-main .unit { font-size: 0.8rem; font-weight: 500; color: #64748B; }
+        .plan-price-var { font-size: 0.78rem; color: #64748B; margin-top: 0.3rem; }
+        .plan-price-var .strike { text-decoration: line-through; margin-right: 0.3rem; }
+        .plan-features { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.55rem; flex: 1; }
+        .plan-features li { font-size: 0.85rem; color: #334155; padding-left: 1.2rem; position: relative; line-height: 1.4; }
+        .plan-features li::before { content: '✓'; position: absolute; left: 0; color: #7B4FFF; font-weight: 700; }
+        .plan-for { font-size: 0.8rem; color: #64748B; border-top: 1px solid rgba(0,0,0,0.08); padding-top: 0.9rem; line-height: 1.5; }
+        .plan-cta { display: block; text-align: center; padding: 0.75rem 1rem; border-radius: 9px; background: linear-gradient(135deg,#38B6FF,#7B4FFF); color: #fff; font-weight: 700; font-size: 0.9rem; border: none; cursor: pointer; text-decoration: none; transition: opacity .2s; font-family: inherit; }
+        .plan-cta:hover { opacity: 0.88; }
+        .plan-cta.is-ghost { background: transparent; border: 1px solid rgba(0,0,0,0.08); color: #64748B; }
+        .is-soon .plan-cta { background: rgba(0,0,0,0.08); color: #64748B; cursor: not-allowed; }
+        /* Flat (personal) */
+        .pricing-flat { display: block; }
+        .pricing-flat-head { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.5rem; }
+        .pricing-flat-meta .plan-name { margin-bottom: 0.3rem; }
+        .pricing-flat-desc { font-size: 0.9rem; color: #64748B; margin-top: 0.5rem; line-height: 1.6; max-width: 560px; }
+        .pricing-flat-features { margin-bottom: 1.5rem; padding: 1.25rem 1.5rem; background: rgba(123,79,255,.04); border: 1px solid rgba(123,79,255,.12); border-radius: 14px; }
+        .pricing-flat-features-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; color: #7B4FFF; font-weight: 700; margin-bottom: 0.8rem; }
+        .pricing-flat-features ul { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 0.5rem 2rem; }
+        .pricing-flat-features li { font-size: 0.85rem; color: #334155; padding-left: 1.1rem; position: relative; }
+        .pricing-flat-features li::before { content: '✓'; position: absolute; left: 0; color: #7B4FFF; font-weight: 700; }
+        .pricing-flat-volume-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+        .band-section-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; color: #64748B; font-weight: 600; }
+        .pricing-flat-bands { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.25rem; }
+        .band-card { background: #fff; border: 1px solid rgba(0,0,0,0.08); border-radius: 14px; padding: 1.75rem 1.5rem; display: flex; flex-direction: column; gap: 1rem; position: relative; box-shadow: 0 2px 12px rgba(0,0,0,.04); transition: transform .2s; }
+        .band-card:hover { transform: translateY(-3px); }
+        .band-card.is-popular { border-color: rgba(123,79,255,.35); box-shadow: 0 6px 24px rgba(123,79,255,.12); }
+        .band-card-tag { position: absolute; top: -11px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg,#38B6FF,#7B4FFF); color: #fff; font-size: 0.65rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 0.2rem 0.75rem; border-radius: 99px; }
+        .band-card-label { font-family: var(--font-heading); font-size: 1rem; font-weight: 700; color: #0D0F1A; }
+        .band-card-sub { font-size: 0.78rem; color: #64748B; }
+        .band-card-price-main { font-family: var(--font-heading); font-size: 1.5rem; font-weight: 800; color: #0D0F1A; }
+        .band-card-price-main.is-free { background: linear-gradient(135deg,#38B6FF,#7B4FFF); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .band-card-price-unit { font-size: 0.78rem; color: #64748B; font-weight: 500; }
+        .band-card-price-note { font-size: 0.75rem; color: #64748B; margin-top: 0.15rem; }
+        /* Upgrade hint */
+        .upgrade-hint { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; margin-top: 1.75rem; background: rgba(123,79,255,.04); border: 1px solid rgba(123,79,255,.15); border-radius: 14px; padding: 1.25rem 1.5rem; flex-wrap: wrap; }
+        .upgrade-hint-headline { font-weight: 700; color: #0D0F1A; font-size: 0.92rem; margin-bottom: 0.25rem; }
+        .upgrade-hint-body { font-size: 0.83rem; color: #64748B; line-height: 1.5; }
+        .upgrade-hint-cta { padding: 0.5rem 1.1rem; border-radius: 8px; background: #7B4FFF; color: #fff; font-weight: 700; font-size: 0.82rem; border: none; cursor: pointer; white-space: nowrap; font-family: inherit; }
+        /* Detail */
+        .pricing-detail { background: #fff; border: 1px solid rgba(0,0,0,0.08); border-radius: 14px; padding: 2rem; box-shadow: 0 4px 24px rgba(0,0,0,.06); }
+        .detail-back { background: none; border: 1px solid rgba(0,0,0,0.08); color: #64748B; font-size: 0.82rem; font-weight: 600; cursor: pointer; padding: 0.4rem 0.9rem; border-radius: 6px; margin-bottom: 1.5rem; font-family: inherit; }
+        .detail-back:hover { color: #0D0F1A; }
+        .detail-head { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.5rem; }
+        .detail-title { font-family: var(--font-heading); font-size: 1.4rem; font-weight: 800; color: #0D0F1A; }
+        .detail-title .num { font-size: 0.7rem; display: block; text-transform: uppercase; letter-spacing: 2px; color: #7B4FFF; font-weight: 700; margin-bottom: 0.2rem; }
+        .detail-curr { font-size: 0.75rem; color: #64748B; font-weight: 600; }
+        .detail-desc { font-size: 0.9rem; color: #64748B; line-height: 1.65; margin-bottom: 1.5rem; }
+        .mode-toggle-wrap { margin-bottom: 1.5rem; }
+        .mode-toggle-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; color: #64748B; font-weight: 600; display: block; margin-bottom: 0.6rem; }
+        .mode-toggle { display: inline-flex; background: rgba(0,0,0,0.08); border-radius: 9999px; padding: 3px; gap: 2px; }
+        .mode-toggle button { padding: 0.35rem 1rem; border-radius: 9999px; border: none; cursor: pointer; font-size: 0.82rem; font-weight: 600; background: transparent; color: #64748B; font-family: inherit; transition: all .18s; }
+        .mode-toggle button.is-active { background: #fff; color: #7B4FFF; box-shadow: 0 1px 4px rgba(0,0,0,.12); }
+        .mode-tag { display: inline-block; background: rgba(123,79,255,.12); color: #7B4FFF; font-size: 0.65rem; font-weight: 700; padding: 0.1rem 0.4rem; border-radius: 4px; margin-left: 0.2rem; }
+        .mode-note { font-size: 0.8rem; color: #64748B; margin-top: 0.6rem; line-height: 1.5; }
+        .band-options { display: flex; flex-direction: column; gap: 0.6rem; margin: 0.9rem 0; }
+        .band-option { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 0.9rem 1.1rem; border: 1px solid rgba(0,0,0,0.08); border-radius: 10px; cursor: pointer; transition: all .18s; background: #fff; }
+        .band-option:hover { border-color: rgba(123,79,255,.3); }
+        .band-option.is-selected { border-color: #7B4FFF; background: rgba(123,79,255,.03); }
+        .band-info { display: flex; align-items: center; gap: 0.85rem; }
+        .band-radio { width: 16px; height: 16px; border-radius: 50%; border: 2px solid rgba(0,0,0,0.15); flex-shrink: 0; transition: all .18s; }
+        .band-option.is-selected .band-radio { border-color: #7B4FFF; background: #7B4FFF; box-shadow: 0 0 0 3px rgba(123,79,255,.15); }
+        .band-label-main { font-size: 0.9rem; font-weight: 600; color: #0D0F1A; }
+        .band-label-sub { font-size: 0.78rem; color: #64748B; margin-top: 0.1rem; }
+        .band-price { text-align: right; }
+        .band-price-main { font-family: var(--font-heading); font-size: 1rem; font-weight: 700; color: #0D0F1A; }
+        .band-price-main.is-free { color: #7B4FFF; }
+        .band-price-strike { font-size: 0.75rem; color: #64748B; text-decoration: line-through; }
+        .detail-summary { margin-top: 1.5rem; border-top: 1px solid rgba(0,0,0,0.08); padding-top: 1.25rem; display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
+        .summary-block { flex: 1; }
+        .summary-block-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1.5px; color: #64748B; margin-bottom: 0.2rem; }
+        .summary-block-value { font-family: var(--font-heading); font-size: 1.05rem; font-weight: 700; color: #0D0F1A; }
+        .summary-block-value .unit { font-size: 0.8rem; color: #64748B; font-weight: 500; }
+        .summary-cta { padding: 0.65rem 1.4rem; border-radius: 9px; background: linear-gradient(135deg,#38B6FF,#7B4FFF); color: #fff; font-weight: 700; font-size: 0.88rem; text-decoration: none; white-space: nowrap; transition: opacity .2s; }
+        .summary-cta:hover { opacity: 0.88; }
+        .pricing-note { font-size: 0.82rem; color: #64748B; margin-top: 1.5rem; line-height: 1.6; max-width: 760px; }
         /* ── Pricing hero ── */
         .pricing-hero {
             padding: 8rem 0 4rem; text-align: center; position: relative; overflow: hidden;
@@ -236,169 +337,24 @@
                 <span data-lang="es">Sin letra chica. Sin comisiones sobre lo cobrado. Pagás por lo que usás.</span><span data-lang="en">No fine print. No commission on collected invoices. Pay for what you use.</span>
             </p>
 
-            <!-- Billing toggle -->
-            <div class="billing-toggle" style="margin-top:1.5rem;">
-                <button class="billing-btn active" id="btn-monthly" onclick="setBilling('monthly')">
-                    <span data-lang="es">Mensual</span><span data-lang="en">Monthly</span>
-                </button>
-                <button class="billing-btn" id="btn-annual" onclick="setBilling('annual')">
-                    <span data-lang="es">Anual</span><span data-lang="en">Annual</span>
-                    <span class="billing-save-badge">-20%</span>
-                </button>
-            </div>
+            <p style="font-size:0.82rem;color:var(--text-muted);margin-top:0.5rem;">
+                <span data-lang="es">30 días gratis en todos los planes · 50% off bloqueado por 12 meses para contratos antes de noviembre 2026.</span><span data-lang="en">30 free days on all plans · 50% off locked for 12 months for contracts before November 2026.</span>
+            </p>
         </div>
     </section>
 
-    <!-- ── Plans ── -->
+    <!-- ── Plans (from Axel) ── -->
     <section class="section" style="padding-top:0;">
         <div class="container">
-            <div class="plans-grid fade-in-up">
-
-                <!-- Starter -->
-                <div class="plan-card">
-                    <div class="plan-name">Starter</div>
-                    <div class="plan-price">
-                        <span class="plan-price-currency">$</span>
-                        <span class="price-val" data-monthly="0" data-annual="0">0</span>
-                        <span class="plan-price-period">/ <span data-lang="es">mes</span><span data-lang="en">mo</span></span>
-                    </div>
-                    <div class="plan-volume"><span data-lang="es">Hasta 30 cobros / mes</span><span data-lang="en">Up to 30 collections / month</span></div>
-                    <div class="plan-roi"><span data-lang="es">Ideal para empezar a probar</span><span data-lang="en">Perfect for testing it out</span></div>
-                    <div class="plan-divider"></div>
-                    <ul class="plan-features">
-                        <li class="included"><i data-lucide="check"></i><span data-lang="es">Axel por WhatsApp</span><span data-lang="en">Axel via WhatsApp</span></li>
-                        <li class="included"><i data-lucide="check"></i><span data-lang="es">30 recordatorios / mes</span><span data-lang="en">30 reminders / month</span></li>
-                        <li class="included"><i data-lucide="check"></i><span data-lang="es">Panel de seguimiento básico</span><span data-lang="en">Basic tracking panel</span></li>
-                        <li class="excluded"><i data-lucide="minus"></i><span data-lang="es">Integración contable</span><span data-lang="en">Accounting integration</span></li>
-                        <li class="excluded"><i data-lucide="minus"></i><span data-lang="es">Reportes automáticos</span><span data-lang="en">Automatic reports</span></li>
-                        <li class="excluded"><i data-lucide="minus"></i><span data-lang="es">Conciliación bancaria</span><span data-lang="en">Bank reconciliation</span></li>
-                    </ul>
-                    <div class="plan-cta">
-                        <a href="demo.html" class="btn btn-secondary"><span data-lang="es">Empezar gratis →</span><span data-lang="en">Start for free →</span></a>
-                    </div>
+            <div class="pricing-shell fade-in-up">
+                <div class="audience-toggle" role="tablist" aria-label="Tipo de uso">
+                    <button type="button" class="" role="tab" data-audience="personal"><span data-lang="es">Emprendedor</span><span data-lang="en">Starter</span></button>
+                    <button type="button" class="is-active" role="tab" data-audience="business" aria-selected="true"><span data-lang="es">Empresa</span><span data-lang="en">Business</span></button>
                 </div>
-
-                <!-- Pro (featured) -->
-                <div class="plan-card featured">
-                    <div class="plan-ribbon"><span data-lang="es">Más elegido</span><span data-lang="en">Most popular</span></div>
-                    <div class="plan-name">Pro</div>
-                    <div class="plan-price">
-                        <span class="plan-price-currency">$</span>
-                        <span class="price-val" data-monthly="149" data-annual="119">149</span>
-                        <span class="plan-price-period">USD / <span data-lang="es">mes</span><span data-lang="en">mo</span></span>
-                    </div>
-                    <div class="plan-volume"><span data-lang="es">Hasta 300 cobros / mes</span><span data-lang="en">Up to 300 collections / month</span></div>
-                    <div class="plan-roi"><span data-lang="es">ROI promedio: 8× en 90 días</span><span data-lang="en">Avg. ROI: 8× in 90 days</span></div>
-                    <div class="plan-divider"></div>
-                    <ul class="plan-features">
-                        <li class="included"><i data-lucide="check"></i><span data-lang="es">Axel por WhatsApp</span><span data-lang="en">Axel via WhatsApp</span></li>
-                        <li class="included"><i data-lucide="check"></i><span data-lang="es">300 recordatorios / mes</span><span data-lang="en">300 reminders / month</span></li>
-                        <li class="included"><i data-lucide="check"></i><span data-lang="es">Integración contable (Tango, Colppy)</span><span data-lang="en">Accounting integration (Tango, Colppy)</span></li>
-                        <li class="included"><i data-lucide="check"></i><span data-lang="es">Reportes automáticos semanales</span><span data-lang="en">Automatic weekly reports</span></li>
-                        <li class="included"><i data-lucide="check"></i><span data-lang="es">Conciliación bancaria básica</span><span data-lang="en">Basic bank reconciliation</span></li>
-                        <li class="excluded"><i data-lucide="minus"></i><span data-lang="es">Multi-empresa</span><span data-lang="en">Multi-company</span></li>
-                    </ul>
-                    <div class="plan-cta">
-                        <a href="demo.html" class="btn btn-primary"><span data-lang="es">Agendar demo →</span><span data-lang="en">Book a demo →</span></a>
-                    </div>
-                </div>
-
-                <!-- Business -->
-                <div class="plan-card">
-                    <div class="plan-name">Business</div>
-                    <div class="plan-price">
-                        <span class="plan-price-currency">$</span>
-                        <span class="price-val" data-monthly="349" data-annual="279">349</span>
-                        <span class="plan-price-period">USD / <span data-lang="es">mes</span><span data-lang="en">mo</span></span>
-                    </div>
-                    <div class="plan-volume"><span data-lang="es">Cobros ilimitados</span><span data-lang="en">Unlimited collections</span></div>
-                    <div class="plan-roi"><span data-lang="es">Para empresas en crecimiento</span><span data-lang="en">For growing companies</span></div>
-                    <div class="plan-divider"></div>
-                    <ul class="plan-features">
-                        <li class="included"><i data-lucide="check"></i><span data-lang="es">Todo lo de Pro</span><span data-lang="en">Everything in Pro</span></li>
-                        <li class="included"><i data-lucide="check"></i><span data-lang="es">Cobros ilimitados</span><span data-lang="en">Unlimited collections</span></li>
-                        <li class="included"><i data-lucide="check"></i><span data-lang="es">Multi-empresa / sucursales</span><span data-lang="en">Multi-company / branches</span></li>
-                        <li class="included"><i data-lucide="check"></i><span data-lang="es">Conciliación bancaria completa</span><span data-lang="en">Full bank reconciliation</span></li>
-                        <li class="included"><i data-lucide="check"></i><span data-lang="es">API personalizada</span><span data-lang="en">Custom API</span></li>
-                        <li class="included"><i data-lucide="check"></i><span data-lang="es">Soporte prioritario</span><span data-lang="en">Priority support</span></li>
-                    </ul>
-                    <div class="plan-cta">
-                        <a href="demo.html" class="btn btn-secondary"><span data-lang="es">Agendar demo →</span><span data-lang="en">Book a demo →</span></a>
-                    </div>
-                </div>
+                <div class="pricing" id="pricing-cards"><!-- populated by JS --></div>
+                <div class="pricing-detail is-hidden" id="pricing-detail"><!-- populated by JS --></div>
             </div>
-
-            <!-- Enterprise banner -->
-            <div class="custom-plan fade-in-up" style="max-width:700px;margin:2rem auto 0;">
-                <h4><span data-lang="es">¿Volumen alto o necesidades especiales?</span><span data-lang="en">High volume or special needs?</span></h4>
-                <p><span data-lang="es">Armamos un plan a medida para tu operación. Integraciones custom, SLA garantizado, facturación local.</span><span data-lang="en">We build a custom plan for your operation. Custom integrations, guaranteed SLA, local billing.</span></p>
-                <a href="mailto:hola@the-ateam.ai" class="btn btn-secondary"><span data-lang="es">Hablar con el equipo →</span><span data-lang="en">Talk to the team →</span></a>
-            </div>
-        </div>
-    </section>
-
-    <!-- ── Comparison table (desktop) ── -->
-    <section class="comparison-section">
-        <div class="container">
-            <div class="section-header">
-                <h2><span data-lang="es">Compará los planes</span><span data-lang="en">Compare plans</span></h2>
-            </div>
-            <div class="comp-table">
-                <div class="comp-row header-row">
-                    <div class="comp-cell"><span data-lang="es">Funcionalidad</span><span data-lang="en">Feature</span></div>
-                    <div class="comp-cell">Starter</div>
-                    <div class="comp-cell">Pro</div>
-                    <div class="comp-cell">Business</div>
-                </div>
-                <div class="comp-row">
-                    <div class="comp-cell"><span data-lang="es">Axel por WhatsApp</span><span data-lang="en">Axel via WhatsApp</span></div>
-                    <div class="comp-cell"><i data-lucide="check" class="yes"></i></div>
-                    <div class="comp-cell"><i data-lucide="check" class="yes"></i></div>
-                    <div class="comp-cell"><i data-lucide="check" class="yes"></i></div>
-                </div>
-                <div class="comp-row">
-                    <div class="comp-cell"><span data-lang="es">Recordatorios / mes</span><span data-lang="en">Reminders / month</span></div>
-                    <div class="comp-cell">30</div>
-                    <div class="comp-cell">300</div>
-                    <div class="comp-cell"><span data-lang="es">Ilimitados</span><span data-lang="en">Unlimited</span></div>
-                </div>
-                <div class="comp-row">
-                    <div class="comp-cell"><span data-lang="es">Integración contable</span><span data-lang="en">Accounting integration</span></div>
-                    <div class="comp-cell"><i data-lucide="minus" class="no"></i></div>
-                    <div class="comp-cell"><i data-lucide="check" class="yes"></i></div>
-                    <div class="comp-cell"><i data-lucide="check" class="yes"></i></div>
-                </div>
-                <div class="comp-row">
-                    <div class="comp-cell"><span data-lang="es">Reportes automáticos</span><span data-lang="en">Automatic reports</span></div>
-                    <div class="comp-cell"><i data-lucide="minus" class="no"></i></div>
-                    <div class="comp-cell"><span data-lang="es">Semanales</span><span data-lang="en">Weekly</span></div>
-                    <div class="comp-cell"><span data-lang="es">Diarios</span><span data-lang="en">Daily</span></div>
-                </div>
-                <div class="comp-row">
-                    <div class="comp-cell"><span data-lang="es">Conciliación bancaria</span><span data-lang="en">Bank reconciliation</span></div>
-                    <div class="comp-cell"><i data-lucide="minus" class="no"></i></div>
-                    <div class="comp-cell"><span data-lang="es">Básica</span><span data-lang="en">Basic</span></div>
-                    <div class="comp-cell"><span data-lang="es">Completa</span><span data-lang="en">Full</span></div>
-                </div>
-                <div class="comp-row">
-                    <div class="comp-cell"><span data-lang="es">Multi-empresa</span><span data-lang="en">Multi-company</span></div>
-                    <div class="comp-cell"><i data-lucide="minus" class="no"></i></div>
-                    <div class="comp-cell"><i data-lucide="minus" class="no"></i></div>
-                    <div class="comp-cell"><i data-lucide="check" class="yes"></i></div>
-                </div>
-                <div class="comp-row">
-                    <div class="comp-cell"><span data-lang="es">API personalizada</span><span data-lang="en">Custom API</span></div>
-                    <div class="comp-cell"><i data-lucide="minus" class="no"></i></div>
-                    <div class="comp-cell"><i data-lucide="minus" class="no"></i></div>
-                    <div class="comp-cell"><i data-lucide="check" class="yes"></i></div>
-                </div>
-                <div class="comp-row">
-                    <div class="comp-cell"><span data-lang="es">Soporte</span><span data-lang="en">Support</span></div>
-                    <div class="comp-cell"><span data-lang="es">Comunidad</span><span data-lang="en">Community</span></div>
-                    <div class="comp-cell">Email</div>
-                    <div class="comp-cell"><span data-lang="es">Prioritario</span><span data-lang="en">Priority</span></div>
-                </div>
-            </div>
+            <p class="pricing-note" id="pricing-note"></p>
         </div>
     </section>
 
@@ -410,39 +366,24 @@
             </div>
             <div class="faq-list">
                 <div class="faq-item">
-                    <button class="faq-q">
-                        <span data-lang="es">¿Puedo cambiar de plan en cualquier momento?</span><span data-lang="en">Can I change plans at any time?</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-                    </button>
-                    <div class="faq-a"><span data-lang="es">Sí. Podés subir o bajar de plan en cualquier momento desde el panel. Los cambios se aplican en el próximo ciclo de facturación.</span><span data-lang="en">Yes. You can upgrade or downgrade at any time from the dashboard. Changes apply in the next billing cycle.</span></div>
+                    <button class="faq-q"><span data-lang="es">¿Puedo cambiar de plan en cualquier momento?</span><span data-lang="en">Can I change plans at any time?</span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+                    <div class="faq-a"><span data-lang="es">Sí. Subís o bajás de plan cuando quieras. Sin permanencia mínima. El 50% off de lanzamiento se bloquea al contratar antes de noviembre 2026 y se mantiene 12 meses aunque cambies de banda.</span><span data-lang="en">Yes. You can upgrade or downgrade at any time. No minimum commitment. The 50% launch discount locks in at sign-up (before November 2026) and stays for 12 months even if you change your volume band.</span></div>
                 </div>
                 <div class="faq-item">
-                    <button class="faq-q">
-                        <span data-lang="es">¿Cobran comisión sobre lo que recupero?</span><span data-lang="en">Do you charge a commission on recovered amounts?</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-                    </button>
-                    <div class="faq-a"><span data-lang="es">No. El precio es fijo por mes. Lo que Axel recupera es 100% tuyo, sin comisiones ni porcentajes ocultos.</span><span data-lang="en">No. The price is a flat monthly fee. Whatever Axel recovers is 100% yours — no commissions, no hidden percentages.</span></div>
+                    <button class="faq-q"><span data-lang="es">¿Cobran comisión sobre lo que cobro?</span><span data-lang="en">Do you charge a commission on what I collect?</span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+                    <div class="faq-a"><span data-lang="es">No. Es un flat mensual por banda de facturas. Sin variable. Sin comisión. Lo que cobrás es tuyo.</span><span data-lang="en">No. It's a flat monthly fee by invoice volume band. No variable. No commission. What you collect is yours.</span></div>
                 </div>
                 <div class="faq-item">
-                    <button class="faq-q">
-                        <span data-lang="es">¿Qué sistemas de facturación soportan?</span><span data-lang="en">Which invoicing systems do you support?</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-                    </button>
-                    <div class="faq-a"><span data-lang="es">Actualmente integramos con Tango, Colppy, Bejerman, y archivos Excel/CSV. Más integraciones en camino.</span><span data-lang="en">We currently integrate with Tango, Colppy, Bejerman, and Excel/CSV files. More integrations coming soon.</span></div>
+                    <button class="faq-q"><span data-lang="es">¿Cuál es la diferencia entre Plan 01 y Plan 02?</span><span data-lang="en">What's the difference between Plan 01 and Plan 02?</span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+                    <div class="faq-a"><span data-lang="es">El Plan 01 (Reclamo) hace WhatsApp + comprobantes + dashboard. El Plan 02 (Conciliación) suma conexión bancaria, matching automático con terceros, reclamo multicanal y ARCA opcional. El 02 es el más elegido por colegios, consorcios y administradores.</span><span data-lang="en">Plan 01 (Claim) covers WhatsApp + receipts + dashboard. Plan 02 (Reconciliation) adds bank connection, automatic third-party matching, multi-channel claims and optional ARCA integration. Plan 02 is the most popular among schools, HOAs and admins.</span></div>
                 </div>
                 <div class="faq-item">
-                    <button class="faq-q">
-                        <span data-lang="es">¿Cómo funciona la prueba gratuita?</span><span data-lang="en">How does the free trial work?</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-                    </button>
-                    <div class="faq-a"><span data-lang="es">El plan Starter es gratuito para siempre, sin necesidad de tarjeta de crédito. Además, los planes Pro y Business incluyen 14 días de prueba gratuita.</span><span data-lang="en">The Starter plan is free forever with no credit card required. Pro and Business plans also include a 14-day free trial.</span></div>
+                    <button class="faq-q"><span data-lang="es">¿Qué cuenta como "factura" en las bandas de volumen?</span><span data-lang="en">What counts as an "invoice" in the volume bands?</span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+                    <div class="faq-a"><span data-lang="es">Cada cuota o cobro mensual que Axel gestiona cuenta como una factura, sin importar el monto. Por ejemplo, un colegio con 200 alumnos que paga una cuota mensual = 200 facturas por mes.</span><span data-lang="en">Each monthly payment or invoice that Axel manages counts as one invoice, regardless of amount. For example, a school with 200 students paying one monthly fee = 200 invoices/month.</span></div>
                 </div>
                 <div class="faq-item">
-                    <button class="faq-q">
-                        <span data-lang="es">¿En qué moneda se cobra?</span><span data-lang="en">What currency do you charge in?</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-                    </button>
-                    <div class="faq-a"><span data-lang="es">Los precios están en USD. Ofrecemos facturación local en Argentina con opciones en ARS. Consultanos si necesitás otras opciones.</span><span data-lang="en">Prices are in USD. We offer local billing in Argentina with ARS options. Contact us for other billing arrangements.</span></div>
+                    <button class="faq-q"><span data-lang="es">¿En qué moneda se factura y cómo se paga?</span><span data-lang="en">What currency and how do I pay?</span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+                    <div class="faq-a"><span data-lang="es">El plan Emprendedor se factura en ARS + IVA. Los planes Empresa se facturan en USD. Aceptamos transferencia bancaria (prepago) o débito automático con tarjeta (5% off). Facturación local disponible en Argentina.</span><span data-lang="en">The Starter plan is billed in ARS + VAT. Business plans are billed in USD. We accept bank transfer (prepaid) or automatic card debit (5% off). Local invoicing available in Argentina.</span></div>
                 </div>
             </div>
         </div>
@@ -530,6 +471,195 @@
             });
         });
     </script>
+    <!-- ── Pricing JS (same as Axel) ── -->
+    <script>
+(function() {
+  const PLANS = {
+    personal: [
+      {
+        id: 'p1-ar', num: '01', title: 'Reclamo', currency: 'AR$ + IVA',
+        from: 'Gratis', fromUnit: ' / hasta 20 facturas',
+        desc: 'Reclama por WhatsApp, recibe comprobantes y muestra el estado de cada cobro en un dashboard. Sin conexión bancaria.',
+        summary: 'WhatsApp + comprobantes + dashboard — sin conexión bancaria.',
+        features: ['Reclamo automático por WhatsApp','Recepción y carga de comprobantes','Dashboard de estado de cobro','Importación de cartera desde Excel'],
+        featuresNote: 'Las features son las mismas en las tres bandas — lo único que cambia es el volumen de facturas por mes.',
+        forWho: 'Profesionales, monotributistas y pymes que recién arrancan.',
+        modes: ['monthly'],
+        bands: [
+          { id: 'b1', label: 'Hasta 20 facturas', sub: 'Free tier',             monthly: { price: 'Gratis', free: true } },
+          { id: 'b2', label: '21 – 50 facturas',  sub: 'Profesional+',          monthly: { price: '$ 9.900',  priceUnit: '/mes' } },
+          { id: 'b3', label: '51 – 100 facturas', sub: 'Consultorio / estudio', monthly: { price: '$ 39.900', priceUnit: '/mes' } }
+        ],
+        upgradeHint: { to: 'p2', headline: '¿Más de 100 facturas por mes?', body: 'El Plan 01 llega hasta 100. A partir de ahí, el agente que necesitás es <strong>Conciliación</strong> — con conexión bancaria y matching automático.', cta: 'Ver Plan 02' }
+      }
+    ],
+    business: [
+      {
+        id: 'p1-usd', num: '01', title: 'Reclamo', currency: 'USD',
+        from: 'Gratis', fromUnit: ' / hasta 20 facturas',
+        desc: 'Reclamo por WhatsApp, recepción de comprobantes y dashboard de estado. Sin conexión bancaria.',
+        summary: 'WhatsApp + comprobantes + dashboard — sin conexión bancaria.',
+        features: ['Reclamo automático por WhatsApp','Recepción y carga de comprobantes','Dashboard de estado de cobro','Importación de cartera desde Excel'],
+        featuresNote: 'Las features son las mismas en las tres bandas — lo único que cambia es el volumen de facturas por mes.',
+        forWho: 'Emprendimientos chicos y equipos que recién arrancan a profesionalizar su cobranza.',
+        modes: ['monthly'],
+        bands: [
+          { id: 'b1', label: 'Hasta 20 facturas', sub: 'Free tier',    monthly: { price: 'Gratis', free: true } },
+          { id: 'b2', label: '21 – 50 facturas',  sub: 'Equipo chico', monthly: { price: 'USD 19', priceUnit: '/mes' } },
+          { id: 'b3', label: '51 – 100 facturas', sub: 'Equipo grande',monthly: { price: 'USD 39', priceUnit: '/mes' } }
+        ],
+        upgradeHint: { to: 'p2', headline: '¿Más de 100 facturas por mes?', body: 'El Plan 01 llega hasta 100. A partir de ahí, el agente que necesitás es <strong>Conciliación</strong> — con conexión bancaria y matching automático.', cta: 'Ver Plan 02' },
+        confirmCopy: 'Valores Plan 01 empresarial estimados — confirmar con el equipo.'
+      },
+      {
+        id: 'p2', num: '02', title: 'Conciliación', currency: 'USD',
+        from: 'USD 39', fromUnit: ' / mes', fromStrike: 'USD 79',
+        desc: 'Todo el plan Reclamo + reclamo multicanal (WhatsApp + email + SMS), conexión bancaria, matching automático con terceros e integración ARCA opcional.',
+        summary: 'Multicanal · Banco · Matching · ARCA opcional.',
+        featured: true,
+        features: ['Todo el plan Reclamo','Reclamo multicanal: WhatsApp + email + SMS','Conexión bancaria','Matching automático (incluye pagos de terceros)','Integración ARCA opcional'],
+        forWho: 'Colegios, consorcios, inmobiliarias, clubes y prepagas.',
+        modes: ['annual', 'monthly'],
+        bands: [
+          { id: 'b1', label: 'Hasta 200 facturas',   sub: 'Colegio chico / consorcio', annual: { price: 'USD 39',  priceUnit: '/mes', priceStrike: 'USD 79' },  monthly: { price: 'USD 47',  priceUnit: '/mes', priceStrike: 'USD 95' } },
+          { id: 'b2', label: 'Hasta 500 facturas',   sub: 'Colegio medio',              annual: { price: 'USD 89',  priceUnit: '/mes', priceStrike: 'USD 179' }, monthly: { price: 'USD 107', priceUnit: '/mes', priceStrike: 'USD 215' } },
+          { id: 'b3', label: 'Hasta 1.000 facturas', sub: 'Consorcio grande',           annual: { price: 'USD 149', priceUnit: '/mes', priceStrike: 'USD 299' }, monthly: { price: 'USD 179', priceUnit: '/mes', priceStrike: 'USD 359' } },
+          { id: 'b4', label: 'Hasta 2.500 facturas', sub: 'Admin grande / club',        annual: { price: 'USD 224', priceUnit: '/mes', priceStrike: 'USD 449' }, monthly: { price: 'USD 269', priceUnit: '/mes', priceStrike: 'USD 539' } },
+          { id: 'b5', label: '+ 2.500 facturas',     sub: 'Enterprise',                 annual: { price: 'Custom' }, monthly: { price: 'Custom' }, enterprise: true }
+        ]
+      },
+      {
+        id: 'p3', num: '03', title: 'Inteligencia', currency: 'USD',
+        from: 'USD 59', fromUnit: ' / mes', fromStrike: 'USD 119',
+        desc: 'Todo el plan Conciliación + forecast de cashflow, scoring de pagadores, planes de pago inteligentes, reportes automatizados y API.',
+        summary: 'Conciliación + Cashflow forecast + Scoring + API.',
+        soon: true,
+        features: ['Todo el plan Conciliación','Cashflow forecasting','Scoring de pagadores','Planes de pago inteligentes','Reportes automatizados','API'],
+        forWho: 'Admins grandes, countries, franquicias, cooperativas y clientes con volumen.',
+        modes: ['annual', 'monthly'],
+        bands: [
+          { id: 'b1', label: 'Hasta 200 facturas',   sub: 'Country chico',      annual: { price: 'USD 59',  priceUnit: '/mes', priceStrike: 'USD 119' }, monthly: { price: 'USD 71',  priceUnit: '/mes', priceStrike: 'USD 143' } },
+          { id: 'b2', label: 'Hasta 500 facturas',   sub: 'Country medio',      annual: { price: 'USD 124', priceUnit: '/mes', priceStrike: 'USD 249' }, monthly: { price: 'USD 149', priceUnit: '/mes', priceStrike: 'USD 299' } },
+          { id: 'b3', label: 'Hasta 1.000 facturas', sub: 'Cooperativa grande', annual: { price: 'USD 199', priceUnit: '/mes', priceStrike: 'USD 399' }, monthly: { price: 'USD 239', priceUnit: '/mes', priceStrike: 'USD 479' } },
+          { id: 'b4', label: 'Hasta 2.500 facturas', sub: 'Admin enterprise',   annual: { price: 'USD 299', priceUnit: '/mes', priceStrike: 'USD 599' }, monthly: { price: 'USD 359', priceUnit: '/mes', priceStrike: 'USD 719' } },
+          { id: 'b5', label: '+ 2.500 facturas',     sub: 'Enterprise',         annual: { price: 'Custom' }, monthly: { price: 'Custom' }, enterprise: true }
+        ]
+      }
+    ]
+  };
+
+  const PRICING_NOTE = {
+    personal: 'Plan 01 en pesos argentinos + IVA, facturación mensual. <strong>30 días gratis</strong> al contratar, cancelás cuando quieras. Al checkout elegís cómo pagás: <strong>transferencia (prepago)</strong> o <strong>débito automático con tarjeta (5% off)</strong>.',
+    business: '<strong>Plan 01</strong> en USD con facturación mensual, sin descuentos. <strong>Plan 02 y 03</strong> con <strong>50% off de lanzamiento</strong> (anual y mensual) bloqueado por 12 meses para quien contrate hasta noviembre 2026. Sin permanencia mínima.'
+  };
+
+  const state = { audience: 'business', view: 'cards', planId: null, mode: 'annual', bandId: null };
+  const $toggle = document.querySelector('.audience-toggle');
+  const $cards  = document.getElementById('pricing-cards');
+  const $detail = document.getElementById('pricing-detail');
+  const $note   = document.getElementById('pricing-note');
+
+  function renderCards() {
+    if (state.audience === 'personal') { $cards.classList.add('pricing-flat'); return renderPersonalFlat(); }
+    $cards.classList.remove('pricing-flat');
+    const plans = PLANS[state.audience];
+    $cards.innerHTML = plans.map(p => {
+      const headBadge = p.featured ? '<div class="plan-tag">Más elegido</div>' : (p.soon ? '<div class="plan-soon-badge">Próximamente</div>' : '');
+      const priceBlock = `<div class="plan-price-from">Desde</div><div class="plan-price-main">${p.from}<span class="unit">${p.fromUnit||''}</span></div>${p.fromStrike ? `<div class="plan-price-var"><span class="strike">${p.fromStrike}</span>50% off hasta nov&nbsp;2026</div>` : ''}`;
+      const ctaBtn = p.soon ? `<button type="button" class="plan-cta is-ghost" data-soon="1">Avisame cuando salga</button>` : `<button type="button" class="plan-cta" data-plan="${p.id}">Elegir este plan <span aria-hidden="true">→</span></button>`;
+      return `<div class="${['plan', p.featured?'featured':'', p.soon?'is-soon':''].join(' ').trim()}">${headBadge}<div class="plan-head"><div class="plan-name">Plan <span class="num">${p.num}</span></div><div class="plan-curr">${p.currency}</div></div><div class="plan-title">${p.title}</div><div class="plan-price">${priceBlock}</div><ul class="plan-features">${p.features.map(f=>`<li>${f}</li>`).join('')}</ul><div class="plan-for"><strong>Ideal para:</strong> ${p.forWho}</div>${ctaBtn}</div>`;
+    }).join('');
+    $cards.querySelectorAll('[data-plan]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        state.planId = btn.getAttribute('data-plan');
+        const plan = findPlan(state.planId);
+        state.mode = plan.modes[0]; state.bandId = plan.bands[0].id; state.view = 'detail'; renderAll();
+        setTimeout(() => window.scrollTo({ top: document.getElementById('pricing-cards').offsetTop - 80, behavior: 'smooth' }), 50);
+      });
+    });
+    $cards.querySelectorAll('[data-soon]').forEach(btn => btn.addEventListener('click', () => window.open(`https://wa.me/5491100000000?text=${encodeURIComponent('Hola, quiero que me avisen cuando salga el Plan Inteligencia de Axel.')}`, '_blank')));
+  }
+
+  function renderPersonalFlat() {
+    const plan = PLANS.personal[0];
+    const bandsHtml = plan.bands.map(b => {
+      const bp = b.monthly;
+      const priceClass = bp.free ? 'band-card-price-main is-free' : 'band-card-price-main';
+      const unit = bp.priceUnit ? `<span class="band-card-price-unit">${bp.priceUnit}</span>` : '';
+      const ctaMsg = encodeURIComponent(`Hola, quiero contratar Axel — Plan 01 Reclamo (${b.label}).`);
+      return `<div class="band-card ${b.id==='b2'?'is-popular':''}">${b.id==='b2'?'<div class="band-card-tag">Más elegido</div>':''}<div class="band-card-label">${b.label}</div>${b.sub?`<div class="band-card-sub">${b.sub}</div>`:''}<div class="band-card-price"><div class="${priceClass}">${bp.price}${unit}</div><div class="band-card-price-note">${bp.free?'Sin tarjeta · sin permanencia':'Facturación mensual · 30 días gratis'}</div></div><a class="plan-cta" href="https://wa.me/5491100000000?text=${ctaMsg}" target="_blank" rel="noopener">${bp.free?'Empezar gratis':'Contratar este plan'} <span aria-hidden="true">→</span></a></div>`;
+    }).join('');
+    const upgradeBlock = plan.upgradeHint ? `<div class="upgrade-hint"><div class="upgrade-hint-text"><div class="upgrade-hint-headline">${plan.upgradeHint.headline}</div><div class="upgrade-hint-body">${plan.upgradeHint.body}</div></div><button type="button" class="upgrade-hint-cta" data-upgrade="${plan.upgradeHint.to}">${plan.upgradeHint.cta} <span aria-hidden="true">→</span></button></div>` : '';
+    $cards.innerHTML = `<div class="pricing-flat-head"><div class="pricing-flat-meta"><div class="plan-name">Plan <span class="num">${plan.num}</span></div><div class="plan-title">${plan.title}</div><p class="pricing-flat-desc">${plan.desc}</p></div><div class="plan-curr">${plan.currency}</div></div><div class="pricing-flat-features"><div class="pricing-flat-features-label">Incluye en todas las opciones</div><ul>${plan.features.map(f=>`<li>${f}</li>`).join('')}</ul></div><div class="pricing-flat-volume"><div class="pricing-flat-volume-head"><div><div class="band-section-label">Elegí tu volumen de facturas por mes</div></div></div></div><div class="pricing-flat-bands">${bandsHtml}</div>${upgradeBlock}`;
+    $cards.querySelectorAll('[data-upgrade]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        state.audience = 'business';
+        $toggle.querySelectorAll('button').forEach(b => { const isBiz = b.getAttribute('data-audience')==='business'; b.classList.toggle('is-active', isBiz); b.setAttribute('aria-selected', isBiz); });
+        const tp = PLANS.business.find(p=>p.num==='02'); if(!tp) return;
+        state.planId=tp.id; state.mode=tp.modes[0]; state.bandId=tp.bands[0].id; state.view='detail'; renderAll();
+      });
+    });
+  }
+
+  function renderDetail() {
+    const plan = findPlan(state.planId); if (!plan) return;
+    const band = plan.bands.find(b=>b.id===state.bandId)||plan.bands[0];
+    const priceObj = band[state.mode]||band.annual;
+    const hasBothModes = plan.modes.length>1;
+    const hasLaunchDiscount = plan.num==='02'||plan.num==='03';
+    const annualTag = hasLaunchDiscount ? '<span class="mode-tag">−50%</span>' : '';
+    const monthlyTag = hasLaunchDiscount ? '<span class="mode-tag">−50%</span>' : '';
+    const modeNoteAnnual = hasLaunchDiscount ? 'Anual con 50% off de lanzamiento, bloqueado por 12 meses para quien contrate antes de noviembre 2026.' : 'Precio anual. Mensual sale ≈20% más caro.';
+    const modeNoteMonthly = hasLaunchDiscount ? 'Mensual con 50% off de lanzamiento, bloqueado por 12 meses. Cancelás cuando quieras.' : 'Mensual sin descuento. Cancelás cuando quieras.';
+    const modeToggle = hasBothModes ? `<div class="mode-toggle-wrap"><span class="mode-toggle-label">Modalidad de pago</span><div class="mode-toggle" role="tablist"><button type="button" class="${state.mode==='annual'?'is-active':''}" data-mode="annual">Anual ${annualTag}</button><button type="button" class="${state.mode==='monthly'?'is-active':''}" data-mode="monthly">Mensual ${monthlyTag}</button></div><div class="mode-note">${state.mode==='annual'?modeNoteAnnual:modeNoteMonthly}</div></div>` : `<div class="mode-note" style="margin-top:18px">Facturación mensual, sin descuentos ni permanencia mínima. <strong>30 días gratis</strong> al contratar.</div>`;
+    const bandsHtml = plan.bands.map(b => {
+      const bp = b[state.mode]||b.annual; const isSelected = b.id===state.bandId;
+      const priceClass = bp.free?'band-price-main is-free':'band-price-main';
+      const priceUnit = bp.priceUnit?`<span style="font-size:11px;color:#64748B;font-weight:500"> ${bp.priceUnit}</span>`:'';
+      const strike = bp.priceStrike?`<div class="band-price-strike">${bp.priceStrike}</div>`:'';
+      return `<div class="band-option ${isSelected?'is-selected':''}" data-band="${b.id}" role="radio" aria-checked="${isSelected}" tabindex="0"><div class="band-info"><div class="band-radio"></div><div class="band-info-text"><div class="band-label-main">${b.label}</div>${b.sub?`<div class="band-label-sub">${b.sub}</div>`:''}</div></div><div class="band-price"><div class="${priceClass}">${bp.price}${priceUnit}</div>${strike}</div></div>`;
+    }).join('');
+    const summaryPrice = priceObj.free?'Gratis':`${priceObj.price}${priceObj.priceUnit?`<span class="unit"> ${priceObj.priceUnit}</span>`:''}`;
+    const ctaMsg = encodeURIComponent(`Hola, quiero contratar Axel — plan ${plan.title} (${band.label}, ${state.mode==='annual'?'anual':'mensual'}).`);
+    const ctaLabel = band.enterprise?'Hablar con ventas':'Contratar este plan';
+    const confirmNote = plan.confirmCopy?`<div class="mode-note" style="margin-top:8px;color:#7B4FFF">${plan.confirmCopy}</div>`:'';
+    $detail.innerHTML = `<button type="button" class="detail-back" id="detail-back"><span aria-hidden="true">←</span> Volver a planes</button><div class="detail-head"><div><div class="detail-title"><span class="num">PLAN ${plan.num}</span>${plan.title}</div></div><div class="detail-curr">${plan.currency}</div></div><p class="detail-desc">${plan.desc}</p>${modeToggle}${confirmNote}<div class="band-section-label" style="margin-top:1.25rem">Elegí tu volumen de facturas por mes</div><div class="band-options" role="radiogroup">${bandsHtml}</div>${plan.upgradeHint?`<div class="upgrade-hint"><div class="upgrade-hint-text"><div class="upgrade-hint-headline">${plan.upgradeHint.headline}</div><div class="upgrade-hint-body">${plan.upgradeHint.body}</div></div><button type="button" class="upgrade-hint-cta" data-upgrade="${plan.upgradeHint.to}">${plan.upgradeHint.cta} <span aria-hidden="true">→</span></button></div>`:''}<div class="detail-summary"><div class="summary-block"><div class="summary-block-label">Tu plan</div><div class="summary-block-value">${plan.title} · ${band.label.replace('facturas','fact')}</div></div><div class="summary-block"><div class="summary-block-label">${state.mode==='annual'?'Anual · contado':'Mensual'}</div><div class="summary-block-value">${summaryPrice}</div></div><a class="summary-cta" href="https://wa.me/5491100000000?text=${ctaMsg}" target="_blank" rel="noopener">${ctaLabel} <span aria-hidden="true">→</span></a></div>`;
+    document.getElementById('detail-back').addEventListener('click', () => { state.view='cards'; state.planId=null; renderAll(); });
+    $detail.querySelectorAll('[data-mode]').forEach(btn => btn.addEventListener('click', () => { state.mode=btn.getAttribute('data-mode'); renderDetail(); }));
+    $detail.querySelectorAll('[data-band]').forEach(btn => {
+      btn.addEventListener('click', () => { state.bandId=btn.getAttribute('data-band'); renderDetail(); });
+      btn.addEventListener('keydown', e => { if(e.key==='Enter'||e.key===' '){ e.preventDefault(); state.bandId=btn.getAttribute('data-band'); renderDetail(); } });
+    });
+    $detail.querySelectorAll('[data-upgrade]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        if(state.audience==='personal'){ state.audience='business'; $toggle.querySelectorAll('button').forEach(b=>{ const isBiz=b.getAttribute('data-audience')==='business'; b.classList.toggle('is-active',isBiz); b.setAttribute('aria-selected',isBiz); }); }
+        const tp = PLANS[state.audience].find(p=>p.num==='02'); if(!tp) return;
+        state.planId=tp.id; state.mode=tp.modes[0]; state.bandId=tp.bands[0].id; renderAll();
+      });
+    });
+  }
+
+  function renderAll() {
+    if($note) $note.innerHTML = PRICING_NOTE[state.audience];
+    if(state.view==='cards'){ $cards.classList.remove('is-hidden'); $detail.classList.add('is-hidden'); renderCards(); }
+    else { $cards.classList.add('is-hidden'); $detail.classList.remove('is-hidden'); renderDetail(); }
+  }
+  function findPlan(id){ return PLANS[state.audience].find(p=>p.id===id); }
+
+  $toggle.querySelectorAll('button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const aud = btn.getAttribute('data-audience');
+      if(aud===state.audience) return;
+      state.audience=aud; state.view='cards'; state.planId=null; state.mode='annual';
+      $toggle.querySelectorAll('button').forEach(b => { b.classList.toggle('is-active', b.getAttribute('data-audience')===aud); b.setAttribute('aria-selected', b.getAttribute('data-audience')===aud); });
+      renderAll();
+    });
+  });
+
+  renderAll();
+})();
+    </script>
     <script src="assets/js/lang.js"></script>
 </body>
+
 </html>
