@@ -104,10 +104,12 @@
         .team-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.09); }
         .team-avatar {
             width: 88px; height: 88px; border-radius: 50%;
-            background: linear-gradient(135deg, #7B4FFF 0%, #38B6FF 100%);
-            margin: 0 auto 1.25rem; display: flex; align-items: center; justify-content: center;
-            font-family: var(--font-heading); font-size: 2rem; font-weight: 800; color: #fff;
+            margin: 0 auto 1.25rem; overflow: hidden;
             border: 3px solid #fff; box-shadow: 0 4px 16px rgba(123,79,255,0.2);
+        }
+        .team-avatar img {
+            width: 100%; height: 100%; object-fit: cover; object-position: center top;
+            display: block;
         }
         .team-name { font-size: 1.2rem; font-weight: 800; margin-bottom: 0.2rem; }
         .team-role {
@@ -403,7 +405,9 @@
             </div>
             <div class="team-grid fade-in-up">
                 <div class="team-card">
-                    <div class="team-avatar">D</div>
+                    <div class="team-avatar">
+                        <img src="assets/img/diego.jpg" alt="Diego Hernayes — CEO" loading="lazy">
+                    </div>
                     <div class="team-name">Diego Hernayes</div>
                     <div class="team-role">CEO &amp; Co-Founder</div>
                     <p class="team-bio">
@@ -415,7 +419,9 @@
                     </a>
                 </div>
                 <div class="team-card">
-                    <div class="team-avatar" style="background: linear-gradient(135deg, #38B6FF 0%, #7B4FFF 100%);">M</div>
+                    <div class="team-avatar">
+                        <img src="assets/img/martin.jpg" alt="Martín Hernayes — CTO" loading="lazy">
+                    </div>
                     <div class="team-name">Martín Hernayes</div>
                     <div class="team-role">CTO &amp; Co-Founder</div>
                     <p class="team-bio">
