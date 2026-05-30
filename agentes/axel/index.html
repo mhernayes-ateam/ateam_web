@@ -449,7 +449,9 @@
 
   <!-- ── HERO ── -->
   <section class="axel-hero">
-    <div class="container">
+    <div class="container" style="display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center;padding-top:2rem;padding-bottom:2rem;">
+      <div class="axel-hero-text">
+
       <div class="axel-hero-eyebrow"><span data-lang="es">Axel — Agente Cobrador de A‑Team</span><span data-lang="en">Axel — A‑Team's Collections Agent</span></div>
       <h1><span data-lang="es">Cobrá más rápido. <span class="text-grad">Olvidate del Excel.</span></span><span data-lang="en">Collect faster. <span class="text-grad">Forget the spreadsheet.</span></span></h1>
       <p class="axel-hero-sub" data-lang="es">
@@ -469,13 +471,20 @@
         <div class="axel-meta-item"><span data-lang="es">Integración</span><span data-lang="en">Integration</span><span>WhatsApp · Bank · ARCA</span></div>
         <div class="axel-meta-item"><span data-lang="es">Gratis</span><span data-lang="en">Free</span><span><span data-lang="es">Hasta 20 facturas por mes</span><span data-lang="en">Up to 20 invoices/month</span></span></div>
       </div>
+    
+      </div>
+      <div class="axel-hero-img" style="position:relative;border-radius:20px;overflow:hidden;height:480px;box-shadow:0 20px 60px rgba(0,0,0,0.18);">
+        <img src="/assets/img/axel_2.jpg" alt="Axel" style="width:100%;height:100%;object-fit:cover;object-position:center top;display:block;">
+        <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(123,79,255,0.12) 0%,transparent 60%);"></div>
+      </div>
     </div>
+    <style>
+      @media(max-width:768px){
+        .axel-hero .container{grid-template-columns:1fr!important;}
+        .axel-hero-img{height:260px!important;margin-top:1.5rem;}
+      }
+    </style>
   </section>
-    <!-- Axel visual strip -->
-    <div style="width:100%;max-height:480px;overflow:hidden;line-height:0;">
-        <img src="/assets/img/axel_2.jpg" alt="Axel en acción"
-             style="width:100%;max-height:480px;object-fit:cover;object-position:center;display:block;">
-    </div>
 
 
   <!-- ── PROBLEM ── -->
