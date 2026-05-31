@@ -29,6 +29,30 @@
             --tx: #0D0F1A; --muted: #64748B; --violet: #7B4FFF;
             --font-u: var(--font-heading); --radius: 14px;
         }
+        /* ── Plan picker cards ── */
+        .plan-picker-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.25rem; margin-bottom: 3rem; }
+        .plan-picker-card { background: #fff; border: 2px solid rgba(0,0,0,0.08); border-radius: 18px; padding: 1.75rem 1.5rem; cursor: pointer; transition: all 0.22s; position: relative; display: flex; flex-direction: column; gap: 0.6rem; box-shadow: 0 2px 10px rgba(0,0,0,0.04); }
+        .plan-picker-card:hover { border-color: rgba(123,79,255,0.35); box-shadow: 0 6px 28px rgba(123,79,255,0.1); transform: translateY(-2px); }
+        .plan-picker-card.is-featured { border-color: rgba(123,79,255,0.25); }
+        .plan-picker-card.is-selected { border-color: #7B4FFF; box-shadow: 0 0 0 3px rgba(123,79,255,0.12), 0 8px 32px rgba(123,79,255,0.16); transform: translateY(-3px); }
+        .picker-ribbon { position: absolute; top: -1px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg,#38B6FF,#7B4FFF); color: #fff; font-size: 0.65rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 0.2rem 0.85rem; border-radius: 0 0 10px 10px; }
+        .picker-check { position: absolute; top: 1rem; right: 1rem; width: 22px; height: 22px; border-radius: 50%; background: #7B4FFF; color: #fff; display: none; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; }
+        .plan-picker-card.is-selected .picker-check { display: flex; }
+        .picker-curr { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 1.5px; color: #64748B; font-weight: 600; }
+        .picker-name { font-family: var(--font-heading); font-size: 1.5rem; font-weight: 800; color: #0D0F1A; line-height: 1.1; }
+        .picker-from { font-size: 0.95rem; font-weight: 700; color: #7B4FFF; margin-top: 0.1rem; }
+        .picker-desc { font-size: 0.82rem; color: #64748B; line-height: 1.55; border-top: 1px solid rgba(0,0,0,0.07); padding-top: 0.75rem; margin-top: 0.25rem; }
+        .picker-features { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.3rem; }
+        .picker-features li { font-size: 0.78rem; color: #334155; padding-left: 1rem; position: relative; line-height: 1.4; }
+        .picker-features li::before { content: '✓'; position: absolute; left: 0; color: #7B4FFF; font-weight: 700; }
+        .picker-cta-hint { margin-top: auto; padding-top: 0.75rem; font-size: 0.78rem; font-weight: 600; color: #7B4FFF; text-align: center; }
+        .plan-picker-card.is-selected .picker-cta-hint { color: #7B4FFF; }
+        /* Plan detail (hidden until a plan is selected) */
+        .plan-detail-wrap { display: none; }
+        .plan-detail-wrap.is-visible { display: block; animation: fadeSlideUp 0.35s ease; }
+        @keyframes fadeSlideUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+        /* Responsive picker */
+        @media (max-width: 768px) { .plan-picker-grid { grid-template-columns: 1fr; } }
         .audience-toggle { display: inline-flex; background: rgba(0,0,0,0.08); border-radius: 9999px; padding: 3px; gap: 2px; margin-bottom: 2rem; }
         .audience-toggle button { padding: 0.45rem 1.2rem; border-radius: 9999px; border: none; cursor: pointer; font-size: 0.85rem; font-weight: 600; background: transparent; color: #64748B; transition: all .2s; font-family: inherit; }
         .audience-toggle button.is-active { background: #fff; color: #7B4FFF; box-shadow: 0 1px 4px rgba(0,0,0,.12); }
@@ -349,18 +373,63 @@
     <section class="section" style="padding-top:0;">
         <div class="container">
             <div class="pricing-shell fade-in-up">
-                <!-- Tab switcher -->
-                <div style="text-align:center;">
-                    <div class="audience-toggle" id="plan-tabs" role="tablist" aria-label="Plan">
-                        <button type="button" class="is-active" role="tab" data-plan="starter" aria-selected="true">Starter</button>
-                        <button type="button" class="" role="tab" data-plan="business">Business</button>
-                        <button type="button" class="" role="tab" data-plan="profesional">Profesional</button>
+                <!-- Plan picker cards -->
+                <div class="plan-picker-grid" id="plan-picker">
+
+                    <!-- Starter -->
+                    <div class="plan-picker-card" data-plan="starter" role="button" tabindex="0" aria-label="Elegir plan Starter">
+                        <div class="picker-check">✓</div>
+                        <div class="picker-curr">ARS + IVA</div>
+                        <div class="picker-name">Starter</div>
+                        <div class="picker-from">Gratis hasta 20 facturas</div>
+                        <div class="picker-desc">Profesionales, monotributistas y pymes que recién arrancan a profesionalizar su cobranza.</div>
+                        <ul class="picker-features">
+                            <li>Reclamo automático por WhatsApp</li>
+                            <li>Comprobantes y dashboard</li>
+                            <li>Importación desde Excel</li>
+                        </ul>
+                        <div class="picker-cta-hint">Elegir Starter →</div>
                     </div>
+
+                    <!-- Business -->
+                    <div class="plan-picker-card is-featured" data-plan="business" role="button" tabindex="0" aria-label="Elegir plan Business">
+                        <div class="picker-ribbon">Más elegido</div>
+                        <div class="picker-check">✓</div>
+                        <div class="picker-curr">USD</div>
+                        <div class="picker-name">Business</div>
+                        <div class="picker-from">Desde USD 89/mes</div>
+                        <div class="picker-desc">Colegios, consorcios, inmobiliarias, clubes y prepagas con volumen real de cobranza.</div>
+                        <ul class="picker-features">
+                            <li>Todo Starter + multicanal</li>
+                            <li>Conexión bancaria</li>
+                            <li>Matching automático + ARCA</li>
+                        </ul>
+                        <div class="picker-cta-hint">Elegir Business →</div>
+                    </div>
+
+                    <!-- Profesional -->
+                    <div class="plan-picker-card" data-plan="profesional" role="button" tabindex="0" aria-label="Elegir plan Profesional">
+                        <div class="picker-check">✓</div>
+                        <div class="picker-curr">USD</div>
+                        <div class="picker-name">Profesional</div>
+                        <div class="picker-from">Precio a medida</div>
+                        <div class="picker-desc">Admins grandes, countries, franquicias y cooperativas que necesitan personalización total.</div>
+                        <ul class="picker-features">
+                            <li>Todo Business + Cashflow forecast</li>
+                            <li>Scoring + planes de pago</li>
+                            <li>API access</li>
+                        </ul>
+                        <div class="picker-cta-hint">Elegir Profesional →</div>
+                    </div>
+
                 </div>
-                <!-- Plan content -->
-                <div id="pricing-content"><!-- populated by JS --></div>
+
+                <!-- Plan detail (hidden until a plan is picked) -->
+                <div class="plan-detail-wrap" id="plan-detail-wrap">
+                    <div id="pricing-content"><!-- populated by JS --></div>
+                    <p class="pricing-note" id="pricing-note"></p>
+                </div>
             </div>
-            <p class="pricing-note" id="pricing-note"></p>
         </div>
     </section>
 
@@ -489,9 +558,7 @@
   const PLANS = {
 
     starter: {
-      id: 'starter',
-      title: 'Starter',
-      currency: 'AR$ + IVA',
+      id: 'starter', title: 'Starter', currency: 'AR$ + IVA',
       desc: 'Reclamo automático por WhatsApp, comprobantes y dashboard de cobros. Sin conexión bancaria.',
       features: ['Reclamo automático por WhatsApp','Recepción y carga de comprobantes','Dashboard de estado de cobro','Importación de cartera desde Excel'],
       forWho: 'Profesionales, monotributistas y pymes que recién arrancan.',
@@ -505,9 +572,7 @@
     },
 
     business: {
-      id: 'business',
-      title: 'Business',
-      currency: 'USD',
+      id: 'business', title: 'Business', currency: 'USD',
       desc: 'Todo Starter + multicanal (WhatsApp · email · SMS), conexión bancaria, matching automático con terceros e integración ARCA.',
       features: ['Todo el plan Starter','Reclamo multicanal: WhatsApp + email + SMS','Conexión bancaria','Matching automático (inc. pagos de terceros)','Integración ARCA opcional'],
       forWho: 'Colegios, consorcios, inmobiliarias, clubes y prepagas.',
@@ -521,9 +586,7 @@
     },
 
     profesional: {
-      id: 'profesional',
-      title: 'Profesional',
-      currency: 'USD',
+      id: 'profesional', title: 'Profesional', currency: 'USD',
       desc: 'Todo Business + forecast de cashflow, scoring de pagadores, planes de pago inteligentes, reportes avanzados y acceso a API.',
       features: ['Todo el plan Business','Cashflow forecasting','Scoring de pagadores','Planes de pago inteligentes','Reportes automatizados','API access'],
       forWho: 'Administradores grandes, countries, franquicias y cooperativas.',
@@ -533,10 +596,11 @@
   };
 
   // ──────────────────────────────────────────────────
-  // STATE
+  // STATE & DOM refs
   // ──────────────────────────────────────────────────
-  const state = { planId: 'starter', mode: 'annual' };
-  const $tabs    = document.getElementById('plan-tabs');
+  const state = { planId: null, mode: 'annual' };
+  const $picker  = document.getElementById('plan-picker');
+  const $wrap    = document.getElementById('plan-detail-wrap');
   const $content = document.getElementById('pricing-content');
   const $note    = document.getElementById('pricing-note');
 
@@ -544,38 +608,43 @@
   // RENDER BAND CARDS
   // ──────────────────────────────────────────────────
   function bandCard(plan, b, mode) {
-    const bp   = b[mode] || b.annual || b.monthly;
-    const demoUrl = `/demo/?plan=${plan.id}&band=${b.id}&mode=${mode}`;
+    const bp       = b[mode] || b.annual || b.monthly;
+    const demoUrl  = `/demo/?plan=${plan.id}&band=${b.id}&mode=${mode}`;
     const priceCls = bp.free ? 'band-card-price-main is-free' : 'band-card-price-main';
     const unit     = bp.priceUnit ? `<span class="band-card-price-unit">${bp.priceUnit}</span>` : '';
     const strike   = bp.priceStrike ? `<div style="font-size:0.72rem;color:#94A3B8;text-decoration:line-through;margin-top:2px;">${bp.priceStrike}</div>` : '';
-    const noteText = bp.free ? 'Sin tarjeta · sin permanencia' : (plan.id==='business' ? (mode==='annual'?'Anual · 50% off · bloqueado 12 meses':'Mensual · 50% off · cancelás cuando querés') : 'Mensual · 30 días gratis');
-    const isPopular = (plan.id==='starter' && b.id==='b2') || (plan.id==='business' && b.id==='b1');
-    return `<div class="band-card ${isPopular?'is-popular':''}">` +
-      (isPopular ? '<div class="band-card-tag">Más elegido</div>' : '') +
-      `<div class="band-card-label">${b.label}</div>` +
-      (b.sub ? `<div class="band-card-sub">${b.sub}</div>` : '') +
-      `<div class="band-card-price"><div class="${priceCls}">${bp.price}${unit}</div>${strike}` +
-      `<div class="band-card-price-note">${noteText}</div></div>` +
-      `<a class="plan-cta" href="${demoUrl}">${bp.free?'Empezar gratis':'Contratar este plan'} <span aria-hidden="true">→</span></a></div>`;
+    const noteText = bp.free
+      ? 'Sin tarjeta · sin permanencia'
+      : (plan.id === 'business'
+          ? (mode === 'annual' ? 'Anual · 50% off · bloqueado 12 meses' : 'Mensual · 50% off · cancelás cuando querés')
+          : 'Mensual · 30 días gratis');
+    const isPopular = (plan.id === 'starter' && b.id === 'b2') || (plan.id === 'business' && b.id === 'b1');
+    return `<div class="band-card ${isPopular ? 'is-popular' : ''}">`
+      + (isPopular ? '<div class="band-card-tag">Más elegido</div>' : '')
+      + `<div class="band-card-label">${b.label}</div>`
+      + (b.sub ? `<div class="band-card-sub">${b.sub}</div>` : '')
+      + `<div class="band-card-price"><div class="${priceCls}">${bp.price}${unit}</div>${strike}`
+      + `<div class="band-card-price-note">${noteText}</div></div>`
+      + `<a class="plan-cta" href="${demoUrl}">${bp.free ? 'Empezar gratis' : 'Contratar este plan'} <span aria-hidden="true">→</span></a></div>`;
   }
 
   // ──────────────────────────────────────────────────
-  // RENDER PLAN CONTENT
+  // RENDER PLAN DETAIL
   // ──────────────────────────────────────────────────
   function render() {
     const plan = PLANS[state.planId];
+    if (!plan) return;
     if ($note) $note.innerHTML = plan.note;
 
-    // Features box (shared top section)
+    // Features box
     const featsHtml = `
       <div class="pricing-flat-features" style="margin-bottom:1.5rem;">
         <div class="pricing-flat-features-label">${plan.title} incluye</div>
-        <ul>${plan.features.map(f=>`<li>${f}</li>`).join('')}</ul>
+        <ul>${plan.features.map(f => `<li>${f}</li>`).join('')}</ul>
       </div>
       <div style="font-size:0.8rem;color:#64748B;margin-bottom:1.25rem;"><strong>Ideal para:</strong> ${plan.forWho}</div>`;
 
-    // Profesional: single custom block
+    // Profesional: custom block
     if (plan.enterprise) {
       $content.innerHTML = featsHtml + `
         <div style="text-align:center;padding:2.5rem 2rem;background:rgba(123,79,255,0.04);border:1.5px dashed rgba(123,79,255,0.25);border-radius:16px;">
@@ -586,22 +655,23 @@
       return;
     }
 
-    // Starter / Business: mode toggle (Business only) + band cards
+    // Starter / Business: mode toggle + band cards
     const hasModes = plan.modes.length > 1;
     const mode = hasModes ? state.mode : 'monthly';
     const modeToggleHtml = hasModes ? `
       <div style="margin-bottom:1.25rem;">
         <span class="mode-toggle-label">Modalidad de pago</span>
         <div class="mode-toggle" role="tablist">
-          <button type="button" class="${mode==='annual'?'is-active':''}" data-mode="annual">Anual <span class="mode-tag">−50%</span></button>
-          <button type="button" class="${mode==='monthly'?'is-active':''}" data-mode="monthly">Mensual <span class="mode-tag">−50%</span></button>
+          <button type="button" class="${mode === 'annual' ? 'is-active' : ''}" data-mode="annual">Anual <span class="mode-tag">−50%</span></button>
+          <button type="button" class="${mode === 'monthly' ? 'is-active' : ''}" data-mode="monthly">Mensual <span class="mode-tag">−50%</span></button>
         </div>
-        <div class="mode-note" style="margin-top:0.5rem;">${mode==='annual'?'Precio anual con 50% off de lanzamiento, bloqueado 12 meses (nov 2026).':'Precio mensual con 50% off de lanzamiento. Cancelás cuando querés.'}</div>
+        <div class="mode-note" style="margin-top:0.5rem;">${mode === 'annual' ? 'Precio anual con 50% off de lanzamiento, bloqueado 12 meses (nov 2026).' : 'Precio mensual con 50% off de lanzamiento. Cancelás cuando querés.'}</div>
       </div>` : '';
+
     const bandsHtml = plan.bands.map(b => bandCard(plan, b, mode)).join('');
-    $content.innerHTML = featsHtml + modeToggleHtml +
-      `<div class="band-section-label" style="margin-bottom:0.9rem;">Elegí tu volumen de facturas por mes</div>` +
-      `<div class="pricing-flat-bands">${bandsHtml}</div>`;
+    $content.innerHTML = featsHtml + modeToggleHtml
+      + `<div class="band-section-label" style="margin-bottom:0.9rem;">Elegí tu volumen de facturas por mes</div>`
+      + `<div class="pricing-flat-bands">${bandsHtml}</div>`;
 
     // Mode toggle handlers
     $content.querySelectorAll('[data-mode]').forEach(btn => {
@@ -610,24 +680,35 @@
   }
 
   // ──────────────────────────────────────────────────
-  // TAB SWITCHER
+  // PLAN PICKER CARD CLICK
   // ──────────────────────────────────────────────────
-  $tabs.querySelectorAll('button').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const pid = btn.getAttribute('data-plan');
-      if (pid === state.planId) return;
+  $picker.querySelectorAll('.plan-picker-card').forEach(card => {
+    function selectCard() {
+      const pid = card.getAttribute('data-plan');
       state.planId = pid;
-      $tabs.querySelectorAll('button').forEach(b => {
-        const active = b.getAttribute('data-plan') === pid;
-        b.classList.toggle('is-active', active);
-        b.setAttribute('aria-selected', active);
-      });
-      render();
-    });
-  });
 
-  // Initial render
-  render();
+      // Update card selection styles
+      $picker.querySelectorAll('.plan-picker-card').forEach(c =>
+        c.classList.toggle('is-selected', c.getAttribute('data-plan') === pid)
+      );
+
+      // Re-render detail content
+      render();
+
+      // Show detail section (remove animation class to re-trigger)
+      $wrap.classList.remove('is-visible');
+      void $wrap.offsetWidth; // reflow to restart animation
+      $wrap.classList.add('is-visible');
+
+      // Smooth scroll to detail
+      setTimeout(() => {
+        $wrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 50);
+    }
+
+    card.addEventListener('click', selectCard);
+    card.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); selectCard(); } });
+  });
 
 })();
     </script>
