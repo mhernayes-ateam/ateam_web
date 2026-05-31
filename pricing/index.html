@@ -24,11 +24,15 @@
     <style>
         /* ── Pricing shell (from Axel) ── */
         .pricing-shell {
-            margin-top: 2rem;
+            margin-top: 0;
             --surface: #fff; --bg: #F8FAFC; --bd: rgba(0,0,0,0.08);
             --tx: #0D0F1A; --muted: #64748B; --violet: #7B4FFF;
             --font-u: var(--font-heading); --radius: 14px;
         }
+        /* Step labels */
+        .pricing-step { display: flex; align-items: center; gap: 0.65rem; margin-bottom: 1.25rem; }
+        .pricing-step-num { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: 50%; background: linear-gradient(135deg,#38B6FF,#7B4FFF); color: #fff; font-size: 0.8rem; font-weight: 800; flex-shrink: 0; }
+        .pricing-step-title { font-size: 0.88rem; font-weight: 700; color: #0D0F1A; text-transform: uppercase; letter-spacing: 1px; }
         /* ── Plan picker cards ── */
         .plan-picker-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.25rem; margin-bottom: 3rem; }
         .plan-picker-card { background: #fff; border: 2px solid rgba(0,0,0,0.08); border-radius: 18px; padding: 1.75rem 1.5rem; cursor: pointer; transition: all 0.22s; position: relative; display: flex; flex-direction: column; gap: 0.6rem; box-shadow: 0 2px 10px rgba(0,0,0,0.04); }
@@ -149,7 +153,7 @@
         .pricing-note { font-size: 0.82rem; color: #64748B; margin-top: 1.5rem; line-height: 1.6; max-width: 760px; }
         /* ── Pricing hero ── */
         .pricing-hero {
-            padding: 8rem 0 4rem; text-align: center; position: relative; overflow: hidden;
+            padding: 8rem 0 1.5rem; text-align: center; position: relative; overflow: hidden;
         }
         .pricing-hero-bg {
             position: absolute; inset: 0; z-index: 0; pointer-events: none;
@@ -373,6 +377,11 @@
     <section class="section" style="padding-top:0;">
         <div class="container">
             <div class="pricing-shell fade-in-up">
+                <!-- Step 1 -->
+                <div class="pricing-step">
+                    <span class="pricing-step-num">1</span>
+                    <span class="pricing-step-title"><span data-lang="es">¿Qué tipo de negocio sos?</span><span data-lang="en">What type of business are you?</span></span>
+                </div>
                 <!-- Plan picker cards -->
                 <div class="plan-picker-grid" id="plan-picker">
 
@@ -426,6 +435,11 @@
 
                 <!-- Plan detail (hidden until a plan is picked) -->
                 <div class="plan-detail-wrap" id="plan-detail-wrap">
+                    <!-- Step 2 -->
+                    <div class="pricing-step" style="margin-top:0.5rem;">
+                        <span class="pricing-step-num">2</span>
+                        <span class="pricing-step-title"><span data-lang="es">¿Cuál es tu facturación mensual?</span><span data-lang="en">What is your monthly invoice volume?</span></span>
+                    </div>
                     <div id="pricing-content"><!-- populated by JS --></div>
                     <p class="pricing-note" id="pricing-note"></p>
                 </div>
