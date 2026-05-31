@@ -48,7 +48,7 @@
         .picker-cta-hint { margin-top: auto; padding-top: 0.75rem; font-size: 0.78rem; font-weight: 600; color: #7B4FFF; text-align: center; }
         .plan-picker-card.is-selected .picker-cta-hint { color: #7B4FFF; }
         /* Plan detail (hidden until a plan is selected) */
-        .plan-detail-wrap { display: none; }
+        .plan-detail-wrap { display: none; scroll-margin-top: 90px; }
         .plan-detail-wrap.is-visible { display: block; animation: fadeSlideUp 0.35s ease; }
         @keyframes fadeSlideUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
         /* Responsive picker */
@@ -692,10 +692,10 @@
       void $wrap.offsetWidth; // reflow to restart animation
       $wrap.classList.add('is-visible');
 
-      // Smooth scroll to detail
-      setTimeout(() => {
-        $wrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }, 50);
+      // Smooth scroll — account for sticky navbar
+      const navH = document.querySelector('.navbar')?.offsetHeight || 72;
+      const top  = $wrap.getBoundingClientRect().top + window.pageYOffset - navH - 20;
+      window.scrollTo({ top, behavior: 'smooth' });
     }
 
     card.addEventListener('click', selectCard);
