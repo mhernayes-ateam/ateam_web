@@ -349,10 +349,16 @@
     <section class="section" style="padding-top:0;">
         <div class="container">
             <div class="pricing-shell fade-in-up">
-                <div class="pricing" id="pricing-cards"><!-- populated by JS --></div>
-                <div class="pricing-detail is-hidden" id="pricing-detail"><!-- populated by JS --></div>
+                <!-- Tab switcher -->
+                <div class="audience-toggle" id="plan-tabs" role="tablist" aria-label="Plan">
+                    <button type="button" class="is-active" role="tab" data-plan="starter" aria-selected="true">Starter</button>
+                    <button type="button" class="" role="tab" data-plan="business">Business</button>
+                    <button type="button" class="" role="tab" data-plan="profesional">Profesional</button>
+                </div>
+                <!-- Plan content -->
+                <div id="pricing-content"><!-- populated by JS --></div>
             </div>
-            <p class="pricing-note" id="pricing-note"><strong>Starter</strong> en pesos argentinos + IVA, mensual. <strong>Business</strong> en USD, con 50% off de lanzamiento bloqueado 12 meses para contratos antes de noviembre 2026. <strong>Profesional</strong> es precio a medida según volumen y requerimientos.</p>
+            <p class="pricing-note" id="pricing-note"></p>
         </div>
     </section>
 
@@ -474,190 +480,155 @@
     <!-- ── Pricing JS ── -->
     <script>
 (function() {
-  // ── 3 flat plans: Starter · Business · Profesional ──
-  const PLANS = [
-    {
+
+  // ──────────────────────────────────────────────────
+  // PLAN DATA
+  // ──────────────────────────────────────────────────
+  const PLANS = {
+
+    starter: {
       id: 'starter',
       title: 'Starter',
       currency: 'AR$ + IVA',
-      tagline: 'Para empezar sin fricción',
       desc: 'Reclamo automático por WhatsApp, comprobantes y dashboard de cobros. Sin conexión bancaria.',
-      features: [
-        'Reclamo automático por WhatsApp',
-        'Recepción y carga de comprobantes',
-        'Dashboard de estado de cobro',
-        'Importación de cartera desde Excel'
-      ],
+      features: ['Reclamo automático por WhatsApp','Recepción y carga de comprobantes','Dashboard de estado de cobro','Importación de cartera desde Excel'],
       forWho: 'Profesionales, monotributistas y pymes que recién arrancan.',
-      from: 'Gratis', fromUnit: ' / hasta 20 facturas',
+      note: 'Facturación mensual en pesos + IVA. <strong>30 días gratis</strong> al contratar, cancelás cuando querés.',
       modes: ['monthly'],
       bands: [
-        { id: 'b1', label: 'Hasta 20 facturas',  sub: 'Free tier',             monthly: { price: 'Gratis',   free: true } },
-        { id: 'b2', label: '21 – 50 facturas',   sub: 'Profesional+',          monthly: { price: '$9.900',   priceUnit: '/mes' } },
-        { id: 'b3', label: '51 – 100 facturas',  sub: 'Consultorio / estudio', monthly: { price: '$39.900',  priceUnit: '/mes' } }
+        { id: 'b1', label: 'Hasta 20 facturas',  sub: 'Free tier',             monthly: { price: 'Gratis',  free: true } },
+        { id: 'b2', label: '21 – 50 facturas',   sub: 'Profesional+',          monthly: { price: '$9.900',  priceUnit: '/mes' } },
+        { id: 'b3', label: '51 – 100 facturas',  sub: 'Consultorio / estudio', monthly: { price: '$39.900', priceUnit: '/mes' } }
       ]
     },
-    {
+
+    business: {
       id: 'business',
       title: 'Business',
       currency: 'USD',
-      tagline: 'Para operaciones que necesitan escala',
       desc: 'Todo Starter + multicanal (WhatsApp · email · SMS), conexión bancaria, matching automático con terceros e integración ARCA.',
-      features: [
-        'Todo el plan Starter',
-        'Reclamo multicanal: WhatsApp + email + SMS',
-        'Conexión bancaria',
-        'Matching automático (inc. pagos de terceros)',
-        'Integración ARCA opcional'
-      ],
+      features: ['Todo el plan Starter','Reclamo multicanal: WhatsApp + email + SMS','Conexión bancaria','Matching automático (inc. pagos de terceros)','Integración ARCA opcional'],
       forWho: 'Colegios, consorcios, inmobiliarias, clubes y prepagas.',
-      from: 'USD 89', fromUnit: ' / mes', fromStrike: 'USD 179',
-      featured: true,
+      note: '<strong>50% off de lanzamiento</strong> bloqueado 12 meses para contratos antes de noviembre 2026. Sin permanencia mínima.',
       modes: ['annual', 'monthly'],
       bands: [
-        { id: 'b1', label: 'Hasta 500 facturas',   sub: 'Colegio / consorcio',  annual: { price: 'USD 89',  priceUnit: '/mes', priceStrike: 'USD 179' }, monthly: { price: 'USD 107', priceUnit: '/mes' } },
-        { id: 'b2', label: 'Hasta 1.000 facturas', sub: 'Admin mediano',         annual: { price: 'USD 149', priceUnit: '/mes', priceStrike: 'USD 299' }, monthly: { price: 'USD 179', priceUnit: '/mes' } },
-        { id: 'b3', label: 'Hasta 2.500 facturas', sub: 'Admin grande / club',   annual: { price: 'USD 224', priceUnit: '/mes', priceStrike: 'USD 449' }, monthly: { price: 'USD 269', priceUnit: '/mes' } }
+        { id: 'b1', label: 'Hasta 500 facturas',   sub: 'Colegio / consorcio',  annual: { price: 'USD 89',  priceUnit: '/mes', priceStrike: 'USD 179' }, monthly: { price: 'USD 107', priceUnit: '/mes', priceStrike: 'USD 215' } },
+        { id: 'b2', label: 'Hasta 1.000 facturas', sub: 'Admin mediano',         annual: { price: 'USD 149', priceUnit: '/mes', priceStrike: 'USD 299' }, monthly: { price: 'USD 179', priceUnit: '/mes', priceStrike: 'USD 359' } },
+        { id: 'b3', label: 'Hasta 2.500 facturas', sub: 'Admin grande / club',   annual: { price: 'USD 224', priceUnit: '/mes', priceStrike: 'USD 449' }, monthly: { price: 'USD 269', priceUnit: '/mes', priceStrike: 'USD 539' } }
       ]
     },
-    {
+
+    profesional: {
       id: 'profesional',
       title: 'Profesional',
       currency: 'USD',
-      tagline: 'Volumen y personalización total',
       desc: 'Todo Business + forecast de cashflow, scoring de pagadores, planes de pago inteligentes, reportes avanzados y acceso a API.',
-      features: [
-        'Todo el plan Business',
-        'Cashflow forecasting',
-        'Scoring de pagadores',
-        'Planes de pago inteligentes',
-        'Reportes automatizados',
-        'API access'
-      ],
+      features: ['Todo el plan Business','Cashflow forecasting','Scoring de pagadores','Planes de pago inteligentes','Reportes automatizados','API access'],
       forWho: 'Administradores grandes, countries, franquicias y cooperativas.',
-      from: 'Custom', fromUnit: '',
+      note: 'Precio a medida según volumen y requerimientos. Hablemos y armámos una propuesta en 24 hs.',
       enterprise: true
     }
-  ];
+  };
 
-  const state = { view: 'cards', planId: null, mode: 'annual', bandId: null };
-  const $cards  = document.getElementById('pricing-cards');
-  const $detail = document.getElementById('pricing-detail');
+  // ──────────────────────────────────────────────────
+  // STATE
+  // ──────────────────────────────────────────────────
+  const state = { planId: 'starter', mode: 'annual' };
+  const $tabs    = document.getElementById('plan-tabs');
+  const $content = document.getElementById('pricing-content');
+  const $note    = document.getElementById('pricing-note');
 
-  // ── Render cards (all 3 at once) ──
-  function renderCards() {
-    $cards.classList.remove('pricing-flat');
-    $cards.innerHTML = PLANS.map(p => {
-      const badge = p.featured
-        ? '<div class="plan-tag">Más elegido</div>'
-        : (p.enterprise ? '<div class="plan-soon-badge">Custom</div>' : '');
-      const priceBlock = `<div class="plan-price-from">Desde</div>
-        <div class="plan-price-main">${p.from}<span class="unit">${p.fromUnit}</span></div>
-        ${p.fromStrike ? `<div class="plan-price-var"><span class="strike">${p.fromStrike}</span>50% off hasta nov&nbsp;2026</div>` : ''}`;
-      const ctaBtn = p.enterprise
-        ? `<a class="plan-cta" href="https://wa.me/5491100000000?text=${encodeURIComponent('Hola, quiero hablar del plan Profesional de Axel.')}" target="_blank" rel="noopener">Hablar con ventas <span aria-hidden="true">→</span></a>`
-        : `<button type="button" class="plan-cta" data-plan="${p.id}">Elegir este plan <span aria-hidden="true">→</span></button>`;
-      return `<div class="${['plan', p.featured?'featured':''].join(' ').trim()}">${badge}
-        <div class="plan-head"><div class="plan-curr">${p.currency}</div></div>
-        <div class="plan-title">${p.title}</div>
-        <div style="font-size:0.78rem;color:#64748B;margin:-0.25rem 0 0.5rem;">${p.tagline}</div>
-        <div class="plan-price">${priceBlock}</div>
-        <ul class="plan-features">${p.features.map(f=>`<li>${f}</li>`).join('')}</ul>
-        <div class="plan-for"><strong>Ideal para:</strong> ${p.forWho}</div>
-        ${ctaBtn}</div>`;
-    }).join('');
-    $cards.querySelectorAll('[data-plan]').forEach(btn => {
-      btn.addEventListener('click', () => {
-        state.planId = btn.getAttribute('data-plan');
-        const plan = PLANS.find(p => p.id === state.planId);
-        state.mode = plan.modes[0];
-        state.bandId = plan.bands[0].id;
-        state.view = 'detail';
-        renderAll();
-        setTimeout(() => window.scrollTo({ top: $cards.offsetTop - 80, behavior: 'smooth' }), 50);
-      });
-    });
+  // ──────────────────────────────────────────────────
+  // RENDER BAND CARDS
+  // ──────────────────────────────────────────────────
+  function bandCard(plan, b, mode) {
+    const bp   = b[mode] || b.annual || b.monthly;
+    const demoUrl = `/demo/?plan=${plan.id}&band=${b.id}&mode=${mode}`;
+    const priceCls = bp.free ? 'band-card-price-main is-free' : 'band-card-price-main';
+    const unit     = bp.priceUnit ? `<span class="band-card-price-unit">${bp.priceUnit}</span>` : '';
+    const strike   = bp.priceStrike ? `<div style="font-size:0.72rem;color:#94A3B8;text-decoration:line-through;margin-top:2px;">${bp.priceStrike}</div>` : '';
+    const noteText = bp.free ? 'Sin tarjeta · sin permanencia' : (plan.id==='business' ? (mode==='annual'?'Anual · 50% off · bloqueado 12 meses':'Mensual · 50% off · cancelás cuando querés') : 'Mensual · 30 días gratis');
+    const isPopular = (plan.id==='starter' && b.id==='b2') || (plan.id==='business' && b.id==='b1');
+    return `<div class="band-card ${isPopular?'is-popular':''}">` +
+      (isPopular ? '<div class="band-card-tag">Más elegido</div>' : '') +
+      `<div class="band-card-label">${b.label}</div>` +
+      (b.sub ? `<div class="band-card-sub">${b.sub}</div>` : '') +
+      `<div class="band-card-price"><div class="${priceCls}">${bp.price}${unit}</div>${strike}` +
+      `<div class="band-card-price-note">${noteText}</div></div>` +
+      `<a class="plan-cta" href="${demoUrl}">${bp.free?'Empezar gratis':'Contratar este plan'} <span aria-hidden="true">→</span></a></div>`;
   }
 
-  // ── Render detail (band selector) ──
-  function renderDetail() {
-    const plan = PLANS.find(p => p.id === state.planId);
-    if (!plan) return;
-    const band = plan.bands.find(b => b.id === state.bandId) || plan.bands[0];
-    const priceObj = band[state.mode] || band.annual || band.monthly;
-    const hasBothModes = plan.modes.length > 1;
-    const annualNote = 'Anual con 50% off de lanzamiento, bloqueado 12 meses para contratos antes de noviembre 2026.';
-    const monthlyNote = 'Mensual con 50% off de lanzamiento. Cancelás cuando quieras.';
-    const starterNote = 'Facturación mensual, sin descuentos ni permanencia mínima. <strong>30 días gratis</strong> al contratar.';
-    const modeToggle = hasBothModes
-      ? `<div class="mode-toggle-wrap">
-          <span class="mode-toggle-label">Modalidad de pago</span>
-          <div class="mode-toggle" role="tablist">
-            <button type="button" class="${state.mode==='annual'?'is-active':''}" data-mode="annual">Anual <span class="mode-tag">−50%</span></button>
-            <button type="button" class="${state.mode==='monthly'?'is-active':''}" data-mode="monthly">Mensual <span class="mode-tag">−50%</span></button>
-          </div>
-          <div class="mode-note">${state.mode==='annual'?annualNote:monthlyNote}</div>
-        </div>`
-      : `<div class="mode-note" style="margin-top:18px">${starterNote}</div>`;
-    const bandsHtml = plan.bands.map(b => {
-      const bp = b[state.mode] || b.annual || b.monthly;
-      const isSelected = b.id === state.bandId;
-      const priceClass = bp.free ? 'band-price-main is-free' : 'band-price-main';
-      const priceUnit = bp.priceUnit ? `<span style="font-size:11px;color:#64748B;font-weight:500"> ${bp.priceUnit}</span>` : '';
-      const strike = bp.priceStrike ? `<div class="band-price-strike">${bp.priceStrike}</div>` : '';
-      return `<div class="band-option ${isSelected?'is-selected':''}" data-band="${b.id}" role="radio" aria-checked="${isSelected}" tabindex="0">
-        <div class="band-info"><div class="band-radio"></div>
-          <div class="band-info-text">
-            <div class="band-label-main">${b.label}</div>
-            ${b.sub ? `<div class="band-label-sub">${b.sub}</div>` : ''}
-          </div>
-        </div>
-        <div class="band-price"><div class="${priceClass}">${bp.price}${priceUnit}</div>${strike}</div>
-      </div>`;
-    }).join('');
-    const summaryPrice = priceObj.free ? 'Gratis' : `${priceObj.price}${priceObj.priceUnit ? `<span class="unit"> ${priceObj.priceUnit}</span>` : ''}`;
-    const demoUrl = `/demo/?plan=${state.planId}&band=${state.bandId}&mode=${state.mode}`;
-    $detail.innerHTML = `
-      <button type="button" class="detail-back" id="detail-back"><span aria-hidden="true">←</span> Volver a planes</button>
-      <div class="detail-head">
-        <div><div class="detail-title"><span class="num">${plan.title.toUpperCase()}</span></div></div>
-        <div class="detail-curr">${plan.currency}</div>
+  // ──────────────────────────────────────────────────
+  // RENDER PLAN CONTENT
+  // ──────────────────────────────────────────────────
+  function render() {
+    const plan = PLANS[state.planId];
+    if ($note) $note.innerHTML = plan.note;
+
+    // Features box (shared top section)
+    const featsHtml = `
+      <div class="pricing-flat-features" style="margin-bottom:1.5rem;">
+        <div class="pricing-flat-features-label">${plan.title} incluye</div>
+        <ul>${plan.features.map(f=>`<li>${f}</li>`).join('')}</ul>
       </div>
-      <p class="detail-desc">${plan.desc}</p>
-      ${modeToggle}
-      <div class="band-section-label" style="margin-top:1.25rem">Elegí tu volumen de facturas por mes</div>
-      <div class="band-options" role="radiogroup">${bandsHtml}</div>
-      <div class="detail-summary">
-        <div class="summary-block">
-          <div class="summary-block-label">Tu plan</div>
-          <div class="summary-block-value">${plan.title} · ${band.label.replace('facturas','fact.')}</div>
+      <div style="font-size:0.8rem;color:#64748B;margin-bottom:1.25rem;"><strong>Ideal para:</strong> ${plan.forWho}</div>`;
+
+    // Profesional: single custom block
+    if (plan.enterprise) {
+      $content.innerHTML = featsHtml + `
+        <div style="text-align:center;padding:2.5rem 2rem;background:rgba(123,79,255,0.04);border:1.5px dashed rgba(123,79,255,0.25);border-radius:16px;">
+          <div style="font-family:var(--font-heading);font-size:2rem;font-weight:800;color:#0D0F1A;margin-bottom:0.5rem;">Precio a medida</div>
+          <div style="font-size:0.9rem;color:#64748B;max-width:460px;margin:0 auto 1.5rem;line-height:1.7;">Armámos una propuesta personalizada según tu volumen, integraciones y requerimientos. Respuesta en menos de 24 hs.</div>
+          <a class="plan-cta" style="display:inline-block;padding:0.8rem 2rem;" href="https://wa.me/5491100000000?text=${encodeURIComponent('Hola, quiero hablar del plan Profesional de Axel.')}" target="_blank" rel="noopener">Hablar con ventas <span aria-hidden="true">→</span></a>
+        </div>`;
+      return;
+    }
+
+    // Starter / Business: mode toggle (Business only) + band cards
+    const hasModes = plan.modes.length > 1;
+    const mode = hasModes ? state.mode : 'monthly';
+    const modeToggleHtml = hasModes ? `
+      <div style="margin-bottom:1.25rem;">
+        <span class="mode-toggle-label">Modalidad de pago</span>
+        <div class="mode-toggle" role="tablist">
+          <button type="button" class="${mode==='annual'?'is-active':''}" data-mode="annual">Anual <span class="mode-tag">−50%</span></button>
+          <button type="button" class="${mode==='monthly'?'is-active':''}" data-mode="monthly">Mensual <span class="mode-tag">−50%</span></button>
         </div>
-        <div class="summary-block">
-          <div class="summary-block-label">${state.mode==='annual'?'Anual · contado':'Mensual'}</div>
-          <div class="summary-block-value">${summaryPrice}</div>
-        </div>
-        <a class="summary-cta" href="${demoUrl}">Contratar este plan <span aria-hidden="true">→</span></a>
-      </div>`;
-    document.getElementById('detail-back').addEventListener('click', () => { state.view='cards'; renderAll(); });
-    $detail.querySelectorAll('[data-mode]').forEach(btn => btn.addEventListener('click', () => { state.mode=btn.getAttribute('data-mode'); renderDetail(); }));
-    $detail.querySelectorAll('[data-band]').forEach(btn => {
-      btn.addEventListener('click', () => { state.bandId=btn.getAttribute('data-band'); renderDetail(); });
-      btn.addEventListener('keydown', e => { if(e.key==='Enter'||e.key===' '){ e.preventDefault(); state.bandId=btn.getAttribute('data-band'); renderDetail(); } });
+        <div class="mode-note" style="margin-top:0.5rem;">${mode==='annual'?'Precio anual con 50% off de lanzamiento, bloqueado 12 meses (nov 2026).':'Precio mensual con 50% off de lanzamiento. Cancelás cuando querés.'}</div>
+      </div>` : '';
+    const bandsHtml = plan.bands.map(b => bandCard(plan, b, mode)).join('');
+    $content.innerHTML = featsHtml + modeToggleHtml +
+      `<div class="band-section-label" style="margin-bottom:0.9rem;">Elegí tu volumen de facturas por mes</div>` +
+      `<div class="pricing-flat-bands">${bandsHtml}</div>`;
+
+    // Mode toggle handlers
+    $content.querySelectorAll('[data-mode]').forEach(btn => {
+      btn.addEventListener('click', () => { state.mode = btn.getAttribute('data-mode'); render(); });
     });
   }
 
-  function renderAll() {
-    if (state.view === 'cards') {
-      $cards.classList.remove('is-hidden'); $detail.classList.add('is-hidden'); renderCards();
-    } else {
-      $cards.classList.add('is-hidden'); $detail.classList.remove('is-hidden'); renderDetail();
-    }
-  }
+  // ──────────────────────────────────────────────────
+  // TAB SWITCHER
+  // ──────────────────────────────────────────────────
+  $tabs.querySelectorAll('button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const pid = btn.getAttribute('data-plan');
+      if (pid === state.planId) return;
+      state.planId = pid;
+      $tabs.querySelectorAll('button').forEach(b => {
+        const active = b.getAttribute('data-plan') === pid;
+        b.classList.toggle('is-active', active);
+        b.setAttribute('aria-selected', active);
+      });
+      render();
+    });
+  });
 
-  renderAll();
+  // Initial render
+  render();
+
 })();
     </script>
     <script src="/assets/js/lang.js"></script>
 </body>
-
 </html>
