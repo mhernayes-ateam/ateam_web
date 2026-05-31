@@ -636,17 +636,9 @@
     if (!plan) return;
     if ($note) $note.innerHTML = plan.note;
 
-    // Features box
-    const featsHtml = `
-      <div class="pricing-flat-features" style="margin-bottom:1.5rem;">
-        <div class="pricing-flat-features-label">${plan.title} incluye</div>
-        <ul>${plan.features.map(f => `<li>${f}</li>`).join('')}</ul>
-      </div>
-      <div style="font-size:0.8rem;color:#64748B;margin-bottom:1.25rem;"><strong>Ideal para:</strong> ${plan.forWho}</div>`;
-
     // Profesional: custom block
     if (plan.enterprise) {
-      $content.innerHTML = featsHtml + `
+      $content.innerHTML = `
         <div style="text-align:center;padding:2.5rem 2rem;background:rgba(123,79,255,0.04);border:1.5px dashed rgba(123,79,255,0.25);border-radius:16px;">
           <div style="font-family:var(--font-heading);font-size:2rem;font-weight:800;color:#0D0F1A;margin-bottom:0.5rem;">Precio a medida</div>
           <div style="font-size:0.9rem;color:#64748B;max-width:460px;margin:0 auto 1.5rem;line-height:1.7;">Armámos una propuesta personalizada según tu volumen, integraciones y requerimientos. Respuesta en menos de 24 hs.</div>
@@ -669,7 +661,7 @@
       </div>` : '';
 
     const bandsHtml = plan.bands.map(b => bandCard(plan, b, mode)).join('');
-    $content.innerHTML = featsHtml + modeToggleHtml
+    $content.innerHTML = modeToggleHtml
       + `<div class="band-section-label" style="margin-bottom:0.9rem;">Elegí tu volumen de facturas por mes</div>`
       + `<div class="pricing-flat-bands">${bandsHtml}</div>`;
 
