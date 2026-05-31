@@ -345,18 +345,14 @@
         </div>
     </section>
 
-    <!-- ── Plans (from Axel) ── -->
+    <!-- ── Plans ── -->
     <section class="section" style="padding-top:0;">
         <div class="container">
             <div class="pricing-shell fade-in-up">
-                <div class="audience-toggle" role="tablist" aria-label="Tipo de uso">
-                    <button type="button" class="" role="tab" data-audience="personal"><span data-lang="es">Emprendedor</span><span data-lang="en">Starter</span></button>
-                    <button type="button" class="is-active" role="tab" data-audience="business" aria-selected="true"><span data-lang="es">Empresa</span><span data-lang="en">Business</span></button>
-                </div>
                 <div class="pricing" id="pricing-cards"><!-- populated by JS --></div>
                 <div class="pricing-detail is-hidden" id="pricing-detail"><!-- populated by JS --></div>
             </div>
-            <p class="pricing-note" id="pricing-note"></p>
+            <p class="pricing-note" id="pricing-note"><strong>Starter</strong> en pesos argentinos + IVA, mensual. <strong>Business</strong> en USD, con 50% off de lanzamiento bloqueado 12 meses para contratos antes de noviembre 2026. <strong>Profesional</strong> es precio a medida según volumen y requerimientos.</p>
         </div>
     </section>
 
@@ -475,192 +471,188 @@
             });
         });
     </script>
-    <!-- ── Pricing JS (same as Axel) ── -->
+    <!-- ── Pricing JS ── -->
     <script>
 (function() {
-  const PLANS = {
-    personal: [
-      {
-        id: 'p1-ar', num: '01', title: 'Reclamo', currency: 'AR$ + IVA',
-        from: 'Gratis', fromUnit: ' / hasta 20 facturas',
-        desc: 'Reclama por WhatsApp, recibe comprobantes y muestra el estado de cada cobro en un dashboard. Sin conexión bancaria.',
-        summary: 'WhatsApp + comprobantes + dashboard — sin conexión bancaria.',
-        features: ['Reclamo automático por WhatsApp','Recepción y carga de comprobantes','Dashboard de estado de cobro','Importación de cartera desde Excel'],
-        featuresNote: 'Las features son las mismas en las tres bandas — lo único que cambia es el volumen de facturas por mes.',
-        forWho: 'Profesionales, monotributistas y pymes que recién arrancan.',
-        modes: ['monthly'],
-        bands: [
-          { id: 'b1', label: 'Hasta 20 facturas', sub: 'Free tier',             monthly: { price: 'Gratis', free: true } },
-          { id: 'b2', label: '21 – 50 facturas',  sub: 'Profesional+',          monthly: { price: '$ 9.900',  priceUnit: '/mes' } },
-          { id: 'b3', label: '51 – 100 facturas', sub: 'Consultorio / estudio', monthly: { price: '$ 39.900', priceUnit: '/mes' } }
-        ],
-        upgradeHint: { to: 'p2', headline: '¿Más de 100 facturas por mes?', body: 'El Plan 01 llega hasta 100. A partir de ahí, el agente que necesitás es <strong>Conciliación</strong> — con conexión bancaria y matching automático.', cta: 'Ver Plan 02' }
-      }
-    ],
-    business: [
-      {
-        id: 'p1-usd', num: '01', title: 'Reclamo', currency: 'USD',
-        from: 'Gratis', fromUnit: ' / hasta 20 facturas',
-        desc: 'Reclamo por WhatsApp, recepción de comprobantes y dashboard de estado. Sin conexión bancaria.',
-        summary: 'WhatsApp + comprobantes + dashboard — sin conexión bancaria.',
-        features: ['Reclamo automático por WhatsApp','Recepción y carga de comprobantes','Dashboard de estado de cobro','Importación de cartera desde Excel'],
-        featuresNote: 'Las features son las mismas en las tres bandas — lo único que cambia es el volumen de facturas por mes.',
-        forWho: 'Emprendimientos chicos y equipos que recién arrancan a profesionalizar su cobranza.',
-        modes: ['monthly'],
-        bands: [
-          { id: 'b1', label: 'Hasta 20 facturas', sub: 'Free tier',    monthly: { price: 'Gratis', free: true } },
-          { id: 'b2', label: '21 – 50 facturas',  sub: 'Equipo chico', monthly: { price: 'USD 19', priceUnit: '/mes' } },
-          { id: 'b3', label: '51 – 100 facturas', sub: 'Equipo grande',monthly: { price: 'USD 39', priceUnit: '/mes' } }
-        ],
-        upgradeHint: { to: 'p2', headline: '¿Más de 100 facturas por mes?', body: 'El Plan 01 llega hasta 100. A partir de ahí, el agente que necesitás es <strong>Conciliación</strong> — con conexión bancaria y matching automático.', cta: 'Ver Plan 02' },
-        confirmCopy: 'Valores Plan 01 empresarial estimados — confirmar con el equipo.'
-      },
-      {
-        id: 'p2', num: '02', title: 'Conciliación', currency: 'USD',
-        from: 'USD 39', fromUnit: ' / mes', fromStrike: 'USD 79',
-        desc: 'Todo el plan Reclamo + reclamo multicanal (WhatsApp + email + SMS), conexión bancaria, matching automático con terceros e integración ARCA opcional.',
-        summary: 'Multicanal · Banco · Matching · ARCA opcional.',
-        featured: true,
-        features: ['Todo el plan Reclamo','Reclamo multicanal: WhatsApp + email + SMS','Conexión bancaria','Matching automático (incluye pagos de terceros)','Integración ARCA opcional'],
-        forWho: 'Colegios, consorcios, inmobiliarias, clubes y prepagas.',
-        modes: ['annual', 'monthly'],
-        bands: [
-          { id: 'b1', label: 'Hasta 200 facturas',   sub: 'Colegio chico / consorcio', annual: { price: 'USD 39',  priceUnit: '/mes', priceStrike: 'USD 79' },  monthly: { price: 'USD 47',  priceUnit: '/mes', priceStrike: 'USD 95' } },
-          { id: 'b2', label: 'Hasta 500 facturas',   sub: 'Colegio medio',              annual: { price: 'USD 89',  priceUnit: '/mes', priceStrike: 'USD 179' }, monthly: { price: 'USD 107', priceUnit: '/mes', priceStrike: 'USD 215' } },
-          { id: 'b3', label: 'Hasta 1.000 facturas', sub: 'Consorcio grande',           annual: { price: 'USD 149', priceUnit: '/mes', priceStrike: 'USD 299' }, monthly: { price: 'USD 179', priceUnit: '/mes', priceStrike: 'USD 359' } },
-          { id: 'b4', label: 'Hasta 2.500 facturas', sub: 'Admin grande / club',        annual: { price: 'USD 224', priceUnit: '/mes', priceStrike: 'USD 449' }, monthly: { price: 'USD 269', priceUnit: '/mes', priceStrike: 'USD 539' } },
-          { id: 'b5', label: '+ 2.500 facturas',     sub: 'Enterprise',                 annual: { price: 'Custom' }, monthly: { price: 'Custom' }, enterprise: true }
-        ]
-      },
-      {
-        id: 'p3', num: '03', title: 'Inteligencia', currency: 'USD',
-        from: 'USD 59', fromUnit: ' / mes', fromStrike: 'USD 119',
-        desc: 'Todo el plan Conciliación + forecast de cashflow, scoring de pagadores, planes de pago inteligentes, reportes automatizados y API.',
-        summary: 'Conciliación + Cashflow forecast + Scoring + API.',
-        soon: true,
-        features: ['Todo el plan Conciliación','Cashflow forecasting','Scoring de pagadores','Planes de pago inteligentes','Reportes automatizados','API'],
-        forWho: 'Admins grandes, countries, franquicias, cooperativas y clientes con volumen.',
-        modes: ['annual', 'monthly'],
-        bands: [
-          { id: 'b1', label: 'Hasta 200 facturas',   sub: 'Country chico',      annual: { price: 'USD 59',  priceUnit: '/mes', priceStrike: 'USD 119' }, monthly: { price: 'USD 71',  priceUnit: '/mes', priceStrike: 'USD 143' } },
-          { id: 'b2', label: 'Hasta 500 facturas',   sub: 'Country medio',      annual: { price: 'USD 124', priceUnit: '/mes', priceStrike: 'USD 249' }, monthly: { price: 'USD 149', priceUnit: '/mes', priceStrike: 'USD 299' } },
-          { id: 'b3', label: 'Hasta 1.000 facturas', sub: 'Cooperativa grande', annual: { price: 'USD 199', priceUnit: '/mes', priceStrike: 'USD 399' }, monthly: { price: 'USD 239', priceUnit: '/mes', priceStrike: 'USD 479' } },
-          { id: 'b4', label: 'Hasta 2.500 facturas', sub: 'Admin enterprise',   annual: { price: 'USD 299', priceUnit: '/mes', priceStrike: 'USD 599' }, monthly: { price: 'USD 359', priceUnit: '/mes', priceStrike: 'USD 719' } },
-          { id: 'b5', label: '+ 2.500 facturas',     sub: 'Enterprise',         annual: { price: 'Custom' }, monthly: { price: 'Custom' }, enterprise: true }
-        ]
-      }
-    ]
-  };
+  // ── 3 flat plans: Starter · Business · Profesional ──
+  const PLANS = [
+    {
+      id: 'starter',
+      title: 'Starter',
+      currency: 'AR$ + IVA',
+      tagline: 'Para empezar sin fricción',
+      desc: 'Reclamo automático por WhatsApp, comprobantes y dashboard de cobros. Sin conexión bancaria.',
+      features: [
+        'Reclamo automático por WhatsApp',
+        'Recepción y carga de comprobantes',
+        'Dashboard de estado de cobro',
+        'Importación de cartera desde Excel'
+      ],
+      forWho: 'Profesionales, monotributistas y pymes que recién arrancan.',
+      from: 'Gratis', fromUnit: ' / hasta 20 facturas',
+      modes: ['monthly'],
+      bands: [
+        { id: 'b1', label: 'Hasta 20 facturas',  sub: 'Free tier',             monthly: { price: 'Gratis',   free: true } },
+        { id: 'b2', label: '21 – 50 facturas',   sub: 'Profesional+',          monthly: { price: '$9.900',   priceUnit: '/mes' } },
+        { id: 'b3', label: '51 – 100 facturas',  sub: 'Consultorio / estudio', monthly: { price: '$39.900',  priceUnit: '/mes' } }
+      ]
+    },
+    {
+      id: 'business',
+      title: 'Business',
+      currency: 'USD',
+      tagline: 'Para operaciones que necesitan escala',
+      desc: 'Todo Starter + multicanal (WhatsApp · email · SMS), conexión bancaria, matching automático con terceros e integración ARCA.',
+      features: [
+        'Todo el plan Starter',
+        'Reclamo multicanal: WhatsApp + email + SMS',
+        'Conexión bancaria',
+        'Matching automático (inc. pagos de terceros)',
+        'Integración ARCA opcional'
+      ],
+      forWho: 'Colegios, consorcios, inmobiliarias, clubes y prepagas.',
+      from: 'USD 89', fromUnit: ' / mes', fromStrike: 'USD 179',
+      featured: true,
+      modes: ['annual', 'monthly'],
+      bands: [
+        { id: 'b1', label: 'Hasta 500 facturas',   sub: 'Colegio / consorcio',  annual: { price: 'USD 89',  priceUnit: '/mes', priceStrike: 'USD 179' }, monthly: { price: 'USD 107', priceUnit: '/mes' } },
+        { id: 'b2', label: 'Hasta 1.000 facturas', sub: 'Admin mediano',         annual: { price: 'USD 149', priceUnit: '/mes', priceStrike: 'USD 299' }, monthly: { price: 'USD 179', priceUnit: '/mes' } },
+        { id: 'b3', label: 'Hasta 2.500 facturas', sub: 'Admin grande / club',   annual: { price: 'USD 224', priceUnit: '/mes', priceStrike: 'USD 449' }, monthly: { price: 'USD 269', priceUnit: '/mes' } }
+      ]
+    },
+    {
+      id: 'profesional',
+      title: 'Profesional',
+      currency: 'USD',
+      tagline: 'Volumen y personalización total',
+      desc: 'Todo Business + forecast de cashflow, scoring de pagadores, planes de pago inteligentes, reportes avanzados y acceso a API.',
+      features: [
+        'Todo el plan Business',
+        'Cashflow forecasting',
+        'Scoring de pagadores',
+        'Planes de pago inteligentes',
+        'Reportes automatizados',
+        'API access'
+      ],
+      forWho: 'Administradores grandes, countries, franquicias y cooperativas.',
+      from: 'Custom', fromUnit: '',
+      enterprise: true
+    }
+  ];
 
-  const PRICING_NOTE = {
-    personal: 'Plan 01 en pesos argentinos + IVA, facturación mensual. <strong>30 días gratis</strong> al contratar, cancelás cuando quieras. Al checkout elegís cómo pagás: <strong>transferencia (prepago)</strong> o <strong>débito automático con tarjeta (5% off)</strong>.',
-    business: '<strong>Plan 01</strong> en USD con facturación mensual, sin descuentos. <strong>Plan 02 y 03</strong> con <strong>50% off de lanzamiento</strong> (anual y mensual) bloqueado por 12 meses para quien contrate hasta noviembre 2026. Sin permanencia mínima.'
-  };
-
-  const state = { audience: 'business', view: 'cards', planId: null, mode: 'annual', bandId: null };
-  const $toggle = document.querySelector('.audience-toggle');
+  const state = { view: 'cards', planId: null, mode: 'annual', bandId: null };
   const $cards  = document.getElementById('pricing-cards');
   const $detail = document.getElementById('pricing-detail');
-  const $note   = document.getElementById('pricing-note');
 
+  // ── Render cards (all 3 at once) ──
   function renderCards() {
-    if (state.audience === 'personal') { $cards.classList.add('pricing-flat'); return renderPersonalFlat(); }
     $cards.classList.remove('pricing-flat');
-    const plans = PLANS[state.audience];
-    $cards.innerHTML = plans.map(p => {
-      const headBadge = p.featured ? '<div class="plan-tag">Más elegido</div>' : (p.soon ? '<div class="plan-soon-badge">Próximamente</div>' : '');
-      const priceBlock = `<div class="plan-price-from">Desde</div><div class="plan-price-main">${p.from}<span class="unit">${p.fromUnit||''}</span></div>${p.fromStrike ? `<div class="plan-price-var"><span class="strike">${p.fromStrike}</span>50% off hasta nov&nbsp;2026</div>` : ''}`;
-      const ctaBtn = p.soon ? `<button type="button" class="plan-cta is-ghost" data-soon="1">Avisame cuando salga</button>` : `<button type="button" class="plan-cta" data-plan="${p.id}">Elegir este plan <span aria-hidden="true">→</span></button>`;
-      return `<div class="${['plan', p.featured?'featured':'', p.soon?'is-soon':''].join(' ').trim()}">${headBadge}<div class="plan-head"><div class="plan-name">Plan <span class="num">${p.num}</span></div><div class="plan-curr">${p.currency}</div></div><div class="plan-title">${p.title}</div><div class="plan-price">${priceBlock}</div><ul class="plan-features">${p.features.map(f=>`<li>${f}</li>`).join('')}</ul><div class="plan-for"><strong>Ideal para:</strong> ${p.forWho}</div>${ctaBtn}</div>`;
+    $cards.innerHTML = PLANS.map(p => {
+      const badge = p.featured
+        ? '<div class="plan-tag">Más elegido</div>'
+        : (p.enterprise ? '<div class="plan-soon-badge">Custom</div>' : '');
+      const priceBlock = `<div class="plan-price-from">Desde</div>
+        <div class="plan-price-main">${p.from}<span class="unit">${p.fromUnit}</span></div>
+        ${p.fromStrike ? `<div class="plan-price-var"><span class="strike">${p.fromStrike}</span>50% off hasta nov&nbsp;2026</div>` : ''}`;
+      const ctaBtn = p.enterprise
+        ? `<a class="plan-cta" href="https://wa.me/5491100000000?text=${encodeURIComponent('Hola, quiero hablar del plan Profesional de Axel.')}" target="_blank" rel="noopener">Hablar con ventas <span aria-hidden="true">→</span></a>`
+        : `<button type="button" class="plan-cta" data-plan="${p.id}">Elegir este plan <span aria-hidden="true">→</span></button>`;
+      return `<div class="${['plan', p.featured?'featured':''].join(' ').trim()}">${badge}
+        <div class="plan-head"><div class="plan-curr">${p.currency}</div></div>
+        <div class="plan-title">${p.title}</div>
+        <div style="font-size:0.78rem;color:#64748B;margin:-0.25rem 0 0.5rem;">${p.tagline}</div>
+        <div class="plan-price">${priceBlock}</div>
+        <ul class="plan-features">${p.features.map(f=>`<li>${f}</li>`).join('')}</ul>
+        <div class="plan-for"><strong>Ideal para:</strong> ${p.forWho}</div>
+        ${ctaBtn}</div>`;
     }).join('');
     $cards.querySelectorAll('[data-plan]').forEach(btn => {
       btn.addEventListener('click', () => {
         state.planId = btn.getAttribute('data-plan');
-        const plan = findPlan(state.planId);
-        state.mode = plan.modes[0]; state.bandId = plan.bands[0].id; state.view = 'detail'; renderAll();
-        setTimeout(() => window.scrollTo({ top: document.getElementById('pricing-cards').offsetTop - 80, behavior: 'smooth' }), 50);
-      });
-    });
-    $cards.querySelectorAll('[data-soon]').forEach(btn => btn.addEventListener('click', () => window.open(`https://wa.me/5491100000000?text=${encodeURIComponent('Hola, quiero que me avisen cuando salga el Plan Inteligencia de Axel.')}`, '_blank')));
-  }
-
-  function renderPersonalFlat() {
-    const plan = PLANS.personal[0];
-    const bandsHtml = plan.bands.map(b => {
-      const bp = b.monthly;
-      const demoUrl = `/demo/?plan=${plan.id}&band=${b.id}&mode=${state.mode}`;
-      const priceClass = bp.free ? 'band-card-price-main is-free' : 'band-card-price-main';
-      const unit = bp.priceUnit ? `<span class="band-card-price-unit">${bp.priceUnit}</span>` : '';
-      return `<div class="band-card ${b.id==='b2'?'is-popular':''}">${b.id==='b2'?'<div class="band-card-tag">Más elegido</div>':''}<div class="band-card-label">${b.label}</div>${b.sub?`<div class="band-card-sub">${b.sub}</div>`:''}<div class="band-card-price"><div class="${priceClass}">${bp.price}${unit}</div><div class="band-card-price-note">${bp.free?'Sin tarjeta · sin permanencia':'Facturación mensual · 30 días gratis'}</div></div><a class="plan-cta" href="${demoUrl}">${bp.free?'Empezar gratis':'Contratar este plan'} <span aria-hidden="true">→</span></a></div>`;
-    }).join('');
-    const upgradeBlock = plan.upgradeHint ? `<div class="upgrade-hint"><div class="upgrade-hint-text"><div class="upgrade-hint-headline">${plan.upgradeHint.headline}</div><div class="upgrade-hint-body">${plan.upgradeHint.body}</div></div><button type="button" class="upgrade-hint-cta" data-upgrade="${plan.upgradeHint.to}">${plan.upgradeHint.cta} <span aria-hidden="true">→</span></button></div>` : '';
-    $cards.innerHTML = `<div class="pricing-flat-head"><div class="pricing-flat-meta"><div class="plan-name">Plan <span class="num">${plan.num}</span></div><div class="plan-title">${plan.title}</div><p class="pricing-flat-desc">${plan.desc}</p></div><div class="plan-curr">${plan.currency}</div></div><div class="pricing-flat-features"><div class="pricing-flat-features-label">Incluye en todas las opciones</div><ul>${plan.features.map(f=>`<li>${f}</li>`).join('')}</ul></div><div class="pricing-flat-volume"><div class="pricing-flat-volume-head"><div><div class="band-section-label">Elegí tu volumen de facturas por mes</div></div></div></div><div class="pricing-flat-bands">${bandsHtml}</div>${upgradeBlock}`;
-    $cards.querySelectorAll('[data-upgrade]').forEach(btn => {
-      btn.addEventListener('click', () => {
-        state.audience = 'business';
-        $toggle.querySelectorAll('button').forEach(b => { const isBiz = b.getAttribute('data-audience')==='business'; b.classList.toggle('is-active', isBiz); b.setAttribute('aria-selected', isBiz); });
-        const tp = PLANS.business.find(p=>p.num==='02'); if(!tp) return;
-        state.planId=tp.id; state.mode=tp.modes[0]; state.bandId=tp.bands[0].id; state.view='detail'; renderAll();
+        const plan = PLANS.find(p => p.id === state.planId);
+        state.mode = plan.modes[0];
+        state.bandId = plan.bands[0].id;
+        state.view = 'detail';
+        renderAll();
+        setTimeout(() => window.scrollTo({ top: $cards.offsetTop - 80, behavior: 'smooth' }), 50);
       });
     });
   }
 
+  // ── Render detail (band selector) ──
   function renderDetail() {
-    const plan = findPlan(state.planId); if (!plan) return;
-    const band = plan.bands.find(b=>b.id===state.bandId)||plan.bands[0];
-    const priceObj = band[state.mode]||band.annual;
-    const hasBothModes = plan.modes.length>1;
-    const hasLaunchDiscount = plan.num==='02'||plan.num==='03';
-    const annualTag = hasLaunchDiscount ? '<span class="mode-tag">−50%</span>' : '';
-    const monthlyTag = hasLaunchDiscount ? '<span class="mode-tag">−50%</span>' : '';
-    const modeNoteAnnual = hasLaunchDiscount ? 'Anual con 50% off de lanzamiento, bloqueado por 12 meses para quien contrate antes de noviembre 2026.' : 'Precio anual. Mensual sale ≈20% más caro.';
-    const modeNoteMonthly = hasLaunchDiscount ? 'Mensual con 50% off de lanzamiento, bloqueado por 12 meses. Cancelás cuando quieras.' : 'Mensual sin descuento. Cancelás cuando quieras.';
-    const modeToggle = hasBothModes ? `<div class="mode-toggle-wrap"><span class="mode-toggle-label">Modalidad de pago</span><div class="mode-toggle" role="tablist"><button type="button" class="${state.mode==='annual'?'is-active':''}" data-mode="annual">Anual ${annualTag}</button><button type="button" class="${state.mode==='monthly'?'is-active':''}" data-mode="monthly">Mensual ${monthlyTag}</button></div><div class="mode-note">${state.mode==='annual'?modeNoteAnnual:modeNoteMonthly}</div></div>` : `<div class="mode-note" style="margin-top:18px">Facturación mensual, sin descuentos ni permanencia mínima. <strong>30 días gratis</strong> al contratar.</div>`;
+    const plan = PLANS.find(p => p.id === state.planId);
+    if (!plan) return;
+    const band = plan.bands.find(b => b.id === state.bandId) || plan.bands[0];
+    const priceObj = band[state.mode] || band.annual || band.monthly;
+    const hasBothModes = plan.modes.length > 1;
+    const annualNote = 'Anual con 50% off de lanzamiento, bloqueado 12 meses para contratos antes de noviembre 2026.';
+    const monthlyNote = 'Mensual con 50% off de lanzamiento. Cancelás cuando quieras.';
+    const starterNote = 'Facturación mensual, sin descuentos ni permanencia mínima. <strong>30 días gratis</strong> al contratar.';
+    const modeToggle = hasBothModes
+      ? `<div class="mode-toggle-wrap">
+          <span class="mode-toggle-label">Modalidad de pago</span>
+          <div class="mode-toggle" role="tablist">
+            <button type="button" class="${state.mode==='annual'?'is-active':''}" data-mode="annual">Anual <span class="mode-tag">−50%</span></button>
+            <button type="button" class="${state.mode==='monthly'?'is-active':''}" data-mode="monthly">Mensual <span class="mode-tag">−50%</span></button>
+          </div>
+          <div class="mode-note">${state.mode==='annual'?annualNote:monthlyNote}</div>
+        </div>`
+      : `<div class="mode-note" style="margin-top:18px">${starterNote}</div>`;
     const bandsHtml = plan.bands.map(b => {
-      const bp = b[state.mode]||b.annual; const isSelected = b.id===state.bandId;
-      const priceClass = bp.free?'band-price-main is-free':'band-price-main';
-      const priceUnit = bp.priceUnit?`<span style="font-size:11px;color:#64748B;font-weight:500"> ${bp.priceUnit}</span>`:'';
-      const strike = bp.priceStrike?`<div class="band-price-strike">${bp.priceStrike}</div>`:'';
-      return `<div class="band-option ${isSelected?'is-selected':''}" data-band="${b.id}" role="radio" aria-checked="${isSelected}" tabindex="0"><div class="band-info"><div class="band-radio"></div><div class="band-info-text"><div class="band-label-main">${b.label}</div>${b.sub?`<div class="band-label-sub">${b.sub}</div>`:''}</div></div><div class="band-price"><div class="${priceClass}">${bp.price}${priceUnit}</div>${strike}</div></div>`;
+      const bp = b[state.mode] || b.annual || b.monthly;
+      const isSelected = b.id === state.bandId;
+      const priceClass = bp.free ? 'band-price-main is-free' : 'band-price-main';
+      const priceUnit = bp.priceUnit ? `<span style="font-size:11px;color:#64748B;font-weight:500"> ${bp.priceUnit}</span>` : '';
+      const strike = bp.priceStrike ? `<div class="band-price-strike">${bp.priceStrike}</div>` : '';
+      return `<div class="band-option ${isSelected?'is-selected':''}" data-band="${b.id}" role="radio" aria-checked="${isSelected}" tabindex="0">
+        <div class="band-info"><div class="band-radio"></div>
+          <div class="band-info-text">
+            <div class="band-label-main">${b.label}</div>
+            ${b.sub ? `<div class="band-label-sub">${b.sub}</div>` : ''}
+          </div>
+        </div>
+        <div class="band-price"><div class="${priceClass}">${bp.price}${priceUnit}</div>${strike}</div>
+      </div>`;
     }).join('');
-    const summaryPrice = priceObj.free?'Gratis':`${priceObj.price}${priceObj.priceUnit?`<span class="unit"> ${priceObj.priceUnit}</span>`:''}`;
+    const summaryPrice = priceObj.free ? 'Gratis' : `${priceObj.price}${priceObj.priceUnit ? `<span class="unit"> ${priceObj.priceUnit}</span>` : ''}`;
     const demoUrl = `/demo/?plan=${state.planId}&band=${state.bandId}&mode=${state.mode}`;
-    const ctaLabel = band.enterprise?'Hablar con ventas':'Contratar este plan';
-    const ctaHref  = band.enterprise?`https://wa.me/5491100000000?text=${encodeURIComponent(`Hola, quiero hablar con ventas — plan ${plan.title} Enterprise.`)}`:`${demoUrl}`;
-    const ctaTarget = band.enterprise?' target="_blank" rel="noopener"':'';
-    const confirmNote = plan.confirmCopy?`<div class="mode-note" style="margin-top:8px;color:#7B4FFF">${plan.confirmCopy}</div>`:'';
-    $detail.innerHTML = `<button type="button" class="detail-back" id="detail-back"><span aria-hidden="true">←</span> Volver a planes</button><div class="detail-head"><div><div class="detail-title"><span class="num">PLAN ${plan.num}</span>${plan.title}</div></div><div class="detail-curr">${plan.currency}</div></div><p class="detail-desc">${plan.desc}</p>${modeToggle}${confirmNote}<div class="band-section-label" style="margin-top:1.25rem">Elegí tu volumen de facturas por mes</div><div class="band-options" role="radiogroup">${bandsHtml}</div>${plan.upgradeHint?`<div class="upgrade-hint"><div class="upgrade-hint-text"><div class="upgrade-hint-headline">${plan.upgradeHint.headline}</div><div class="upgrade-hint-body">${plan.upgradeHint.body}</div></div><button type="button" class="upgrade-hint-cta" data-upgrade="${plan.upgradeHint.to}">${plan.upgradeHint.cta} <span aria-hidden="true">→</span></button></div>`:''}<div class="detail-summary"><div class="summary-block"><div class="summary-block-label">Tu plan</div><div class="summary-block-value">${plan.title} · ${band.label.replace('facturas','fact')}</div></div><div class="summary-block"><div class="summary-block-label">${state.mode==='annual'?'Anual · contado':'Mensual'}</div><div class="summary-block-value">${summaryPrice}</div></div><a class="summary-cta" href="${ctaHref}"${ctaTarget}>${ctaLabel} <span aria-hidden="true">→</span></a></div>`;
-    document.getElementById('detail-back').addEventListener('click', () => { state.view='cards'; state.planId=null; renderAll(); });
+    $detail.innerHTML = `
+      <button type="button" class="detail-back" id="detail-back"><span aria-hidden="true">←</span> Volver a planes</button>
+      <div class="detail-head">
+        <div><div class="detail-title"><span class="num">${plan.title.toUpperCase()}</span></div></div>
+        <div class="detail-curr">${plan.currency}</div>
+      </div>
+      <p class="detail-desc">${plan.desc}</p>
+      ${modeToggle}
+      <div class="band-section-label" style="margin-top:1.25rem">Elegí tu volumen de facturas por mes</div>
+      <div class="band-options" role="radiogroup">${bandsHtml}</div>
+      <div class="detail-summary">
+        <div class="summary-block">
+          <div class="summary-block-label">Tu plan</div>
+          <div class="summary-block-value">${plan.title} · ${band.label.replace('facturas','fact.')}</div>
+        </div>
+        <div class="summary-block">
+          <div class="summary-block-label">${state.mode==='annual'?'Anual · contado':'Mensual'}</div>
+          <div class="summary-block-value">${summaryPrice}</div>
+        </div>
+        <a class="summary-cta" href="${demoUrl}">Contratar este plan <span aria-hidden="true">→</span></a>
+      </div>`;
+    document.getElementById('detail-back').addEventListener('click', () => { state.view='cards'; renderAll(); });
     $detail.querySelectorAll('[data-mode]').forEach(btn => btn.addEventListener('click', () => { state.mode=btn.getAttribute('data-mode'); renderDetail(); }));
     $detail.querySelectorAll('[data-band]').forEach(btn => {
       btn.addEventListener('click', () => { state.bandId=btn.getAttribute('data-band'); renderDetail(); });
       btn.addEventListener('keydown', e => { if(e.key==='Enter'||e.key===' '){ e.preventDefault(); state.bandId=btn.getAttribute('data-band'); renderDetail(); } });
     });
-    $detail.querySelectorAll('[data-upgrade]').forEach(btn => {
-      btn.addEventListener('click', () => {
-        if(state.audience==='personal'){ state.audience='business'; $toggle.querySelectorAll('button').forEach(b=>{ const isBiz=b.getAttribute('data-audience')==='business'; b.classList.toggle('is-active',isBiz); b.setAttribute('aria-selected',isBiz); }); }
-        const tp = PLANS[state.audience].find(p=>p.num==='02'); if(!tp) return;
-        state.planId=tp.id; state.mode=tp.modes[0]; state.bandId=tp.bands[0].id; renderAll();
-      });
-    });
   }
 
   function renderAll() {
-    if($note) $note.innerHTML = PRICING_NOTE[state.audience];
-    if(state.view==='cards'){ $cards.classList.remove('is-hidden'); $detail.classList.add('is-hidden'); renderCards(); }
-    else { $cards.classList.add('is-hidden'); $detail.classList.remove('is-hidden'); renderDetail(); }
+    if (state.view === 'cards') {
+      $cards.classList.remove('is-hidden'); $detail.classList.add('is-hidden'); renderCards();
+    } else {
+      $cards.classList.add('is-hidden'); $detail.classList.remove('is-hidden'); renderDetail();
+    }
   }
-  function findPlan(id){ return PLANS[state.audience].find(p=>p.id===id); }
-
-  $toggle.querySelectorAll('button').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const aud = btn.getAttribute('data-audience');
-      if(aud===state.audience) return;
-      state.audience=aud; state.view='cards'; state.planId=null; state.mode='annual';
-      $toggle.querySelectorAll('button').forEach(b => { b.classList.toggle('is-active', b.getAttribute('data-audience')===aud); b.setAttribute('aria-selected', b.getAttribute('data-audience')===aud); });
-      renderAll();
-    });
-  });
 
   renderAll();
 })();
