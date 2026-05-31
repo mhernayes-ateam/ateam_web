@@ -665,13 +665,11 @@
     const hasModes = plan.modes.length > 1;
     const mode = hasModes ? state.mode : 'monthly';
     const modeToggleHtml = hasModes ? `
-      <div style="margin-bottom:1.25rem;">
-        <span class="mode-toggle-label">Modalidad de pago</span>
+      <div style="text-align:center;margin-bottom:1.5rem;">
         <div class="mode-toggle" role="tablist">
           <button type="button" class="${mode === 'annual' ? 'is-active' : ''}" data-mode="annual">Anual <span class="mode-tag">−50%</span></button>
           <button type="button" class="${mode === 'monthly' ? 'is-active' : ''}" data-mode="monthly">Mensual <span class="mode-tag">−50%</span></button>
         </div>
-        <div class="mode-note" style="margin-top:0.5rem;">${mode === 'annual' ? 'Precio anual con 50% off de lanzamiento, bloqueado 12 meses (nov 2026).' : 'Precio mensual con 50% off de lanzamiento. Cancelás cuando querés.'}</div>
       </div>` : '';
 
     const bandsHtml = plan.bands.map(b => bandCard(plan, b, mode)).join('');
@@ -706,9 +704,9 @@
       void $wrap.offsetWidth; // reflow to restart animation
       $wrap.classList.add('is-visible');
 
-      // Smooth scroll — account for sticky navbar
+      // Smooth scroll — land a bit lower so step 2 has breathing room
       const navH = document.querySelector('.navbar')?.offsetHeight || 72;
-      const top  = $wrap.getBoundingClientRect().top + window.pageYOffset - navH - 20;
+      const top  = $wrap.getBoundingClientRect().top + window.pageYOffset - navH - 120;
       window.scrollTo({ top, behavior: 'smooth' });
     }
 
